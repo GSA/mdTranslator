@@ -10,6 +10,8 @@ module ADIWG
 
             module DcatusJson
 
+               @Namespace = ADIWG::Mdtranslator::Writers::DcatusJson
+               
                def self.build(intObj, hResponseObj)
 
                   Jbuilder.new do |json|
