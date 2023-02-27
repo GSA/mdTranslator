@@ -1,0 +1,18 @@
+
+copy ruby-sinatra code from cf-hello-worlds
+
+1. modify server.rb 
+
+get '/' do
+  erb :index
+end
+
+2. add data/<input data file>
+
+3. add views/index.erb
+
+4. push to cloud.gov
+cf -o sandbox-gsa -s <space_name>
+
+cf push ruby-translator-testing
+

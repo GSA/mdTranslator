@@ -17,8 +17,6 @@ module ADIWG
 
                # set the format of the output file based on the writer specified
                responseObj[:writerOutputFormat] = 'json'
-               # schemaVersion = Gem::Specification.find_by_name('adiwg-mdjson_schemas').version.to_s
-               # responseObj[:writerVersion] = schemaVersion
 
                # write the dcatusJson metadata record
                metadata = DcatusJson.build(intObj, responseObj)

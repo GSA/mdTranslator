@@ -1,0 +1,349 @@
+<metadata>
+   <idinfo>
+      <citation>
+         <citeinfo>
+            <origin>Butch Stackhouse, U.S. Environmental Protection Agency, State and Local Programs Group, Air Quality Policy Division, Office of Air Quality Planning and Standards</origin>
+            <pubdate>20160101</pubdate>
+            <title>Nonattainment Area - 1 hr Ozone (1979)</title>
+            <geoform>vector digital data</geoform>
+            <pubinfo>
+               <pubplace>Washington, DC</pubplace>
+               <publish>Office of the Assistant Secretary for Research and Technology's Bureau of Transportation Statistics (OST-R/BTS)</publish>
+            </pubinfo>
+            <onlink>https://www.bts.gov/geospatial/national-transportation-atlas-database</onlink>
+            <onlink>https://www.bts.gov/maps/</onlink>
+            <onlink>https://geo.dot.gov/server/rest/services/NTAD</onlink>
+            <onlink>https://data-usdot.opendata.arcgis.com/</onlink>
+            <lworkcit>
+               <citeinfo>
+                  <origin>Office of the Assistant Secretary for Research and Technology's Bureau of Transportation Statistics (OST-R/BTS)</origin>
+                  <pubdate>20160101</pubdate>
+                  <title>National Transportation Atlas Database (NTAD)</title>
+                  <geoform>vector digital data</geoform>
+                  <pubinfo>
+                     <pubplace>Washington, DC</pubplace>
+                     <publish>Office of the Assistant Secretary for Research and Technology's Bureau of Transportation Statistics (OST-R/BTS)</publish>
+                  </pubinfo>
+                  <onlink>https://data-usdot.opendata.arcgis.com/</onlink>
+               </citeinfo>
+            </lworkcit>
+         </citeinfo>
+      </citation>
+      <descript>
+         <abstract>The Nonattainment Area - 1 hr Ozone (1979) dataset October 24, 2017, and is part of the U.S. Department of Transportation (USDOT)/Bureau of Transportation Statistics's (BTS's) National Transportation Atlas Database (NTAD). Non-attainment and maintenance areas for the United States and its territories. The standard for the Ozone 1 hour NAA is 0.12 ppm.</abstract>
+         <purpose>To establish the spatial boundaries of each nonattainment and maintenance area.</purpose>
+         <supplinf>The 1 hour standard is incorporated within the Ozone dataset.</supplinf>
+      </descript>
+      <timeperd>
+         <timeinfo>
+            <sngdate>
+               <caldate>20160101</caldate>
+            </sngdate>
+         </timeinfo>
+         <current>publication date</current>
+      </timeperd>
+      <status>
+         <progress>Complete</progress>
+         <update>Annually</update>
+      </status>
+      <spdom>
+         <bounding>
+            <westbc>-123.219035</westbc>
+            <eastbc>-67.959750</eastbc>
+            <northbc>48.261539</northbc>
+            <southbc>25.137427</southbc>
+         </bounding>
+      </spdom>
+      <keywords>
+         <theme>
+            <themekt>Air Quality</themekt>
+            <themekey>Maintenance area</themekey>
+            <themekey>Nonattainment area</themekey>
+            <themekey>Criteria Pollutant</themekey>
+            <themekey>Ozone</themekey>
+         </theme>
+         <theme>
+            <themekt>none</themekt>
+            <themekey>climatologyMeteorologyAtmosphere</themekey>
+            <themekey>environment</themekey>
+         </theme>
+         <place>
+            <placekt>None</placekt>
+            <placekey>USA</placekey>
+         </place>
+         <temporal>
+            <tempkt>None</tempkt>
+            <tempkey>1979</tempkey>
+            <tempkey>2013</tempkey>
+            <tempkey>2014</tempkey>
+            <tempkey>2015</tempkey>
+            <tempkey>2016</tempkey>
+         </temporal>
+      </keywords>
+      <accconst>None</accconst>
+      <useconst>The Non-attainment Area - Ozone dataset, or any portion thereof, can be freely distributed as long as this metadata entry is included with each distribution. Acknowledgment of the Office of the Assistent Secretary for Research and Technology/Bureau of Transportation Statistics (BTS) National Transportation Atlas Database (NTAD) would be appreciated in products derived from these data.</useconst>
+      <ptcontac>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>U.S. Environmental Protection Agency</cntorg>
+               <cntper>Butch Stackhouse</cntper>
+            </cntorgp>
+            <cntpos>State and Local Programs Group, Air Quality Policy Division, Office of Air Quality Planning and Standards</cntpos>
+            <cntvoice>919.541.5208</cntvoice>
+            <cntemail>stackhouse.butch@epa.gov</cntemail>
+         </cntinfo>
+      </ptcontac>
+      <ptcontac>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>Office of the Assistant Secretary for Research and Technology/Bureau of Transportation Statistics</cntorg>
+               <cntper>National Transportation Atlas Database (NTAD)</cntper>
+            </cntorgp>
+            <cntpos>Geospatial Information Systems</cntpos>
+            <cntaddr>
+               <addrtype>unknown</addrtype>
+               <address>1200 New Jersey Ave. SE</address>
+               <city>Washington</city>
+               <state>DC</state>
+               <postal>20590</postal>
+            </cntaddr>
+            <cntvoice>202-366-DATA</cntvoice>
+            <cntemail>answers@BTS.gov</cntemail>
+         </cntinfo>
+      </ptcontac>
+      <secinfo>
+         <secclass>Unclassified</secclass>
+      </secinfo>
+      <native>Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.2.0.3348</native>
+      <crossref>
+         <citeinfo>
+            <origin>Butch Stackhouse, U.S. Environmental Protection Agency, State and Local Programs Group, Air Quality Policy Division, Office of Air Quality Planning and Standards</origin>
+            <origin>Office of the Assistant Secretary for Research and Technology's Bureau of Transporation Statistics (OST-R/BTS)</origin>
+            <pubdate>20160101</pubdate>
+            <title>National Transportation Atlas Database (NTAD)</title>
+            <geoform>vector digital data</geoform>
+            <pubinfo>
+               <pubplace>Washington, DC</pubplace>
+               <publish>Office of the Assistant Secretary for Research and Technology's Bureau of Transporation Statistics (OST-R/BTS)</publish>
+            </pubinfo>
+         </citeinfo>
+      </crossref>
+   </idinfo>
+   <dataqual>
+      <attracc>
+         <attraccr>Unknown</attraccr>
+         <qattracc>
+            <attraccv>None</attraccv>
+            <attracce>Unknown</attracce>
+         </qattracc>
+      </attracc>
+      <logic>None</logic>
+      <complete>Unknown</complete>
+      <posacc>
+         <horizpa>
+            <horizpar>Unknown</horizpar>
+         </horizpa>
+      </posacc>
+   </dataqual>
+   <spdoinfo>
+      <direct>Vector</direct>
+      <ptvctinf>
+         <sdtsterm>
+            <sdtstype>GT-polygon composed of chains</sdtstype>
+            <ptvctcnt>102</ptvctcnt>
+         </sdtsterm>
+      </ptvctinf>
+   </spdoinfo>
+   <spref>
+      <horizsys>
+         <geograph>
+            <latres>8.983152841195215e-009</latres>
+            <longres>8.983152841195215e-009</longres>
+            <geogunit>Decimal Degrees</geogunit>
+         </geograph>
+         <geodetic>
+            <horizdn>D WGS 1984</horizdn>
+            <ellips>WGS 1984</ellips>
+            <semiaxis>6378137.0</semiaxis>
+            <denflat>298.257223563</denflat>
+         </geodetic>
+      </horizsys>
+   </spref>
+   <eainfo>
+      <detailed>
+         <enttyp>
+            <enttypl>Ozone_1hr_1979NAAQS</enttypl>
+            <enttypd>Non-Attainment Areas: Ozone</enttypd>
+            <enttypds>OST-R/BTS</enttypds>
+         </enttyp>
+         <attr>
+            <attrlabl>FID</attrlabl>
+            <attrdef>Internal feature number.</attrdef>
+            <attrdefs>ESRI</attrdefs>
+            <attrdomv>
+               <udom>Sequential unique whole numbers that are automatically generated.</udom>
+            </attrdomv>
+         </attr>
+         <attr>
+            <attrlabl>Shape</attrlabl>
+            <attrdef>Feature geometry.</attrdef>
+            <attrdefs>ESRI</attrdefs>
+            <attrdomv>
+               <udom>Coordinates defining the features.</udom>
+            </attrdomv>
+         </attr>
+         <attr>
+            <attrlabl>AREA_NAME</attrlabl>
+            <attrdef>Name of the NAA as designated by the EPA</attrdef>
+            <attrdefs>EPA</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>COMPOSID</attrlabl>
+            <attrdef>Composite ID of area. Pollutant name, year of designation, and text name of area.</attrdef>
+            <attrdefs>EPA</attrdefs>
+            <attrdomv>
+               <edom>
+                  <edomv>Ozone-1Hr</edomv>
+                  <edomvd>One hour ozone area</edomvd>
+                  <edomvds>EPA</edomvds>
+               </edom>
+            </attrdomv>
+         </attr>
+         <attr>
+            <attrlabl>CLASS</attrlabl>
+            <attrdef>The classification of the area, specific to the pollutant standard. If the standard does not have classifications, this field is empty.</attrdef>
+            <attrdefs>EPA</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>POLLUTANT</attrlabl>
+            <attrdef>Type of pollutant</attrdef>
+            <attrdefs>EPA</attrdefs>
+            <attrdomv>
+               <udom>Character Value</udom>
+            </attrdomv>
+         </attr>
+         <attr>
+            <attrlabl>NAASTATUS</attrlabl>
+            <attrdef>Indicates whether the area is a nonattainment area (NAA) or a maintenance area (MAI).</attrdef>
+            <attrdefs>EPA</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>REVOKED_ST</attrlabl>
+            <attrdef>Indicates whether the national ambient air quality standard has been revoked. For example, the 1-hr Ozone standard was revoked on June 15, 2005. The external file's revoked_std field will contain .T. and the area classifications will be what was in place at the time of revocation.</attrdef>
+            <attrdefs>EPA</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>POLLORDER</attrlabl>
+            <attrdef>A 1-character code associated with the class field (classification text).</attrdef>
+            <attrdefs>EPA</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>RPTDATE</attrlabl>
+            <attrdef>The date of the external file creation (the same for each record).</attrdef>
+            <attrdefs>EPA</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>STPOSTAL</attrlabl>
+            <attrdef>Primary state in which NAA is found</attrdef>
+            <attrdefs>USPS</attrdefs>
+         </attr>
+         <attr>
+            <attrlabl>STFIPS</attrlabl>
+            <attrdef>FIPS code of primary state in which NAA is found</attrdef>
+            <attrdefs>NIST</attrdefs>
+            <attrdomv>
+               <codesetd>
+                  <codesetn>Federal Information Processing Standard (FIPS), Publication 6-4</codesetn>
+                  <codesets>National Institute for Standards and Technology (NIST)</codesets>
+               </codesetd>
+            </attrdomv>
+         </attr>
+      </detailed>
+      <overview>
+         <eaover>Ozone (O3) is a photochemical oxidant and the major component of smog. While O3 in the upper atmosphere is beneficial to life by shielding the earth from harmful ultraviolet radiation from the sun, high concentrations of O3 at ground level are a major health and environmental concern. O3 is not emitted directly into the air but is formed through complex chemical reactions between precursor emissions of volatile organic compounds (VOC) and oxides of nitrogen (NOx) in the presence of sunlight. These reactions are stimulated by sunlight and temperature so that peak O3 levels occur typically during the warmer times of the year. Both VOCs and NOx are emitted by transportation and industrial sources. VOCs are emitted from sources as diverse as autos, chemical manufacturing, dry cleaners, paint shops and other sources using solvents. The reactivity of O3 causes health problems because it damages lung tissue, reduces lung function and sensitizes the lungs to other irritants. Scientific evidence indicates that ambient levels of O3 not only affect people with impaired respiratory systems, such as asthmatics, but healthy adults and children as well. Exposure to O3 for several hours at relatively low concentrations has been found to significantly reduce lung function and induce respiratory inflammation in normal, healthy people during exercise. This decrease in lung function generally is accompanied by symptoms including chest pain, coughing, sneezing and pulmonary congestion. Title 40, Part 50 of the Code of the Federal Regulations lists the ambient air quality standards for ozone.</eaover>
+         <eadetcit>The 1 hour standard is incorporated within the Ozone dataset.</eadetcit>
+      </overview>
+   </eainfo>
+   <distinfo>
+      <distrib>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>Office of the Assistant Secretary for Research and Technology/Bureau of Transportation Statistics</cntorg>
+               <cntper>National Transportation Atlas Database (NTAD)</cntper>
+            </cntorgp>
+            <cntpos>Geospatial Information Systems</cntpos>
+            <cntaddr>
+               <addrtype>unknown</addrtype>
+               <address>1200 New Jersey Ave. SE</address>
+               <city>Washington</city>
+               <state>DC</state>
+               <postal>20590</postal>
+            </cntaddr>
+            <cntvoice>202-366-DATA</cntvoice>
+            <cntemail>answers@BTS.gov</cntemail>
+         </cntinfo>
+      </distrib>
+      <resdesc>National Transportation Atlas Database (NTAD)</resdesc>
+      <distliab>None</distliab>
+      <stdorder>
+         <digform>
+            <digtinfo>
+               <formname>ESRI Shapefile</formname>
+               <formvern>2015</formvern>
+               <filedec>No compression applied. However, if using digital transfer online option, note access instructions.</filedec>
+               <transize>5.098</transize>
+            </digtinfo>
+            <digtopt>
+               <onlinopt>
+                  <computer>
+                     <networka>
+                        <networkr>https://www.bts.gov/geospatial/about</networkr>
+                     </networka>
+                  </computer>
+               </onlinopt>
+               <offoptn>
+                  <offmedia>dvd</offmedia>
+                  <reccap>
+                     <recden>650</recden>
+                     <recdenu>megabytes</recdenu>
+                  </reccap>
+                  <recfmt>ISO 9660</recfmt>
+               </offoptn>
+            </digtopt>
+         </digform>
+         <fees>None</fees>
+         <ordering>For questions about the National Transportation Atlas Database (NTAD), please call (202-366-DATA) or E-mail (answers@bts.gov). NTAD data and individual datasets can be downloaded from the Office of Spatial Analysis and Visualization's (OSAV) data catalog at https://data-usdot.opendata.arcgis.com/</ordering>
+      </stdorder>
+      <availabl>
+         <timeinfo>
+            <sngdate>
+               <caldate>20110101</caldate>
+            </sngdate>
+         </timeinfo>
+      </availabl>
+   </distinfo>
+   <metainfo>
+      <metd>20161108</metd>
+      <metc>
+         <cntinfo>
+            <cntorgp>
+               <cntorg>Office of the Assistant Secretary for Research and Technology/Bureau of Transportation Statistics (BTS)</cntorg>
+               <cntper>Office of Geospatial Information Systems</cntper>
+            </cntorgp>
+            <cntaddr>
+               <addrtype>mailing and physical</addrtype>
+               <address>1200 New Jersey Ave., SE</address>
+               <city>Washington</city>
+               <state>DC</state>
+               <postal>20590</postal>
+               <country>US</country>
+            </cntaddr>
+            <cntvoice>1 202 366 DATA</cntvoice>
+            <cntemail>answers@bts.gov</cntemail>
+         </cntinfo>
+      </metc>
+      <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+      <metstdv>FGDC-STD-001-1998</metstdv>
+      <mettc>local time</mettc>
+   </metainfo>
+</metadata>

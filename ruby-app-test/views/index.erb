@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Translator</title>
+  </head>
+  <body>
+    <h1>File Translator</h1>
+    <form action="/process_file" method="post" enctype="multipart/form-data">
+      <label for="file">Select a FGDC xml file to process:</label>
+      <input type="file" id="file" name="file">
+      <br><br>
+      <input type="submit" value="Process File">
+    </form>
+    <br><br>
+    <h2>Test: Translate a simple FGDC input file, see the <a href="/simple_output">output</a> here
+    </h2>
+  </body>
+</html>
