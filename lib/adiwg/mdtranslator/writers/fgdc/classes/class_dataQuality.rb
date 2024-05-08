@@ -56,7 +56,7 @@ module ADIWG
 
                      # data quality 2.3 (complete) - completion report (not implemented) (required)
                      completeness_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'Omission' &&
+                        report[:type] == 'CompletenessOmission' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
 

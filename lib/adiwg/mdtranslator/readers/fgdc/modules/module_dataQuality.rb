@@ -68,7 +68,7 @@ module ADIWG
                   else
                      complete = xComplete.text
                      report = intMetadataClass.newDataQualityReport
-                     report[:type] = 'Omission'
+                     report[:type] = 'CompletenessOmission'
                      descriptiveResult = intMetadataClass.newDescriptiveResult
                      descriptiveResult[:statement] = complete
                      report[:descriptiveResult] << descriptiveResult
