@@ -34,7 +34,7 @@ module ADIWG
             citationClass = CI_Citation.new(@xml, @hResponseObj)
 
             @xml.tag!('mdq:report') do
-              @xml.tag!("mdq:#{hReport[:type]}") do
+              @xml.tag!("mdq:DQ_#{hReport[:type]}") do
 
                 # standaloneQualityReportDetails
                 unless hReport[:standaloneQualityReportDetails].nil?

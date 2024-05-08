@@ -26,7 +26,7 @@ module ADIWG
             end
 
             if hResult.has_key?('value')
-              intResult[:value] = hResult['value']
+              intResult[:values] = hResult['value']
             end
 
             if hResult.has_key?('valueUnits')
