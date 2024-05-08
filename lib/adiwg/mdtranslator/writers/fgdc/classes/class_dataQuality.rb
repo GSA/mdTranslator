@@ -70,7 +70,7 @@ module ADIWG
 
 
                      horizontal_positional_accuracy_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'AbsolutePositionalAccuracy' &&
+                        report[:type] == 'AbsoluteExternalPositionalAccuracy' &&
                         report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
                            name == 'Horizontal Positional Accuracy Report'
                         }
@@ -80,7 +80,7 @@ module ADIWG
 
 
                      vertical_positional_accuracy_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'AbsolutePositionalAccuracy' &&
+                        report[:type] == 'AbsoluteExternalPositionalAccuracy' &&
                         report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
                            name == 'Vertical Positional Accuracy Report'
                         }
