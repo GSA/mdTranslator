@@ -30,7 +30,7 @@ module ADIWG
                   if hDataQuality && hDataQuality[:report]
                      # data quality 2.1 (attracc) - attribute accuracy (not implemented)
                      attribute_completeness_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'NonQuantitativeAttributeCompleteness' &&
+                        report[:type] == 'NonQuantitativeAttributeCorrectness' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
 
@@ -56,7 +56,7 @@ module ADIWG
 
                      # data quality 2.3 (complete) - completion report (not implemented) (required)
                      completeness_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'CompletenessOmission' &&
+                        report[:type] == 'Omission' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
 
@@ -70,7 +70,7 @@ module ADIWG
 
 
                      horizontal_positional_accuracy_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'AbsoluteExternalPositionalAccuracy' &&
+                        report[:type] == 'AbsolutePositionalAccuracy' &&
                         report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
                            name == 'Horizontal Positional Accuracy Report'
                         }
@@ -80,7 +80,7 @@ module ADIWG
 
 
                      vertical_positional_accuracy_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'AbsoluteExternalPositionalAccuracy' &&
+                        report[:type] == 'AbsolutePositionalAccuracy' &&
                         report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
                            name == 'Vertical Positional Accuracy Report'
                         }

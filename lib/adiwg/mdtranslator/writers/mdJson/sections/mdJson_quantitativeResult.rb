@@ -11,7 +11,7 @@ module ADIWG
             Jbuilder.new do |json|
               json.dateTime hResult[:dateTime]
               json.scope Scope.build(hResult[:scope]) if hResult[:scope]
-              json.value hResult[:value]
+              json.value hResult[:values]
               json.valueUnits hResult[:valueUnits]
               json.valueRecordType hResult[:valueRecordType]
             end

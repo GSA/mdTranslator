@@ -34,7 +34,7 @@ module ADIWG
             citationClass = CI_Citation.new(@xml, @hResponseObj)
 
             @xml.tag!('mdq:report') do
-              @xml.tag!("mdq:#{hReport[:type]}") do
+              @xml.tag!("mdq:DQ_#{hReport[:type]}") do
 
                 # standaloneQualityReportDetails
                 unless hReport[:standaloneQualityReportDetails].nil?
@@ -99,12 +99,11 @@ module ADIWG
                           end
                         end
                       end
-                      #  TODO the following will not work until the iso_evaluationMethodType codelist is added to mdCodes
-                      # unless evaluationMethod[:evaluationMethodType].nil?
-                      #   @xml.tag!('mdq:evaluationMethodType') do
-                      #     codeListClass.writeXML('mcc', 'iso_evaluationMethodType', evaluationMethod[:evaluationMethodType])
-                      #   end
-                      # end
+                      unless evaluationMethod[:evaluationMethodType].nil?
+                        @xml.tag!('mdq:evaluationMethodType') do
+                          codeListClass.writeXML('mcc', 'iso_evaluationMethodType', evaluationMethod[:evaluationMethodType])
+                        end
+                      end
                     end
                   end
                 end # evaluationMethod
