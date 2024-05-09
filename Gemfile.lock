@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    adiwg-mdtranslator (2.19.0.pre.beta.15)
+    adiwg-mdtranslator (2.19.0.pre.beta.16)
       adiwg-mdcodes (= 2.9.4.pre.beta.0)
       adiwg-mdjson_schemas (= 2.9.3.pre.beta.0)
       builder (~> 3.2)
