@@ -64,7 +64,7 @@ module ADIWG
                   hDataQuality[:report].each do |report|
                     @html.section(:class => 'block') do
                       @html.details do
-                        @html.summary('Report', {'class' => 'h5'})
+                        @html.summary(report[:type], {'class' => 'h5'})
                         dataQualityReportClass.writeHtml(report)
                       end
                     end
