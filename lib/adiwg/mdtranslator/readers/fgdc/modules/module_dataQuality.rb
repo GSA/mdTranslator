@@ -56,8 +56,9 @@ module ADIWG
                      logic = xLogic.text
                      report = intMetadataClass.newDataQualityReport
                      report[:type] = 'DQ_ConceptualConsistency'
-                     report[:qualityMeasure] = intMetadataClass.newQualityMeasure
-                     report[:qualityMeasure][:description] = logic
+                     descriptiveResult = intMetadataClass.newDescriptiveResult
+                     descriptiveResult[:statement] = logic
+                     report[:descriptiveResult] << descriptiveResult
                      hDataQuality[:report] << report
                   end
 
