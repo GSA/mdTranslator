@@ -29,14 +29,33 @@ module ADIWG
 
                   if hDataQuality && hDataQuality[:report]
                      # data quality 2.1 (attracc) - attribute accuracy (not implemented)
-                     attribute_completeness_report = hDataQuality[:report].find do |report|
+                     attribute_accuracy_report = hDataQuality[:report].find do |report|
                         report[:type] == 'DQ_NonQuantitativeAttributeCorrectness' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
-
-                     if attribute_completeness_report
+                     attribute_accuracy_value = hDataQuality[:report].find do |report|
+                        report[:type] == 'DQ_QuantitativeAttributeAccuracy' &&
+                        !report.dig(:quantitativeResult, 0, :values).nil?
+                     end
+                     attribute_evaluation_method = hDataQuality[:report].find do |report|
+                        report[:type] == 'DQ_QuantitativeAttributeAccuracy' &&
+                        !report.dig(:evaluationMethod, :methodDescription).nil?
+                     end
+                     if attribute_accuracy_report || attribute_accuracy_value || attribute_evaluation_method
                         @xml.tag!('attracc') do
-                           @xml.tag!('attraccr', attribute_completeness_report[:descriptiveResult][0][:statement])
+                           if attribute_accuracy_report
+                              @xml.tag!('attraccr', attribute_accuracy_report[:descriptiveResult][0][:statement])
+                           end
+                           if attribute_accuracy_value || attribute_evaluation_method
+                              @xml.tag!('qattracc') do
+                                 if attribute_accuracy_value
+                                    @xml.tag!('attraccv', attribute_accuracy_value[:quantitativeResult][0][:values][0])
+                                 end
+                                 if attribute_evaluation_method
+                                    @xml.tag!('attracce', attribute_evaluation_method[:evaluationMethod][:methodDescription])
+                                 end
+                              end
+                           end
                         end
                      elsif @hResponseObj[:writerShowTags]
                         @xml.tag!('attracc', 'Not Reported')
@@ -47,7 +66,6 @@ module ADIWG
                         report[:type] == 'DQ_ConceptualConsistency' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
-
                      if logic = logic_report&.dig(:descriptiveResult, 0, :statement)
                         @xml.tag!('logic', logic)
                      else
@@ -59,7 +77,6 @@ module ADIWG
                         report[:type] == 'DQ_CompletenessOmission' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
-
                      if complete = completeness_report&.dig(:descriptiveResult, 0, :statement)
                         @xml.tag!('complete', complete)
                      else
@@ -68,37 +85,57 @@ module ADIWG
 
                      # data quality 2.4 (position) - positional accuracy
 
-
+                     # data quality 2.4.1 (horizpa) - horizontal positional accuracy
                      horizontal_positional_accuracy_report = hDataQuality[:report].find do |report|
                         report[:type] == 'DQ_AbsoluteExternalPositionalAccuracy' &&
-                        report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
-                           name == 'Horizontal Positional Accuracy Report'
-                        }
+                        report.dig(:descriptiveResult, 0, :name) == 'Horizontal Positional Accuracy Report' &&
+                        !report.dig(:descriptiveResult, 0, :statement).nil? 
                      end
+                     horizpar = horizontal_positional_accuracy_report&.dig(:descriptiveResult, 0, :statement)
+                     horizpav = horizontal_positional_accuracy_report&.dig(:quantitativeResult, 0, :values, 0)
+                     horizpae = horizontal_positional_accuracy_report&.dig(:descriptiveResult, 1, :statement)
 
-                     horizpar = horizontal_positional_accuracy_report&.dig(:evaluationMethod, :methodDescription)
-
-
+                     # data quality 2.4.2 (vertacc) - vertical positional accuracy
                      vertical_positional_accuracy_report = hDataQuality[:report].find do |report|
                         report[:type] == 'DQ_AbsoluteExternalPositionalAccuracy' &&
-                        report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
-                           name == 'Vertical Positional Accuracy Report'
-                        }
+                        report.dig(:descriptiveResult, 0, :name) == 'Vertical Positional Accuracy Report' &&
+                        !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
-
-                     vertaccr = vertical_positional_accuracy_report&.dig(:evaluationMethod, :methodDescription)
+                     vertaccr = vertical_positional_accuracy_report&.dig(:descriptiveResult, 0, :statement)
+                     vertaccv = vertical_positional_accuracy_report&.dig(:quantitativeResult, 0, :values, 0)
+                     vertacce = vertical_positional_accuracy_report&.dig(:descriptiveResult, 1, :statement)
 
                      if horizpar || vertaccr
                         @xml.tag!('posacc') do
                            if horizpar
                               @xml.tag!('horizpa') do
                                  @xml.tag!('horizpar', horizpar)
+                                 if horizpav || horizpae
+                                    @xml.tag!('qhorizpa') do
+                                       if horizpav
+                                          @xml.tag!('horizpav', horizpav)
+                                       end
+                                       if horizpae
+                                          @xml.tag!('horizpae', horizpae)
+                                       end
+                                    end
+                                 end
                               end
                            end
 
                            if vertaccr
                               @xml.tag!('vertacc') do
                                  @xml.tag!('vertaccr', vertaccr)
+                                 if vertaccv || vertacce
+                                    @xml.tag!('qvertpa') do
+                                       if vertaccv
+                                          @xml.tag!('vertaccv', vertaccv)
+                                       end
+                                       if vertacce
+                                          @xml.tag!('vertacce', vertacce)
+                                       end
+                                    end
+                                 end
                               end
                            end
                         end
