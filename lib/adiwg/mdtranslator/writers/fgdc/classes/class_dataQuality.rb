@@ -30,7 +30,7 @@ module ADIWG
                   if hDataQuality && hDataQuality[:report]
                      # data quality 2.1 (attracc) - attribute accuracy (not implemented)
                      attribute_completeness_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'NonQuantitativeAttributeCorrectness' &&
+                        report[:type] == 'DQ_NonQuantitativeAttributeCorrectness' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
 
@@ -42,21 +42,21 @@ module ADIWG
                         @xml.tag!('attracc', 'Not Reported')
                      end
 
-                     # data quality 2.2 (logic) - logical consistency (not implemented) (required)
+                     # data quality 2.2 (logic) - logical consistency (required)
                      logic_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'ConceptualConsistency' &&
-                        !report.dig(:qualityMeasure, :description).nil?
+                        report[:type] == 'DQ_ConceptualConsistency' &&
+                        !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
 
-                     if logic = logic_report&.dig(:qualityMeasure, :description)
+                     if logic = logic_report&.dig(:descriptiveResult, 0, :statement)
                         @xml.tag!('logic', logic)
                      else
                         @xml.tag!('logic', 'Not Reported')
                      end
 
-                     # data quality 2.3 (complete) - completion report (not implemented) (required)
+                     # data quality 2.3 (complete) - completion report (required)
                      completeness_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'Omission' &&
+                        report[:type] == 'DQ_CompletenessOmission' &&
                         !report.dig(:descriptiveResult, 0, :statement).nil?
                      end
 
@@ -70,7 +70,7 @@ module ADIWG
 
 
                      horizontal_positional_accuracy_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'AbsolutePositionalAccuracy' &&
+                        report[:type] == 'DQ_AbsoluteExternalPositionalAccuracy' &&
                         report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
                            name == 'Horizontal Positional Accuracy Report'
                         }
@@ -80,7 +80,7 @@ module ADIWG
 
 
                      vertical_positional_accuracy_report = hDataQuality[:report].find do |report|
-                        report[:type] == 'AbsolutePositionalAccuracy' &&
+                        report[:type] == 'DQ_AbsoluteExternalPositionalAccuracy' &&
                         report.dig(:qualityMeasure, :nameOfMeasure)&.any? { |name|
                            name == 'Vertical Positional Accuracy Report'
                         }
