@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     adiwg-mdtranslator (2.20.0.pre.beta.4)
-      adiwg-mdcodes (= 2.9.4.pre.beta.4)
-      adiwg-mdjson_schemas (= 2.9.3.pre.beta.3)
+      adiwg-mdcodes (= 2.10.0.pre.beta.3)
+      adiwg-mdjson_schemas (= 2.10.0.pre.beta.3)
       builder (~> 3.2)
       coderay (~> 1.1)
       jbuilder (~> 2.5)
@@ -35,9 +35,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    adiwg-mdcodes (2.9.4.pre.beta.4)
+    adiwg-mdcodes (2.10.0.pre.beta.3)
       json (~> 2.0)
-    adiwg-mdjson_schemas (2.9.3.pre.beta.3)
+    adiwg-mdjson_schemas (2.10.0.pre.beta.3)
     base64 (0.2.0)
     bigdecimal (3.1.8)
     builder (3.2.4)
