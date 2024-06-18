@@ -8,7 +8,7 @@ module ADIWG
 
         module ConformanceResult
 
-          def self.unpack(hConformanceResult, responseObj, inContext = nil)
+          def self.unpack(hConformanceResult, responseObj)
 
             intMetadataClass = InternalMetadata.new
             intConformanceResult = intMetadataClass.newConformanceResult
@@ -21,6 +21,11 @@ module ADIWG
             # scope
             if hConformanceResult.has_key?('scope')
               intConformanceResult[:scope] = Scope.unpack(hConformanceResult['scope'], responseObj)
+            end
+
+            # name
+            if hConformanceResult.has_key?('name')
+              intConformanceResult[:name] = hConformanceResult['name']
             end
 
             #specification

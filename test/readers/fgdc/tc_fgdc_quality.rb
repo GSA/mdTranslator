@@ -1,5 +1,5 @@
 # MdTranslator - minitest of
-# readers / fgdc / module_quality
+# readers / fgdc / module_dataQuality
 
 # History:
 #   Stan Smith 2017-08-31 original script
@@ -11,7 +11,7 @@ require_relative 'fgdc_test_parent'
 class TestReaderFgdcQuality < TestReaderFGDCParent
 
    @@xDoc = TestReaderFGDCParent.get_XML('dataQuality.xml')
-   @@NameSpace = ADIWG::Mdtranslator::Readers::Fgdc::Quality
+   @@NameSpace = ADIWG::Mdtranslator::Readers::Fgdc::DataQuality
 
    def test_quality_complete
 
@@ -27,9 +27,13 @@ class TestReaderFgdcQuality < TestReaderFGDCParent
 
       # require 'pry'; binding.pry
 
-      horizpa = hDataQuality[:report].find{ |h| h.dig(:qualityMeasure, :name) == ['Horizontal Positional Accuracy Report'] }
-      assert_equal 'GPS Unit', horizpa.dig(:evaluationMethod, :methodDescription)
-      assert_equal 'Instrument parameters', horizpa.dig(:qualityMeasure, :description)
+      horizpa = hDataQuality[:report].find do |h| 
+         h[:type] == 'DQ_AbsoluteExternalPositionalAccuracy' && 
+         h.dig(:descriptiveResult, 0, :name) == 'Horizontal Positional Accuracy Report'
+      end
+      assert_equal 'GPS Unit', horizpa.dig(:descriptiveResult, 0, :statement)
+      assert_equal 'Horizontal Positional Accuracy Explanation', horizpa.dig(:descriptiveResult, 1, :name)
+      assert_equal 'Instrument parameters', horizpa.dig(:descriptiveResult, 1, :statement)
 
       assert hResponse[:readerExecutionPass]
       assert_includes hResponse[:readerExecutionMessages], 'WARNING: FGDC reader: lineage procedure date is missing'

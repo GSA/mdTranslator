@@ -21,7 +21,48 @@ Or install it yourself as:
 
 ## CLI Usage
 
-    $ mdtranslator help translate
+    $ bundle exec mdtranslator help translate
+
+## Development
+### Debugger
+- [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to debug
+- insert a "breakpoint" by adding `binding.irb` on the line of your choice. here's an example of what that might look like...
+```console 
+From: /home/bobsmith/.rbenv/versions/3.2.2/lib/ruby/vendor_ruby/gems/3.2.0/gems/adiwg-mdtranslator-2.20.0.pre.beta.5/lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_contact_point.rb @ line 10 :
+
+     5:       module Writers
+     6:          module Dcat_us
+     7:             module ContactPoint
+     8: 
+     9:                def self.build(intObj)
+ => 10:                   binding.irb
+    11:                   resourceInfo = intObj[:metadata][:resourceInfo]
+    12:                   pointOfContact = resourceInfo[:pointOfContacts][0]
+    13:                   contactId = pointOfContact[:parties][0][:contactId]
+    14: 
+    15:                   contact = Dcat_us.get_contact_by_id(contactId)
+
+irb(ADIWG::Mdtranslator::Writers:...):001> # execute your expressions here...
+```
+
+### Requirements
+
+Requires
+- [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
+- bundler (`gem install bundler`)
+- rake (`gem install rake`)
+
+### Tests
+
+In order to run the tests, first install the dependencies
+
+    $ bundle install
+
+Then, run the rake command
+
+    $ bundle exec rake
+
+_TODO: There are currently 4 tests that are not passing, related to mdJSON readers and writers_
 
 ## Contributing
 
