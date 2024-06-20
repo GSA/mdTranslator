@@ -9,7 +9,7 @@ module ADIWG
 
             def self.readFile(file, hResponseObj)
 
-               # add ISO 19115_3 reader version
+               # add FGDC reader version
                hResponseObj[:readerVersionUsed] = ADIWG::Mdtranslator::Readers::Iso19115_3::VERSION
 
                # receive XML file
@@ -29,9 +29,19 @@ module ADIWG
                   return {}
                end
 
+               # file must contain an fgdc <metadata> tag
+               xMetadata = xDoc.xpath('/metadata')
+               if xMetadata.empty?
+                  hResponseObj[:readerValidationMessages] << 'ERROR: FGDC file did not contain a <metadata> tag'
+                  hResponseObj[:readerValidationPass] = false
+                  return {}
+               end
+
+               # load fgdc file into internal object
                return Iso19115_3.unpack(xDoc, hResponseObj)
-               
+
             end
+
          end
       end
    end
