@@ -1,7 +1,7 @@
 # MdTranslator - minitest of
 # readers / iso19115-3 / module_iso19115_3_identification
 
-require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_metadatainfo'
+require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_metadataInfo'
 require_relative 'iso19115_3_test_parent'
 
 class TestReaderIso19115_3MetadataInformation < TestReaderIso19115_3Parent
