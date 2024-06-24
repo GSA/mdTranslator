@@ -18,8 +18,7 @@ module ADIWG
       module Writers
          module Iso19115_3
 
-            def self.startWriter(intObj, hResponseObj)
-
+            def self.startWriter(intObj, hResponseObj)					
                hResponseObj[:writerMissingIdCount] = '000'
 
                # make contact available to the instance
