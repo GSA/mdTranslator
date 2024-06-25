@@ -1,0 +1,19 @@
+AllCops:
+  Include:
+    - lib/adiwg/mdtranslator/readers/iso19115_3/**/*.rb
+    - test/readers/iso19115_3/**/*.rb
+  Exclude:
+    - bin/*
+    - vendor/**/*
+
+Layout/IndentationStyle:
+  EnforcedStyle: spaces
+
+Layout/IndentationWidth:
+  Width: 3 
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
+
+Naming/VariableName:
+  EnforcedStyle: camelCase
