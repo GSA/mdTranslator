@@ -3,12 +3,17 @@ name: Tests
 on: [push]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+      - run: bundle install
+      - run: bundle exec rubocop
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.1" # Not needed with a .ruby-version file
       - run: bundle install
       - run: bundle exec rake

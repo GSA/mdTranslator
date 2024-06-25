@@ -1,50 +1,46 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 # require 'module_citation'
-require_relative 'module_metadataInfo'
-
+require_relative 'module_metadata_info'
 
 module ADIWG
    module Mdtranslator
       module Readers
-         module Iso19115_3
-
+         module Iso191153
             module Metadata
+               def self.unpack(xMetadata, hResponseObj)
+                  intMetadataClass = InternalMetadata.new
+                  intMetadata = intMetadataClass.newMetadata
 
-                def self.unpack(xMetadata, hResponseObj)
-                    
-                    intMetadataClass = InternalMetadata.new
-                    intMetadata = intMetadataClass.newMetadata
+                  # :metadataInfo TODO
+                  intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
+                  # intMetadata[:metadataInfo][:metadataMaintenance] = {}
+                  # intMetadata[:metadataInfo][:metadataMaintenance][:frequency] = 'hourly'
+                  # intMetadata[:metadataInfo][:metadataIdentifier] = {}
+                  # intMetadata[:metadataInfo][:metadataIdentifier][:identifier] = nil
 
-                    # :metadataInfo TODO
-                    intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
-                    # intMetadata[:metadataInfo][:metadataMaintenance] = {} 
-                    # intMetadata[:metadataInfo][:metadataMaintenance][:frequency] = 'hourly'
-                    # intMetadata[:metadataInfo][:metadataIdentifier] = {}
-                    # intMetadata[:metadataInfo][:metadataIdentifier][:identifier] = nil
-                      
-                    # :resourceInfo TODO
-                    # intMetadata[:resourceInfo] = {:citation => {}, :pointOfContacts => {}}
-                    # intMetadata[:resourceInfo][:citation][:dates] = []
-                    # intMetadata[:resourceInfo][:pointOfContacts] = [{'parties':[{'contactId': 'test'}]}]
-                    # intMetadata[:resourceInfo][:citation][:identifiers] = {}
-                    # intMetadata[:resourceInfo][:citation][:onlineResources] = {}
-                    # intMetadata[:resourceInfo][:constraints] = []
-                    # intMetadata[:resourceInfo][:keywords] = []
-                    # intMetadata[:resourceInfo][:citation][:responsibleParties] = [{'parties':[{'contactId': 'test'}]}] 
+                  # :resourceInfo TODO
+                  # intMetadata[:resourceInfo] = {:citation => {}, :pointOfContacts => {}}
+                  # intMetadata[:resourceInfo][:citation][:dates] = []
+                  # intMetadata[:resourceInfo][:pointOfContacts] = [{'parties':[{'contactId': 'test'}]}]
+                  # intMetadata[:resourceInfo][:citation][:identifiers] = {}
+                  # intMetadata[:resourceInfo][:citation][:onlineResources] = {}
+                  # intMetadata[:resourceInfo][:constraints] = []
+                  # intMetadata[:resourceInfo][:keywords] = []
+                  # intMetadata[:resourceInfo][:citation][:responsibleParties] = [{'parties':[{'contactId': 'test'}]}]
 
-                    # :lineageInfo TODO
-                    # :distributorInfo TODO 
-                    # :associatedResources TODO
-                    # :additionalDocuments TODO
-                    # :funding TODO
-                    # :dataQuality TODO
+                  # :lineageInfo TODO
+                  # :distributorInfo TODO
+                  # :associatedResources TODO
+                  # :additionalDocuments TODO
+                  # :funding TODO
+                  # :dataQuality TODO
 
-                    return intMetadata
-                end
-
+                  intMetadata
+               end
             end
-
          end
       end
    end

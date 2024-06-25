@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 # require_relative 'module_citation'
@@ -12,32 +14,28 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 module ADIWG
    module Mdtranslator
       module Readers
-         module Iso19115_3
-
+         module Iso191153
             module Citation
+               def self.unpack(xMetadata, _hResponseObj)
+                  intMetadataClass = InternalMetadata.new
+                  hCitation = intMetadataClass.newCitation
 
-                def self.unpack(xMetadata, hResponseObj)
-                    intMetadataClass = InternalMetadata.new
-                    hCitation = intMetadataClass.newCitation
+                  id = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODE_XPATH)
+                  cs = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODESPACE_XPATH)
+                  desc = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::DESC_XPATH)
+                  title = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::TITLE_XPATH)
 
-                    id = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::CODE_XPATH)
-                    cs = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::CODESPACE_XPATH)
-                    desc = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::DESC_XPATH)
-                    title = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::TITLE_XPATH)
+                  hCitation[:title] = title[0].text
+                  hCitation[:description] = desc[0].text
+                  hCitation[:identifiers] = [{ identifier: id[0].text,
+                                               namespace: cs[0].text,
+                                               version: nil, # TODO
+                                               description: desc[0].text,
+                                               citation: {} }]
 
-                    hCitation[:title] = title[0].text
-                    hCitation[:description] = desc[0].text
-                    hCitation[:identifiers] = [{:identifier=>id[0].text,
-                        :namespace=>cs[0].text,
-                        :version=>nil, # TODO
-                        :description=>desc[0].text,
-                        :citation=>{}}]
-
-                    return hCitation
-                end
-
+                  hCitation
+               end
             end
-
          end
       end
    end
