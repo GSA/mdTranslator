@@ -17,3 +17,21 @@ Naming/ClassAndModuleCamelCase:
 
 Naming/VariableName:
   EnforcedStyle: camelCase
+
+Style/ClassVars:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 50
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 50

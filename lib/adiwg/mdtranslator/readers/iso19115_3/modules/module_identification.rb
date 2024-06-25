@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 # require_relative 'module_citation'
@@ -12,32 +14,26 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 module ADIWG
    module Mdtranslator
       module Readers
-         module Iso19115_3
-
+         module Iso191153
             module Identification
-        
-               def self.unpack(xMetadata, hResponseObj)
-					
-				intMetadataClass = InternalMetadata.new
-				hIdentifier = intMetadataClass.newIdentifier
-                                
-				id = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::CODE_XPATH)
-				cs = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::CODESPACE_XPATH)
-				desc = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::DESC_XPATH)
-				title = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso19115_3::TITLE_XPATH)
+               def self.unpack(xMetadata, _hResponseObj)
+                  intMetadataClass = InternalMetadata.new
+                  hIdentifier = intMetadataClass.newIdentifier
 
-				hIdentifier[:identifier] = id[0].text
-				hIdentifier[:namespace] = cs[0].text
-				hIdentifier[:version] = nil # TODO
-				hIdentifier[:description] = desc[0].text
-				hIdentifier[:citation] = nil # TODO
+                  id = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODE_XPATH)
+                  cs = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODESPACE_XPATH)
+                  desc = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::DESC_XPATH)
+                  xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::TITLE_XPATH)
 
-				return hIdentifier
+                  hIdentifier[:identifier] = id[0].text
+                  hIdentifier[:namespace] = cs[0].text
+                  hIdentifier[:version] = nil # TODO
+                  hIdentifier[:description] = desc[0].text
+                  hIdentifier[:citation] = nil # TODO
 
+                  hIdentifier
                end
-
             end
-
          end
       end
    end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'uuidtools'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
@@ -7,36 +9,35 @@ require_relative 'module_metadata'
 module ADIWG
    module Mdtranslator
       module Readers
-         module Iso19115_3
-
-            module Iso19115_3
-							 
+         module Iso191153
+            module Iso191153
                def self.unpack(xMetadata, hResponseObj)
-						intMetadataClass = InternalMetadata.new
+                  intMetadataClass = InternalMetadata.new
 
-						intObj = intMetadataClass.newBase
-						@intObj = intObj
-	
-						# :schema
-						hSchema = intMetadataClass.newSchema
-						hSchema[:name] = 'iso19115_3'
-						hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso19115_3::VERSION
-						@intObj[:schema] = hSchema
-									
-						hMetadata = Metadata.unpack(xMetadata, hResponseObj)
-						@intObj[:metadata] = hMetadata
-																																						
-						# :contacts # TODO
-						# @intObj[:contacts] = nil 
-						# intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList': ['test@gmail.com'], 'externalIdentifier': []}]
+                  intObj = intMetadataClass.newBase
+                  @intObj = intObj
 
-						# :dataDictionaries
-						# @intObj[:dataDictionaries] = [] # TODO
+                  # :schema
+                  hSchema = intMetadataClass.newSchema
+                  hSchema[:name] = 'iso19115_3'
+                  hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso191153::VERSION
+                  @intObj[:schema] = hSchema
 
-						# :metadataRepositories
-						# @intObj[:metadataRepositories] = [] # TODO
-									
-                  return intObj
+                  hMetadata = Metadata.unpack(xMetadata, hResponseObj)
+                  @intObj[:metadata] = hMetadata
+
+                  # :contacts # TODO
+                  # @intObj[:contacts] = nil
+                  # intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList':
+                  # ['test@gmail.com'], 'externalIdentifier': []}]
+
+                  # :dataDictionaries
+                  # @intObj[:dataDictionaries] = [] # TODO
+
+                  # :metadataRepositories
+                  # @intObj[:metadataRepositories] = [] # TODO
+
+                  intObj
                end
 
                # find the array pointer and type for a contact
@@ -45,27 +46,25 @@ module ADIWG
                   contactType = nil
                   unless @contacts.empty?
                      @contacts.each_with_index do |contact, i|
-                        if contact[:contactId] == contactId
-                           if contact[:isOrganization]
-                              contactType = 'organization'
-                           else
-                              contactType = 'individual'
-                           end
-                           contactIndex = i
-                        end
+                        next unless contact[:contactId] == contactId
+
+                        contactType = if contact[:isOrganization]
+                                         'organization'
+                                      else
+                                         'individual'
+                                      end
+                        contactIndex = i
                      end
                   end
-                  return contactIndex, contactType
+                  [contactIndex, contactType]
                end
 
                # find contact id for a name
                def self.find_contact_by_name(contactName)
                   @contacts.each do |contact|
-                     if contact[:name] == contactName
-                        return contact[:contactId]
-                     end
+                     return contact[:contactId] if contact[:name] == contactName
                   end
-                  return nil
+                  nil
                end
 
                # add new contact to contacts array
@@ -80,16 +79,15 @@ module ADIWG
                      hContact[:isOrganization] = isOrg
                      @contacts << hContact
                   end
-                  return contactId
+                  contactId
                end
 
                # return contact by id
                def self.get_contact_by_id(contactId)
                   index = find_contact_by_id(contactId)[0]
-                  unless index.nil?
-                     return @contacts[index]
-                  end
-                  return nil
+                  return @contacts[index] unless index.nil?
+
+                  nil
                end
 
                # add or replace the contact
@@ -101,27 +99,27 @@ module ADIWG
                   else
                      @contacts[index] = hContact
                   end
-                  return index
+                  index
                end
 
                # set an internal object for tests
-               def self.set_intObj(intObj)
+               def self.set_intobj(intObj)
                   @intObj = intObj
                   @contacts = @intObj[:contacts]
                end
 
                # get internal object
-               def self.get_intObj
-                  return @intObj
+               def self.get_intobj
+                  @intObj
                end
 
                # get metadata time convention
                def self.get_metadata_time_convention
-                  return @xDoc.xpath('./metadata/metainfo/mettc').text
+                  @xDoc.xpath('./metadata/metainfo/mettc').text
                end
 
                # set @xDoc for minitests
-               def self.set_xDoc(xDoc)
+               def self.set_xdoc(xDoc)
                   @xDoc = xDoc
                end
 
@@ -129,9 +127,7 @@ module ADIWG
                def self.add_associated_resource(hResource)
                   @intObj[:metadata][:associatedResources] << hResource
                end
-
             end
-
          end
       end
    end
