@@ -1,13 +1,8 @@
 require 'nokogiri'
-<<<<<<< HEAD
-require 'adiwg/mdtranslator/internal/internal_metadata_obj'
-require_relative '../version'
-=======
 require 'uuidtools'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative '../version'
-require_relative 'module_metadataInfo'
->>>>>>> upstream/feature/iso19115-3-reader
+require_relative 'module_metadata'
 
 module ADIWG
    module Mdtranslator
@@ -15,77 +10,32 @@ module ADIWG
          module Iso19115_3
 
             module Iso19115_3
-<<<<<<< HEAD
-               def self.unpack(xDoc, hResponseObj)
+							 
+               def self.unpack(xMetadata, hResponseObj)
+						intMetadataClass = InternalMetadata.new
 
-                  # instance classes needed in script
-                  intMetadataClass = InternalMetadata.new
-
-                  intObj = intMetadataClass.newBase
-                  @intObj = intObj
-
-=======
-
-               def self.unpack(xDoc, hResponseObj)
-                  # instance classes needed in script
-                  intMetadataClass = InternalMetadata.new
-                  intObj = intMetadataClass.newBase
-                  @intObj = intObj
-                  @contacts = intObj[:contacts]
-                  @xDoc = xDoc
->>>>>>> upstream/feature/iso19115-3-reader
-                  # build basic mdTranslator internal object
-                  hMetadata = intMetadataClass.newMetadata
-                  hResourceInfo = intMetadataClass.newResourceInfo
-                  hDataQuality = intMetadataClass.newDataQuality
-                  hMetadata[:resourceInfo] = hResourceInfo
-                  intObj[:metadata] = hMetadata
-<<<<<<< HEAD
-
-=======
-                  xMetadata = xDoc.xpath('./metadata')
->>>>>>> upstream/feature/iso19115-3-reader
-                  # schema
-                  hSchema = intMetadataClass.newSchema
-                  hSchema[:name] = 'iso19115_3'
-                  hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso19115_3::VERSION
-                  @intObj[:schema] = hSchema
-<<<<<<< HEAD
-
-									# everything below is temporary just to ensure the process completes
-									# when writing to dcat_us
-                  intObj[:metadata][:resourceInfo][:citation][:dates] = []
-
-									intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList': ['test@gmail.com'], 'externalIdentifier': []}]
-									intObj[:metadata][:resourceInfo][:pointOfContacts] = [{'parties':[{'contactId': 'test'}]}]
-								  
-									intObj[:metadata][:resourceInfo][:citation][:identifiers] = {}
-									intObj[:metadata][:resourceInfo][:citation][:onlineResources] = {}
-
-									intObj[:metadata][:metadataInfo][:metadataMaintenance] = {} 
-									intObj[:metadata][:metadataInfo][:metadataMaintenance][:frequency] = 'hourly'
+						intObj = intMetadataClass.newBase
+						@intObj = intObj
+	
+						# :schema
+						hSchema = intMetadataClass.newSchema
+						hSchema[:name] = 'iso19115_3'
+						hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso19115_3::VERSION
+						@intObj[:schema] = hSchema
 									
-									intObj[:metadata][:metadataInfo][:metadataIdentifier] = {}
-									intObj[:metadata][:metadataInfo][:metadataIdentifier][:identifier] = nil
+						hMetadata = Metadata.unpack(xMetadata, hResponseObj)
+						@intObj[:metadata] = hMetadata
+																																						
+						# :contacts # TODO
+						# @intObj[:contacts] = nil 
+						# intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList': ['test@gmail.com'], 'externalIdentifier': []}]
 
-									intObj[:metadata][:resourceInfo][:citation][:responsibleParties] = [{'parties':[{'contactId': 'test'}]}]  
+						# :dataDictionaries
+						# @intObj[:dataDictionaries] = [] # TODO
 
-                  return intObj
-               end
-            end
-        end
-=======
-                  # metadata (metainfo 7) - metadata reference (required)
-                  xMetaInfo = xMetadata.xpath('./metainfo')
-                  unless xMetaInfo.empty?
-                     hMetadataInfo = MetadataInformation.unpack(xMetaInfo, hResponseObj)
-                     unless hMetadataInfo.nil?
-                        hMetadata[:metadataInfo] = hMetadataInfo
-                     end
-                  end
-                  if xMetaInfo.empty?
-                     hResponseObj[:readerExecutionMessages] << 'WARNING:  reader: metadata information section (metainfo) missing'
-                  end
+						# :metadataRepositories
+						# @intObj[:metadataRepositories] = [] # TODO
+									
                   return intObj
                end
 
@@ -183,7 +133,6 @@ module ADIWG
             end
 
          end
->>>>>>> upstream/feature/iso19115-3-reader
       end
    end
 end
