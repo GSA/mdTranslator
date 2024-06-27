@@ -20,6 +20,7 @@ class TestReaderIso191153MetadataInformation < TestReaderIso191153Parent
       refute_empty hDictionary
       refute_empty hDictionary[:metadataIdentifier]
       refute_empty hDictionary[:parentMetadata]
+      refute_empty hDictionary[:defaultMetadataLocale]
 
       # add more content here over time...
    end
