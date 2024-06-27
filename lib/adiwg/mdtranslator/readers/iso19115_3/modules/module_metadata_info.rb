@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_identification'
 require_relative 'module_citation'
+require_relative 'module_locale'
 
 module ADIWG
    module Mdtranslator
@@ -20,7 +21,9 @@ module ADIWG
                   # :parentMetadata
                   hMetadataInfo[:parentMetadata] = Citation.unpack(xMetadata, hResponseObj)
 
-                  # :defaultMetadataLocale TODO
+                  # :defaultMetadataLocale
+                  hMetadataInfo[:defaultMetadataLocale] = Locale.unpack(xMetadata, hResponseObj)
+
                   # :otherMetadataLocales TODO
                   # :metadataContacts TODO
                   # :metadataDates TODO

@@ -35,6 +35,7 @@ module ADIWG
                # reader namespace
                readerNS = hResponseObj[:readerRequested].dup
                readerNS[0] = readerNS[0].upcase
+               readerNS = readerNS.tr('_', '') # for iso reader
 
                # reader will create and return the intObj
                return ADIWG::Mdtranslator::Readers.const_get(readerNS).readFile(file, hResponseObj)

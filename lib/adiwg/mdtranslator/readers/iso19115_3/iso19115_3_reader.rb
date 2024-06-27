@@ -10,7 +10,7 @@ module ADIWG
          module Iso191153
             def self.readFile(file, hResponseObj) # rubocop:disable Naming/MethodName
                # add Iso19115_3 reader version
-               hResponseObj[:readerVersionUsed] = ADIWG::Mdtranslator::Readers::Iso19115_3::VERSION
+               hResponseObj[:readerVersionUsed] = ADIWG::Mdtranslator::Readers::Iso191153::VERSION
 
                # receive XML file
                if file.nil? || file == ''
@@ -39,7 +39,7 @@ module ADIWG
                end
 
                # load Iso19115_3 file into internal object
-               Iso19115_3.unpack(xMetadata[0], hResponseObj)
+               Iso191153.unpack(xMetadata[0], hResponseObj)
             end
          end
       end
