@@ -11,6 +11,7 @@ module ADIWG
             CODESPACE_XPATH = './/mcc:codeSpace//gco:CharacterString'
             DESC_XPATH = './/mcc:description//gco:CharacterString'
             TITLE_XPATH = './/cit:title//gco:CharacterString'
+            VERSION_XPATH = './/mcc:version//gco:CharacterString'
          end
       end
    end

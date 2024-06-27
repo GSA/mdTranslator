@@ -23,11 +23,11 @@ module ADIWG
                   id = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODE_XPATH)
                   cs = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODESPACE_XPATH)
                   desc = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::DESC_XPATH)
-                  xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::TITLE_XPATH)
+                  # version = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::VERSION_XPATH)
 
                   hIdentifier[:identifier] = id[0].text
                   hIdentifier[:namespace] = cs[0].text
-                  hIdentifier[:version] = nil # TODO
+                  # hIdentifier[:version] = version[0].text # TODO
                   hIdentifier[:description] = desc[0].text
                   hIdentifier[:citation] = nil # TODO
 
