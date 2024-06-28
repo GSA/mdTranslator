@@ -13,8 +13,9 @@ class TestReaderIso191153Iso191153 < TestReaderIso191153Parent
    @@xDoc = TestReaderIso191153Parent.get_xml('iso19115-3.xml')
 
    def test_metadata_complete
+      xMetadata = @@xDoc.xpath('mdb:MD_Metadata')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      intObj = @@nameSpace.unpack(@@xDoc, hResponse)
+      intObj = @@nameSpace.unpack(xMetadata, hResponse)
 
       refute_empty intObj
       refute_empty intObj[:schema]

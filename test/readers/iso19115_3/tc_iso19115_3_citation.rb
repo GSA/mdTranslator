@@ -13,15 +13,14 @@ class TestReaderIso191153Citation < TestReaderIso191153Parent
    def test_citation_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('mdb:MD_Metadata')
+      xIn = @@xDoc.xpath('.//mcc:authority')
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
       refute_empty hDictionary
 
-      assert_equal('U.S. Geological Survey ScienceBase parent identifier', hDictionary[:title])
-      refute_empty hDictionary[:identifiers]
-
+      assert_equal('test title', hDictionary[:title])
       assert_equal('USGS ScienceBase Identifier', hDictionary[:description])
+      assert_equal(1, hDictionary[:identifiers].size)
    end
 end
