@@ -11,15 +11,35 @@ module ADIWG
       module Readers
          module Iso191153
             module MetadataInformation
+               @@mdParentXpath = 'mdb:parentMetadata'
+               @@mdIdentifier = 'mdb:metadataIdentifier'
+
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hMetadataInfo = intMetadataClass.newMetadataInfo
 
-                  # :metadataIdentifier
-                  hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadata, hResponseObj)
+                  xMetadataInfo = xMetadata.xpath(@@mdIdentifier)
 
-                  # :parentMetadata
-                  hMetadataInfo[:parentMetadata] = Citation.unpack(xMetadata, hResponseObj)
+                  # :metadataIdentifier (required)
+                  if xMetadataInfo.empty?
+                     msg = 'ERROR: ISO19115-3 reader: element \'mcc:MD_Identifier\' is missing in metadata identifier'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionePass] = false
+
+                     return xMetadataInfo
+                  end
+
+                  hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo[0], hResponseObj)
+
+                  # :parentMetadata (optional)
+                  xMdParent = xMetadata.xpath(@mdParentXpath)
+                  if xMdParent.empty?
+                     msg = 'WARNING: ISO19115-3 reader: element \'mdb:parentMetadata\' '\
+                     'is missing in metadata identifier'
+                     hResponseObj[:readerExecutionMessages] << msg
+                  end
+
+                  hMetadataInfo[:parentMetadata] = Citation.unpack(xMdParent, hResponseObj)
 
                   # :defaultMetadataLocale
                   hMetadataInfo[:defaultMetadataLocale] = Locale.unpack(xMetadata, hResponseObj)

@@ -2,7 +2,7 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
-# require_relative 'module_citation'
+require_relative 'module_citation'
 # require_relative 'module_timePeriod'
 # require_relative 'module_timeInstant'
 # require_relative 'module_spatialDomain'
@@ -16,22 +16,60 @@ module ADIWG
       module Readers
          module Iso191153
             module Identification
-               def self.unpack(xMetadata, _hResponseObj)
+               @@codeXPath = './/mcc:code//gco:CharacterString'
+               @@codeSpaceXpath = './/mcc:codeSpace//gco:CharacterString'
+               @@descXpath = './/mcc:description//gco:CharacterString'
+               @@versionXpath = './/mcc:version//gco:CharacterString'
+               @@authorityXpath = 'mcc:authority'
+               @@identifierXpath = 'mcc:MD_Identifier'
+
+               def self.process_id(xIdentifier, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hIdentifier = intMetadataClass.newIdentifier
 
-                  id = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODE_XPATH)
-                  cs = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::CODESPACE_XPATH)
-                  desc = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::DESC_XPATH)
-                  # version = xMetadata.xpath(ADIWG::Mdtranslator::Readers::Iso191153::VERSION_XPATH)
+                  id = xIdentifier.xpath(@@codeXPath)
+                  cs = xIdentifier.xpath(@@codeSpaceXpath)
+                  desc = xIdentifier.xpath(@@descXpath)
+                  version = xIdentifier.xpath(@@versionXpath)
 
-                  hIdentifier[:identifier] = id[0].text
-                  hIdentifier[:namespace] = cs[0].text
-                  # hIdentifier[:version] = version[0].text # TODO
-                  hIdentifier[:description] = desc[0].text
-                  hIdentifier[:citation] = nil # TODO
+                  # code is required
+                  if id.empty?
+                     msg = 'WARNING: ISO19115-3 reader: element \'code\' is missing in metadata identifier'
+                     hResponseObj[:readerStructureMessages] << msg
+                     hResponseObj[:readerStructurePass] = false
+                  end
+
+                  hIdentifier[:identifier] = id.empty? ? nil : id[0].text
+                  hIdentifier[:namespace] = cs.empty? ? nil : cs[0].text
+                  hIdentifier[:version] = version.empty? ? nil : version[0].text
+                  hIdentifier[:description] = desc.empty? ? nil : desc[0].text
+
+                  xAuthority = xIdentifier.xpath(@@authorityXpath)
+                  hIdentifier[:citation] =
+                     xAuthority.empty? ? nil : Citation.unpack(xAuthority[0], hResponseObj)
 
                   hIdentifier
+               end
+
+               def self.unpack(xMetadata, hResponseObj)
+                  intMetadataClass = InternalMetadata.new
+                  hIdentifier = intMetadataClass.newIdentifier
+
+                  xIdentifiers = xMetadata.xpath(@@identifierXpath)
+
+                  if xMetadata.name == 'metadataIdentifier' && xIdentifiers.empty?
+                     msg = 'WARNING: ISO19115-3 reader: element \'mcc:MD_Identifier\' '\
+                        'is missing in metadata identifier'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+
+                     hIdentifier
+                  end
+
+                  res = xIdentifiers.map { |i| process_id(i, hResponseObj) }
+                  return res[0] if xMetadata.name == 'metadataIdentifier'
+
+                  res
                end
             end
          end
