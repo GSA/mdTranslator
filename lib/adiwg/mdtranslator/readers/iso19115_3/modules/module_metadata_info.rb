@@ -42,9 +42,11 @@ module ADIWG
                   hMetadataInfo[:parentMetadata] = Citation.unpack(xMdParent, hResponseObj)
 
                   # :defaultMetadataLocale
-                  hMetadataInfo[:defaultMetadataLocale] = Locale.unpack(xMetadata, hResponseObj)
+                  hMetadataInfo[:defaultMetadataLocale] = Locale.unpack(xMetadata, hResponseObj, 'default')
 
-                  # :otherMetadataLocales TODO
+                  # :otherMetadataLocales
+                  hMetadataInfo[:otherMetadataLocales] = Locale.unpack(xMetadata, hResponseObj, 'other')
+
                   # :metadataContacts TODO
                   # :metadataDates TODO
                   # :metadataLinkages TODO

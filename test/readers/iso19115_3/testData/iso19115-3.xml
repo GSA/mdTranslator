@@ -72,6 +72,32 @@
          </lan:characterEncoding>
       </lan:PT_Locale>
    </mdb:defaultLocale>
+   <mdb:otherLocale>
+      <lan:PT_Locale>
+         <lan:language>
+            <lan:LanguageCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#LanguageCode" codeListValue="test_lang_code" codeSpace="-999"/>
+         </lan:language>
+         <lan:country>
+            <lan:CountryCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CountryCode" codeListValue="test_country" codeSpace="-998"/>
+         </lan:country>
+         <lan:characterEncoding>
+            <lan:MD_CharacterSetCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_CharacterSetCode" codeListValue="test_encoding" codeSpace="-987"/>
+         </lan:characterEncoding>
+      </lan:PT_Locale>
+   </mdb:otherLocale>
+   <mdb:otherLocale>
+      <lan:PT_Locale>
+         <lan:language>
+            <lan:LanguageCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#LanguageCode" codeListValue="test_lang_code2" codeSpace="-999"/>
+         </lan:language>
+         <lan:country>
+            <lan:CountryCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CountryCode" codeListValue="test_country2" codeSpace="-998"/>
+         </lan:country>
+         <lan:characterEncoding>
+            <lan:MD_CharacterSetCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_CharacterSetCode" codeListValue="test_encoding2" codeSpace="-987"/>
+         </lan:characterEncoding>
+      </lan:PT_Locale>
+   </mdb:otherLocale>
    <mdb:parentMetadata>
       <cit:CI_Citation>
          <cit:title>
