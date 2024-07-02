@@ -3,8 +3,8 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require 'adiwg/mdtranslator/readers/iso19115_3/iso19115_3_reader'
+# require_relative 'module_extent'
 
-require_relative 'module_extent'
 module ADIWG
    module Mdtranslator
       module Readers
