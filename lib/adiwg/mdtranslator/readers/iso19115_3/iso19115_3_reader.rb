@@ -8,6 +8,7 @@ module ADIWG
    module Mdtranslator
       module Readers
          module Iso191153
+            CODELISTVALUE = 'codeListValue'
             def self.readFile(file, hResponseObj) # rubocop:disable Naming/MethodName
                # add Iso19115_3 reader version
                hResponseObj[:readerVersionUsed] = ADIWG::Mdtranslator::Readers::Iso191153::VERSION

@@ -5,6 +5,7 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_identification'
 require_relative 'module_citation'
 require_relative 'module_locale'
+require_relative 'module_responsibility'
 
 module ADIWG
    module Mdtranslator
@@ -32,7 +33,7 @@ module ADIWG
                   hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo[0], hResponseObj)
 
                   # :parentMetadata (optional)
-                  xMdParent = xMetadata.xpath(@mdParentXpath)
+                  xMdParent = xMetadata.xpath(@@mdParentXpath)
                   if xMdParent.empty?
                      msg = 'WARNING: ISO19115-3 reader: element \'mdb:parentMetadata\' '\
                      'is missing in metadata identifier'
@@ -47,7 +48,9 @@ module ADIWG
                   # :otherMetadataLocales
                   hMetadataInfo[:otherMetadataLocales] = Locale.unpack(xMetadata, hResponseObj, 'other')
 
-                  # :metadataContacts TODO
+                  # :metadataContacts
+                  hMetadataInfo[:metadataContacts] = Responsibility.unpack(xMetadata, hResponseObj)
+
                   # :metadataDates TODO
                   # :metadataLinkages TODO
                   # :metadataConstraints TODO
