@@ -125,7 +125,196 @@
          </mdb:resourceScope>
       </mdb:MD_MetadataScope>
    </mdb:metadataScope>
-   <mdb:contact gco:nilReason="missing"/>
+   <mdb:contact>
+      <cit:CI_Responsibility>
+         <cit:role>
+            <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007"/>
+         </cit:role>
+         <cit:party>
+            <cit:CI_Organisation>
+               <cit:name>
+                  <gco:CharacterString>U.S. Geological Survey, Alaska Science Center</gco:CharacterString>
+               </cit:name>
+               <cit:contactInfo>
+                  <cit:CI_Contact>
+                     <cit:phone>
+                        <cit:CI_Telephone>
+                           <cit:number>
+                              <gco:CharacterString>907-786-7000</gco:CharacterString>
+                           </cit:number>
+                           <cit:numberType>
+                              <cit:CI_TelephoneTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_TelephoneTypeCode" codeListValue="voice" codeSpace="001"/>
+                           </cit:numberType>
+                        </cit:CI_Telephone>
+                     </cit:phone>
+                     <cit:phone>
+                        <cit:CI_Telephone>
+                           <cit:number>
+                              <gco:CharacterString>907-786-7020</gco:CharacterString>
+                           </cit:number>
+                           <cit:numberType>
+                              <cit:CI_TelephoneTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_TelephoneTypeCode" codeListValue="facsimile" codeSpace="002"/>
+                           </cit:numberType>
+                        </cit:CI_Telephone>
+                     </cit:phone>
+                     <cit:address>
+                        <cit:CI_Address>
+                           <cit:deliveryPoint>
+                              <gco:CharacterString>4210 University Drive</gco:CharacterString>
+                           </cit:deliveryPoint>
+                           <cit:city>
+                              <gco:CharacterString>Anchorage</gco:CharacterString>
+                           </cit:city>
+                           <cit:administrativeArea>
+                              <gco:CharacterString>AK</gco:CharacterString>
+                           </cit:administrativeArea>
+                           <cit:postalCode>
+                              <gco:CharacterString>99508</gco:CharacterString>
+                           </cit:postalCode>
+                           <cit:country>
+                              <gco:CharacterString>USA</gco:CharacterString>
+                           </cit:country>
+                        </cit:CI_Address>
+                     </cit:address>
+                     <cit:address>
+                        <cit:CI_Address>
+                           <cit:electronicMailAddress>
+                              <gco:CharacterString>ascweb@usgs.gov</gco:CharacterString>
+                           </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                     </cit:address>
+                     <cit:contactType>
+                        <gco:CharacterString>federal</gco:CharacterString>
+                     </cit:contactType>
+                  </cit:CI_Contact>
+               </cit:contactInfo>
+               <cit:partyIdentifier>
+                  <mcc:MD_Identifier>
+                     <mcc:authority/>
+                     <mcc:code>
+                        <gco:CharacterString>1b759b80-bb2a-4b66-898d-56e4c9b4a341</gco:CharacterString>
+                     </mcc:code>
+                  </mcc:MD_Identifier>
+               </cit:partyIdentifier>
+               <cit:logo/>
+               <cit:individual>
+                  <cit:CI_Individual>
+                     <cit:name>
+                        <gco:CharacterString>U.S. Geological Survey</gco:CharacterString>
+                     </cit:name>
+                     <cit:contactInfo>
+                        <cit:CI_Contact>
+                           <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                 <cit:linkage>
+                                    <gco:CharacterString>https://usgs.gov</gco:CharacterString>
+                                 </cit:linkage>
+                              </cit:CI_OnlineResource>
+                           </cit:onlineResource>
+                           <cit:contactType>
+                              <gco:CharacterString>federal</gco:CharacterString>
+                           </cit:contactType>
+                        </cit:CI_Contact>
+                     </cit:contactInfo>
+                     <cit:partyIdentifier>
+                        <mcc:MD_Identifier>
+                           <mcc:authority/>
+                           <mcc:code>
+                              <gco:CharacterString>035a68863</gco:CharacterString>
+                           </mcc:code>
+                        </mcc:MD_Identifier>
+                     </cit:partyIdentifier>
+                  </cit:CI_Individual>
+               </cit:individual>
+               <cit:partyIdentifier>
+                  <mcc:MD_Identifier>
+                     <mcc:authority/>
+                     <mcc:code>
+                        <gco:CharacterString>1b759b80-bb2a-4b66-898d-56e4c9b4a341</gco:CharacterString>
+                     </mcc:code>
+                  </mcc:MD_Identifier>
+               </cit:partyIdentifier>
+            </cit:CI_Organisation>
+         </cit:party>
+         <mri:extent>
+            <gex:EX_Extent>
+               <gex:geographicElement>
+                  <gex:EX_GeographicBoundingBox>
+                     <gex:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                     </gex:extentTypeCode>
+                     <gex:westBoundLongitude>
+                        <gco:Decimal>-148.87</gco:Decimal>
+                     </gex:westBoundLongitude>
+                     <gex:eastBoundLongitude>
+                        <gco:Decimal>-148.35</gco:Decimal>
+                     </gex:eastBoundLongitude>
+                     <gex:southBoundLatitude>
+                        <gco:Decimal>63.95</gco:Decimal>
+                     </gex:southBoundLatitude>
+                     <gex:northBoundLatitude>
+                        <gco:Decimal>64.24</gco:Decimal>
+                     </gex:northBoundLatitude>
+                  </gex:EX_GeographicBoundingBox>
+               </gex:geographicElement>
+            </gex:EX_Extent>
+         </mri:extent>
+         <mri:extent>
+            <gex:EX_Extent>
+               <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                     <gex:extent>
+                        <gml:TimePeriod gml:id="timePeriod_001">
+                           <gml:description>ground condition</gml:description>
+                           <gml:beginPosition indeterminatePosition="unknown"/>
+                           <gml:endPosition>2021-08-31T18:00:00.000+00:00</gml:endPosition>
+                        </gml:TimePeriod>
+                     </gex:extent>
+                  </gex:EX_TemporalExtent>
+               </gex:temporalElement>
+            </gex:EX_Extent>
+         </mri:extent>
+      </cit:CI_Responsibility>
+   </mdb:contact>
+   <mdb:contact>
+      <cit:CI_Responsibility>
+         <cit:role>
+            <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="author" codeSpace="011"/>
+         </cit:role>
+         <cit:party>
+            <cit:CI_Individual>
+               <cit:name>
+                  <gco:CharacterString>Adrian M. Bender</gco:CharacterString>
+               </cit:name>
+               <cit:contactInfo>
+                  <cit:CI_Contact>
+                     <cit:address>
+                        <cit:CI_Address>
+                           <cit:electronicMailAddress>
+                              <gco:CharacterString>abender@usgs.gov</gco:CharacterString>
+                           </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                     </cit:address>
+                     <cit:contactType>
+                        <gco:CharacterString>federal</gco:CharacterString>
+                     </cit:contactType>
+                  </cit:CI_Contact>
+               </cit:contactInfo>
+               <cit:partyIdentifier>
+                  <mcc:MD_Identifier>
+                     <mcc:authority/>
+                     <mcc:code>
+                        <gco:CharacterString>0000-0001-7469-1957</gco:CharacterString>
+                     </mcc:code>
+                  </mcc:MD_Identifier>
+               </cit:partyIdentifier>
+               <cit:positionName>
+                  <gco:CharacterString>Geologist</gco:CharacterString>
+               </cit:positionName>
+            </cit:CI_Individual>
+         </cit:party>
+      </cit:CI_Responsibility>
+   </mdb:contact>
    <mdb:dateInfo>
       <cit:CI_Date>
          <cit:date>

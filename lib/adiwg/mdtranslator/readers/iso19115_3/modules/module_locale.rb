@@ -16,7 +16,6 @@ module ADIWG
                @@chrEncXpath = './/lan:MD_CharacterSetCode'
                @@localeXpath = './/mdb:defaultLocale'
                @@otherLocaleXpath = './/mdb:otherLocale'
-               @@codeListValue = 'codeListValue'
 
                def self.process_locale(xLocale, hResponseObj)
                   intMetadataClass = InternalMetadata.new
@@ -32,10 +31,12 @@ module ADIWG
                      return hLocale
                   end
 
-                  hLocale[:languageCode] = xLocaleLangCode[0].attr(@@codeListValue)
+                  codeListValue = ADIWG::Mdtranslator::Readers::Iso191153::CODELISTVALUE
+
+                  hLocale[:languageCode] = xLocaleLangCode[0].attr(codeListValue)
 
                   xLocaleCntryCode = xLocale.xpath(@@cntryCodeXpath)
-                  cc = xLocaleCntryCode.empty? ? nil : xLocaleCntryCode[0].attr(@@codeListValue)
+                  cc = xLocaleCntryCode.empty? ? nil : xLocaleCntryCode[0].attr(codeListValue)
                   hLocale[:countryCode] = cc
 
                   xLocaleChrEnc = xLocale.xpath(@@chrEncXpath)
@@ -48,7 +49,7 @@ module ADIWG
                      return hLocale
                   end
 
-                  hLocale[:characterEncoding] = xLocaleChrEnc[0].attr(@@codeListValue)
+                  hLocale[:characterEncoding] = xLocaleChrEnc[0].attr(codeListValue)
 
                   hLocale
                end
