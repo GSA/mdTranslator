@@ -18,7 +18,7 @@ module ADIWG
                   intMetadataClass = InternalMetadata.new
                   hExtent = intMetadataClass.newExtent
 
-                  xExExtent = xExtent.xpath(@@exExtentXPath)[0] # there should only be 1
+                  xExExtent = xExtent.xpath(@@exExtentXPath)[0]
 
                   if xExExtent.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'gex:EX_Extent\' is missing in mri:extent'
@@ -26,15 +26,16 @@ module ADIWG
                      hResponseObj[:readerExecutionePass] = false
                   end
 
-                  # : description
-                  xDesc = xExtent.xpath(@@descXPath)[0]
-                  hExtent[:description] = xDesc.nil? ? nil : xDesc.text
+                  # : description TODO
+                  # xDesc = xExtent.xpath(@@descXPath)[0]
+                  # hExtent[:description] = xDesc.nil? ? nil : xDesc.text
 
                   # :geographicExtents array
+                  # TODO: revisit this
                   hExtent[:geographicExtents] = GeographicExtent.unpack(xExExtent, hResponseObj)
 
-                  # :temporalExtents array
-                  # :verticalExtents array
+                  # :temporalExtents array TODO
+                  # :verticalExtents array TODO
 
                   # {
                   #    description: nil,
@@ -50,8 +51,12 @@ module ADIWG
                end
 
                def self.unpack(xRespblty, hResponseObj)
-                  xExtents = xRespblty.xpath(@@extentXPath)
-                  xExtents.map { |e| process_extent(e, hResponseObj) }
+                  extents = []
+                  xExtents = xRespblty.xpath(@@extentXPath) # mri:extents
+                  xExtents.each do |xextent|
+                     extents << process_extent(xextent, hResponseObj)
+                  end
+                  extents
                end
             end
          end

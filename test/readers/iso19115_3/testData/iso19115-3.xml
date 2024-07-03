@@ -259,15 +259,13 @@
                </gex:geographicElement>
                <gex:geographicElement>
                   <gex:EX_GeographicDescription>
-                  <gex:geographicIdentifier>
-                     <mcc:MD_Identifier>
-                     <mcc:code>
-                        <gco:CharacterString>
-                        Australia
-                        </gco:CharacterString>
-                     </mcc:code>
-                     </mcc:MD_Identifier>
-                  </gex:geographicIdentifier>
+                     <gex:geographicIdentifier>
+                        <mcc:MD_Identifier>
+                        <mcc:code>
+                           <gco:CharacterString>Australia</gco:CharacterString>
+                        </mcc:code>
+                        </mcc:MD_Identifier>
+                     </gex:geographicIdentifier>
                   </gex:EX_GeographicDescription>
                </gex:geographicElement>
             </gex:EX_Extent>
