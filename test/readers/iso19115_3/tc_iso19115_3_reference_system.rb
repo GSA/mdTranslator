@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_reference_system'
 require_relative 'iso19115_3_test_parent'
-require 'debug'
 
 class TestReaderIso191153ReferenceSystem < TestReaderIso191153Parent
    @@xDoc = TestReaderIso191153Parent.get_xml('iso19115-3.xml')
@@ -25,10 +24,9 @@ class TestReaderIso191153ReferenceSystem < TestReaderIso191153Parent
       sysId = hDictionary[:systemIdentifier]
 
       refute_empty sysId
-      assert_equal('57c5c793e4b0f2f0cebdaa4d', sysId[:identifier])
-      assert_equal('gov.sciencebase.catalog', sysId[:namespace])
-      assert_equal('test version 1.0', sysId[:version])
-      assert_equal('USGS ScienceBase Identifier', sysId[:description])
+      assert_equal('WGS 84 (EPSG:4326)', sysId[:identifier])
+      assert_equal('EPSG', sysId[:namespace])
+      assert_equal('8.6', sysId[:version])
       refute_empty sysId[:citation]
    end
 end

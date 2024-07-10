@@ -15,11 +15,13 @@ class TestReaderIso191153Identification < TestReaderIso191153Parent
 
       xIn = @@xDoc.xpath('.//mdb:metadataIdentifier')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hDictionary = @@nameSpace.unpack(xIn, hResponse)
+      hArray = @@nameSpace.unpack(xIn, hResponse)
 
-      refute_empty hDictionary
+      refute_empty hArray
 
-      assert_equal('57c5c793e4b0f2f0cebdaa4d', hDictionary[:identifier])
+      hDictionary = hArray[0]
+
+      assert_equal('57d97341e4b090824ffb0e6f', hDictionary[:identifier])
       assert_equal('gov.sciencebase.catalog', hDictionary[:namespace])
       assert_equal('test version 1.0', hDictionary[:version])
       assert_equal('USGS ScienceBase Identifier', hDictionary[:description])

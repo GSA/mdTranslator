@@ -3,7 +3,6 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_identification'
-require 'adiwg-mdcodes'
 
 module ADIWG
    module Mdtranslator
