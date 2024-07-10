@@ -25,7 +25,8 @@ Or install it yourself as:
 
 ## Development
 ### Debugger
-- [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to debug
+- [debug](https://github.com/ruby/debug) comes with ruby installations >= 3.1. this is a proper debugger with more features than IRB. 
+- [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to "debug"
 - insert a "breakpoint" by adding `binding.irb` on the line of your choice. here's an example of what that might look like...
 ```console 
 From: /home/bobsmith/.rbenv/versions/3.2.2/lib/ruby/vendor_ruby/gems/3.2.0/gems/adiwg-mdtranslator-2.20.0.pre.beta.5/lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_contact_point.rb @ line 10 :
