@@ -16,10 +16,10 @@ module ADIWG
       module Readers
          module Iso191153
             module Identification
-               @@codeXPath = './/mcc:code//gco:CharacterString'
-               @@codeSpaceXpath = './/mcc:codeSpace//gco:CharacterString'
-               @@descXpath = './/mcc:description//gco:CharacterString'
-               @@versionXpath = './/mcc:version//gco:CharacterString'
+               @@codeXPath = 'mcc:code//gco:CharacterString'
+               @@codeSpaceXpath = 'mcc:codeSpace//gco:CharacterString'
+               @@descXpath = 'mcc:description//gco:CharacterString'
+               @@versionXpath = 'mcc:version//gco:CharacterString'
                @@authorityXpath = 'mcc:authority'
                @@identifierXpath = 'mcc:MD_Identifier'
 
@@ -65,11 +65,7 @@ module ADIWG
 
                      hIdentifier
                   end
-
-                  res = xIdentifiers.map { |i| process_id(i, hResponseObj) }
-                  return res[0] if xMetadata.name == 'metadataIdentifier'
-
-                  res
+                  xIdentifiers.map { |i| process_id(i, hResponseObj) }
                end
             end
          end

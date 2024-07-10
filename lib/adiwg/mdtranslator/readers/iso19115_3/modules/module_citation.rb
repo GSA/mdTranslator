@@ -24,22 +24,19 @@ module ADIWG
                   intMetadataClass = InternalMetadata.new
                   hCitation = intMetadataClass.newCitation
 
-                  idNs = ADIWG::Mdtranslator::Readers::Iso191153::Identification
-
                   xCitation = xCitationParent.xpath(@@citationXpath)
                   return hCitation if xCitation.empty?
 
                   xCitation = xCitation[0]
 
-                  desc = xCitation.xpath(idNs.class_variable_get(:@@descXpath))
+                  # :title
                   title = xCitation.xpath(@@titleXPath)
-
                   hCitation[:title] = title.empty? ? nil : title[0].text
-                  hCitation[:description] = desc.empty? ? nil : desc[0].text
 
+                  # :identifiers
                   citId = xCitation.xpath(@@citIdXpath)
-
                   hCitation[:identifiers] = citId.empty? ? [] : Identification.unpack(citId[0], hResponseObj)
+
                   hCitation
                end
             end

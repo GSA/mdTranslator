@@ -258,6 +258,19 @@
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
                <gex:geographicElement>
+                  <gex:EX_BoundingPolygon>
+                     <gex:polygon>
+                        <gml:Polygon gml:id="A1">
+                           <gml:exterior>
+                              <gml:LinearRing>
+                                 <gml:posList> 1 1 1 2 2 2 0 4 1 1 </gml:posList>
+                              </gml:LinearRing>
+                           </gml:exterior>
+                        </gml:Polygon>
+                     </gex:polygon>
+                  </gex:EX_BoundingPolygon>
+               </gex:geographicElement>
+               <gex:geographicElement>
                   <gex:EX_GeographicDescription>
                      <gex:geographicIdentifier>
                         <mcc:MD_Identifier>
@@ -289,41 +302,37 @@
             <gex:EX_Extent>
                <gex:verticalElement>
                   <gex:EX_VerticalExtent>
-                  <gex:minimumValue>
-                     <gco:Real>-1000</gco:Real>
-                  </gex:minimumValue>
-                  <gex:maximumValue>
-                     <gco:Real>1000</gco:Real>
-                  </gex:maximumValue>
-                  <gex:verticalCRSId>
-                     <mrs:MD_ReferenceSystem>
-                     <gmd:referenceSystemInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
-                        <gmd:MD_ReferenceSystem>
-                        <gmd:referenceSystemIdentifier>
-                           <gmd:RS_Identifier>
-                           <gmd:code>
-                              <gco:CharacterString 
-                              xmlns:gco="http://www.isotc211.org/2005/gco">
-                              WGS 84 (EPSG:4326)</gco:CharacterString>
-                           </gmd:code>
-                           <gmd:codeSpace>
-                              <gco:CharacterString 
-                              xmlns:gco="http://www.isotc211.org/2005/gco">
-                              EPSG
-                              </gco:CharacterString>
-                           </gmd:codeSpace>
-                           <gmd:version>
-                              <gco:CharacterString 
-                              xmlns:gco="http://www.isotc211.org/2005/gco">
-                              8.6
-                              </gco:CharacterString>
-                           </gmd:version>
-                           </gmd:RS_Identifier>
-                        </gmd:referenceSystemIdentifier>
-                        </gmd:MD_ReferenceSystem>
-                     </gmd:referenceSystemInfo>
-                     </mrs:MD_ReferenceSystem>
-                  </gex:verticalCRSId>
+                     <gex:minimumValue>
+                        <gco:Real>-1000</gco:Real>
+                     </gex:minimumValue>
+                     <gex:maximumValue>
+                        <gco:Real>1000</gco:Real>
+                     </gex:maximumValue>
+                     <gex:verticalCRSId>
+                        <mrs:MD_ReferenceSystem>
+                           <mrs:referenceSystemType>
+                              <mrs:MD_ReferenceSystemTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_ReferenceSystemTypeCode" codeListValue="test" codeSpace="999"/>
+                           </mrs:referenceSystemType>
+                           <gmd:referenceSystemInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
+                              <gmd:MD_ReferenceSystem>
+                                 <gmd:referenceSystemIdentifier>
+                                    <mcc:MD_Identifier>
+                                       <mcc:authority/>
+                                       <mcc:code>
+                                          <gco:CharacterString>WGS 84 (EPSG:4326)</gco:CharacterString>
+                                       </mcc:code>
+                                       <mcc:codeSpace>
+                                          <gco:CharacterString>EPSG</gco:CharacterString>
+                                       </mcc:codeSpace>
+                                       <mcc:version>
+                                          <gco:CharacterString>8.6</gco:CharacterString>
+                                       </mcc:version>
+                                    </mcc:MD_Identifier>
+                                 </gmd:referenceSystemIdentifier>
+                              </gmd:MD_ReferenceSystem>
+                           </gmd:referenceSystemInfo>
+                        </mrs:MD_ReferenceSystem>
+                     </gex:verticalCRSId>
                   </gex:EX_VerticalExtent>
                </gex:verticalElement>
             </gex:EX_Extent>

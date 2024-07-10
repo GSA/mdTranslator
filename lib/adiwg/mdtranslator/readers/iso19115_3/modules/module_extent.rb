@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_geographic_extent'
 # require_relative 'module_temporal_extent'
-# require_relative 'module_vertical_extent'
+require_relative 'module_vertical_extent'
 
 module ADIWG
    module Mdtranslator
@@ -34,18 +34,10 @@ module ADIWG
                   # TODO: revisit this
                   hExtent[:geographicExtents] = GeographicExtent.unpack(xExExtent, hResponseObj)
 
-                  # :temporalExtents array TODO
-                  # :verticalExtents array TODO
+                  # TODO: temporalExtents array
 
-                  # {
-                  #    description: nil,
-                  #    geographicExtents: [],
-                  #    temporalExtents: [],
-                  #    verticalExtents: []
-                  # }
-                  # tempExtClass = EX_TemporalExtent.new(@xml, @hResponseObj)
-                  # vertExtClass = EX_VerticalExtent.new(@xml, @hResponseObj)
-                  # geoExtClass = GeographicExtent.new(@xml, @hResponseObj)
+                  # :verticalExtents array
+                  hExtent[:verticalExtents] = VerticalExtent.unpack(xExExtent, hResponseObj)
 
                   hExtent
                end

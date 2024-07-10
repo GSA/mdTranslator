@@ -30,7 +30,7 @@ module ADIWG
                      return xMetadataInfo
                   end
 
-                  hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo[0], hResponseObj)
+                  hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo[0], hResponseObj)[0]
 
                   # :parentMetadata (optional)
                   xMdParent = xMetadata.xpath(@@mdParentXpath)

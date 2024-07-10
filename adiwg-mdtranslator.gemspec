@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
    spec.add_development_dependency "rake", "~> 13"
    spec.add_development_dependency "minitest", "~> 5"
    spec.add_development_dependency "rubocop", "~> 1.64"
+   spec.add_development_dependency "debug", "~> 1.9"
 
    spec.add_runtime_dependency "json", "~> 2.0"
    spec.add_runtime_dependency "builder", "~> 3.2"
