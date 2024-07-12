@@ -288,11 +288,27 @@
                <gex:temporalElement>
                   <gex:EX_TemporalExtent>
                      <gex:extent>
-                        <gml:TimePeriod gml:id="timePeriod_001">
-                           <gml:description>ground condition</gml:description>
-                           <gml:beginPosition indeterminatePosition="unknown"/>
-                           <gml:endPosition>2021-08-31T18:00:00.000+00:00</gml:endPosition>
+                        <gml:TimePeriod gml:id="d5078594e414a1056030">
+                           <gml:description>time period description</gml:description>
+                           <gml:identifier>time period identifier</gml:identifier>
+                           <gml:name>time period name 1</gml:name>
+                           <gml:name>time period name 2</gml:name>
+                           <gml:beginPosition>2000-01-01T00:00:00Z</gml:beginPosition>
+                           <gml:endPosition>2000-12-31T00:00:00Z</gml:endPosition>
+                           <gml:timeInterval unit="second">1.0</gml:timeInterval>
+                           <gml:duration>P1Y2M3DT10H</gml:duration>
                         </gml:TimePeriod>
+                     </gex:extent>
+                     <gex:extent>
+                        <gml:TimeInstant gml:id="d5078594e416a1056031">
+                           <gml:description>description of time instant</gml:description>
+                           <gml:descriptionReference/>
+                           <gml:identifier>test-identifier</gml:identifier>
+                           <gml:name>time instant name 1</gml:name>
+                           <gml:name>time instant name 2</gml:name>
+                           <gml:relatedTime/>
+                           <gml:timePosition>12:00:00</gml:timePosition>
+                        </gml:TimeInstant>
                      </gex:extent>
                   </gex:EX_TemporalExtent>
                </gex:temporalElement>
