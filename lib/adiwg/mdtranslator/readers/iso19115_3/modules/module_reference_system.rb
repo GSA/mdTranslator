@@ -11,7 +11,7 @@ module ADIWG
             module ReferenceSystem
                @@vertRefSysPath = 'gex:verticalCRSId//mrs:MD_ReferenceSystem'
                @@refSysCodeXPath = 'mrs:referenceSystemType//mrs:MD_ReferenceSystemTypeCode'
-               @@refSysIdXPath = './/gmd:referenceSystemIdentifier'
+               @@refSysIdXPath = 'mcc:referenceSystemIdentifier'
                def self.unpack(xVertExtent, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hSRS = intMetadataClass.newSpatialReferenceSystem

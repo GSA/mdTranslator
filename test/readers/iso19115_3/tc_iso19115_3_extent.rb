@@ -20,20 +20,25 @@ class TestReaderIso191153Extent < TestReaderIso191153Parent
       refute_empty extentArray
       assert_equal(3, extentArray.size)
 
-      extent = extentArray[0] # only one with geo data. will handle others later.
+      geoExtent, temporalExtent, vertExtent = extentArray
 
-      # geo extent data
-      geoExtent = extent[:geographicExtents] # TODO: this will eventually be an array
+      # :geographicExtents
+      refute_empty geoExtent
+      refute_empty geoExtent[:geographicExtents]
+      assert geoExtent[:geographicExtents].instance_of? Array
+      assert_equal('geographic extent description', geoExtent[:description])
 
-      # bounding box
-      geoBoundingBox = geoExtent[:boundingBox]
-      assert_equal(-148.87, geoBoundingBox[:westLongitude])
-      assert_equal(-148.35, geoBoundingBox[:eastLongitude])
-      assert_equal(63.95, geoBoundingBox[:southLatitude])
-      assert_equal(64.24, geoBoundingBox[:northLatitude])
+      # :temporalExtents
+      refute_empty temporalExtent
+      refute_empty temporalExtent[:temporalExtents]
+      assert temporalExtent[:temporalExtents].instance_of? Array
+      assert_equal('temporal extent description', temporalExtent[:description])
 
-      # vertArray TODO
-      # temporalArray TODO
+      # :verticalExtents
+      refute_empty vertExtent
+      refute_empty vertExtent[:verticalExtents]
+      assert vertExtent[:verticalExtents].instance_of? Array
+      assert_equal('vertical extent description', vertExtent[:description])
 
       # add more assertions here...
    end
