@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require 'adiwg/mdtranslator/readers/iso19115_3/iso19115_3_reader'
 require_relative 'module_extent'
+require_relative 'module_party'
 
 module ADIWG
    module Mdtranslator
@@ -43,10 +44,11 @@ module ADIWG
                   # :roleName
                   hRespblty[:roleName] = xRoleCode.attr(codeListValue)
 
-                  # :roleExtents # TODO
+                  # :roleExtents
                   hRespblty[:roleExtents] = Extent.unpack(xRespblty, hResponseObj)
 
-                  # :parties # TODO
+                  # :parties
+                  hRespblty[:parties] = Party.unpack(xRespblty, hResponseObj)
 
                   hRespblty
                end

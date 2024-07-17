@@ -26,15 +26,14 @@ module ADIWG
                      hResponseObj[:readerExecutionePass] = false
                   end
 
-                  # : description TODO
-                  # xDesc = xExtent.xpath(@@descXPath)[0]
-                  # hExtent[:description] = xDesc.nil? ? nil : xDesc.text
+                  # :description
+                  xDesc = xExExtent.xpath(@@descXPath)
+                  hExtent[:description] = xDesc.nil? ? nil : xDesc.text
 
                   # :geographicExtents
-                  # TODO: revisit this
                   hExtent[:geographicExtents] = GeographicExtent.unpack(xExExtent, hResponseObj)
 
-                  # TODO: temporalExtents
+                  # :temporalExtents
                   hExtent[:temporalExtents] = TemporalExtent.unpack(xExExtent, hResponseObj)
 
                   # :verticalExtents

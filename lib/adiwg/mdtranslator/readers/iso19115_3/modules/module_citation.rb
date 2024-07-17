@@ -37,6 +37,8 @@ module ADIWG
                   citId = xCitation.xpath(@@citIdXpath)
                   hCitation[:identifiers] = citId.empty? ? [] : Identification.unpack(citId[0], hResponseObj)
 
+                  # TODO: rest of the hCitation properties!
+
                   hCitation
                end
             end

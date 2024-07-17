@@ -5,7 +5,6 @@
 
 require 'minitest/autorun'
 require 'adiwg/mdtranslator/internal/module_dateTimeFun'
-require 'debug'
 
 class TestDateTimeFun < Minitest::Test
    def test_convert_duration_to_named_group

@@ -16,9 +16,12 @@ module ADIWG
 
                @@geoBBXPath = 'gex:EX_GeographicBoundingBox'
                @@geoDescXPath = 'gex:EX_GeographicDescription'
-               # TODO: gex:EX_BoundingPolygon
+               @@geoBPXPath = 'gex:EX_BoundingPolygon'
 
-               def self.process_geo_extent(xGeoElem, hGeoExt, hResponseObj)
+               def self.process_geo_extent(xGeoElem, hResponseObj)
+                  intMetadataClass = InternalMetadata.new
+                  hGeoExt = intMetadataClass.newGeographicExtent
+
                   # determine what kind of element we're in...
                   xGeoElemType = xGeoElem.children.select { |child| child.instance_of? Nokogiri::XML::Element }[0]
 
@@ -52,17 +55,18 @@ module ADIWG
                   # :geographicElements hash (there's no internal object for these elements...)
                   # :nativeGeoJson array
                   # :computedBbox bash
+
+                  hGeoExt
                end
 
                def self.unpack(xExtent, hResponseObj)
-                  intMetadataClass = InternalMetadata.new
-                  hGeoExt = intMetadataClass.newGeographicExtent
+                  geoExtents = []
 
                   xGeoElems = xExtent.xpath(@@geoElemXPath)
                   xGeoElems.each do |xgeoelem|
-                     process_geo_extent(xgeoelem, hGeoExt, hResponseObj)
+                     geoExtents << process_geo_extent(xgeoelem, hResponseObj)
                   end
-                  hGeoExt
+                  geoExtents
                end
             end
          end
