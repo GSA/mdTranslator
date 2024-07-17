@@ -23,6 +23,110 @@ Or install it yourself as:
 
     $ bundle exec mdtranslator help translate
 
+## ISO19115-3 Reader Work
+### Introduction
+- we want to create an ISO19115-3 reader because we process ISO19115-3 files and want to convert them into DCAT. There's already an ISO19115-3 writer so we're basically looking for the inverse of that. What does the inverse look like? To understand that first let's check out the information flow of the program as a whole:
+  1) read/parse the input file ( e.g. fgdc, mdJson, sbJson, iso19115_3 )
+  2) store the input file data in the internal md object
+  3) write the internal md object into the output file
+- the "inverse" we're looking for is step 3 to step 2 or xml into the md internal object which ends up actually being step 1 to step 2.
+### Git Workflow
+- [ISO19115-3 feature branch](https://github.com/GSA/mdTranslator/tree/feature/iso19115_3-reader)
+- all work is branched off and merged into ^ this branch. 
+- the ISO19115-3 feature branch would be merged into `datagov` when finished.
+### Feature Development
+- units of work are typically going to be some xml complex element found in an ISO19115-3 document which will be expressed as a ruby module. 
+- let's take `cit:CI_Address` as an example....
+   ```xml
+   <!-- ... -->
+   <cit:CI_Address>
+      <!-- look below for deliveryPoint -->
+      <cit:deliveryPoint>
+         <gco:CharacterString>4210 University Drive</gco:CharacterString>
+      </cit:deliveryPoint>
+      <cit:deliveryPoint>
+         <gco:CharacterString>1234 Example Drive</gco:CharacterString>
+      </cit:deliveryPoint>
+      <!-- look above for deliveryPoint -->
+      <cit:city>
+         <gco:CharacterString>Anchorage</gco:CharacterString>
+      </cit:city>
+      <cit:administrativeArea>
+         <gco:CharacterString>AK</gco:CharacterString>
+      </cit:administrativeArea>
+      <cit:postalCode>
+         <gco:CharacterString>99508</gco:CharacterString>
+      </cit:postalCode>
+      <cit:country>
+         <gco:CharacterString>USA</gco:CharacterString>
+      </cit:country>
+   </cit:CI_Address>
+   <!-- ... -->
+   ```
+- the idea is to create a ruby file called `module_address.rb` in our [modules folder](lib/adiwg/mdtranslator/readers/iso19115_3/modules) which is responsible for processing `cit:CI_Address` elements regardless of the context. In other words, wherever `cit:CI_Address` can occur `module_address.rb` should be able to process it by accepting its immediate parent element.
+- first, go to the associated [address writer file](lib/adiwg/mdtranslator/writers/iso19115_3/classes/class_address.rb) and see how the internal md object is written to the output xml. Let's use `deliveryPoints` as an example. 
+   ```ruby
+   # ...
+   # address - delivery points []
+   aDeliveryPoints = hAddress[:deliveryPoints]
+   aDeliveryPoints.each do |myPoint|
+      @xml.tag!('cit:deliveryPoint') do
+         @xml.tag!('gco:CharacterString', myPoint)
+      end
+   end
+   # ... 
+   ```
+- looking back at the example `cit:CI_Address` above you can see what the data is supposed to look like when written. 
+- so `hAddress[:deliveryPoints]` should look like `['4210 University Drive', '1234 Example Drive']`
+- you want to store data according to the associated object found in [internal object file](lib/adiwg/mdtranslator/internal/internal_metadata_obj.rb)
+- in this case, what you're looking for is...
+   ```ruby
+   def newAddress
+         {
+            addressTypes: [],
+            description: nil,
+            deliveryPoints: [],
+            city: nil,
+            adminArea: nil,
+            postalCode: nil,
+            country: nil
+         }
+   end
+   ```
+- sometimes there's information in the internal object (in this case `newAddress`) which doesn't need to be processed. so you'll need to check the writer out for more info. in this case, `addressTypes` and `description` aren't processed.
+- additionally, you may need to reference the schema documents for more info. you can find them [here](https://github.com/ISO-TC211/XML/tree/master/schemas.isotc211.org/19115/-3) which may lead you to finding out that you need more data in your fixture/example for processing. 
+- here's what the template of the ruby file should look like when you're ready to begin...
+
+   ```ruby
+   require 'nokogiri' # xml lib
+   require 'adiwg/mdtranslator/internal/internal_metadata_obj' # internal object lib
+
+   module ADIWG
+      module Mdtranslator
+         module Readers
+            module Iso191153
+               module Address
+                  # i've been adding xpath class vars here
+                  def self.unpack(xParentElem, hResponseObj):
+                     # xParentElem is the parent element cit:CI_Address resides under.
+                     # hResponseObj is basically a logging object for communicating warnings, info, and errors to the end user during processing.
+                     
+                     intMetadataClass = InternalMetadata.new
+                     hAddress = intMetadataClass.newAddress
+
+                     # fill out your address data...
+                  end
+               end
+            end
+         end
+      end
+   end
+   ```
+
+### Feature Development (testing)
+- modules/elements are responsible for checking exact values for their root-level keys. 
+- assertions on container keys which point to a `hash` or `array` should simply check whether the container is empty or the size of the container. let the module/element that container represents handle its own contents.
+
 ## Development
 ### Debugger
 - [debug](https://github.com/ruby/debug) comes with ruby installations >= 3.1. this is a proper debugger with more features than IRB. 
