@@ -13,7 +13,7 @@ class TestReaderIso191153Constraint < TestReaderIso191153Parent
    def test_constraint_is_common
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//mcc:MD_Scope')[0]
+      xIn = @@xDoc.xpath('.//mcc:imageConstraints')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
