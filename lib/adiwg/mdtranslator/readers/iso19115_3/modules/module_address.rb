@@ -16,7 +16,7 @@ module ADIWG
                @@postalXPath = 'cit:postalCode//gco:CharacterString'
                @@countryXPath = 'cit:country//gco:CharacterString'
                @@emailXPath = 'cit:electronicMailAddress//gco:CharacterString'
-               def self.unpack(xContact, _hResponseObj) # rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+               def self.unpack(xContact, _hResponseObj)
                   intMetadataClass = InternalMetadata.new
 
                   addresses = []

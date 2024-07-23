@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: go back and think whether this is needed!
 module AdiwgUtils
    def self.reconcile_hashes(hashA, hashB)
       # merges hashes by value "truthyness"

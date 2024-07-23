@@ -13,14 +13,13 @@ class TestReaderIso191153OnlineResource < TestReaderIso191153Parent
    def test_online_resource_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//cit:CI_Contact')[2]
+      xIn = @@xDoc.xpath('.//cit:CI_Contact//cit:onlineResource')[1]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hArray = @@nameSpace.unpack(xIn, hResponse)
+      onlineResource = @@nameSpace.unpack(xIn, hResponse)
 
-      refute_empty hArray
-      assert_equal(1, hArray.size)
+      refute_empty onlineResource
+      assert onlineResource.instance_of? Hash
 
-      onlineResource = hArray[0]
       assert_equal('http://onlineresourceexample.com', onlineResource[:olResURI])
       assert_equal('online resource name', onlineResource[:olResName])
       assert_equal('online resource description', onlineResource[:olResDesc])

@@ -11,44 +11,47 @@ module ADIWG
       module Readers
          module Iso191153
             module Extent
-               @@extentXPath = 'mri:extent'
                @@exExtentXPath = 'gex:EX_Extent'
                @@descXPath = 'gex:description//gco:CharacterString'
-               def self.process_extent(xExtent, hResponseObj)
+               @@geoElemXPath = 'gex:geographicElement'
+               @@temporalElemXPath = 'gex:temporalElement'
+               @@verticalElemXPath = 'gex:verticalElement'
+               def self.unpack(xExtent, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hExtent = intMetadataClass.newExtent
 
+                  # EX_Extent (required)
                   xExExtent = xExtent.xpath(@@exExtentXPath)[0]
-
                   if xExExtent.nil?
-                     msg = 'ERROR: ISO19115-3 reader: element \'gex:EX_Extent\' is missing in mri:extent'
+                     msg = 'ERROR: ISO19115-3 reader: element \'gex:EX_Extent\' is missing in extent'
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionePass] = false
+                     return nil
                   end
 
-                  # :description
-                  xDesc = xExExtent.xpath(@@descXPath)
+                  # :description (optional)
+                  xDesc = xExExtent.xpath(@@descXPath)[0]
                   hExtent[:description] = xDesc.nil? ? nil : xDesc.text
 
-                  # :geographicExtents
-                  hExtent[:geographicExtents] = GeographicExtent.unpack(xExExtent, hResponseObj)
+                  # :geographicExtents (optional)
+                  xGeoElems = xExExtent.xpath(@@geoElemXPath)
+                  unless xGeoElems.nil?
+                     hExtent[:geographicExtents] = xGeoElems.map { |g| GeographicExtent.unpack(g, hResponseObj) }
+                  end
 
-                  # :temporalExtents
-                  hExtent[:temporalExtents] = TemporalExtent.unpack(xExExtent, hResponseObj)
+                  # :temporalExtents (optional)
+                  xTemporalElems = xExExtent.xpath(@@temporalElemXPath)
+                  unless xTemporalElems.nil?
+                     hExtent[:temporalExtents] = xTemporalElems.map { |t| TemporalExtent.unpack(t, hResponseObj) }
+                  end
 
-                  # :verticalExtents
-                  hExtent[:verticalExtents] = VerticalExtent.unpack(xExExtent, hResponseObj)
+                  # :verticalExtents (optional)
+                  xVerticalElems = xExExtent.xpath(@@verticalElemXPath)
+                  unless xVerticalElems.nil?
+                     hExtent[:verticalExtents] = xVerticalElems.map { |v| VerticalExtent.unpack(v, hResponseObj) }
+                  end
 
                   hExtent
-               end
-
-               def self.unpack(xRespblty, hResponseObj)
-                  extents = []
-                  xExtents = xRespblty.xpath(@@extentXPath) # mri:extents
-                  xExtents.each do |xextent|
-                     extents << process_extent(xextent, hResponseObj)
-                  end
-                  extents
                end
             end
          end

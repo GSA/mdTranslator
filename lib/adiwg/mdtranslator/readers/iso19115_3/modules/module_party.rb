@@ -10,24 +10,19 @@ module ADIWG
       module Readers
          module Iso191153
             module Party
-               @@partyXPath = 'cit:party'
-               @@individualXPath = 'cit:CI_Individual'
-               @@orgXPath = 'cit:CI_Organisation'
-               def self.unpack(xResponsibility, hResponseObj)
-                  parties = []
+               def self.unpack(xParty, hResponseObj)
+                  # the `newParty` internal object
+                  # TODO: revisit this module
+                  # intMetadataClass = InternalMetadata.new
+                  # hParty = intMetadataClass.newParty
 
-                  xParties = xResponsibility.xpath(@@partyXPath)
+                  # individual
+                  hIndividual = Individual.unpack(xParty, hResponseObj)
+                  return hIndividual unless hIndividual.nil?
 
-                  xParties.each do |xparty|
-                     # individual
-                     hIndividual = Individual.unpack(xparty, hResponseObj)
-                     parties << hIndividual unless hIndividual.nil?
-
-                     # organization
-                     hOrg = Organization.unpack(xparty, hResponseObj)
-                     parties << hOrg unless hOrg.nil?
-                  end
-                  parties
+                  # organization
+                  hOrg = Organization.unpack(xParty, hResponseObj)
+                  hOrg unless hOrg.nil?
                end
             end
          end

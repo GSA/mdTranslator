@@ -30,6 +30,6 @@ class TestReaderIso191153Individual < TestReaderIso191153Parent
       assert hDictionary[:addresses].instance_of? Array
       assert_equal(3, hDictionary[:addresses].size)
       assert_equal(['jread@usgs.gov'], hDictionary[:eMailList])
-      assert_equal('Metadata Contact', hDictionary[:contactType])
+      assert_equal('Originator', hDictionary[:contactType])
    end
 end

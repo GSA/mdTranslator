@@ -13,20 +13,16 @@ class TestReaderIso191153VerticalExtent < TestReaderIso191153Parent
    def test_vertical_extent_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gex:EX_Extent')[2] # we want the first 2nd one
+      xIn = @@xDoc.xpath('.//gex:verticalElement')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hArray = @@nameSpace.unpack(xIn, hResponse)
+      hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-      refute_empty hArray
-      assert hArray.instance_of? Array
+      refute_empty hDictionary
+      assert hDictionary.instance_of? Hash
 
-      vertExtent = hArray[0]
+      assert_equal(-1000, hDictionary[:minValue])
+      assert_equal(1000, hDictionary[:maxValue])
 
-      assert_equal(-1000, vertExtent[:minValue])
-      assert_equal(1000, vertExtent[:maxValue])
-
-      crsId = vertExtent[:crsId]
-
-      refute_empty crsId
+      refute_empty hDictionary[:crsId]
    end
 end

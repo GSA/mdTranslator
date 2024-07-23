@@ -13,20 +13,16 @@ class TestReaderIso191153Responsibility < TestReaderIso191153Parent
    def test_responsibility_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('mdb:MD_Metadata')
+      xIn = @@xDoc.xpath('mdb:MD_Metadata//mdb:contact')
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hArray = @@nameSpace.unpack(xIn, hResponse)
+      hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-      refute_empty hArray
-      assert hArray.instance_of? Array
-      assert_equal(2, hArray.size)
-
-      responsibility = hArray[0]
-      assert_equal('pointOfContact', responsibility[:roleName])
-
-      responsibility = hArray[1]
-      assert_equal('author', responsibility[:roleName])
-
+      refute_empty hDictionary
+      assert hDictionary.instance_of? Hash
+      assert_equal('pointOfContact', hDictionary[:roleName])
+      refute_empty hDictionary[:roleExtents]
+      assert_equal(4, hDictionary[:roleExtents].size)
+      assert_equal(1, hDictionary[:parties].size)
       # add more assertions as more content is complete...
    end
 end

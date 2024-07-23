@@ -9,29 +9,22 @@ module ADIWG
       module Readers
          module Iso191153
             module BoundingBox
-               @@bbXPath = './/gex:EX_GeographicBoundingBox'
-               @@westXPath = './/gex:westBoundLongitude/gco:Decimal'
-               @@eastXPath = './/gex:eastBoundLongitude/gco:Decimal'
-               @@northXPath = './/gex:northBoundLatitude/gco:Decimal'
-               @@southXPath = './/gex:southBoundLatitude/gco:Decimal'
-
-               def self.unpack(xExtent, hResponseObj) # rubocop: disable Metrics/PerceivedComplexity
+               @@bbXPath = 'gex:EX_GeographicBoundingBox'
+               @@westXPath = 'gex:westBoundLongitude/gco:Decimal'
+               @@eastXPath = 'gex:eastBoundLongitude/gco:Decimal'
+               @@northXPath = 'gex:northBoundLatitude/gco:Decimal'
+               @@southXPath = 'gex:southBoundLatitude/gco:Decimal'
+               def self.unpack(xGeoElem, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hBbox = intMetadataClass.newBoundingBox
 
                   # TODO: to_f method defaults to 0.0 if the value can't be converted.
                   # should communicate this to the end user.
 
-                  # all lat/lons are required
-                  xBbox = xExtent.xpath(@@bbXPath)
+                  xBbox = xGeoElem.xpath(@@bbXPath)
+                  return nil if xBbox.empty?
 
-                  if xBbox.empty?
-                     msg = 'WARNING: ISO19115-3 reader: element \'gex:westBoundLongitude\' '\
-                        'is missing in gex:geographicElement'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                  end
-
+                  # :westLongitude (required)
                   xWest = xBbox.xpath(@@westXPath)
 
                   if xWest.empty?
@@ -43,6 +36,7 @@ module ADIWG
                      hBbox[:westLongitude] = xWest[0].text.to_f
                   end
 
+                  # :eastLongitude (required)
                   xEast = xBbox.xpath(@@eastXPath)
 
                   if xEast.empty?
@@ -54,6 +48,7 @@ module ADIWG
                      hBbox[:eastLongitude] = xEast[0].text.to_f
                   end
 
+                  # :northLatitude (required)
                   xNorth = xBbox.xpath(@@northXPath)
 
                   if xNorth.empty?
@@ -65,6 +60,7 @@ module ADIWG
                      hBbox[:northLatitude] = xNorth[0].text.to_f
                   end
 
+                  # :southLatitude (required)
                   xSouth = xBbox.xpath(@@southXPath)
 
                   if xSouth.empty?

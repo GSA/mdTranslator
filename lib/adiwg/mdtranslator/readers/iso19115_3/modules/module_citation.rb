@@ -18,7 +18,7 @@ module ADIWG
          module Iso191153
             module Citation
                @@citationXpath = 'cit:CI_Citation'
-               @@titleXPath = './/cit:title//gco:CharacterString'
+               @@titleXPath = 'cit:title//gco:CharacterString'
                @@citIdXpath = 'cit:identifier'
                def self.unpack(xCitationParent, hResponseObj)
                   intMetadataClass = InternalMetadata.new

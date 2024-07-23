@@ -11,48 +11,47 @@ module ADIWG
             module VerticalExtent
                @@vertElemXPath = 'gex:verticalElement'
                @@vertExtXpath = 'gex:EX_VerticalExtent'
+               @@vertCRSIdXPath = 'gex:verticalCRSId'
                @@minValXPath = 'gex:minimumValue//gco:Real'
                @@maxValXpath = 'gex:maximumValue//gco:Real'
-               def self.unpack(xExtent, hResponseObj)
+               def self.unpack(xvertElem, hResponseObj)
                   intMetadataClass = InternalMetadata.new
-                  extents = []
+                  hVertExt = intMetadataClass.newVerticalExtent
+                  # :description exists in the internal object but not processed in the writer
 
-                  xVertElems = xExtent.xpath(@@vertElemXPath)
+                  xVertExt = xvertElem.xpath(@@vertExtXpath)[0]
+                  return nil if xVertExt.nil?
 
-                  xVertElems.each do |xvertelem|
-                     hVertExt = intMetadataClass.newVerticalExtent
-                     xVertExt = xvertelem.xpath(@@vertExtXpath)
+                  # :minValue (required)
+                  xMinVal = xVertExt.xpath(@@minValXPath)[0]
 
-                     # TODO: :description
-
-                     # :minValue required
-                     xMinVal = xVertExt.xpath(@@minValXPath)
-
-                     if xMinVal.empty?
-                        msg = 'WARNING: ISO19115-3 reader: vertical element minimum value is'\
-                        'missing in gex:EX_VerticalExtent'
-                        hResponseObj[:readerExecutionMessages] << msg
-                        hResponseObj[:readerExecutionPass] = false
-                     else
-                        hVertExt[:minValue] = xMinVal[0].text.to_f
-                     end
-
-                     # :maxValue required
-                     xMaxVal = xVertExt.xpath(@@maxValXpath)
-
-                     if xMaxVal.empty?
-                        msg = 'WARNING: ISO19115-3 reader: vertical element maximum value is'\
-                        'missing in gex:EX_VerticalExtent'
-                        hResponseObj[:readerExecutionMessages] << msg
-                        hResponseObj[:readerExecutionPass] = false
-                     else
-                        hVertExt[:maxValue] = xMaxVal[0].text.to_f
-                     end
-
-                     hVertExt[:crsId] = ReferenceSystem.unpack(xVertExt, hResponseObj)
-                     extents << hVertExt
+                  if xMinVal.nil?
+                     msg = 'WARNING: ISO19115-3 reader: vertical element minimum value is'\
+                     'missing in gex:EX_VerticalExtent'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return nil
                   end
-                  extents
+
+                  hVertExt[:minValue] = xMinVal.text.to_f
+
+                  # :maxValue (required)
+                  xMaxVal = xVertExt.xpath(@@maxValXpath)[0]
+
+                  if xMaxVal.nil?
+                     msg = 'WARNING: ISO19115-3 reader: vertical element maximum value is'\
+                     'missing in gex:EX_VerticalExtent'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                  end
+
+                  hVertExt[:maxValue] = xMaxVal.text.to_f
+
+                  # :crsId (optional)
+                  vertCRSId = xVertExt.xpath(@@vertCRSIdXPath)[0]
+                  hVertExt[:crsId] = ReferenceSystem.unpack(vertCRSId, hResponseObj) unless vertCRSId.nil?
+
+                  hVertExt
                end
             end
          end

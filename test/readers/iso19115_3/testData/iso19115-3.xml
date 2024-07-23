@@ -149,15 +149,111 @@
                      </mcc:fileType>
                      <mcc:imageConstraints>
                         <mco:MD_Constraints>
+                           <mco:useLimitation>
+                                 <gco:CharacterString>Disclaimer - While every effort has been made to ensure...</gco:CharacterString>
+                           </mco:useLimitation>
+                           <mco:useLimitation>
+                                 <gco:CharacterString>Other Disclaimer</gco:CharacterString>
+                           </mco:useLimitation>
+                           <mco:graphic>
+                              <mcc:MD_BrowseGraphic>
+                                 <mcc:fileName>
+                                    <gco:CharacterString>constraint_image.png</gco:CharacterString>
+                                 </mcc:fileName>
+                              </mcc:MD_BrowseGraphic>
+                           </mco:graphic>
+                           <mco:reference>
+                              <cit:CI_Citation>
+                                 <cit:title>
+                                    <gco:CharacterString>ISO 19115-3</gco:CharacterString>
+                                 </cit:title>
+                              </cit:CI_Citation>
+                           </mco:reference>
+                           <mco:responsibleParty>
+                              <cit:CI_Responsibility>
+                                 <cit:role>
+                                    <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="constraintAuthority" codeSpace="991"/>
+                                 </cit:role>
+                                 <cit:party>
+                                    <cit:CI_Organisation>
+                                       <cit:name>
+                                          <gco:CharacterString>contraint org name</gco:CharacterString>
+                                       </cit:name>
+                                    </cit:CI_Organisation>
+                                 </cit:party>
+                              </cit:CI_Responsibility>
+                           </mco:responsibleParty>
+                           <mco:constraintApplicationScope>
+                              <mcc:MD_Scope>
+                                 <mcc:level>
+                                    <mcc:MD_ScopeCode codeList="http://wiki.esipfed.org/index.php/ISO_19115-3_Codelists#MD_ScopeCode" codeListValue="dataset"/>
+                                 </mcc:level>
+                                 <mcc:levelDescription>
+                                    <mcc:MD_ScopeDescription>
+                                       <mcc:attributes>
+                                             <gco:CharacterString>various attributes</gco:CharacterString>
+                                       </mcc:attributes>
+                                       <mcc:features>
+                                             <gco:CharacterString>swaths, grids</gco:CharacterString>
+                                       </mcc:features>
+                                       <mcc:featureInstances>
+                                             <gco:CharacterString>a1c963f0-d2c1-11e6-9598-0800200c9a66, a1c963f0-d2c1-11e6-9598-0800200c9a67, a1c963f0-d2c1-11e6-9598-0800200c9a68</gco:CharacterString>
+                                       </mcc:featureInstances>
+                                       <mcc:attributeInstances>
+                                             <gco:CharacterString>TropHeight_A_max, TropHeight_A_min</gco:CharacterString>
+                                       </mcc:attributeInstances>
+                                       <mcc:dataset>
+                                             <gco:CharacterString>ClrOLR*</gco:CharacterString>
+                                       </mcc:dataset>
+                                       <mcc:other>
+                                             <gco:CharacterString>Zambia field study 2007</gco:CharacterString>
+                                       </mcc:other>
+                                    </mcc:MD_ScopeDescription>
+                                 </mcc:levelDescription>
+                                 <mcc:extent>
+                                    <gex:EX_Extent>
+                                       <gex:description>
+                                          <gco:CharacterString>common constraint geographic extent description</gco:CharacterString>
+                                       </gex:description>
+                                       <gex:geographicElement>
+                                          <gex:EX_BoundingPolygon>
+                                             <gex:polygon>
+                                                <gml:Polygon gml:id="A1">
+                                                   <gml:exterior>
+                                                      <gml:LinearRing>
+                                                         <gml:posList> 1 1 1 2 2 2 0 4 1 1 </gml:posList>
+                                                      </gml:LinearRing>
+                                                   </gml:exterior>
+                                                </gml:Polygon>
+                                             </gex:polygon>
+                                          </gex:EX_BoundingPolygon>
+                                       </gex:geographicElement>
+                                       <gex:geographicElement>
+                                          <gex:EX_GeographicDescription>
+                                             <gex:geographicIdentifier>
+                                                <mcc:MD_Identifier>
+                                                <mcc:code>
+                                                   <gco:CharacterString>Australia</gco:CharacterString>
+                                                </mcc:code>
+                                                </mcc:MD_Identifier>
+                                             </gex:geographicIdentifier>
+                                          </gex:EX_GeographicDescription>
+                                       </gex:geographicElement>
+                                    </gex:EX_Extent>
+                                 </mcc:extent>
+                              </mcc:MD_Scope>
+                           </mco:constraintApplicationScope>
                            <mco:releasability>
                               <mco:MD_Releasability>
                                  <mco:addressee>
                                     <cit:CI_Responsibility>
-                                    <cit:role/>
+                                       <cit:role>
+                                          <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007"/>
+                                       </cit:role>
                                        <cit:party>
                                           <cit:CI_Organisation>
                                              <cit:name>
-                                             <gco:CharacterString>orgName</gco:CharacterString>
+                                                <gco:CharacterString>orgName</gco:CharacterString>
                                              </cit:name>
                                           </cit:CI_Organisation>
                                        </cit:party>
@@ -166,6 +262,10 @@
                                  <mco:statement>
                                     <gco:CharacterString>statement</gco:CharacterString>
                                  </mco:statement>
+                                 <mco:disseminationConstraints>
+                                    <mco:MD_RestrictionCode codeList="something" codeListValue="topSecret"/>
+                                    <mco:MD_RestrictionCode codeList="something_else" codeListValue="superSecret"/>
+                                 </mco:disseminationConstraints>
                               </mco:MD_Releasability>
                            </mco:releasability>
                         </mco:MD_Constraints>
@@ -233,14 +333,18 @@
                      </mcc:fileType>
                      <mcc:imageConstraints>
                         <mco:MD_SecurityConstraints>
-                           <mco:reference>
-                              <cit:CI_Citation>
-                              <cit:title></cit:title>
-                              </cit:CI_Citation>
-                           </mco:reference>
                            <mco:classification>
                               <mco:MD_ClassificationCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
                            </mco:classification>
+                           <mco:userNote>
+                              <gco:CharacterString>user note on image security constraint</gco:CharacterString>
+                           </mco:userNote>
+                           <mco:classificationSystem>
+                              <gco:CharacterString>system 1.56A</gco:CharacterString>
+                           </mco:classificationSystem>
+                           <mco:handlingDescription>
+                              <gco:CharacterString>handle with care</gco:CharacterString>
+                           </mco:handlingDescription>
                         </mco:MD_SecurityConstraints>
                      </mcc:imageConstraints>
                   </mcc:MD_BrowseGraphic>
@@ -346,7 +450,7 @@
                </cit:partyIdentifier>
             </cit:CI_Organisation>
          </cit:party>
-         <mri:extent>
+         <cit:extent>
             <gex:EX_Extent>
                <gex:description>
                   <gco:CharacterString>geographic extent description</gco:CharacterString>
@@ -372,6 +476,9 @@
                </gex:geographicElement>
                <gex:geographicElement>
                   <gex:EX_BoundingPolygon>
+                     <gex:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                     </gex:extentTypeCode>
                      <gex:polygon>
                         <gml:Polygon gml:id="A1">
                            <gml:exterior>
@@ -395,8 +502,8 @@
                   </gex:EX_GeographicDescription>
                </gex:geographicElement>
             </gex:EX_Extent>
-         </mri:extent>
-         <mri:extent>
+         </cit:extent>
+         <cit:extent>
             <gex:EX_Extent>
                <gex:description>
                   <gco:CharacterString>temporal extent description</gco:CharacterString>
@@ -429,8 +536,8 @@
                   </gex:EX_TemporalExtent>
                </gex:temporalElement>
             </gex:EX_Extent>
-         </mri:extent>
-         <mri:extent>
+         </cit:extent>
+         <cit:extent>
             <gex:EX_Extent>
                <gex:description>
                   <gco:CharacterString>vertical extent description</gco:CharacterString>
@@ -467,7 +574,35 @@
                   </gex:EX_VerticalExtent>
                </gex:verticalElement>
             </gex:EX_Extent>
-         </mri:extent>
+         </cit:extent>
+         <cit:extent>
+            <gex:EX_Extent>
+               <gex:description>
+                  <gco:CharacterString>multiple elements in extent</gco:CharacterString>
+               </gex:description>
+               <gex:geographicElement>
+                  <gex:EX_GeographicDescription>
+                     <gex:geographicIdentifier/>
+                  </gex:EX_GeographicDescription>
+               </gex:geographicElement>
+               <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                     <gex:extent/>
+                  </gex:EX_TemporalExtent>
+               </gex:temporalElement>
+               <gex:verticalElement>
+                  <gex:EX_VerticalExtent>
+                     <gex:minimumValue>
+                        <gco:Real>-1000</gco:Real>
+                     </gex:minimumValue>
+                     <gex:maximumValue>
+                        <gco:Real>0</gco:Real>
+                     </gex:maximumValue>
+                     <gex:verticalCRSId gco:nilReason="inapplicable"/>                     
+                  </gex:EX_VerticalExtent>
+               </gex:verticalElement>
+            </gex:EX_Extent>
+         </cit:extent>
       </cit:CI_Responsibility>
    </mdb:contact>
    <mdb:contact>
@@ -1199,7 +1334,7 @@
          </mri:topicCategory>
          <mri:topicCategory gco:nilReason="missing"/>
          <mri:topicCategory gco:nilReason="missing"/>
-         <mri:extent>
+         <cit:extent>
             <gex:EX_Extent>
                <gex:geographicElement>
                   <gex:EX_GeographicBoundingBox>
@@ -1221,7 +1356,7 @@
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
             </gex:EX_Extent>
-         </mri:extent>
+         </cit:extent>
          <mri:additionalDocumentation>
             <cit:CI_Citation>
                <cit:title>
