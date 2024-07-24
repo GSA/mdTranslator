@@ -13,15 +13,17 @@ class TestReaderIso191153LegalConstraint < TestReaderIso191153Parent
    def test_legal_constraint_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//mcc:imageConstraints')[1]
+      xIn = @@xDoc.xpath('.//mco:MD_LegalConstraints')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
+      assert_equal('legal', hDictionary[:type])
 
-      assert_equal(%w[topSecret otherRestrictions], hDictionary[:accessCodes])
-      assert_equal(['otherRestrictions'], hDictionary[:useCodes])
-      assert_equal(['No condition applies'], hDictionary[:otherCons])
+      hLegalConstraint = hDictionary[:legalConstraint]
+      assert_equal(%w[topSecret otherRestrictions], hLegalConstraint[:accessCodes])
+      assert_equal(['otherRestrictions'], hLegalConstraint[:useCodes])
+      assert_equal(['No condition applies'], hLegalConstraint[:otherCons])
    end
 end

@@ -14,11 +14,14 @@ module ADIWG
                @@classSysXPath = 'mco:classificationSystem//gco:CharacterString'
                @@handlingXPath = 'mco:handlingDescription//gco:CharacterString'
                @@type = 'security'
-               def self.unpack(xConstraint, hResponseObj)
+               def self.unpack(xSecurityConstraint, hResponseObj)
                   intMetadataClass = InternalMetadata.new
+                  hConstraint = intMetadataClass.newConstraint
                   hSecConstraint = intMetadataClass.newSecurityConstraint
 
-                  xSecurityConstraint = xConstraint.xpath(@@securityConstraintXPath)[0]
+                  hConstraint[:type] = @@type
+
+                  # xSecurityConstraint = xConstraint.xpath(@@securityConstraintXPath)[0]
                   return nil if xSecurityConstraint.nil?
 
                   # :classCode (required)
@@ -45,7 +48,8 @@ module ADIWG
                   xHandling = xSecurityConstraint.xpath(@@handlingXPath)[0]
                   hSecConstraint[:handling] = xHandling.nil? ? nil : xHandling.text
 
-                  hSecConstraint
+                  hConstraint[:securityConstraint] = hSecConstraint
+                  hConstraint
                end
             end
          end
