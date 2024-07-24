@@ -8,16 +8,19 @@ module ADIWG
       module Readers
          module Iso191153
             module LegalConstraint
-               @@legalConstraintXPath = 'mco:MD_LegalConstraints'
+               # @@legalConstraintXPath = 'mco:MD_LegalConstraints'
                @@accessConstraintsXPath = 'mco:accessConstraints//mco:MD_RestrictionCode'
                @@useConstraintsXPath = 'mco:useConstraints//mco:MD_RestrictionCode'
                @@otherConstraintsXPath = 'mco:otherConstraints//gco:CharacterString'
                @@type = 'legal'
-               def self.unpack(xConstraint, _hResponseObj)
+               def self.unpack(xLegalConstraint, _hResponseObj)
                   intMetadataClass = InternalMetadata.new
+                  hConstraint = intMetadataClass.newConstraint
                   hLegalConstraint = intMetadataClass.newLegalConstraint
 
-                  xLegalConstraint = xConstraint.xpath(@@legalConstraintXPath)[0]
+                  hConstraint[:type] = @@type
+
+                  # xLegalConstraint = xConstraint.xpath(@@legalConstraintXPath)[0]
                   return nil if xLegalConstraint.nil?
 
                   # :accessCodes (optional)
@@ -40,7 +43,8 @@ module ADIWG
                   xOtherConstraints = xLegalConstraint.xpath(@@otherConstraintsXPath)
                   hLegalConstraint[:otherCons] = xOtherConstraints.map(&:text).compact unless xOtherConstraints.empty?
 
-                  hLegalConstraint
+                  hConstraint[:legalConstraint] = hLegalConstraint
+                  hConstraint
                end
             end
          end

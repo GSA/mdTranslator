@@ -13,15 +13,18 @@ class TestReaderIso191153SecurityConstraint < TestReaderIso191153Parent
    def test_security_constraint_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//mcc:imageConstraints')[2]
+      xIn = @@xDoc.xpath('.//mco:MD_SecurityConstraints')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
-      assert_equal('unclassified', hDictionary[:classCode])
-      assert_equal('user note on image security constraint', hDictionary[:userNote])
-      assert_equal('system 1.56A', hDictionary[:classSystem])
-      assert_equal('handle with care', hDictionary[:handling])
+      assert_equal('security', hDictionary[:type])
+
+      hSecurityConstraint = hDictionary[:securityConstraint]
+      assert_equal('unclassified', hSecurityConstraint[:classCode])
+      assert_equal('user note on security constraint', hSecurityConstraint[:userNote])
+      assert_equal('system 1.56A', hSecurityConstraint[:classSystem])
+      assert_equal('handle with care', hSecurityConstraint[:handling])
    end
 end
