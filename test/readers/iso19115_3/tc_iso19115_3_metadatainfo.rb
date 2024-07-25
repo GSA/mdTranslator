@@ -27,7 +27,7 @@ class TestReaderIso191153MetadataInformation < TestReaderIso191153Parent
       # add more content here over time...
    end
 
-   def test_no_metadatainfo
+   def test_no_contact
       xDoc = TestReaderIso191153Parent.get_xml('iso19115-3_no_md_id.xml')
       TestReaderIso191153Parent.set_xdoc(xDoc)
 
@@ -35,27 +35,8 @@ class TestReaderIso191153MetadataInformation < TestReaderIso191153Parent
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-      expectedMsg = 'ERROR: ISO19115-3 reader: element \'mcc:MD_Identifier\' '\
-      'is missing in metadata identifier'
-
-      assert_empty hDictionary
-      assert hResponse[:readerExecutionMessages][0] == expectedMsg
-   end
-
-   def test_no_parent_metadata
-      xDoc = TestReaderIso191153Parent.get_xml('iso19115-3_no_parentmd.xml')
-      TestReaderIso191153Parent.set_xdoc(xDoc)
-
-      xIn = xDoc.xpath('mdb:MD_Metadata')
-      hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hDictionary = @@nameSpace.unpack(xIn, hResponse)
-
-      intMetadataClass = InternalMetadata.new
-      expectedHash = intMetadataClass.newCitation
-      expectedMsg = 'WARNING: ISO19115-3 reader: element \'mdb:parentMetadata\' '\
-      'is missing in metadata identifier'
-
-      assert hDictionary[:parentMetadata] == expectedHash
+      expectedMsg = 'ERROR: ISO19115-3 reader: element \'mdb:contact\' is missing in mdb:MD_Metadata'
+      refute_empty hDictionary
       assert hResponse[:readerExecutionMessages][0] == expectedMsg
    end
 end

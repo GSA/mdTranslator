@@ -24,6 +24,7 @@ module ADIWG
                @@identifierXpath = 'mcc:MD_Identifier'
 
                def self.process_id(xIdentifier, hResponseObj)
+                  # TODO: refactor this module
                   intMetadataClass = InternalMetadata.new
                   hIdentifier = intMetadataClass.newIdentifier
 

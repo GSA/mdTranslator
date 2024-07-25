@@ -14,42 +14,45 @@ module ADIWG
             module MetadataInformation
                @@mdParentXpath = 'mdb:parentMetadata'
                @@mdIdentifier = 'mdb:metadataIdentifier'
-
+               @@defaultLocaleXPath = 'mdb:defaultLocale'
+               @@otherLocaleXPath = 'mdb:otherLocale'
+               @@contactXPath = 'mdb:contact'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hMetadataInfo = intMetadataClass.newMetadataInfo
 
-                  xMetadataInfo = xMetadata.xpath(@@mdIdentifier)
-
-                  # :metadataIdentifier (required)
-                  if xMetadataInfo.empty?
-                     msg = 'ERROR: ISO19115-3 reader: element \'mcc:MD_Identifier\' is missing in metadata identifier'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionePass] = false
-
-                     return xMetadataInfo
+                  # :metadataIdentifier (optional)
+                  xMetadataInfo = xMetadata.xpath(@@mdIdentifier)[0]
+                  unless xMetadataInfo.nil?
+                     hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo, hResponseObj)[0]
                   end
-
-                  hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo[0], hResponseObj)[0]
 
                   # :parentMetadata (optional)
-                  xMdParent = xMetadata.xpath(@@mdParentXpath)
-                  if xMdParent.empty?
-                     msg = 'WARNING: ISO19115-3 reader: element \'mdb:parentMetadata\' '\
-                     'is missing in metadata identifier'
-                     hResponseObj[:readerExecutionMessages] << msg
+                  xMdParent = xMetadata.xpath(@@mdParentXpath)[0]
+                  hMetadataInfo[:parentMetadata] = Citation.unpack(xMdParent, hResponseObj) unless xMdParent.nil?
+
+                  # :defaultMetadataLocale (optional)
+                  xDefaultLocale = xMetadata.xpath(@@defaultLocaleXPath)[0]
+                  unless xDefaultLocale.nil?
+                     hMetadataInfo[:defaultMetadataLocale] =
+                        Locale.unpack(xDefaultLocale, hResponseObj)
                   end
 
-                  hMetadataInfo[:parentMetadata] = Citation.unpack(xMdParent, hResponseObj)
+                  # :otherMetadataLocales (optional)
+                  xOtherLocales = xMetadata.xpath(@@otherLocaleXPath)
+                  unless xOtherLocales.empty?
+                     hMetadataInfo[:otherMetadataLocales] = xOtherLocales.map { |l| Locale.unpack(l, hResponseObj) }
+                  end
 
-                  # :defaultMetadataLocale
-                  hMetadataInfo[:defaultMetadataLocale] = Locale.unpack(xMetadata, hResponseObj, 'default')
+                  # :metadataContacts (required)
+                  xContacts = xMetadata.xpath(@@contactXPath)
+                  if xContacts.empty?
+                     msg = 'ERROR: ISO19115-3 reader: element \'mdb:contact\' is missing in mdb:MD_Metadata'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionePass] = false
+                  end
 
-                  # :otherMetadataLocales
-                  hMetadataInfo[:otherMetadataLocales] = Locale.unpack(xMetadata, hResponseObj, 'other')
-
-                  # :metadataContacts
-                  hMetadataInfo[:metadataContacts] = Responsibility.unpack(xMetadata, hResponseObj)
+                  hMetadataInfo[:metadataContacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }
 
                   # :metadataDates TODO
                   # :metadataLinkages TODO

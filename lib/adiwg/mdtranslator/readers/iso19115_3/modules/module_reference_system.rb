@@ -9,24 +9,25 @@ module ADIWG
       module Readers
          module Iso191153
             module ReferenceSystem
-               @@vertRefSysPath = 'gex:verticalCRSId//mrs:MD_ReferenceSystem'
+               @@vertRefSysPath = 'mrs:MD_ReferenceSystem'
                @@refSysCodeXPath = 'mrs:referenceSystemType//mrs:MD_ReferenceSystemTypeCode'
                @@refSysIdXPath = 'mcc:referenceSystemIdentifier'
-               def self.unpack(xVertExtent, hResponseObj)
+               def self.unpack(vertCRSId, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hSRS = intMetadataClass.newSpatialReferenceSystem
 
                   codeListValue = ADIWG::Mdtranslator::Readers::Iso191153::CODELISTVALUE
 
-                  xMDRefSys = xVertExtent.xpath(@@vertRefSysPath)[0]
-                  xRefSysCode = xMDRefSys.xpath(@@refSysCodeXPath)
+                  return nil if vertCRSId.attr('gco:nilReason') == 'inapplicable'
+
+                  xMDRefSys = vertCRSId.xpath(@@vertRefSysPath)[0]
 
                   # :systemType
-                  hSRS[:systemType] = xRefSysCode.empty? ? nil : xRefSysCode[0].attr(codeListValue)
+                  xRefSysCode = xMDRefSys.xpath(@@refSysCodeXPath)[0]
+                  hSRS[:systemType] = xRefSysCode.nil? ? nil : xRefSysCode.attr(codeListValue)
 
                   # :systemIdentifier
                   xRefSysId = xMDRefSys.xpath(@@refSysIdXPath)[0]
-
                   # TODO: update Identification to work without grabbing the first element
                   hSRS[:systemIdentifier] = Identification.unpack(xRefSysId, hResponseObj)[0]
 

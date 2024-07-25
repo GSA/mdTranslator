@@ -13,17 +13,12 @@ class TestReaderIso191153TemporalExtent < TestReaderIso191153Parent
    def test_temporal_extent_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gex:EX_Extent')[1] # second one is temporal
-
+      xIn = @@xDoc.xpath('.//gex:temporalElement')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hArray = @@nameSpace.unpack(xIn, hResponse)
+      hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-      refute_empty hArray
-      assert_equal(1, hArray.size)
-
-      extArray = hArray[0]
-
-      refute_empty extArray[:timeInstant]
-      refute_empty extArray[:timePeriod]
+      refute_empty hDictionary
+      refute_empty hDictionary[:timeInstant]
+      refute_empty hDictionary[:timePeriod]
    end
 end

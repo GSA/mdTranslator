@@ -13,9 +13,9 @@ class TestReaderIso191153Locale < TestReaderIso191153Parent
    def test_default_locale_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('mdb:MD_Metadata')
+      xIn = @@xDoc.xpath('mdb:MD_Metadata//mdb:defaultLocale')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hDictionary = @@nameSpace.unpack(xIn, hResponse, 'default')
+      hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
       refute_empty hDictionary
 
@@ -28,9 +28,9 @@ class TestReaderIso191153Locale < TestReaderIso191153Parent
    def test_other_locale_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('mdb:MD_Metadata')
+      xIn = @@xDoc.xpath('mdb:MD_Metadata//mdb:otherLocale')
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hArray = @@nameSpace.unpack(xIn, hResponse, 'other')
+      hArray = xIn.map { |i| @@nameSpace.unpack(i, hResponse) }
 
       refute_empty hArray
       assert hArray.instance_of? Array

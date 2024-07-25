@@ -2,7 +2,7 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
-# require 'module_citation'
+require_relative 'module_resource_info'
 require_relative 'module_metadata_info'
 
 module ADIWG
@@ -22,12 +22,15 @@ module ADIWG
                   # intMetadata[:metadataInfo][:metadataIdentifier][:identifier] = nil
 
                   # :resourceInfo TODO
+
+                  intMetadata[:resourceInfo] = ResourceInformation.unpack(xMetadata, hResponseObj)
+
                   # intMetadata[:resourceInfo] = {:citation => {}, :pointOfContacts => {}}
                   # intMetadata[:resourceInfo][:citation][:dates] = []
                   # intMetadata[:resourceInfo][:pointOfContacts] = [{'parties':[{'contactId': 'test'}]}]
                   # intMetadata[:resourceInfo][:citation][:identifiers] = {}
                   # intMetadata[:resourceInfo][:citation][:onlineResources] = {}
-                  # intMetadata[:resourceInfo][:constraints] = []
+
                   # intMetadata[:resourceInfo][:keywords] = []
                   # intMetadata[:resourceInfo][:citation][:responsibleParties] = [{'parties':[{'contactId': 'test'}]}]
 

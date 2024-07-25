@@ -10,38 +10,26 @@ module ADIWG
       module Readers
          module Iso191153
             module TemporalExtent
-               @@temporalElemXPath = 'gex:temporalElement'
                @@temporalExtXPath = 'gex:EX_TemporalExtent'
                @@timePeriodXPath = './/gml:TimePeriod'
                @@timeInstantXPath = './/gml:TimeInstant'
-               def self.unpack(xExExtent, hResponseObj)
+               def self.unpack(xtemporalelem, hResponseObj)
                   intMetadataClass = InternalMetadata.new
+                  hTemporalExt = intMetadataClass.newTemporalExtent
 
-                  extents = []
+                  xTemporalExt = xtemporalelem.xpath(@@temporalExtXPath)[0]
 
-                  xTemporalElems = xExExtent.xpath(@@temporalElemXPath)
+                  # :timePeriod
+                  xTimePeriod = xTemporalExt.xpath(@@timePeriodXPath)[0]
+                  hTemporalExt[:timePeriod] = TimePeriod.unpack(xTimePeriod, hResponseObj) unless xTimePeriod.nil?
 
-                  return extents if xTemporalElems.empty?
-
-                  xTemporalElems.each do |xtemporalelem|
-                     hTemporalExt = intMetadataClass.newTemporalExtent
-
-                     xTemporalExt = xtemporalelem.xpath(@@temporalExtXPath)[0]
-
-                     # :timePeriod
-                     xTimePeriod = xTemporalExt.xpath(@@timePeriodXPath)[0]
-                     hTemporalExt[:timePeriod] = TimePeriod.unpack(xTimePeriod, hResponseObj) unless xTimePeriod.nil?
-
-                     # :timeInstant
-                     xTimeInstant = xTemporalExt.xpath(@@timeInstantXPath)[0]
-                     unless xTimeInstant.nil?
-                        hTemporalExt[:timeInstant] =
-                           TimeInstant.unpack(xTimeInstant, hResponseObj)
-                     end
-
-                     extents << hTemporalExt
+                  # :timeInstant
+                  xTimeInstant = xTemporalExt.xpath(@@timeInstantXPath)[0]
+                  unless xTimeInstant.nil?
+                     hTemporalExt[:timeInstant] =
+                        TimeInstant.unpack(xTimeInstant, hResponseObj)
                   end
-                  extents
+                  hTemporalExt
                end
             end
          end

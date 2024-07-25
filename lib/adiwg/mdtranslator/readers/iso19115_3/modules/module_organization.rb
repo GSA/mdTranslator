@@ -44,7 +44,7 @@ module ADIWG
                   xContactInfo = xOrg.xpath(@@contactInfoXPath)
                   contactData = Contact.unpack(xContactInfo[0], hResponseObj) unless xContactInfo.empty?
 
-                  hContact = AdiwgUtils.reconcile_hashes(contactData, hContact)
+                  hContact = AdiwgUtils.reconcile_hashes(contactData, hContact) unless contactData.nil?
 
                   # :logos
                   xLogos = xOrg.xpath(@@logoXPath)

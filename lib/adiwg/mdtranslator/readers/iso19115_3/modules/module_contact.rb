@@ -11,6 +11,7 @@ module ADIWG
       module Readers
          module Iso191153
             module Contact
+               @@onlineResourceXPath = 'cit:onlineResource'
                @@contactXpath = 'cit:CI_Contact'
                @@contactTypeXPath = 'cit:contactType//gco:CharacterString'
                @@contactInstXPath = 'cit:contactInstructions//gco:CharacterString'
@@ -52,7 +53,10 @@ module ADIWG
                   hContact[:eMailList] = aAddressData[1]
 
                   # :onlineResources
-                  hContact[:onlineResources] = OnlineResource.unpack(xContact, hResponseObj)
+                  xOnlineResources = xContact.xpath(@@onlineResourceXPath)
+                  unless xOnlineResources.empty?
+                     hContact[:onlineResources] = xOnlineResources.map { |r| OnlineResource.unpack(r, hResponseObj) }
+                  end
 
                   # memberOfOrgs & logos aren't used in the writer
                   hContact

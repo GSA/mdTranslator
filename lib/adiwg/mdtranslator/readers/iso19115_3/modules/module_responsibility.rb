@@ -11,59 +11,56 @@ module ADIWG
       module Readers
          module Iso191153
             module Responsibility
-               @@contactXpath = 'mdb:contact'
                @@respbltyXpath = 'cit:CI_Responsibility'
                @@roleCodeXpath = 'cit:role//cit:CI_RoleCode'
-               def self.process_responsibility(xContact, hResponseObj)
+               @@extentXPath = 'cit:extent'
+               @@partyXPath = 'cit:party'
+               def self.unpack(xParent, hResponseObj)
+                  # cit:CI_Responsibility can occur in a variety of places
+                  # (e.g. mco:addressee, mdb:contact, cit:citedResponsibleParty, mco:responsibleParty )
+                  # so that's the reason for the vague arg name "xParent"
+
                   intMetadataClass = InternalMetadata.new
                   hRespblty = intMetadataClass.newResponsibility
 
-                  xRespblty = xContact.xpath(@@respbltyXpath)[0]
+                  xRespblty = xParent.xpath(@@respbltyXpath)[0]
 
-                  # CI_Responsibility is required
+                  # CI_Responsibility (required)
                   if xRespblty.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:CI_Responsibility\' is missing in mdb:contact'
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionePass] = false
-
-                     return hRespblty
+                     return nil
                   end
 
+                  # cit: role (required)
                   xRoleCode = xRespblty.xpath(@@roleCodeXpath)[0]
-
                   if xRoleCode.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:role\' is missing in cit:CI_Responsibility'
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionePass] = false
-
-                     return hRespblty
+                     return nil
                   end
 
                   codeListValue = ADIWG::Mdtranslator::Readers::Iso191153::CODELISTVALUE
-
-                  # :roleName
                   hRespblty[:roleName] = xRoleCode.attr(codeListValue)
 
-                  # :roleExtents
-                  hRespblty[:roleExtents] = Extent.unpack(xRespblty, hResponseObj)
+                  # :roleExtents (optional)
+                  xExtents = xRespblty.xpath(@@extentXPath)
+                  hRespblty[:roleExtents] = xExtents.map { |e| Extent.unpack(e, hResponseObj) }
 
-                  # :parties
-                  hRespblty[:parties] = Party.unpack(xRespblty, hResponseObj)
-
-                  hRespblty
-               end
-
-               def self.unpack(xMetadata, hResponseObj)
-                  xContacts = xMetadata.xpath(@@contactXpath)
-
-                  # contact is required
-                  if xContacts.empty?
-                     msg = 'ERROR: ISO19115-3 reader: element \'mdb:contact\' is missing in mdb:metadataIdentifier'
+                  # :parties (required)
+                  xParties = xRespblty.xpath(@@partyXPath)
+                  if xParties.empty?
+                     msg = 'ERROR: ISO19115-3 reader: element \'cit:party\' is missing in cit:CI_Responsibility'
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionePass] = false
+                     return nil
                   end
 
-                  xContacts.map { |c| process_responsibility(c, hResponseObj) }
+                  hRespblty[:parties] = xParties.map { |p| Party.unpack(p, hResponseObj) }
+
+                  hRespblty
                end
             end
          end

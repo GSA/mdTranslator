@@ -16,7 +16,7 @@ module ADIWG
                @@endPosXPath = 'gml:endPosition'
                @@intervalXPath = 'gml:timeInterval'
                @@durationXPath = 'gml:duration'
-               def self.unpack(xTimePeriod, hResponseObj) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+               def self.unpack(xTimePeriod, hResponseObj) # rubocop:disable Metrics/AbcSize
                   intMetadataClass = InternalMetadata.new
 
                   hTimePeriod = intMetadataClass.newTimePeriod

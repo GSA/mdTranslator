@@ -13,7 +13,7 @@ class TestReaderIso191153ReferenceSystem < TestReaderIso191153Parent
    def test_reference_system_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gex:EX_VerticalExtent')[0] # we want the first one
+      xIn = @@xDoc.xpath('.//gex:verticalCRSId')[0] # we want the first one
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
