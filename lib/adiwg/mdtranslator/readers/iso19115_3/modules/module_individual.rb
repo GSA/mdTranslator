@@ -43,7 +43,9 @@ module ADIWG
                   xContactInfo = xIndividual.xpath(@@contactInfoXPath)
                   contactData = Contact.unpack(xContactInfo[0], hResponseObj) unless xContactInfo.empty?
 
-                  AdiwgUtils.reconcile_hashes(contactData, hContact)
+                  return AdiwgUtils.reconcile_hashes(contactData, hContact) unless contactData.nil?
+
+                  hContact
                end
             end
          end

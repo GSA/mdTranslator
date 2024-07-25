@@ -29,7 +29,7 @@ module ADIWG
                   if xRespblty.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:CI_Responsibility\' is missing in mdb:contact'
                      hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionePass] = false
+                     hResponseObj[:readerExecutionPass] = false
                      return nil
                   end
 
@@ -38,7 +38,7 @@ module ADIWG
                   if xRoleCode.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:role\' is missing in cit:CI_Responsibility'
                      hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionePass] = false
+                     hResponseObj[:readerExecutionPass] = false
                      return nil
                   end
 
@@ -54,7 +54,7 @@ module ADIWG
                   if xParties.empty?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:party\' is missing in cit:CI_Responsibility'
                      hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionePass] = false
+                     hResponseObj[:readerExecutionPass] = false
                      return nil
                   end
 

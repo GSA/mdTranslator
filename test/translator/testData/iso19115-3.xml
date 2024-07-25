@@ -826,6 +826,13 @@
                <cit:title>
                   <gco:CharacterString>Spatial data: A large-scale database of modeled contemporary and future water temperature data for 10,774 Michigan, Minnesota and Wisconsin Lakes</gco:CharacterString>
                </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://dx.doi.org/10.5066/F7DV1H10</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
@@ -1351,7 +1358,7 @@
             </cit:CI_Citation>
          </mri:citation>
          <mri:abstract>
-            <gco:CharacterString>Climate change has been shown to influence lake temperatures globally. To better understand the diversity of lake responses to climate change and give managers tools to manage individual lakes, we modelled daily water temperature profiles for 10,774 lakes in Michigan, Minnesota and Wisconsin for contemporary (1979-2015) and future (2020-2040 and 2080-2100) time periods with climate models based on the Representative Concentration Pathway 8.5, the worst-case emission scenario. From simulated temperatures, we derived commonly used, ecologically relevant annual metrics of thermal conditions for each lake. We included all available supporting metadata including satellite and in-situ observations of water clarity, maximum observed lake depth, land-cover based estimates of surrounding canopy height and observed water temperature profiles (used here for validation). This unique dataset offers landscape-level insight into the future impact of climate change on lakes. This data set contains the following parameters: site_id, Prmnn_I, GNIS_ID, GNIS_Nm, ReachCd, FType, FCode, which are defined below.</gco:CharacterString>
+            <gco:CharacterString>Climate change has been shown to influence lake temperatures globally. To better understand the diversity of lake responses to climate change and give managers tools to manage individual lakes, we modelled daily water temperature profiles for 10,774 lakes in Michigan, Minnesota and Wisconsin for contemporary (1979-2015) and future (2020-2040 and 2080-2100) time periods with climate models based on the Representative Concentration Pathway 8.5, the worst-case emission scenario.</gco:CharacterString>
          </mri:abstract>
          <mri:purpose>
             <gco:CharacterString>Fisheries biology, limnological research, and climate science.</gco:CharacterString>
