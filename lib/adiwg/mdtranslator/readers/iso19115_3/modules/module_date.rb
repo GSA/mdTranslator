@@ -57,6 +57,7 @@ module ADIWG
                      msg = 'WARNING: ISO19115-3 reader: element \'cit:CI_DateTypeCode\' is missing in cit:CI_Date'
                      hResponseObj[:readerStructureMessages] << msg
                      hResponseObj[:readerStructurePass] = false
+                     return nil
                   end
 
                   hDate[:dateType] = xDateTypeCode.attr('codeListValue')
