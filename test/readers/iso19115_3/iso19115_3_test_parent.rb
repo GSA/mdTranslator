@@ -13,7 +13,9 @@ require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_iso19115_3'
 class TestReaderIso191153Parent < Minitest::Test
    @@hResponseObj = {
       readerExecutionPass: true,
-      readerExecutionMessages: []
+      readerExecutionMessages: [],
+      readerStructurePass: true,
+      readerStructureMessages: []
    }
 
    # get iso19115-3 file for testing from test data folder
