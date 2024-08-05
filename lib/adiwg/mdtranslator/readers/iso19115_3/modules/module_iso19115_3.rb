@@ -5,12 +5,15 @@ require 'uuidtools'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative '../version'
 require_relative 'module_metadata'
+require_relative 'module_contact'
+require 'debug'
 
 module ADIWG
    module Mdtranslator
       module Readers
          module Iso191153
             module Iso191153
+               @@contactXPath = 'mdb:contact'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
 
@@ -26,8 +29,8 @@ module ADIWG
                   hMetadata = Metadata.unpack(xMetadata, hResponseObj)
                   @intObj[:metadata] = hMetadata
 
-                  # :contacts # TODO
-                  # @intObj[:contacts] = nil
+                  xContacts = xMetadata.xpath(@@contactXPath)
+                  @intObj[:contacts] = xContacts.map { |c| Contact.unpack(c, hResponseObj) }
                   # intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList':
                   # ['test@gmail.com'], 'externalIdentifier': []}]
 
