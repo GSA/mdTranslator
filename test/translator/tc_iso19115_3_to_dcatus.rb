@@ -90,10 +90,45 @@ class TestIso191153DcatusTranslation < Minitest::Test
       assert_equal(expected, res)
    end
 
+   def test_modified
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Modified
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal(DateTime.iso8601('2017-04-06T20:04:58+00:00'), res)
+   end
+
+   # TODO: anything with parties/contacts needs to be revisited
+   # TODO: see comment above
+   # def test_publisher
+   #    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
+   # end
+
+   # TODO: see comment above
+   # contactPoint
+
    def test_access_level_translate
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
       res = dcatusNS.build(@@intMetadata)
 
       assert_equal('non-public', res)
+   end
+
+   # TODO: the code looks a tad weird. gonna meet with johnathan.
+   # identifier
+
+   def test_distribution_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Distribution
+      res = dcatusNS.build(@@intMetadata)
+
+      refute_empty res
+      assert res.instance_of? Array
+      assert_equal(1, res.size)
+
+      dist = res[0]
+      assert_equal('dcat:Distribution', dist['@type'])
+      assert_equal('distribution description', dist['description'])
+      assert_equal('https://distributiontransfer.com/onlineresource.png', dist['downloadURL'])
+      assert_equal('format specification', dist['mediaType'])
+      assert_equal('name test 123', dist['title'])
    end
 end

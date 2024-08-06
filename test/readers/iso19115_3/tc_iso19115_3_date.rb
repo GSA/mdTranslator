@@ -13,7 +13,7 @@ class TestReaderIso191153Date < TestReaderIso191153Parent
    def test_date_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//cit:date')[2]
+      xIn = @@xDoc.xpath('.//cit:date')[6]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
