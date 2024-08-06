@@ -13,7 +13,7 @@ class TestReaderIso191153Individual < TestReaderIso191153Parent
    def test_individual_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//cit:party')[8]
+      xIn = @@xDoc.xpath('.//cit:party')[10]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

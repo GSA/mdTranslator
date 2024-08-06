@@ -13,7 +13,7 @@ class TestReaderIso191153CommonConstraint < TestReaderIso191153Parent
    def test_common_constraint_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//mcc:imageConstraints')
+      xIn = @@xDoc.xpath('.//mco:MD_Constraints')[1]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

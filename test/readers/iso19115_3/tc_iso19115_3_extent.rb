@@ -13,7 +13,7 @@ class TestReaderIso191153Extent < TestReaderIso191153Parent
    def test_responsibility_extent_complete # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//cit:CI_Responsibility')[0] # we want the first one
+      xIn = @@xDoc.xpath('.//cit:CI_Responsibility')[2]
       xExtents = xIn.xpath('cit:extent')
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       extentArray = xExtents.map { |e| @@nameSpace.unpack(e, hResponse) }
