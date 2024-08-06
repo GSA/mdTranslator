@@ -4,12 +4,14 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_resource_info'
 require_relative 'module_metadata_info'
+require_relative 'module_distribution'
 
 module ADIWG
    module Mdtranslator
       module Readers
          module Iso191153
             module Metadata
+               @@distributionInfoXPath = 'mdb:distributionInfo'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   intMetadata = intMetadataClass.newMetadata
@@ -34,8 +36,13 @@ module ADIWG
                   # intMetadata[:resourceInfo][:keywords] = []
                   # intMetadata[:resourceInfo][:citation][:responsibleParties] = [{'parties':[{'contactId': 'test'}]}]
 
+                  # :distributorInfo (optional)
+                  # <element maxOccurs="unbounded" minOccurs="0" name="distributionInfo"
+                  # type="mcc:Abstract_Distribution_PropertyType"/>
+                  xDistInfos = xMetadata.xpath(@@distributionInfoXPath)
+                  intMetadata[:distributorInfo] = xDistInfos.map { |d| Distribution.unpack(d, hResponseObj) }
+
                   # :lineageInfo TODO
-                  # :distributorInfo TODO
                   # :associatedResources TODO
                   # :additionalDocuments TODO
                   # :funding TODO

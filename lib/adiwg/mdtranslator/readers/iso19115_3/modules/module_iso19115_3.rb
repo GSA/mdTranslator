@@ -32,8 +32,8 @@ module ADIWG
                   hMetadata = Metadata.unpack(xMetadata, hResponseObj)
                   @intObj[:metadata] = hMetadata
 
-                  # :contacts # TODO
-                  # @intObj[:contacts] = nil
+                  xContacts = xMetadata.xpath(@@contactXPath)
+                  @intObj[:contacts] = xContacts.map { |c| Contact.unpack(c, hResponseObj) }
                   # intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList':
                   # ['test@gmail.com'], 'externalIdentifier': []}]
 

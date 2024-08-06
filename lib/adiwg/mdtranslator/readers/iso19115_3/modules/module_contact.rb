@@ -28,7 +28,7 @@ module ADIWG
                         'is missing in cit:contactInfo'
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionPass] = false
-                     xContact
+                     return xContact
                   end
 
                   # :contactType

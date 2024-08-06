@@ -25,7 +25,7 @@ module ADIWG
                   if xExExtent.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'gex:EX_Extent\' is missing in extent'
                      hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionePass] = false
+                     hResponseObj[:readerExecutionPass] = false
                      return nil
                   end
 

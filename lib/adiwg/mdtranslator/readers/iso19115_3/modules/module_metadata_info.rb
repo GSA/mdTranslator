@@ -49,7 +49,7 @@ module ADIWG
                   if xContacts.empty?
                      msg = 'ERROR: ISO19115-3 reader: element \'mdb:contact\' is missing in mdb:MD_Metadata'
                      hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionePass] = false
+                     hResponseObj[:readerExecutionPass] = false
                   end
 
                   hMetadataInfo[:metadataContacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }

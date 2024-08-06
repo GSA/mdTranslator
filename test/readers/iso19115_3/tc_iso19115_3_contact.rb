@@ -13,7 +13,7 @@ class TestReaderIso191153Contact < TestReaderIso191153Parent
    def test_address_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//cit:contactInfo')[2]
+      xIn = @@xDoc.xpath('.//cit:contactInfo')[3]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

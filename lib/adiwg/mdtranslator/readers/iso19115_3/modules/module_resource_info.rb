@@ -23,6 +23,7 @@ module ADIWG
                   hResourceInfo = intMetadataClass.newResourceInfo
 
                   # just doing constraints to satisfy dcatus
+                  # :constraints
                   xMdConstraints = xMetadata.xpath(@@constraintsXPath)
                   aMdConstraints = xMdConstraints.map { |c| Constraint.unpack(c, hResponseObj) }.flatten
                   hResourceInfo[:constraints] = aMdConstraints
