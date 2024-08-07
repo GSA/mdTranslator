@@ -15,7 +15,7 @@ module ADIWG
       module Readers
          module Iso191153
             module CommonConstraint
-               @@constraintXPath = 'mco:MD_Constraints'
+               # @@constraintXPath = 'mco:MD_Constraints'
                @@releaseXPath = 'mco:releasability'
                @@responsiblePartyXPath = 'mco:responsibleParty'
                @@useLimitationXPath = 'mco:useLimitation//gco:CharacterString'
@@ -24,11 +24,11 @@ module ADIWG
                @@referenceXPath = 'mco:reference'
                @@releasabilityXPath = 'mco:releasability'
                @@type = 'use'
-               def self.unpack(xConstraint, hResponseObj)
+               def self.unpack(xCommonConstraint, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hConstraint = intMetadataClass.newConstraint
 
-                  xCommonConstraint = xConstraint.xpath(@@constraintXPath)[0]
+                  # xCommonConstraint = xConstraint.xpath(@@constraintXPath)[0]
                   return nil if xCommonConstraint.nil?
 
                   # :type (internal)

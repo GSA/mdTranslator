@@ -15,9 +15,8 @@ module ADIWG
                @@legalConstraintXPath = 'mco:MD_LegalConstraints'
                @@securityConstraintXPath = 'mco:MD_SecurityConstraints'
                def self.unpack(xConstraint, hResponseObj)
-                  # turning this off since dcatus only checks for legal/security constraints
-                  # constraint = CommonConstraint.unpack(xConstraint, hResponseObj)
-                  # return constraint unless constraint.nil?
+                  xCommonConstraints = xConstraint.xpath(@@commonConstraintXPath)
+                  aConstraints = xCommonConstraints.map { |c| CommonConstraint.unpack(c, hResponseObj) }
 
                   # legal constraints
                   xLegalConstraints = xConstraint.xpath(@@legalConstraintXPath)
@@ -27,7 +26,7 @@ module ADIWG
                   xSecurityConstraints = xConstraint.xpath(@@securityConstraintXPath)
                   aSecurityConstraints = xSecurityConstraints.map { |s| SecurityConstraint.unpack(s, hResponseObj) }
 
-                  aLegalConstraints + aSecurityConstraints
+                  aConstraints + aLegalConstraints + aSecurityConstraints
                end
             end
          end

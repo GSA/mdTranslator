@@ -5,16 +5,19 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_constraint'
 require_relative 'module_citation'
 require_relative 'module_keyword'
+require_relative 'module_extent'
 
 module ADIWG
    module Mdtranslator
       module Readers
          module Iso191153
             module ResourceInformation
-               @@constraintsXPath = 'mdb:metadataConstraints'
+               # TODO: reuse idInfo//md_Info paths instead of repeating.
+               @@constraintsXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:resourceConstraints'
                @@mdIdentifierCitationXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:citation'
                @@abstractXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:abstract//gco:CharacterString'
                @@keywordsXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:descriptiveKeywords'
+               @@extentsXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:extent'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -36,6 +39,10 @@ module ADIWG
                   # :keywords
                   xKeywords = xMetadata.xpath(@@keywordsXPath)
                   hResourceInfo[:keywords] = xKeywords.map { |k| Keyword.unpack(k, hResponseObj) }
+
+                  # :extents
+                  xExtents = xMetadata.xpath(@@extentsXPath)
+                  hResourceInfo[:extents] = xExtents.map { |e| Extent.unpack(e, hResponseObj) }
 
                   hResourceInfo
                end

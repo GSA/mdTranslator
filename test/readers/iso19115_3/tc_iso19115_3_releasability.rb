@@ -13,7 +13,7 @@ class TestReaderIso191153Releasability < TestReaderIso191153Parent
    def test_releasability_complete
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//mco:releasability')[0]
+      xIn = @@xDoc.xpath('.//mco:releasability')[1]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

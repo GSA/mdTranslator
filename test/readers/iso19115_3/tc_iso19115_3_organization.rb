@@ -13,7 +13,7 @@ class TestReaderIso191153Organization < TestReaderIso191153Parent
    def test_organization_complete # rubocop: disable Metrics/AbcSize
       TestReaderIso191153Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//cit:party')[1]
+      xIn = @@xDoc.xpath('.//cit:party')[2]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

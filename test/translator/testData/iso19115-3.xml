@@ -201,6 +201,39 @@
       </mrd:MD_Distribution>
    </mdb:distributionInfo>
    <mdb:metadataConstraints>
+      <mco:MD_Constraints>
+         <mco:useLimitation>
+               <gco:CharacterString>Common constraint for use of this thing</gco:CharacterString>
+         </mco:useLimitation>
+         <mco:useLimitation>
+               <gco:CharacterString>Important Disclaimer</gco:CharacterString>
+         </mco:useLimitation>
+         <mco:releasability>
+            <mco:MD_Releasability>
+               <mco:addressee>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007"/>
+                     </cit:role>
+                     <cit:party>
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>orgName</gco:CharacterString>
+                           </cit:name>
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mco:addressee>
+               <mco:statement>
+                  <gco:CharacterString>this is a releasability statement. it's important</gco:CharacterString>
+               </mco:statement>
+               <mco:disseminationConstraints>
+                  <mco:MD_RestrictionCode codeList="something" codeListValue="topSecret"/>
+                  <mco:MD_RestrictionCode codeList="something_else" codeListValue="superSecret"/>
+               </mco:disseminationConstraints>
+            </mco:MD_Releasability>
+         </mco:releasability>
+      </mco:MD_Constraints>
       <mco:MD_SecurityConstraints>
          <mco:classification>
             <mco:MD_ClassificationCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
@@ -1565,7 +1598,7 @@
          </mri:topicCategory>
          <mri:topicCategory gco:nilReason="missing"/>
          <mri:topicCategory gco:nilReason="missing"/>
-         <cit:extent>
+         <mri:extent>
             <gex:EX_Extent>
                <gex:geographicElement>
                   <gex:EX_GeographicBoundingBox>
@@ -1586,8 +1619,24 @@
                      </gex:northBoundLatitude>
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
+               <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                     <gex:extent>
+                        <gml:TimePeriod gml:id="d5078594e414a1056050">
+                           <gml:description>time period description 123</gml:description>
+                           <gml:identifier>time period identifier x918y234</gml:identifier>
+                           <gml:name>time period name 12345</gml:name>
+                           <gml:name>time period name 918723</gml:name>
+                           <gml:beginPosition>1980-01-01T00:00:00Z</gml:beginPosition>
+                           <gml:endPosition>1995-12-31T00:00:00Z</gml:endPosition>
+                           <gml:timeInterval unit="second">1.0</gml:timeInterval>
+                           <gml:duration>P6Y4M6DT1H</gml:duration>
+                        </gml:TimePeriod>
+                     </gex:extent>
+                  </gex:EX_TemporalExtent>
+               </gex:temporalElement>
             </gex:EX_Extent>
-         </cit:extent>
+         </mri:extent>
          <mri:additionalDocumentation>
             <cit:CI_Citation>
                <cit:title>
@@ -1688,7 +1737,7 @@
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>Keyword Thesaurus</gco:CharacterString>
+                        <gco:CharacterString>ISO Topic Categories</gco:CharacterString>
                      </cit:title>
                      <cit:alternateTitle>
                         <gco:CharacterString>Department of Commerce, 1995, Countries, Dependencies, Areas of Special Sovereignty, and Their Principal Administrative Divisions, Federal Information Processing Standard (FIPS) 10-4, Washington, D.C., National Institute of Standards and Technology</gco:CharacterString>
@@ -1747,7 +1796,7 @@
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>Keyword Thesaurus</gco:CharacterString>
+                        <gco:CharacterString>ISO Topic Categories</gco:CharacterString>
                      </cit:title>
                      <cit:alternateTitle>
                         <gco:CharacterString>U.S. Department of Commerce, 1987, Codes for the identification of the States, the District of Columbia and the outlying areas of the United States, and associated areas (Federal Information Processing Standard 5-2): Washington, D. C., NIST</gco:CharacterString>
@@ -1852,6 +1901,175 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+         <mri:resourceConstraints>
+            <mco:MD_Constraints>
+               <mco:useLimitation>
+                     <gco:CharacterString>Common constraint for use of this thing</gco:CharacterString>
+               </mco:useLimitation>
+               <mco:useLimitation>
+                     <gco:CharacterString>Important Disclaimer</gco:CharacterString>
+               </mco:useLimitation>
+               <mco:releasability>
+                  <mco:MD_Releasability>
+                     <mco:addressee>
+                        <cit:CI_Responsibility>
+                           <cit:role>
+                              <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007"/>
+                           </cit:role>
+                           <cit:party>
+                              <cit:CI_Organisation>
+                                 <cit:name>
+                                    <gco:CharacterString>orgName</gco:CharacterString>
+                                 </cit:name>
+                              </cit:CI_Organisation>
+                           </cit:party>
+                        </cit:CI_Responsibility>
+                     </mco:addressee>
+                     <mco:statement>
+                        <gco:CharacterString>this is a releasability statement. it's important</gco:CharacterString>
+                     </mco:statement>
+                     <mco:disseminationConstraints>
+                        <mco:MD_RestrictionCode codeList="something" codeListValue="topSecret"/>
+                        <mco:MD_RestrictionCode codeList="something_else" codeListValue="superSecret"/>
+                     </mco:disseminationConstraints>
+                  </mco:MD_Releasability>
+               </mco:releasability>
+               <mco:reference>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>MD ID common constraint licence title</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mco:reference>
+            </mco:MD_Constraints>
+         </mri:resourceConstraints>
+         <mri:resourceConstraints>
+            <mco:MD_SecurityConstraints>
+               <mco:classification>
+                  <mco:MD_ClassificationCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
+               </mco:classification>
+               <mco:userNote>
+                  <gco:CharacterString>user note on security constraint</gco:CharacterString>
+               </mco:userNote>
+               <mco:classificationSystem>
+                  <gco:CharacterString>system 1.56A</gco:CharacterString>
+               </mco:classificationSystem>
+               <mco:handlingDescription>
+                  <gco:CharacterString>handle with care</gco:CharacterString>
+               </mco:handlingDescription>
+            </mco:MD_SecurityConstraints>
+         </mri:resourceConstraints>
+         <mri:resourceConstraints>
+            <mco:MD_LegalConstraints>
+               <mco:accessConstraints>
+                  <mco:MD_RestrictionCode codeList="" codeListValue="topSecret"/>
+               </mco:accessConstraints>
+               <mco:accessConstraints>
+                  <mco:MD_RestrictionCode codeList="" codeListValue="otherRestrictions"/>
+               </mco:accessConstraints>
+               <mco:useConstraints>
+                  <mco:MD_RestrictionCode codeList="" codeListValue="otherRestrictions"/>
+               </mco:useConstraints>
+               <mco:otherConstraints>
+                  <gco:CharacterString>No condition applies</gco:CharacterString>
+               </mco:otherConstraints>
+            </mco:MD_LegalConstraints>
+         </mri:resourceConstraints>
+
+         <mri:associatedResource>
+            <mri:MD_AssociatedResource>
+               <mri:name>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Associated Resource Citation Title</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>http://resource.associated.org/10/F7DV1H10</gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:name>
+               <mri:associationType>
+                  <mri:DS_AssociationTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="collectiveTitle" codeSpace="adiwg002"/>
+               </mri:associationType>
+               <mri:initiativeType>
+                  <mri:DS_InitiativeTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="collection" codeSpace="adiwg002"/>
+               </mri:initiativeType>
+            </mri:MD_AssociatedResource>
+         </mri:associatedResource>
+
+         <mri:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Department of Additional Documentation</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://additional.doc/10/F7DV1H10</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mri:additionalDocumentation>
+         <mri:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Department of Additional Documentation 123908A</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://additional.doc/56/data.json</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mri:additionalDocumentation>
+
       </mri:MD_DataIdentification>
    </mdb:identificationInfo>
+   <mdb:contentInfo>
+      <mrc:MD_FeatureCatalogueDescription>
+         <mrc:includedWithDataset>
+            <gco:Boolean>false</gco:Boolean>
+         </mrc:includedWithDataset>
+         <mrc:featureCatalogueCitation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Department of Test Feature Catalog</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://test.something.org/10/F7DV1H10</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mrc:featureCatalogueCitation>
+      </mrc:MD_FeatureCatalogueDescription>
+   </mdb:contentInfo>
+   <mdb:contentInfo>
+      <mrc:MD_FeatureCatalogueDescription>
+         <mrc:includedWithDataset>
+            <gco:Boolean>true</gco:Boolean>
+         </mrc:includedWithDataset>
+         <mrc:featureCatalogueCitation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Department of Another Test Feature Catalog 14.a</gco:CharacterString>
+               </cit:title>
+               <cit:CI_OnlineResource>
+                  <cit:linkage>
+                     <gco:CharacterString>http://another.test.org/98/data.json</gco:CharacterString>
+                  </cit:linkage>
+               </cit:CI_OnlineResource>
+            </cit:CI_Citation>
+         </mrc:featureCatalogueCitation>
+      </mrc:MD_FeatureCatalogueDescription>
+   </mdb:contentInfo>
 </mdb:MD_Metadata>

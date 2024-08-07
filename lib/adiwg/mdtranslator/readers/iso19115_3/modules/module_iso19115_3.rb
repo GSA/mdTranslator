@@ -6,6 +6,8 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative '../version'
 require_relative 'module_metadata'
 require_relative 'module_contact'
+require_relative 'module_feature_catalog'
+
 require 'debug'
 
 module ADIWG
@@ -14,6 +16,7 @@ module ADIWG
          module Iso191153
             module Iso191153
                @@contactXPath = 'mdb:contact'
+               @@contentInfoXPath = 'mdb:contentInfo'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
 
@@ -35,7 +38,8 @@ module ADIWG
                   # ['test@gmail.com'], 'externalIdentifier': []}]
 
                   # :dataDictionaries
-                  # @intObj[:dataDictionaries] = [] # TODO
+                  xContentInfos = xMetadata.xpath(@@contentInfoXPath)
+                  @intObj[:dataDictionaries] = xContentInfos.map { |ci| FeatureCatalog.unpack(ci, hResponseObj) }
 
                   # :metadataRepositories
                   # @intObj[:metadataRepositories] = [] # TODO
