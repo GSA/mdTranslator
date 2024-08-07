@@ -1737,7 +1737,7 @@
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>Keyword Thesaurus</gco:CharacterString>
+                        <gco:CharacterString>ISO Topic Categories</gco:CharacterString>
                      </cit:title>
                      <cit:alternateTitle>
                         <gco:CharacterString>Department of Commerce, 1995, Countries, Dependencies, Areas of Special Sovereignty, and Their Principal Administrative Divisions, Federal Information Processing Standard (FIPS) 10-4, Washington, D.C., National Institute of Standards and Technology</gco:CharacterString>
@@ -1796,7 +1796,7 @@
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>Keyword Thesaurus</gco:CharacterString>
+                        <gco:CharacterString>ISO Topic Categories</gco:CharacterString>
                      </cit:title>
                      <cit:alternateTitle>
                         <gco:CharacterString>U.S. Department of Commerce, 1987, Codes for the identification of the States, the District of Columbia and the outlying areas of the United States, and associated areas (Federal Information Processing Standard 5-2): Washington, D. C., NIST</gco:CharacterString>
@@ -1975,6 +1975,61 @@
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
+
+         <mri:associatedResource>
+            <mri:MD_AssociatedResource>
+               <mri:name>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Associated Resource Citation Title</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>http://resource.associated.org/10/F7DV1H10</gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:name>
+               <mri:associationType>
+                  <mri:DS_AssociationTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="collectiveTitle" codeSpace="adiwg002"/>
+               </mri:associationType>
+               <mri:initiativeType>
+                  <mri:DS_InitiativeTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="collection" codeSpace="adiwg002"/>
+               </mri:initiativeType>
+            </mri:MD_AssociatedResource>
+         </mri:associatedResource>
+
+         <mri:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Department of Additional Documentation</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://additional.doc/10/F7DV1H10</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mri:additionalDocumentation>
+         <mri:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Department of Additional Documentation 123908A</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://additional.doc/56/data.json</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mri:additionalDocumentation>
+
       </mri:MD_DataIdentification>
    </mdb:identificationInfo>
    <mdb:contentInfo>
@@ -1988,12 +2043,12 @@
                   <gco:CharacterString>Department of Test Feature Catalog</gco:CharacterString>
                </cit:title>
                <cit:onlineResource>
-               <cit:CI_OnlineResource>
-                  <cit:linkage>
-                     <gco:CharacterString>http://test.something.org/10/F7DV1H10</gco:CharacterString>
-                  </cit:linkage>
-               </cit:CI_OnlineResource>
-            </cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://test.something.org/10/F7DV1H10</gco:CharacterString>
+                     </cit:linkage>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
             </cit:CI_Citation>
          </mrc:featureCatalogueCitation>
       </mrc:MD_FeatureCatalogueDescription>

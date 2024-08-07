@@ -49,7 +49,7 @@ module ADIWG
                   # :thesaurus (optional)
                   # <element minOccurs="0" name="thesaurusName" type="mcc:Abstract_Citation_PropertyType">
                   xThesarus = xMDKeywords.xpath(@@thesaurusXPath)[0]
-                  hKeyword[:thesaurus] = xThesarus.nil? ? nil : Citation.unpack(xThesarus, hResponseObj)
+                  hKeyword[:thesaurus] = Citation.unpack(xThesarus, hResponseObj)
 
                   # keywordClass
                   # <element minOccurs="0" name="keywordClass" type="mri:MD_KeywordClass_PropertyType"/>

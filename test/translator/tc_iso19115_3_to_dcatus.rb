@@ -186,4 +186,32 @@ class TestIso191153DcatusTranslation < Minitest::Test
 
       assert_equal('http://test.something.org/10/F7DV1H10', res)
    end
+
+   def test_is_part_of_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('http://resource.associated.org/10/F7DV1H10', res)
+   end
+
+   def test_theme_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
+      res = dcatusNS.build(@@intMetadata)
+
+      expected = 'United States US Illinois IL Indiana IN Iowa IA Michigan '\
+      'MI Minnesota MN South Dakota SD Wisconsin WI'
+
+      assert_equal(expected, res)
+   end
+
+   def test_references_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::References
+      res = dcatusNS.build(@@intMetadata)
+
+      expected = 'http://resource.associated.org/10/F7DV1H10,' \
+      'http://dx.doi.org/10.5066/F7DV1H10,http://additional.doc/10/F7DV1H10,' \
+      'http://additional.doc/56/data.json'
+
+      assert_equal(expected, res)
+   end
 end

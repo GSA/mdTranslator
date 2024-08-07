@@ -32,6 +32,8 @@ module ADIWG
                   intMetadataClass = InternalMetadata.new
                   hCitation = intMetadataClass.newCitation
 
+                  return hCitation if xCitationParent.nil?
+
                   # (required)
                   # <element name="CI_Citation" substitutionGroup="mcc:Abstract_Citation" type="cit:CI_Citation_Type">
                   xCitation = xCitationParent.xpath(@@citationXpath)[0]
@@ -45,7 +47,7 @@ module ADIWG
                         'is missing in \'cit:CI_Citation\''
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionPass] = false
-                     return nil
+                     return hCitation
                   end
 
                   hCitation[:title] = title.text
