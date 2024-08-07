@@ -26,8 +26,15 @@ module ADIWG
                   # :associationType (required)
                   # <element name="associationType" type="mri:DS_AssociationTypeCode_PropertyType">
                   xAssociatedType = xAssociatedResource.xpath(@@associationTypeXPath)[0]
-                  hAssociatedResource[:associationType] =
-                     xAssociatedType.nil? ? nil : xAssociatedType.attr('codeListValue')
+                  if xAssociatedType.nil?
+                     msg = 'WARNING: ISO19115-3 reader: element \'mri:DS_AssociationTypeCode\' '\
+                        'is missing in mri:MD_AssociatedResource'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return nil
+                  end
+
+                  hAssociatedResource[:associationType] = xAssociatedType.attr('codeListValue')
 
                   # :initiativeType (optional)
                   # <element minOccurs="0" name="initiativeType"
