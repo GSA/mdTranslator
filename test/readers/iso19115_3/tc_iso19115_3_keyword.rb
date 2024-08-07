@@ -21,7 +21,7 @@ class TestReaderIso191153Keyword < TestReaderIso191153Parent
       assert hDictionary.instance_of? Hash
 
       assert_nil(hDictionary[:keywordType])
-      assert_nil(hDictionary[:thesaurus])
+      refute_empty hDictionary[:thesaurus]
       assert_equal('Theme', hDictionary[:type])
 
       refute_empty hDictionary[:keywords]
