@@ -29,7 +29,8 @@ class TestReaderIso191153Contact < TestReaderIso191153Parent
       assert_equal(1, hDictionary[:addresses].size)
       assert_equal(['email@address.com', 'another@address.com'], hDictionary[:eMailList])
 
-      assert_equal('Monday - Friday 8:00am - 5:00pm', hDictionary[:hoursOfService])
+      assert hDictionary[:hoursOfService].instance_of? Array
+      assert_equal(['Monday - Friday 8:00am - 5:00pm', 'Sunday 10:00am - 2:00pm'], hDictionary[:hoursOfService])
       assert_equal('contact by phone', hDictionary[:contactInstructions])
       assert_equal('federal', hDictionary[:contactType])
 

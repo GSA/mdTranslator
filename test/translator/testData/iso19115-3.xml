@@ -886,6 +886,9 @@
                      <cit:hoursOfService>
                         <gco:CharacterString>Monday - Friday 8:00am - 5:00pm</gco:CharacterString>
                      </cit:hoursOfService>
+                     <cit:hoursOfService>
+                        <gco:CharacterString>Sunday 10:00am - 2:00pm</gco:CharacterString>
+                     </cit:hoursOfService>
                      <cit:phone>
                         <cit:CI_Telephone>
                            <cit:number>
@@ -1053,11 +1056,27 @@
                <cit:title>
                   <gco:CharacterString>Spatial data: A large-scale database of modeled contemporary and future water temperature data for 10,774 Michigan, Minnesota and Wisconsin Lakes</gco:CharacterString>
                </cit:title>
+               <cit:identifier>
+                  <mcc:MD_Identifier>
+                     <mcc:authority/>
+                     <mcc:code>
+                        <gco:CharacterString>10293u0wjdoaksd98h</gco:CharacterString>
+                     </mcc:code>
+                     <mcc:codeSpace>
+                        <gco:CharacterString>gov.sciencetest.catalog</gco:CharacterString>
+                     </mcc:codeSpace>
+                     <mcc:version/>
+                     <mcc:description>
+                        <gco:CharacterString>USGS ScienceTest Test Center</gco:CharacterString>
+                     </mcc:description>
+                  </mcc:MD_Identifier>
+               </cit:identifier>
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage>
                         <gco:CharacterString>http://dx.doi.org/10.5066/F7DV1H10</gco:CharacterString>
                      </cit:linkage>
+                     <cit:function codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="landingPage" codeSpace="998"/>
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
                <cit:date>
@@ -2001,6 +2020,31 @@
             </mri:MD_AssociatedResource>
          </mri:associatedResource>
 
+         <mri:associatedResource>
+            <mri:MD_AssociatedResource>
+               <mri:name>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Associated Resource Citation Title 10293ua</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>http://as0d1028h3.associated.org/10/F7DV1H10</gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:name>
+               <mri:associationType>
+                  <mri:DS_AssociationTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="collectiveTitle" codeSpace="adiwg002"/>
+               </mri:associationType>
+               <mri:initiativeType>
+                  <mri:DS_InitiativeTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="sorn" codeSpace="adiwg999"/>
+               </mri:initiativeType>
+            </mri:MD_AssociatedResource>
+         </mri:associatedResource>
+         
          <mri:additionalDocumentation>
             <cit:CI_Citation>
                <cit:title>
@@ -2030,6 +2074,172 @@
             </cit:CI_Citation>
          </mri:additionalDocumentation>
 
+         <mri:pointOfContact>
+            <cit:CI_Responsibility>
+               <cit:role>
+                  <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="author" codeSpace="011"/>
+               </cit:role>
+               <cit:party>
+                  <cit:CI_Individual>
+                     <cit:name>
+                        <gco:CharacterString>Robert G Test</gco:CharacterString>
+                     </cit:name>
+                     <cit:positionName>
+                        <gco:CharacterString>Metadata Manager</gco:CharacterString>
+                     </cit:positionName>
+                     <cit:contactInfo>
+                        <cit:CI_Contact>
+                           <cit:contactType>
+                              <gco:CharacterString>federal</gco:CharacterString>
+                           </cit:contactType>
+                           <cit:contactInstructions>
+                              <gco:CharacterString>contact by phone</gco:CharacterString>
+                           </cit:contactInstructions>
+                           <cit:hoursOfService>
+                              <gco:CharacterString>Monday - Friday 8:00am - 5:00pm</gco:CharacterString>
+                           </cit:hoursOfService>
+                           <cit:hoursOfService>
+                              <gco:CharacterString>Sunday 10:00am - 2:00pm</gco:CharacterString>
+                           </cit:hoursOfService>
+                           <cit:phone>
+                              <cit:CI_Telephone>
+                                 <cit:number>
+                                    <gco:CharacterString>+61 3 6232 5222</gco:CharacterString>
+                                 </cit:number>
+                                 <cit:numberType>
+                                    <cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode"
+                                                               codeListValue="voice"/>
+                                 </cit:numberType>
+                              </cit:CI_Telephone>
+                           </cit:phone>
+                           <cit:address>
+                              <cit:CI_Address>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>123 ABC Road</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>456 DEF St</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:city>
+                                    <gco:CharacterString>Sacramento</gco:CharacterString>
+                                 </cit:city>
+                                 <cit:administrativeArea>
+                                    <gco:CharacterString>California</gco:CharacterString>
+                                 </cit:administrativeArea>
+                                 <cit:postalCode>
+                                    <gco:CharacterString>90210</gco:CharacterString>
+                                 </cit:postalCode>
+                                 <cit:country>
+                                    <gco:CharacterString>United States</gco:CharacterString>
+                                 </cit:country>
+                                 <cit:electronicMailAddress>
+                                    <gco:CharacterString>email@address.com</gco:CharacterString>
+                                 </cit:electronicMailAddress>
+                                 <cit:electronicMailAddress>
+                                    <gco:CharacterString>another@address.com</gco:CharacterString>
+                                 </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                           </cit:address>
+                           <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                 <cit:linkage>
+                                    <gco:CharacterString>http://onlineresourceexample.com</gco:CharacterString>
+                                 </cit:linkage>
+                                 <cit:protocol>
+                                    <gco:CharacterString>http</gco:CharacterString>
+                                 </cit:protocol>
+                                 <cit:applicationProfile>
+                                    <gco:CharacterString>application-profile-example</gco:CharacterString>
+                                 </cit:applicationProfile>
+                                 <cit:name>
+                                    <gco:CharacterString>online resource name</gco:CharacterString>
+                                 </cit:name>
+                                 <cit:description>
+                                    <gco:CharacterString>online resource description</gco:CharacterString>
+                                 </cit:description>
+                                 <cit:function codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_OnlineResource" codeListValue="online information about the resource" codeSpace="999"/>
+                                 <cit:protocolRequest>
+                                    <gco:CharacterString>protocol request example</gco:CharacterString>
+                                 </cit:protocolRequest>
+                              </cit:CI_OnlineResource>
+                           </cit:onlineResource>
+                        </cit:CI_Contact>
+                     </cit:contactInfo>
+                     <cit:partyIdentifier>
+                        <mcc:MD_Identifier>
+                           <mcc:authority/>
+                           <mcc:code>
+                              <gco:CharacterString>party 123456</gco:CharacterString>
+                           </mcc:code>
+                           <mcc:codeSpace>
+                              <gco:CharacterString>F506</gco:CharacterString>
+                           </mcc:codeSpace>
+                           <mcc:version>
+                              <gco:CharacterString>1.0</gco:CharacterString>
+                           </mcc:version>
+                        </mcc:MD_Identifier>
+                     </cit:partyIdentifier>
+                  </cit:CI_Individual>
+               </cit:party>
+               <cit:party>
+                  <cit:CI_Organisation>
+                     <cit:name>
+                        <gco:CharacterString>Commonwealth of Australia (Geoscience Australia)</gco:CharacterString>
+                     </cit:name>
+                     <cit:contactInfo>
+                        <cit:CI_Contact>
+                           <cit:phone>
+                              <cit:CI_Telephone>
+                                 <cit:number>
+                                    <gco:CharacterString>02 6249 9966</gco:CharacterString>
+                                 </cit:number>
+                                 <cit:numberType>
+                                 <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                 </cit:numberType>
+                              </cit:CI_Telephone>
+                           </cit:phone>
+                           <cit:phone>
+                              <cit:CI_Telephone>
+                                 <cit:number>
+                                    <gco:CharacterString>02 6249 9960</gco:CharacterString>
+                                 </cit:number>
+                                 <cit:numberType>
+                                 <cit:CI_TelephoneTypeCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="fax"/>
+                                 </cit:numberType>
+                              </cit:CI_Telephone>
+                           </cit:phone>
+                           <cit:address>
+                              <cit:CI_Address>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>Cnr Jerrabomberra Ave and Hindmarsh Dr</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>GPO Box 378</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:city>
+                                    <gco:CharacterString>Canberra</gco:CharacterString>
+                                 </cit:city>
+                                 <cit:administrativeArea>
+                                    <gco:CharacterString>ACT</gco:CharacterString>
+                                 </cit:administrativeArea>
+                                 <cit:postalCode>
+                                    <gco:CharacterString>2601</gco:CharacterString>
+                                 </cit:postalCode>
+                                 <cit:country>
+                                    <gco:CharacterString>Australia</gco:CharacterString>
+                                 </cit:country>
+                                 <cit:electronicMailAddress>
+                                    <gco:CharacterString>clientservices@ga.gov.au</gco:CharacterString>
+                                 </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                           </cit:address>
+                        </cit:CI_Contact>
+                     </cit:contactInfo>
+                  </cit:CI_Organisation>
+               </cit:party>
+            </cit:CI_Responsibility>
+         </mri:pointOfContact>
+
       </mri:MD_DataIdentification>
    </mdb:identificationInfo>
    <mdb:contentInfo>
@@ -2047,6 +2257,9 @@
                      <cit:linkage>
                         <gco:CharacterString>http://test.something.org/10/F7DV1H10</gco:CharacterString>
                      </cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>https</gco:CharacterString>
+                     </cit:protocol>
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
             </cit:CI_Citation>
@@ -2072,4 +2285,133 @@
          </mrc:featureCatalogueCitation>
       </mrc:MD_FeatureCatalogueDescription>
    </mdb:contentInfo>
+   <mdb:contentInfo>
+      <mrc:MD_FeatureCatalogueDescription>
+         <mrc:includedWithDataset>
+            <gco:Boolean>true</gco:Boolean>
+         </mrc:includedWithDataset>
+         <mrc:featureCatalogueCitation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Test Agency Feat. Catalog abc.1234</gco:CharacterString>
+               </cit:title>
+               <cit:CI_OnlineResource>
+                  <cit:linkage>
+                     <gco:CharacterString>http://example.something.org/98/data.json</gco:CharacterString>
+                  </cit:linkage>
+               </cit:CI_OnlineResource>
+            </cit:CI_Citation>
+         </mrc:featureCatalogueCitation>
+      </mrc:MD_FeatureCatalogueDescription>
+   </mdb:contentInfo>
+
+   <mdb:metadataMaintenance>
+    <mmi:MD_MaintenanceInformation>
+      <mmi:maintenanceAndUpdateFrequency>
+        <mmi:MD_MaintenanceFrequencyCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_MaintenanceFrequencyCode" codeListValue="bimonthly" codeSpace="userCode"/>
+      </mmi:maintenanceAndUpdateFrequency>
+      <mmi:maintenanceDate>
+        <cit:CI_Date>
+          <cit:date>
+            <gco:Date>2018-05-25</gco:Date>
+          </cit:date>
+          <cit:dateType>
+            <cit:CI_DateTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_DateTypeCode" codeListValue="lastUpdate" codeSpace="005"/>
+          </cit:dateType>
+        </cit:CI_Date>
+      </mmi:maintenanceDate>
+      <mmi:maintenanceDate>
+        <cit:CI_Date>
+          <cit:date>
+            <gco:Date>2019-04</gco:Date>
+          </cit:date>
+          <cit:dateType>
+            <cit:CI_DateTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_DateTypeCode" codeListValue="nextUpdate" codeSpace="007"/>
+          </cit:dateType>
+        </cit:CI_Date>
+      </mmi:maintenanceDate>
+      <mmi:maintenanceScope>
+        <mcc:MD_Scope>
+          <mcc:level>
+            <mcc:MD_ScopeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_ScopeCode" codeListValue="scope code" codeSpace="userCode"/>
+          </mcc:level>
+          <mcc:extent/>
+          <mcc:levelDescription/>
+        </mcc:MD_Scope>
+      </mmi:maintenanceScope>
+      <mmi:maintenanceScope>
+        <mcc:MD_Scope>
+          <mcc:level>
+            <mcc:MD_ScopeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_ScopeCode" codeListValue="scope code" codeSpace="userCode"/>
+          </mcc:level>
+          <mcc:extent/>
+          <mcc:levelDescription/>
+        </mcc:MD_Scope>
+      </mmi:maintenanceScope>
+      <mmi:maintenanceNote>
+        <gco:CharacterString>note one</gco:CharacterString>
+      </mmi:maintenanceNote>
+      <mmi:maintenanceNote>
+        <gco:CharacterString>note two</gco:CharacterString>
+      </mmi:maintenanceNote>
+      <mmi:contact>
+        <cit:CI_Responsibility>
+          <cit:role>
+            <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="custodian" codeSpace="002"/>
+          </cit:role>
+          <cit:extent/>
+          <cit:party>
+            <cit:CI_Individual>
+              <cit:name>
+                <gco:CharacterString>person name three</gco:CharacterString>
+              </cit:name>
+              <cit:contactInfo/>
+              <cit:partyIdentifier>
+                <mcc:MD_Identifier>
+                  <mcc:authority/>
+                  <mcc:code>
+                    <gco:CharacterString>CID003</gco:CharacterString>
+                  </mcc:code>
+                  <mcc:codeSpace/>
+                  <mcc:version/>
+                  <mcc:description/>
+                </mcc:MD_Identifier>
+              </cit:partyIdentifier>
+              <cit:positionName/>
+            </cit:CI_Individual>
+          </cit:party>
+        </cit:CI_Responsibility>
+      </mmi:contact>
+      <mmi:contact>
+        <cit:CI_Responsibility>
+          <cit:role>
+            <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="rightHolder" codeSpace="userCode"/>
+          </cit:role>
+          <cit:extent/>
+          <cit:party>
+            <cit:CI_Organisation>
+              <cit:name>
+                <gco:CharacterString>organization name four</gco:CharacterString>
+              </cit:name>
+              <cit:contactInfo/>
+              <cit:partyIdentifier>
+                <mcc:MD_Identifier>
+                  <mcc:authority/>
+                  <mcc:code>
+                    <gco:CharacterString>CID004</gco:CharacterString>
+                  </mcc:code>
+                  <mcc:codeSpace/>
+                  <mcc:version/>
+                  <mcc:description/>
+                </mcc:MD_Identifier>
+              </cit:partyIdentifier>
+              <cit:logo/>
+              <cit:individual/>
+            </cit:CI_Organisation>
+          </cit:party>
+        </cit:CI_Responsibility>
+      </mmi:contact>
+    </mmi:MD_MaintenanceInformation>
+  </mdb:metadataMaintenance>
+
 </mdb:MD_Metadata>

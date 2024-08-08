@@ -103,8 +103,7 @@ class TestIso191153DcatusTranslation < Minitest::Test
    #    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
    # end
 
-   # TODO: see comment above
-   # contactPoint
+   # TODO: skipping contact point which relies on contact info
 
    def test_access_level_translate
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
@@ -113,8 +112,12 @@ class TestIso191153DcatusTranslation < Minitest::Test
       assert_equal('non-public', res)
    end
 
-   # TODO: the code looks a tad weird. gonna meet with johnathan.
-   # identifier
+   def test_identifier_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('http://dx.doi.org/10.5066/F7DV1H10', res)
+   end
 
    def test_distribution_translate
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Distribution
@@ -209,9 +212,49 @@ class TestIso191153DcatusTranslation < Minitest::Test
       res = dcatusNS.build(@@intMetadata)
 
       expected = 'http://resource.associated.org/10/F7DV1H10,' \
+      'http://as0d1028h3.associated.org/10/F7DV1H10,'\
       'http://dx.doi.org/10.5066/F7DV1H10,http://additional.doc/10/F7DV1H10,' \
       'http://additional.doc/56/data.json'
 
       assert_equal(expected, res)
    end
+
+   def test_landing_page_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::LandingPage
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('http://dx.doi.org/10.5066/F7DV1H10', res)
+   end
+
+   def test_system_of_records_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::SystemOfRecords
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('http://as0d1028h3.associated.org/10/F7DV1H10', res)
+   end
+
+   def test_describe_by_type_translate
+      # describebytype returns the protocol of the first non-empty url str
+      # that doesnt end with '.html' which can produce nils. odd.
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedByType
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('https', res)
+   end
+
+   def test_accrual_periodicity_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccrualPeriodicity
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('R/P2M or R/P0.5M', res)
+   end
+
+   def test_primaryit_investment_uii
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::PrimaryITInvestmentUII
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('57d97341e4b090824ffb0e6f', res)
+   end
+
+   # TODO: program code (need to handle how contacts/parties are stored)
 end

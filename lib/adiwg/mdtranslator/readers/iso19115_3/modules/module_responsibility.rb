@@ -34,6 +34,7 @@ module ADIWG
                   end
 
                   # cit: role (required)
+                  # <element name="role" type="cit:CI_RoleCode_PropertyType">
                   xRoleCode = xRespblty.xpath(@@roleCodeXpath)[0]
                   if xRoleCode.nil?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:role\' is missing in cit:CI_Responsibility'
@@ -46,10 +47,13 @@ module ADIWG
                   hRespblty[:roleName] = xRoleCode.attr(codeListValue)
 
                   # :roleExtents (optional)
+                  # <element maxOccurs="unbounded" minOccurs="0" name="extent"
+                  # type="mcc:Abstract_Extent_PropertyType">
                   xExtents = xRespblty.xpath(@@extentXPath)
                   hRespblty[:roleExtents] = xExtents.map { |e| Extent.unpack(e, hResponseObj) }
 
                   # :parties (required)
+                  # <element maxOccurs="unbounded" name="party" type="cit:AbstractCI_Party_PropertyType"/>
                   xParties = xRespblty.xpath(@@partyXPath)
                   if xParties.empty?
                      msg = 'ERROR: ISO19115-3 reader: element \'cit:party\' is missing in cit:CI_Responsibility'
