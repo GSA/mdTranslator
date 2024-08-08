@@ -13,9 +13,18 @@ module ADIWG
       module Readers
          module Iso191153
             module Metadata
+               # TODO: look more into mdb:identificationInfo
+               # TODO: look more into mri:MD_DataIdentification
+               # mdb:identificationInfo (required)
+               # <element maxOccurs="unbounded" name="identificationInfo"
+               # type="mcc:Abstract_ResourceDescription_PropertyType"/>
+               # newMetadata expects 1 resourceInfo and yet ^ can occur >1
+
                @@distributionInfoXPath = 'mdb:distributionInfo'
-               @@associatedResourceXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:associatedResource'
-               @@additionalDocXPath = 'mdb:identificationInfo//mri:MD_DataIdentification//mri:additionalDocumentation'
+               @@identificationInfoXPath = 'mdb:identificationInfo'
+               @@dataIdentificationXPath = 'mri:MD_DataIdentification'
+               @@associatedResourceXPath = 'mri:associatedResource'
+               @@additionalDocXPath = 'mri:additionalDocumentation'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   intMetadata = intMetadataClass.newMetadata
@@ -27,9 +36,28 @@ module ADIWG
                   # intMetadata[:metadataInfo][:metadataIdentifier] = {}
                   # intMetadata[:metadataInfo][:metadataIdentifier][:identifier] = nil
 
-                  # :resourceInfo TODO
+                  # TODO: what happens when >1 are present?
+                  xIdentificationInfo = xMetadata.xpath(@@identificationInfoXPath)[0]
+                  if xIdentificationInfo.nil?
+                     msg = 'ERROR: ISO19115-3 reader: element \'mdb:identificationInfo\' is missing in mdb:MD_Metadata'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return intMetadata
+                  end
 
-                  intMetadata[:resourceInfo] = ResourceInformation.unpack(xMetadata, hResponseObj)
+                  # MD Data Identifier (required)
+                  # <element name="MD_DataIdentification" substitutionGroup="mri:AbstractMD_Identification"
+                  # type="mri:MD_DataIdentification_Type">
+                  xDataIdentification = xIdentificationInfo.xpath(@@dataIdentificationXPath)[0]
+                  if xDataIdentification.nil?
+                     msg = 'ERROR: ISO19115-3 reader: element \'mri:MD_DataIdentification\' ' \
+                     'is missing in mdb:identificationInfo'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return intMetadata
+                  end
+
+                  intMetadata[:resourceInfo] = ResourceInformation.unpack(xDataIdentification, hResponseObj)
 
                   # intMetadata[:resourceInfo] = {:citation => {}, :pointOfContacts => {}}
                   # intMetadata[:resourceInfo][:citation][:dates] = []
@@ -49,7 +77,7 @@ module ADIWG
                   # :associatedResources (optional)
                   # <element maxOccurs="unbounded" minOccurs="0" name="associatedResource"
                   # type="mri:MD_AssociatedResource_PropertyType"/>
-                  xAssociatedResources = xMetadata.xpath(@@associatedResourceXPath)
+                  xAssociatedResources = xDataIdentification.xpath(@@associatedResourceXPath)
                   intMetadata[:associatedResources] = xAssociatedResources.map do |a|
                      AssociatedResource.unpack(a, hResponseObj)
                   end
@@ -57,7 +85,7 @@ module ADIWG
                   # :additionalDocuments (optional)
                   # <element maxOccurs="unbounded" minOccurs="0" name="additionalDocumentation"
                   # type="mcc:Abstract_Citation_PropertyType"/>
-                  xAdditionalDocs = xMetadata.xpath(@@additionalDocXPath)
+                  xAdditionalDocs = xDataIdentification.xpath(@@additionalDocXPath)
                   intMetadata[:additionalDocuments] = xAdditionalDocs.map do |a|
                      AdditionalDocument.unpack(a, hResponseObj)
                   end

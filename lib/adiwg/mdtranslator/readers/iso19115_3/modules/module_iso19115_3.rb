@@ -5,7 +5,7 @@ require 'uuidtools'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative '../version'
 require_relative 'module_metadata'
-require_relative 'module_contact'
+require_relative 'module_responsibility'
 require_relative 'module_feature_catalog'
 
 require 'debug'
@@ -22,6 +22,7 @@ module ADIWG
 
                   intObj = intMetadataClass.newBase
                   @intObj = intObj
+                  @contacts = intObj[:contacts]
 
                   # :schema
                   hSchema = intMetadataClass.newSchema
@@ -32,10 +33,19 @@ module ADIWG
                   hMetadata = Metadata.unpack(xMetadata, hResponseObj)
                   @intObj[:metadata] = hMetadata
 
+                  # :contacts (required)
+                  # <element maxOccurs="unbounded" name="contact"
+                  # type="mcc:Abstract_Responsibility_PropertyType">
                   xContacts = xMetadata.xpath(@@contactXPath)
-                  @intObj[:contacts] = xContacts.map { |c| Contact.unpack(c, hResponseObj) }
-                  # intObj[:contacts] = [{'contactId': 'test', 'name': 'test', 'eMailList':
-                  # ['test@gmail.com'], 'externalIdentifier': []}]
+                  if xContacts.empty?
+                     msg = 'WARNING: ISO19115-3 reader: element \'mdb:contact\' '\
+                        'is missing in mdb:MD_Metadata'
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return intObj
+                  end
+
+                  @intObj[:contacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }
 
                   # :dataDictionaries
                   xContentInfos = xMetadata.xpath(@@contentInfoXPath)

@@ -6,6 +6,7 @@ require_relative 'module_identification'
 require_relative 'module_citation'
 require_relative 'module_locale'
 require_relative 'module_responsibility'
+require_relative 'module_maintenance'
 
 module ADIWG
    module Mdtranslator
@@ -17,11 +18,13 @@ module ADIWG
                @@defaultLocaleXPath = 'mdb:defaultLocale'
                @@otherLocaleXPath = 'mdb:otherLocale'
                @@contactXPath = 'mdb:contact'
+               @@maintenanceXPath = 'mdb:metadataMaintenance'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hMetadataInfo = intMetadataClass.newMetadataInfo
 
                   # :metadataIdentifier (optional)
+                  # <element minOccurs="0" name="metadataIdentifier" type="mcc:MD_Identifier_PropertyType"/>
                   xMetadataInfo = xMetadata.xpath(@@mdIdentifier)[0]
                   unless xMetadataInfo.nil?
                      hMetadataInfo[:metadataIdentifier] = Identification.unpack(xMetadataInfo, hResponseObj)[0]
@@ -54,10 +57,16 @@ module ADIWG
 
                   hMetadataInfo[:metadataContacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }
 
+                  # :metadataMaintenance (optional) {}
+                  # <element minOccurs="0" name="metadataMaintenance"
+                  # type="mcc:Abstract_MaintenanceInformation_PropertyType"/>
+                  xMaintenance = xMetadata.xpath(@@maintenanceXPath)[0]
+                  hMetadataInfo[:metadataMaintenance] =
+                     xMaintenance.nil? ? nil : Maintenance.unpack(xMaintenance, hResponseObj)
+
                   # :metadataDates TODO
                   # :metadataLinkages TODO
                   # :metadataConstraints TODO
-                  # :metadataMaintenance TODO
                   # :alternateMetadataReferences TODO
                   # :metadataStatus TODO
                   # :extensions TODO

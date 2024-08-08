@@ -79,7 +79,7 @@ module ADIWG
 
                   # :identifiers
                   citIds = xCitation.xpath(@@citIdXpath)
-                  hCitation[:identifiers] = citIds.map { |c| Identification.unpack(c, hResponseObj) }
+                  hCitation[:identifiers] = citIds.map { |c| Identification.unpack(c, hResponseObj)[0] }
 
                   # TODO: all these other things...
                   #    edition: nil,
