@@ -9,7 +9,7 @@ module ADIWG
 
             def self.startWriter(intObj, responseObj)
                # set the contact array for use by the writer
-               @contacts = intObj[:contacts]
+               # @contacts = intObj[:contacts]
 
                # set output flag for null properties
                Jbuilder.ignore_nil(!responseObj[:writerShowTags])

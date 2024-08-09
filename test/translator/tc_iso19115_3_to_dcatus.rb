@@ -5,6 +5,7 @@
 
 require 'minitest/autorun'
 require 'nokogiri'
+require 'json'
 require 'adiwg/mdtranslator'
 require 'debug'
 require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_iso19115_3'
@@ -265,4 +266,14 @@ class TestIso191153DcatusTranslation < Minitest::Test
    end
 
    # skipping program code and bureau code...
+
+   def test_complete_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us
+      res = dcatusNS.build(@@intMetadata, @@hResponse).target!
+
+      f = File.join(File.dirname(__FILE__), 'testData', 'iso19115-3-to-dcatus.json')
+      expected = File.open(f).read
+
+      assert_equal(expected, res)
+   end
 end

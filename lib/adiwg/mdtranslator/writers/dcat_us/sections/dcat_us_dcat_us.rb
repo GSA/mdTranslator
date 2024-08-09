@@ -30,6 +30,8 @@ module ADIWG
       module Writers
          module Dcat_us
             def self.build(intObj, responseObj)
+               @contacts = intObj[:contacts]
+
                metadataInfo = intObj[:metadata][:metadataInfo]
                resourceInfo = intObj[:metadata][:resourceInfo]
                citation = resourceInfo[:citation]
