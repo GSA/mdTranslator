@@ -20,12 +20,7 @@ module ADIWG
                   # <element name="CI_Date" substitutionGroup="mcc:Abstract_TypedDate" type="cit:CI_Date_Type">
                   xDate = xDateParent.xpath(@@ciDateXPath)[0]
 
-                  if xDate.nil?
-                     msg = 'WARNING: ISO19115-3 reader: element \'cit:CI_Date\' is missing in cit:date'
-                     hResponseObj[:readerStructureMessages] << msg
-                     hResponseObj[:readerStructurePass] = false
-                     return nil
-                  end
+                  return nil if xDate.nil?
 
                   hasDate = false
 

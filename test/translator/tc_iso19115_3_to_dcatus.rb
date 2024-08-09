@@ -23,7 +23,8 @@ class TestIso191153DcatusTranslation < Minitest::Test
    }
    # keeping these here for now. TODO: will add more files to test against
    @@file = File.join(File.dirname(__FILE__), 'testData', 'iso19115-3.xml')
-   @@xml = Nokogiri::XML(File.read(@@file))
+   @@fileData = File.read(@@file)
+   @@xml = Nokogiri::XML(@@fileData)
 
    @@xIn = @@xml.xpath('mdb:MD_Metadata')[0]
    @@hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
@@ -268,12 +269,19 @@ class TestIso191153DcatusTranslation < Minitest::Test
    # skipping program code and bureau code...
 
    def test_complete_translate
-      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us
-      res = dcatusNS.build(@@intMetadata, @@hResponse).target!
+      metadata = ADIWG::Mdtranslator.translate(
+         file: @@fileData, reader: 'iso19115_3', writer: 'dcat_us'
+      )
 
       f = File.join(File.dirname(__FILE__), 'testData', 'iso19115-3-to-dcatus.json')
       expected = File.open(f).read
 
-      assert_equal(expected, res)
+      assert_equal('iso19115_3', metadata[:readerRequested])
+      assert_equal('dcat_us', metadata[:writerRequested])
+      assert_equal(true, metadata[:readerStructurePass])
+      assert_equal(true, metadata[:readerValidationPass])
+      assert_equal(true, metadata[:readerExecutionPass])
+      assert_equal(true, metadata[:writerPass])
+      assert_equal(expected, metadata[:writerOutput])
    end
 end
