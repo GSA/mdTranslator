@@ -29,69 +29,6 @@ module ADIWG
                metadata.target!
             end
 
-            # find contact in contact array and return the contact hash
-            def self.get_contact_by_index(contactIndex)
-               if @contacts[contactIndex]
-                  return @contacts[contactIndex]
-               end
-               {}
-            end
-
-            # find contact in contact array and return the contact hash
-            def self.get_contact_by_id(contactId)
-               @contacts.each do |hContact|
-                  if hContact[:contactId] == contactId
-                     return hContact
-                  end
-               end
-               {}
-            end
-
-            # find contact in contact array and return the contact index
-            def self.get_contact_index_by_id(contactId)
-               @contacts.each_with_index do |hContact, index|
-                  if hContact[:contactId] == contactId
-                     return index
-                  end
-               end
-               {}
-            end
-
-            # ignore jBuilder object mapping when array is empty
-            def self.json_map(collection = [], _class)
-               if collection.nil? || collection.empty?
-                  return nil
-               else
-                  collection.map { |item| _class.build(item).attributes! }
-               end
-            end
-
-            # find all nested objects in 'obj' that contain the element 'ele'
-            def self.nested_objs_by_element(obj, ele, excludeList = [])
-               aCollected = []
-               obj.each do |key, value|
-                  skipThisOne = false
-                  excludeList.each do |exclude|
-                     if key == exclude.to_sym
-                        skipThisOne = true
-                     end
-                  end
-                  next if skipThisOne
-                  if key == ele.to_sym
-                     aCollected << obj
-                  elsif obj.is_a?(Array)
-                     if key.respond_to?(:each)
-                        aReturn = nested_objs_by_element(key, ele, excludeList)
-                        aCollected = aCollected.concat(aReturn) unless aReturn.empty?
-                     end
-                  elsif obj[key].respond_to?(:each)
-                     aReturn = nested_objs_by_element(value, ele, excludeList)
-                     aCollected = aCollected.concat(aReturn) unless aReturn.empty?
-                  end
-               end
-               aCollected
-            end
-
          end
       end
    end

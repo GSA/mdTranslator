@@ -23,11 +23,20 @@ module ADIWG
                   xIndividual = xParty.xpath(@@individualXPath)[0]
                   return nil if xIndividual.nil?
 
-                  # :name
+                  # :name (optional)
+                  # <element minOccurs="0" name="name" type="gco:CharacterString_PropertyType">
+                  # internal contacts need to have a name in order to add them so??
                   xName = xIndividual.xpath(@@nameXPath)
-                  hContact[:name] = xName.empty? ? nil : xName[0].text
+                  unless xName.empty?
+                     val = xName[0].text
+                     hContact[:name] = val
+                     contactId = Iso191153.add_contact(val, false)
+                     hContact[:contactId] = contactId
+                     hContact[:contactName] = val # TODO: revisit this.
+                  end
 
-                  # :positionName
+                  # :positionName (optional)
+                  # <element minOccurs="0" name="positionName" type="gco:CharacterString_PropertyType">
                   xPositionName = xIndividual.xpath(@@positionNameXPath)
                   hContact[:positionName] = xPositionName.empty? ? nil : xPositionName[0].text
 
@@ -35,15 +44,19 @@ module ADIWG
                   hContact[:isOrganization] = false
 
                   # :externalIdentifier
-                  # ( :contactId is second priority in the writer and appears to reflect the same info )
-                  xPartyId = xIndividual.xpath(@@partyIdXPath)[0]
-                  hContact[:externalIdentifier] = xPartyId.nil? ? nil : Identification.unpack(xPartyId, hResponseObj)
+                  # <element maxOccurs="unbounded" minOccurs="0" name="partyIdentifier"
+                  # type="mcc:MD_Identifier_PropertyType">
+                  xPartyId = xIndividual.xpath(@@partyIdXPath)
+                  hContact[:externalIdentifier] = xPartyId.map { |p| Identification.unpack(p, hResponseObj)[0] }
 
                   # individual - contact information [] (only one contactInfo supported in this implementation)
-                  xContactInfo = xIndividual.xpath(@@contactInfoXPath)
-                  contactData = Contact.unpack(xContactInfo[0], hResponseObj) unless xContactInfo.empty?
+                  # <element maxOccurs="unbounded" minOccurs="0" name="contactInfo" type="cit:CI_Contact_PropertyType">
+                  # the schema indicates contactInfo can be an array but the implementation is only 1? keeping it at 1.
+                  xContactInfo = xIndividual.xpath(@@contactInfoXPath)[0]
+                  contactData = Contact.unpack(xContactInfo, hResponseObj) unless xContactInfo.nil?
+                  hContact = AdiwgUtils.reconcile_hashes(contactData, hContact) unless contactData.nil?
 
-                  return AdiwgUtils.reconcile_hashes(contactData, hContact) unless contactData.nil?
+                  Iso191153.set_contact(hContact)
 
                   hContact
                end

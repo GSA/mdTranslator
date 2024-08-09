@@ -24,7 +24,7 @@ class TestReaderIso191153Organization < TestReaderIso191153Parent
 
       refute_empty hDictionary[:externalIdentifier]
       assert hDictionary[:externalIdentifier].instance_of? Array
-      assert_equal(1, hDictionary[:externalIdentifier].size)
+      assert_equal(2, hDictionary[:externalIdentifier].size)
 
       refute_empty hDictionary[:logos]
       assert hDictionary[:logos].instance_of? Array

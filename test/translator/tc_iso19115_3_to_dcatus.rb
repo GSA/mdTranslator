@@ -97,13 +97,21 @@ class TestIso191153DcatusTranslation < Minitest::Test
       assert_equal(DateTime.iso8601('2017-04-06T20:04:58+00:00'), res)
    end
 
-   # TODO: anything with parties/contacts needs to be revisited
-   # TODO: see comment above
-   # def test_publisher
-   #    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
-   # end
+   def test_publisher_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
+      res = dcatusNS.build(@@intMetadata).target!
 
-   # TODO: skipping contact point which relies on contact info
+      expected = '{"@type":"org:Organization","name":"U.S. Geological Survey - ScienceBase"}'
+      assert_equal(expected, res)
+   end
+
+   def test_contact_point_translate
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::ContactPoint
+      res = dcatusNS.build(@@intMetadata).target!
+
+      expected = '{"@type":"vcard:Contact","fn":"Robert G Test","hasEmail":"email@address.com"}'
+      assert_equal(expected, res)
+   end
 
    def test_access_level_translate
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
@@ -249,12 +257,12 @@ class TestIso191153DcatusTranslation < Minitest::Test
       assert_equal('R/P2M or R/P0.5M', res)
    end
 
-   def test_primaryit_investment_uii
+   def test_primaryit_investment_uii_translate
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::PrimaryITInvestmentUII
       res = dcatusNS.build(@@intMetadata)
 
       assert_equal('57d97341e4b090824ffb0e6f', res)
    end
 
-   # TODO: program code (need to handle how contacts/parties are stored)
+   # skipping program code and bureau code...
 end
