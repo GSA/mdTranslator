@@ -24,14 +24,7 @@ module ADIWG
                   hRespblty = intMetadataClass.newResponsibility
 
                   xRespblty = xParent.xpath(@@respbltyXpath)[0]
-
-                  # CI_Responsibility (required)
-                  if xRespblty.nil?
-                     msg = 'ERROR: ISO19115-3 reader: element \'cit:CI_Responsibility\' is missing in mdb:contact'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return nil
-                  end
+                  return nil if xRespblty.nil?
 
                   # cit: role (required)
                   # <element name="role" type="cit:CI_RoleCode_PropertyType">

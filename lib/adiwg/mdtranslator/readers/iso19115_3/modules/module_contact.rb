@@ -23,13 +23,7 @@ module ADIWG
 
                   xContact = xContactInfo.xpath(@@contactXpath)[0]
 
-                  if xContact.nil?
-                     msg = 'WARNING: ISO19115-3 reader: element \'cit:CI_Contact\' '\
-                        'is missing in cit:contactInfo'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return xContact
-                  end
+                  return nil if xContact.nil?
 
                   # :contactType (optional)
                   # <element minOccurs="0" name="contactType" type="gco:CharacterString_PropertyType"/>

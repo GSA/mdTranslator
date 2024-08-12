@@ -16,7 +16,6 @@ module ADIWG
                @@contactInfoXPath = 'cit:contactInfo'
                @@partyIdXPath = 'cit:partyIdentifier'
                @@logoXPath = 'cit:logo'
-
                def self.unpack(xParty, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hContact = intMetadataClass.newContact
@@ -27,23 +26,32 @@ module ADIWG
                   xOrg = xParty.xpath(@@orgXPath)[0]
                   return nil if xOrg.nil?
 
-                  # :name
+                  # :name (optional)
+                  # <element minOccurs="0" name="name" type="gco:CharacterString_PropertyType">
+                  # internal contacts need to have a name in order to add them so??
                   xName = xOrg.xpath(@@nameXPath)
-                  hContact[:name] = xName.empty? ? nil : xName[0].text
+                  unless xName.empty?
+                     val = xName[0].text
+                     hContact[:name] = val
+                     contactId = Iso191153.add_contact(val, true)
+                     hContact[:contactId] = contactId
+                     hContact[:contactName] = val # TODO: revisit this.
+                  end
 
                   # :isOrganization
                   hContact[:isOrganization] = true
 
                   # :externalIdentifier
-                  # ( :contactId is second priority in the writer and appears to reflect the same info )
-                  xOrgPartyId = xOrg.xpath(@@partyIdXPath)[0]
-                  hContact[:externalIdentifier] =
-                     xOrgPartyId.nil? ? nil : Identification.unpack(xOrgPartyId, hResponseObj)
+                  # <element maxOccurs="unbounded" minOccurs="0" name="partyIdentifier"
+                  # type="mcc:MD_Identifier_PropertyType">
+                  xOrgPartyId = xOrg.xpath(@@partyIdXPath)
+                  hContact[:externalIdentifier] = xOrgPartyId.map { |i| Identification.unpack(i, hResponseObj)[0] }
 
                   # individual - contact information [] (only one contactInfo supported in this implementation)
-                  xContactInfo = xOrg.xpath(@@contactInfoXPath)
-                  contactData = Contact.unpack(xContactInfo[0], hResponseObj) unless xContactInfo.empty?
-
+                  # <element maxOccurs="unbounded" minOccurs="0" name="contactInfo" type="cit:CI_Contact_PropertyType">
+                  # the schema indicates contactInfo can be an array but the implementation is only 1? keeping it at 1.
+                  xContactInfo = xOrg.xpath(@@contactInfoXPath)[0]
+                  contactData = Contact.unpack(xContactInfo, hResponseObj) unless xContactInfo.nil?
                   hContact = AdiwgUtils.reconcile_hashes(contactData, hContact) unless contactData.nil?
 
                   # :logos
@@ -52,7 +60,7 @@ module ADIWG
                      hContact[:logos] << BrowseGraphic.unpack(xlogo, hResponseObj)
                   end
 
-                  # :memberOfOrgs TODO
+                  Iso191153.set_contact(hContact)
 
                   hContact
                end

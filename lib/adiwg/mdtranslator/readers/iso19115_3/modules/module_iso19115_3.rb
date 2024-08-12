@@ -45,7 +45,7 @@ module ADIWG
                      return intObj
                   end
 
-                  @intObj[:contacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }
+                  # @intObj[:contacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }
 
                   # :dataDictionaries
                   xContentInfos = xMetadata.xpath(@@contentInfoXPath)

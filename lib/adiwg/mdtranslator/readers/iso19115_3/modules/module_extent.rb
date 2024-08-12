@@ -20,14 +20,8 @@ module ADIWG
                   intMetadataClass = InternalMetadata.new
                   hExtent = intMetadataClass.newExtent
 
-                  # EX_Extent (required)
                   xExExtent = xExtent.xpath(@@exExtentXPath)[0]
-                  if xExExtent.nil?
-                     msg = 'ERROR: ISO19115-3 reader: element \'gex:EX_Extent\' is missing in extent'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return nil
-                  end
+                  return nil if xExExtent.nil?
 
                   # :description (optional)
                   xDesc = xExExtent.xpath(@@descXPath)[0]

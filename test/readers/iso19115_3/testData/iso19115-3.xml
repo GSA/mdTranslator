@@ -1532,7 +1532,7 @@
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
-                        <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="distributor" codeSpace="005"/>
+                        <cit:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="005"/>
                      </cit:role>
                      <cit:party>
                         <cit:CI_Organisation>
@@ -1551,6 +1551,9 @@
                                        </cit:numberType>
                                     </cit:CI_Telephone>
                                  </cit:phone>
+                                 <cit:contactType>
+                                    <gco:CharacterString>organization</gco:CharacterString>
+                                 </cit:contactType>
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
