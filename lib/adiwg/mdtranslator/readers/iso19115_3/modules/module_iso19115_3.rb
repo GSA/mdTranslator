@@ -8,8 +8,6 @@ require_relative 'module_metadata'
 require_relative 'module_responsibility'
 require_relative 'module_feature_catalog'
 
-require 'debug'
-
 module ADIWG
    module Mdtranslator
       module Readers
