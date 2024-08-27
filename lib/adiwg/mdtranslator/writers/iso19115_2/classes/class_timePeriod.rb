@@ -1,21 +1,15 @@
 # ISO <<Class>> TimePeriod
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-11-30 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-11-04 original script.
+# 	Stan Smith 2019-03-19 original script.
 
 require_relative 'class_gmlIdentifier'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class TimePeriod
 
@@ -41,11 +35,10 @@ module ADIWG
                   @xml.tag!('gml:TimePeriod', {'gml:id' => timeID}) do
 
                      # time period - description
-                     s = hPeriod[:description]
-                     unless s.nil?
-                        @xml.tag!('gml:description', s)
+                     unless hPeriod[:description].nil?
+                        @xml.tag!('gml:description', hPeriod[:description])
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
+                     if hPeriod[:description].nil? && @hResponseObj[:writerShowTags]
                         @xml.tag!('gml:description')
                      end
 

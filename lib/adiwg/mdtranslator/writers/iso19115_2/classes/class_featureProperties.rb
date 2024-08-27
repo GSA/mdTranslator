@@ -1,15 +1,15 @@
 # GeoJSON Feature Properties
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#   Stan Smith 2016-12-06 original script
+#   Stan Smith 2019-03-20 original script
 
 require_relative 'class_gmlIdentifier'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class FeatureProperties
 
@@ -26,11 +26,10 @@ module ADIWG
                   unless hProperties.empty?
 
                      # feature properties - description
-                     s = hProperties[:description]
-                     unless s.nil?
-                        @xml.tag!('gml:description', s)
+                     unless hProperties[:description].nil?
+                        @xml.tag!('gml:description', hProperties[:description])
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
+                     if hProperties[:description].nil? && @hResponseObj[:writerShowTags]
                         @xml.tag!('gml:description')
                      end
 

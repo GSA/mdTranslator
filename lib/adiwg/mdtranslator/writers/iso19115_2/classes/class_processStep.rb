@@ -1,8 +1,8 @@
 # ISO <<Abstract>> ProcessStep
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-# 	Stan Smith 2019-09-25 original script.
+# 	Stan Smith 2019-09-27 original script.
 
 require_relative 'class_liProcessStep'
 require_relative 'class_leProcessStep'
@@ -10,7 +10,7 @@ require_relative 'class_leProcessStep'
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class ProcessStep
 

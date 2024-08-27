@@ -1,26 +1,28 @@
 # ISO <<Class>> Measure
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-19 add error and warning messaging
-#  Stan Smith 2016-11-22 original script.
+#  Stan Smith 2019-03-21 original script.
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class Measure
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hMeasure, inContext = nil)
+
+                  outContext = 'measure'
+                  outContext = inContext + ' measure' unless inContext.nil?
 
                   # measure
                   type = hMeasure[:type]
@@ -32,6 +34,10 @@ module ADIWG
 
                   haveType = false
                   if type == 'distance'
+                     @xml.tag!('gco:Distance', {'uom' => uom}, value)
+                     haveType = true
+                  end
+                  if type == 'vertical'
                      @xml.tag!('gco:Distance', {'uom' => uom}, value)
                      haveType = true
                   end
@@ -53,7 +59,7 @@ module ADIWG
                   end
 
                   unless haveType
-                     @NameSpace.issueWarning(360, nil, inContext)
+                     @NameSpace.issueWarning(360, nil, outContext)
                   end
 
                end # write XML

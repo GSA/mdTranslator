@@ -1,102 +1,92 @@
 # ISO <<Class>> CI_Citation
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-11-29 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-08-28 added alternate title
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2015-06-11 change all codelists to use 'class_codelist' method
-#  Stan Smith 2014-12-15 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-08-18 process isbn and ISSN from identifier section per 0.6.0
-#  Stan Smith 2014-08-18 modify identifier section for schema 0.6.0
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-#  Stan Smith 2014-05-28 modified for json schema 0.5.0
-#  Stan Smith 2014-05-16 added MD_Identifier
-#  Stan Smith 2014-05-16 modified for JSON schema 0.4.0
-# 	Stan Smith 2013-12-30 added ISBN, ISSN
-# 	Stan Smith 2013-08-26 original script
+# 	Stan Smith 2019-03-13 original script
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_codelist'
-require_relative 'class_responsibleParty'
+require_relative 'class_responsibility'
 require_relative 'class_date'
-require_relative 'class_mdIdentifier'
+require_relative 'class_identifier'
 require_relative 'class_series'
+require_relative 'class_onlineResource'
+require_relative 'class_browseGraphic'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class CI_Citation
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hCitation, inContext = nil)
 
                   # classes used
                   codelistClass = MD_Codelist.new(@xml, @hResponseObj)
-                  rPartyClass = CI_ResponsibleParty.new(@xml, @hResponseObj)
+                  responsibilityClass = CI_Responsibility.new(@xml, @hResponseObj)
                   dateClass = CI_Date.new(@xml, @hResponseObj)
                   idClass = MD_Identifier.new(@xml, @hResponseObj)
                   seriesClass = CI_Series.new(@xml, @hResponseObj)
+                  onlineClass = CI_OnlineResource.new(@xml, @hResponseObj)
+                  graphicClass = MD_BrowseGraphic.new(@xml, @hResponseObj)
 
                   outContext = 'citation'
                   outContext = inContext + ' citation' unless inContext.nil?
 
-                  @xml.tag!('gmd:CI_Citation') do
+                  @xml.tag!('cit:CI_Citation') do
 
                      # citation - title (required)
-                     s = hCitation[:title]
-                     if s.nil?
-                        @NameSpace.issueWarning(30, 'gmd:title', inContext)
+                     if hCitation[:title].nil?
+                        @NameSpace.issueWarning(30, 'cit:title', inContext)
                      else
-                        @xml.tag!('gmd:title') do
-                           @xml.tag!('gco:CharacterString', s)
+                        @xml.tag!('cit:title') do
+                           @xml.tag!('gco:CharacterString', hCitation[:title])
                         end
                      end
 
                      # citation - alternate title []
                      aTitles = hCitation[:alternateTitles]
                      aTitles.each do |title|
-                        @xml.tag!('gmd:alternateTitle') do
+                        @xml.tag!('cit:alternateTitle') do
                            @xml.tag!('gco:CharacterString', title)
                         end
                      end
                      if aTitles.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:alternateTitle')
+                        @xml.tag!('cit:alternateTitle')
                      end
 
-                     # citation - date [] (required)
+                     # citation - date [] {CI_Date}
                      aDate = hCitation[:dates]
                      aDate.each do |hDate|
-                        @xml.tag!('gmd:date') do
+                        @xml.tag!('cit:date') do
                            dateClass.writeXML(hDate, outContext)
                         end
                      end
-                     if aDate.empty?
-                        @NameSpace.issueWarning(31, 'gmd:date', outContext)
+                     if aDate.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('cit:date')
                      end
 
                      # citation - edition
-                     s = hCitation[:edition]
-                     unless s.nil?
-                        @xml.tag!('gmd:edition') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hCitation[:edition].nil?
+                        @xml.tag!('cit:edition') do
+                           @xml.tag!('gco:CharacterString', hCitation[:edition])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:edition')
+                     if hCitation[:edition].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('cit:edition')
                      end
 
-                     # citation - resource identifier []
+                     # citation - edition date {DateTime} - not implemented
+                     # would need to add dateTypeCode = 'edition'
+
+                     # citation - resource identifier [] {MD_Identifier}
                      # process ISBN and ISSN as MD_identifier(s)
                      # ... then also write separately in ISBN or ISSN tag
                      isbn = ''
@@ -110,94 +100,102 @@ module ADIWG
                               issn = hIdentifier[:identifier]
                            end
                         end
-                        @xml.tag!('gmd:identifier') do
+                        @xml.tag!('cit:identifier') do
                            idClass.writeXML(hIdentifier, outContext)
                         end
                      end
                      if aIds.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:identifier')
+                        @xml.tag!('cit:identifier')
                      end
 
-                     # citation - cited responsible party [{CI_ResponsibleParty}]
-                     # responsibilities are grouped by role in the internal object
-                     # to output in ISO ...
-                     # create a separate record for each role-contact pair
-                     # check for duplicates and eliminate
-                     aRoleParty = []
-                     aRParties = hCitation[:responsibleParties]
-                     aRParties.each do |hRParty|
-                        role = hRParty[:roleName]
-                        aParties = hRParty[:parties]
-                        aParties.each do |hParty|
-                           aRoleParty << {role: role, hParty: hParty}
+                     # citation - cited responsible party [] {CI_Responsibility}
+                     aResponsibility = hCitation[:responsibleParties]
+                     aResponsibility.each do |hResponsibility|
+                        @xml.tag!('cit:citedResponsibleParty') do
+                           responsibilityClass.writeXML(hResponsibility, outContext)
                         end
                      end
-                     aRoleParty.uniq!
-                     aRoleParty.each do |hRoleParty|
-                        @xml.tag!('gmd:citedResponsibleParty') do
-                           rPartyClass.writeXML(hRoleParty[:role], hRoleParty[:hParty], outContext)
-                        end
-                     end
-                     if aRoleParty.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:citedResponsibleParty')
+                     if aResponsibility.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('cit:citedResponsibleParty')
                      end
 
-                     # citation - presentation forms [{CI_PresentationFormCode}]
+                     # citation - presentation forms [] {CI_PresentationFormCode}
                      aPresForms = hCitation[:presentationForms]
                      aPresForms.each do |presForm|
-                        @xml.tag!('gmd:presentationForm') do
-                           codelistClass.writeXML('gmd', 'iso_presentationForm', presForm)
+                        @xml.tag!('cit:presentationForm') do
+                           codelistClass.writeXML('cit', 'iso_presentationForm', presForm)
                         end
                      end
                      if aPresForms.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:presentationForm')
+                        @xml.tag!('cit:presentationForm')
                      end
 
                      # citation - series {CI_Series}
                      hSeries = hCitation[:series]
                      unless hSeries.empty?
-                        @xml.tag!('gmd:series') do
+                        @xml.tag!('cit:series') do
                            seriesClass.writeXML(hSeries)
                         end
                      end
                      if hSeries.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:series')
+                        @xml.tag!('cit:series')
                      end
 
-                     # citation - other citation details
+                     # citation - other citation details []
                      aOther = hCitation[:otherDetails]
                      unless aOther.empty?
                         other = aOther[0]
-                        @xml.tag!('gmd:otherCitationDetails') do
+                        @xml.tag!('cit:otherCitationDetails') do
                            @xml.tag!('gco:CharacterString', other)
                         end
                      end
                      if aOther.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:otherCitationDetails')
+                        @xml.tag!('cit:otherCitationDetails')
                      end
 
                      # citation - ISBN
                      unless isbn == ''
-                        @xml.tag!('gmd:ISBN') do
+                        @xml.tag!('cit:ISBN') do
                            @xml.tag!('gco:CharacterString', isbn)
                         end
                      end
                      if isbn == '' && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:ISBN')
+                        @xml.tag!('cit:ISBN')
                      end
 
                      # citation - ISSN
                      unless issn == ''
-                        @xml.tag!('gmd:ISSN') do
+                        @xml.tag!('cit:ISSN') do
                            @xml.tag!('gco:CharacterString', issn)
                         end
                      end
                      if issn == '' && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:ISSN')
+                        @xml.tag!('cit:ISSN')
+                     end
+
+                     # citation - online resources [] {CI_OnlineResource}
+                     aOnline = hCitation[:onlineResources]
+                     aOnline.each do |hOnline|
+                        @xml.tag!('cit:onlineResource') do
+                           onlineClass.writeXML(hOnline, outContext)
+                        end
+                     end
+                     if aOnline.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('cit:onlineResource')
+                     end
+
+                     # citation - graphic [] {MD_BrowseGraphic}
+                     aGraphic = hCitation[:browseGraphics]
+                     aGraphic.each do |hGraphic|
+                        @xml.tag!('cit:graphic') do
+                           graphicClass.writeXML(hGraphic, outContext)
+                        end
+                     end
+                     if aGraphic.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('cit:graphic')
                      end
 
                   end # CI_Citation tag
-
                end # writeXML
             end # CI_Citation class
 

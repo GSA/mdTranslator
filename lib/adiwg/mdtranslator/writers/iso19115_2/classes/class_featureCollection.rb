@@ -1,15 +1,15 @@
 # GeoJson FeatureCollection
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#   Stan Smith 2016-12-06 original script
+#   Stan Smith 2019-03-20 original script
 
 require_relative 'class_feature'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class FeatureCollection
 

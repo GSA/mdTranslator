@@ -1,13 +1,13 @@
 # ISO <<Class>> BaseUnit
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-# 	Stan Smith 2015-08-27 copied from 19110 writer
+# 	Stan Smith 2019-04-08 copied from 19115_2 writer
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class BaseUnit
 

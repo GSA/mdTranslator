@@ -1,47 +1,44 @@
-# Writer - internal data structure to ISO 19115-2:2009
+# Writer - internal data structure to ISO 19115-3:2014
 
 # History:
-#  Stan Smith 2018-04-09 add error/warning/notice message methods
-#  Stan Smith 2016-11-14 refactor for mdJson/mdTranslator 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2015-06-11 change all codelists to use 'class_codelist' method
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-#  Stan Smith 2014-06-04 add internal object pre-scan to create extents
-#  ... for geometry supplemental information
-# 	Stan Smith 2013-08-10 original script
+# 	Stan Smith 2019-03-12 original script
+
+# items not implemented in mdJson
+# online resource - applicationProfile (string)
+# online resource - protocol request (string)
+# party - multiple contactInfo{}
 
 require 'builder'
-require 'adiwg/mdtranslator/writers/iso19115_2/version'
-require_relative 'classes/class_miMetadata'
+require 'adiwg/mdtranslator/writers/iso19115_3/version'
+require 'adiwg/mdtranslator/internal/module_dateTimeFun'
+require_relative 'classes/class_mdMetadata'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
-            def self.startWriter(intObj, hResponseObj)
+            def self.startWriter(intObj, hResponseObj)					
+               hResponseObj[:writerMissingIdCount] = '000'
 
                # make contact available to the instance
                @contacts = intObj[:contacts]
                @hResponseObj = hResponseObj
 
                # load error message array
-               file = File.join(File.dirname(__FILE__), 'iso19115_2_writer_messages_eng') + '.yml'
+               file = File.join(File.dirname(__FILE__), 'iso19115_3_writer_messages_eng') + '.yml'
                hMessageList = YAML.load_file(file)
                @aMessagesList = hMessageList['messageList']
 
                # set the format of the output file based on the writer specified
                hResponseObj[:writerOutputFormat] = 'xml'
-               hResponseObj[:writerVersion] = ADIWG::Mdtranslator::Writers::Iso19115_2::VERSION
+               hResponseObj[:writerVersion] = ADIWG::Mdtranslator::Writers::Iso19115_3::VERSION
 
                # create new XML document
                @xml = Builder::XmlMarkup.new(indent: 3)
 
-               # start writing the ISO 19115-2 XML record
-               metadataWriter = MI_Metadata.new(@xml, hResponseObj)
+               # start writing the ISO 19115-3 XML record
+               metadataWriter = MD_Metadata.new(@xml, hResponseObj)
                metadata = metadataWriter.writeXML(intObj)
 
                return metadata
@@ -51,9 +48,9 @@ module ADIWG
             # find contact in contact array and return the contact hash
             def self.getContact(contactId)
 
-               @contacts.each do |contact|
-                  if contact[:contactId] == contactId
-                     return contact
+               @contacts.each do |hContact|
+                  if hContact[:contactId] == contactId
+                     return hContact
                   end
                end
                return {}
@@ -73,7 +70,7 @@ module ADIWG
                message = findMessage(messageId)
                unless message.nil?
                   message += ': CONTEXT is ' + context unless context.nil?
-                  @hResponseObj[:writerMessages] << 'ERROR: ISO-19115-2 writer: ' + message
+                  @hResponseObj[:writerMessages] << 'ERROR: ISO-19115-3 writer: ' + message
                   @hResponseObj[:writerPass] = false
                end
             end
@@ -87,10 +84,10 @@ module ADIWG
                         issueError(messageId, context)
                      else
                         @xml.tag!(tag, {'gco:nilReason' => 'missing'})
-                        @hResponseObj[:writerMessages] << 'WARNING: ISO-19115-2 writer: ' + message
+                        @hResponseObj[:writerMessages] << 'WARNING: ISO-19115-3 writer: ' + message
                      end
                   else
-                     @hResponseObj[:writerMessages] << 'WARNING: ISO-19115-2 writer: ' + message
+                     @hResponseObj[:writerMessages] << 'WARNING: ISO-19115-3 writer: ' + message
                   end
                end
             end
@@ -99,7 +96,7 @@ module ADIWG
                message = findMessage(messageId)
                unless message.nil?
                   message += ': CONTEXT is ' + context unless context.nil?
-                  @hResponseObj[:writerMessages] << 'NOTICE: ISO-19115-2 writer: ' + message
+                  @hResponseObj[:writerMessages] << 'NOTICE: ISO-19115-3 writer: ' + message
                end
             end
 

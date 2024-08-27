@@ -1,8 +1,8 @@
 # ISO <<Class>> UnitsOfMeasure
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-# 	Stan Smith 2015-08-27 copied from 19110 writer
+# 	Stan Smith 2019-04-08 copied from 19115_2 writer
 
 require_relative 'class_baseUnit'
 require_relative 'class_conventionalUnit'
@@ -12,7 +12,7 @@ require_relative 'class_definitionUnit'
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class UnitsOfMeasure
 

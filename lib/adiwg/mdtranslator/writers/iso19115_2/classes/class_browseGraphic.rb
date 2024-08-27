@@ -1,65 +1,88 @@
 # ISO <<Class>> MD_BrowseGraphic
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-11-29 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-15 refactored to handle namespacing readers and writers
-# 	Stan Smith 2013-10-17 original script
+# 	Stan Smith 2019-03-15 original script
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
+require_relative 'class_constraint'
+require_relative 'class_onlineResource'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_BrowseGraphic
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hGraphic, inContext = nil)
 
-                  @xml.tag!('gmd:MD_BrowseGraphic') do
+                  # classes used
+                  onlineClass = CI_OnlineResource.new(@xml, @hResponseObj)
+                  constraintClass = Constraint.new(@xml, @hResponseObj)
+
+                  outContext = 'browse graphic'
+                  outContext = inContext + ' browse graphic' unless inContext.nil?
+
+                  @xml.tag!('mcc:MD_BrowseGraphic') do
 
                      # browse graphic - file name (required)
-                     s = hGraphic[:graphicName]
-                     unless s.nil?
-                        @xml.tag!('gmd:fileName') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hGraphic[:graphicName].nil?
+                        @xml.tag!('mcc:fileName') do
+                           @xml.tag!('gco:CharacterString', hGraphic[:graphicName])
                         end
                      end
-                     if s.nil?
-                        @NameSpace.issueWarning(20, 'gmd:fileName', inContext)
+                     if hGraphic[:graphicName].nil?
+                        @NameSpace.issueWarning(20, 'mcc:fileName', outContext)
                      end
 
                      # browse graphic - file description
-                     s = hGraphic[:graphicDescription]
-                     unless s.nil?
-                        @xml.tag!('gmd:fileDescription') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hGraphic[:graphicDescription].nil?
+                        @xml.tag!('mcc:fileDescription') do
+                           @xml.tag!('gco:CharacterString', hGraphic[:graphicDescription])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:fileDescription')
+                     if hGraphic[:graphicDescription].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mcc:fileDescription')
                      end
 
                      # browse graphic - file type
-                     s = hGraphic[:graphicType]
-                     unless s.nil?
-                        @xml.tag!('gmd:fileType') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hGraphic[:graphicType].nil?
+                        @xml.tag!('mcc:fileType') do
+                           @xml.tag!('gco:CharacterString', hGraphic[:graphicType])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:fileType')
+                     if hGraphic[:graphicType].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mcc:fileType')
+                     end
+
+                     # browse graphic - image constraint []
+                     # {MD_Constraints | MD_SecurityConstraints | MD_LegalConstraints}
+                     aConstraint = hGraphic[:graphicConstraints]
+                     aConstraint.each do |hCon|
+                        @xml.tag!('mcc:imageConstraints') do
+                           constraintClass.writeXML(hCon, outContext)
+                        end
+                     end
+                     if aConstraint.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mcc:imageConstraints')
+                     end
+
+                     # browse graphic - linkage [] {CI_OnlineResource}
+                     aOnline = hGraphic[:graphicURI]
+                     aOnline.each do |hOnline|
+                        @xml.tag!('mcc:linkage') do
+                           onlineClass.writeXML(hOnline, outContext)
+                        end
+                     end
+                     if aOnline.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mcc:linkage')
                      end
 
                   end # MD_BrowseGraphic tag

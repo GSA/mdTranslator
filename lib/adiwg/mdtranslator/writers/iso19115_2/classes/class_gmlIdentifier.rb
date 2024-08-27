@@ -1,13 +1,13 @@
 # GML Identifier
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#   Stan Smith 2016-12-01 original script.
+#  Stan Smith 2019-03-19 original script.
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class GMLIdentifier
 

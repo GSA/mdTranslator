@@ -1,25 +1,23 @@
 # ISO <<Class>> PT_Locale
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-11-21 refactored for mdTranslator/mdJson 2.0
-# 	Stan Smith 2015-07-28 original script.
+# 	Stan Smith 2019-03-15 original script.
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_codelist'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class PT_Locale
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hLocale, inContext = nil)
@@ -27,46 +25,41 @@ module ADIWG
                   # classes used
                   codelistClass = MD_Codelist.new(@xml, @hResponseObj)
 
-                  @xml.tag!('gmd:PT_Locale') do
+                  @xml.tag!('lan:PT_Locale') do
 
                      # locale - language (required)
-                     s = hLocale[:languageCode]
-                     unless s.nil?
-                        @xml.tag!('gmd:languageCode') do
-                           codelistClass.writeXML('gmd', 'iso_language', s)
+                     unless hLocale[:languageCode].nil?
+                        @xml.tag!('lan:language') do
+                           codelistClass.writeXML('lan', 'iso_language', hLocale[:languageCode])
                         end
                      end
-                     if s.nil?
-                        @NameSpace.issueWarning(210, 'gmd:languageCode', inContext)
+                     if hLocale[:languageCode].nil?
+                        @NameSpace.issueWarning(210, 'lan:languageCode', inContext)
                      end
 
                      # locale - country
-                     s = hLocale[:countryCode]
-                     unless s.nil?
-                        @xml.tag!('gmd:country') do
-                           codelistClass.writeXML('gmd', 'iso_countries', s)
+                     unless hLocale[:countryCode].nil?
+                        @xml.tag!('lan:country') do
+                           codelistClass.writeXML('lan', 'iso_countries', hLocale[:countryCode])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:country')
+                     if hLocale[:countryCode].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('lan:country')
                      end
 
                      # locale - character encoding (required)
-                     s = hLocale[:characterEncoding]
-                     unless s.nil?
-                        @xml.tag!('gmd:characterEncoding') do
-                           codelistClass.writeXML('gmd', 'iso_characterSet', s)
+                     unless hLocale[:characterEncoding].nil?
+                        @xml.tag!('lan:characterEncoding') do
+                           codelistClass.writeXML('lan', 'iso_characterSet', hLocale[:characterEncoding])
                         end
                      end
-                     if s.nil?
-                        @NameSpace.issueWarning(211, 'gmd:characterEncoding', inContext)
+                     if hLocale[:characterEncoding].nil?
+                        @NameSpace.issueWarning(211, 'lan:characterEncoding', inContext)
                      end
 
-                  end
-
-               end
-
-            end
+                  end # PT_Locale tag
+               end # writeXML
+            end # PT_Locale class
 
          end
       end

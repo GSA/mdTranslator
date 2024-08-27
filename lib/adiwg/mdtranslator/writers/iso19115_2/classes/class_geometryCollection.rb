@@ -1,11 +1,10 @@
 # GeoJSON GeometryCollection
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-12-06 original script
+#  Stan Smith 2019-03-20 original script
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_point'
 require_relative 'class_lineString'
 require_relative 'class_polygon'
@@ -17,14 +16,14 @@ require_relative 'class_featureProperties'
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class GeometryCollection
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hGeoObject, hProperties, objId)
@@ -61,8 +60,8 @@ module ADIWG
                      end
 
                      # geometry collection - geometry objects (required)
-                     @xml.tag!('gml:geometryMembers') do
-                        unless hGeoObject[:geometryObjects].empty?
+                     unless hGeoObject[:geometryObjects].empty?
+                        @xml.tag!('gml:geometryMembers') do
                            aObjects = hGeoObject[:geometryObjects]
                            aObjects.each do |hGeoObj|
                               case hGeoObj[:type]
@@ -83,6 +82,9 @@ module ADIWG
                               end
                            end
                         end
+                     end
+                     if hGeoObject[:geometryObjects].empty?
+                        @NameSpace.issueWarning(161, nil, 'geometry collection')
                      end
 
                   end # gml:MultiGeometry tag

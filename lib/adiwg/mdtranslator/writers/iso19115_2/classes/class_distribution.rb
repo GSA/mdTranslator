@@ -1,21 +1,15 @@
 # ISO <<Class>> MD_Distribution
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-12-07 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-09 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-09-25 original script
+# 	Stan Smith 2019-04-09 original script
 
 require_relative 'class_distributor'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Distribution
 
@@ -29,20 +23,34 @@ module ADIWG
                   # classes used
                   distributorClass = MD_Distributor.new(@xml, @hResponseObj)
 
-                  @xml.tag!('gmd:MD_Distribution') do
+                  @xml.tag!('mrd:MD_Distribution') do
+
+                     # distribution - description
+                     unless hDistribution[:description].nil?
+                        @xml.tag!('mrd:description') do
+                           @xml.tag!('gco:CharacterString', hDistribution[:description])
+                        end
+                     end
+                     if hDistribution[:description].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:description')
+                     end
 
                      # distribution - distributor
                      aDistributors = hDistribution[:distributor]
                      unless aDistributors.empty?
                         aDistributors.each do |hDistributor|
-                           @xml.tag!('gmd:distributor') do
+                           @xml.tag!('mrd:distributor') do
                               distributorClass.writeXML(hDistributor)
                            end
                         end
                      end
                      if aDistributors.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:distributor')
+                        @xml.tag!('mrd:distributor')
                      end
+
+                     # distribution - transfer options - supported under distributor
+
+                     # distribution - distribution format - supported under distributor
 
                   end # gmd:MD_Distribution tag
                end # writeXML

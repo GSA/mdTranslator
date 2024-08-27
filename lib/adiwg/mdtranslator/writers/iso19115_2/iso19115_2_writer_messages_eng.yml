@@ -1,7 +1,7 @@
-# Writer - messages for ISO 19115-2:2003
+# Writer - messages for ISO 19115-3:2014
 
 # History:
-#  Stan Smith 2018-04-09 original script
+#  Stan Smith 20189-03-12 original script
 
 messageList:
    - {id: 1, message: "associated resource association type is missing"}
@@ -14,7 +14,6 @@ messageList:
    - {id: 20, message: "browse graphic file name is missing"}
 
    - {id: 30, message: "citation title is missing"}
-   - {id: 31, message: "citation dates are missing"}
 
    - {id: 40, message: "coverage attribute description is missing"}
    - {id: 41, message: "coverage content type is missing"}
@@ -44,7 +43,7 @@ messageList:
 
    - {id: 110, message: "GeoJSON geometry object type is not recognized"}
 
-   - {id: 120, message: "format name is missing"}
+   - {id: 120, message: "format specification citation is missing"}
    - {id: 121, message: "format version is missing"}
 
    - {id: 130, message: "spatial resolution representative fraction denominator is missing"}
@@ -54,9 +53,11 @@ messageList:
    - {id: 150, message: "vector object type is missing"}
 
    - {id: 160, message: "GeoJSON geometry is not supported by geometry collection"}
+   - {id: 161, message: "Geometry collection has no geometries"}
 
    - {id: 170, message: "georectified corner points are missing"}
    - {id: 171, message: "georectified point in pixel is missing"}
+   - {id: 172, message: "georectified must have either 2 or 4 corner points"}
 
    - {id: 180, message: "georeferenced parameter is missing"}
 
@@ -74,18 +75,24 @@ messageList:
    - {id: 230, message: "identifier code is missing"}
 
    - {id: 240, message: "metadata contacts are missing"}
-   - {id: 241, message: "data identification section (resourceInfo) missing"}
+   - {id: 241, message: "data identification section (resourceInfo) is missing"}
 
    - {id: 250, message: "online resource URL is missing"}
 
    - {id: 260, message: "process step description is missing"}
 
    - {id: 270, message: "responsible party role is missing"}
-   - {id: 270, message: "responsible party is missing"}
+   - {id: 271, message: "responsible party is missing"}
+   - {id: 272, message: "responsible party not found"}
+   - {id: 273, message: "responsible party logo is missing"}
+   - {id: 274, message: "responsible party organization member not found"}
 
    - {id: 280, message: "scope level (code) is missing"}
 
    - {id: 290, message: "security constraint classification is missing"}
+   - {id: 291, message: "legal constraint is missing when constraint type is 'legal'"}
+   - {id: 292, message: "security constraint is missing when constraint type is 'security'"}
+   - {id: 293, message: "constraint type must be 'use', 'legal' or 'security'"}
 
    - {id: 300, message: "taxonomic level is missing"}
    - {id: 301, message: "taxonomic name is missing"}
@@ -113,15 +120,24 @@ messageList:
 
    - {id: 360, message: "measure type is invalid; must be one of [distance, length, angle, measure, scale]"}
 
-   - {id: 370, message: "invalid obligation code"}
+   - {id: 370, message: "phone number is missing"}
 
-   - {id: 380, message: "invalid topic category"}
+   - {id: 380, message: "spatial reference system identifier is missing"}
+   - {id: 381, message: "spatial reference system type is missing"}
 
-   - {id: 390, message: "algorithm citation is missing"}
-   - {id: 391, message: "algorithm description is missing"}
+   - {id: 390, message: "resource type 'type' is missing"}
 
-   - {id: 400, message: "nominal resolution is missing"}
+   - {id: 400, message: "invalid topic category"}
 
-   - {id: 410, message: "process step report name is missing"}
+   - {id: 410, message: "temporal extent must have a TimeInstant or TimePeriod"}
 
-   - {id: 420, message: "processing identifier is missing"}
+   - {id: 420, message: "algorithm citation is missing"}
+   - {id: 421, message: "algorithm description is missing"}
+
+   - {id: 430, message: "processing identifier is missing"}
+
+   - {id: 440, message: "process step report name is missing"}
+
+   - {id: 450, message: "nominal resolution is missing"}
+
+

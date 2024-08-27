@@ -1,16 +1,15 @@
 # ISO <<Class>> MD_Band attributes
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-11-29 refactored for mdTranslator/mdJson 2.0
-# 	Stan Smith 2015-08-27 original script.
+# 	Stan Smith 2019-04-08 original script.
 
 require_relative 'class_unitsOfMeasure'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Band
 
@@ -24,96 +23,58 @@ module ADIWG
                   # classes used
                   uomClass = UnitsOfMeasure.new(@xml, @hResponseObj)
 
-                  # mdBand - max value
-                  s = hAttribute[:maxValue]
-                  unless s.nil?
-                     @xml.tag!('gmd:maxValue') do
-                        @xml.tag!('gco:Real', s)
+                  # mdBand - bound max {real}
+                  unless hAttribute[:boundMax].nil?
+                     @xml.tag!('mrc:boundMax') do
+                        @xml.tag!('gco:Real', hAttribute[:boundMax])
                      end
                   end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:maxValue')
+                  if hAttribute[:boundMax].nil? && @hResponseObj[:writerShowTags]
+                     @xml.tag!('mrc:boundMax')
                   end
 
-                  # mdBand - min value
-                  s = hAttribute[:minValue]
-                  unless s.nil?
-                     @xml.tag!('gmd:minValue') do
-                        @xml.tag!('gco:Real', s)
+                  # mdBand - bound min {real}
+                  unless hAttribute[:boundMin].nil?
+                     @xml.tag!('mrc:boundMin') do
+                        @xml.tag!('gco:Real', hAttribute[:boundMin])
                      end
                   end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:minValue')
+                  if hAttribute[:boundMin].nil? && @hResponseObj[:writerShowTags]
+                     @xml.tag!('mrc:boundMin')
                   end
 
-                  # mdBand - units
-                  s = hAttribute[:units]
-                  unless s.nil?
-                     @xml.tag!('gmd:units') do
-                        uomClass.writeUnits(s)
+                  # mdBand - units {gml:unitsOfMeasure}
+                  unless hAttribute[:boundUnits].nil?
+                     @xml.tag!('mrc:boundUnits') do
+                        uomClass.writeUnits(hAttribute[:boundUnits])
                      end
                   end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:units')
+                  if hAttribute[:boundUnits].nil? && @hResponseObj[:writerShowTags]
+                     @xml.tag!('mrc:boundUnits')
                   end
 
-                  # mdBand - peak response
-                  s = hAttribute[:peakResponse]
-                  unless s.nil?
-                     @xml.tag!('gmd:peakResponse') do
-                        @xml.tag!('gco:Real', s)
+                  # mdBand - peak response {real}
+                  unless hAttribute[:peakResponse].nil?
+                     @xml.tag!('mrc:peakResponse') do
+                        @xml.tag!('gco:Real', hAttribute[:peakResponse])
                      end
                   end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:peakResponse')
+                  if hAttribute[:peakResponse].nil? && @hResponseObj[:writerShowTags]
+                     @xml.tag!('mrc:peakResponse')
                   end
 
-                  # mdBand - bits per value
-                  s = hAttribute[:bitsPerValue]
-                  unless s.nil?
-                     @xml.tag!('gmd:bitsPerValue') do
-                        @xml.tag!('gco:Integer', s)
+                  # mdBand - tone gradation {integer}
+                  unless hAttribute[:toneGradations].nil?
+                     @xml.tag!('mrc:toneGradation') do
+                        @xml.tag!('gco:Integer', hAttribute[:toneGradations])
                      end
                   end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:bitsPerValue')
-                  end
-
-                  # mdBand - tone gradation
-                  s = hAttribute[:toneGradations]
-                  unless s.nil?
-                     @xml.tag!('gmd:toneGradation') do
-                        @xml.tag!('gco:Integer', s)
-                     end
-                  end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:toneGradation')
-                  end
-
-                  # mdBand - scale factor
-                  s = hAttribute[:scaleFactor]
-                  unless s.nil?
-                     @xml.tag!('gmd:scaleFactor') do
-                        @xml.tag!('gco:Real', s)
-                     end
-                  end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:scaleFactor')
-                  end
-
-                  # mdBand - offset
-                  s = hAttribute[:offset]
-                  unless s.nil?
-                     @xml.tag!('gmd:offset') do
-                        @xml.tag!('gco:Real', s)
-                     end
-                  end
-                  if s.nil? && @hResponseObj[:writerShowTags]
-                     @xml.tag!('gmd:offset')
+                  if hAttribute[:toneGradations].nil? && @hResponseObj[:writerShowTags]
+                     @xml.tag!('mrc:toneGradation')
                   end
 
                end # writeXML
-            end # MD_Band attributes
+            end # MI_Band attributes
 
          end
       end

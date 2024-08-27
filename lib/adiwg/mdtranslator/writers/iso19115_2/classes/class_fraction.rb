@@ -1,37 +1,39 @@
 # ISO <<Class>> MD_RepresentativeFraction
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-12-13 original script
+#  Stan Smith 2019-03-21 original script
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_RepresentativeFraction
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
-               def writeXML(denominator)
+               def writeXML(denominator, inContext = nil)
 
-                  @xml.tag!('gmd:MD_RepresentativeFraction') do
+                  outContext = 'scale factor'
+                  outContext = inContext + ' scale factor' unless inContext.nil?
+
+                  @xml.tag!('mri:MD_RepresentativeFraction') do
 
                      # representative fraction - denominator
                      unless denominator.nil?
-                        @xml.tag!('gmd:denominator') do
+                        @xml.tag!('mri:denominator') do
                            @xml.tag!('gco:Integer', denominator)
                         end
                      end
                      if denominator.nil?
-                        @NameSpace.issueWarning(120, 'gmd:denominator')
+                        @NameSpace.issueWarning(120, 'mri:denominator', outContext)
                      end
 
                   end # gmd:MD_RepresentativeFraction tag

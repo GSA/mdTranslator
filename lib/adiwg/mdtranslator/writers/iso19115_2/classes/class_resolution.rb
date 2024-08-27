@@ -1,13 +1,8 @@
 # ISO <<Class>> MD_Resolution
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-12-12 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-# 	Stan Smith 2013-11-19 original script
+# 	Stan Smith 2019-03-21 original script
 
 require_relative 'class_measure'
 require_relative 'class_fraction'
@@ -15,7 +10,7 @@ require_relative 'class_fraction'
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Resolution
 
@@ -24,31 +19,71 @@ module ADIWG
                   @hResponseObj = hResponseObj
                end
 
-               def writeXML(hResolution)
+               def writeXML(hResolution, inContext = nil)
 
                   # classes used
                   measureClass = Measure.new(@xml, @hResponseObj)
                   fractionClass = MD_RepresentativeFraction.new(@xml, @hResponseObj)
 
+                  outContext = 'resolution'
+                  outContext = inContext + ' resolution' unless inContext.nil?
+
                   # spatial resolution - equivalent scale
                   unless hResolution[:scaleFactor].nil?
-                     @xml.tag!('gmd:MD_Resolution') do
-                        @xml.tag!('gmd:equivalentScale') do
-                           fractionClass.writeXML(hResolution[:scaleFactor])
+                     @xml.tag!('mri:MD_Resolution') do
+                        @xml.tag!('mri:equivalentScale') do
+                           fractionClass.writeXML(hResolution[:scaleFactor], outContext)
                         end
                      end
                   end
 
-                  # spatial resolution - distance (only if type='distance')
+                  # spatial resolution - distance (when type='distance')
                   unless hResolution[:measure].empty?
                      hMeasure = hResolution[:measure]
                      unless hMeasure.empty?
                         if hMeasure[:type] == 'distance'
-                           @xml.tag!('gmd:MD_Resolution') do
-                              @xml.tag!('gmd:distance') do
+                           @xml.tag!('mri:MD_Resolution') do
+                              @xml.tag!('mri:distance') do
                                  measureClass.writeXML(hMeasure)
                               end
                            end
+                        end
+                     end
+                  end
+
+                  # spatial resolution - angular distance (when type='angle')
+                  unless hResolution[:measure].empty?
+                     hMeasure = hResolution[:measure]
+                     unless hMeasure.empty?
+                        if hMeasure[:type] == 'angle'
+                           @xml.tag!('mri:MD_Resolution') do
+                              @xml.tag!('mri:angularDistance') do
+                                 measureClass.writeXML(hMeasure)
+                              end
+                           end
+                        end
+                     end
+                  end
+
+                  # spatial resolution - distance (when type='vertical')
+                  unless hResolution[:measure].empty?
+                     hMeasure = hResolution[:measure]
+                     unless hMeasure.empty?
+                        if hMeasure[:type] == 'vertical'
+                           @xml.tag!('mri:MD_Resolution') do
+                              @xml.tag!('mri:vertical') do
+                                 measureClass.writeXML(hMeasure)
+                              end
+                           end
+                        end
+                     end
+                  end
+
+                  # spatial resolution - level of detail (when type='levelOfDetail')
+                  unless hResolution[:levelOfDetail].nil?
+                     @xml.tag!('mri:MD_Resolution') do
+                        @xml.tag!('mri:levelOfDetail') do
+                           @xml.tag!('gco:CharacterString', hResolution[:levelOfDetail])
                         end
                      end
                   end

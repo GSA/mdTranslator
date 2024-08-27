@@ -1,23 +1,17 @@
 # ISO <<Class>> MD_DigitalTransferOptions
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-12-07 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-09-21 added transfer size
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-09-26 original script
+# 	Stan Smith 2019-04-10 original script
 
 require_relative 'class_onlineResource'
 require_relative 'class_medium'
+require_relative 'class_format'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_DigitalTransferOptions
 
@@ -26,64 +20,84 @@ module ADIWG
                   @hResponseObj = hResponseObj
                end
 
-               def writeXML(hOption)
+               def writeXML(hOption, inContext = nil)
 
                   # classes used
                   olResClass = CI_OnlineResource.new(@xml, @hResponseObj)
-                  medClass = MD_Medium.new(@xml, @hResponseObj)
+                  mediumClass = MD_Medium.new(@xml, @hResponseObj)
+                  formatClass = MD_Format.new(@xml, @hResponseObj)
 
                   outContext = 'transfer option'
+                  outContext = inContext + ' transfer option' unless inContext.nil?
 
-                  @xml.tag!('gmd:MD_DigitalTransferOptions') do
+                  @xml.tag!('mrd:MD_DigitalTransferOptions') do
 
                      # digital transfer options - units of distribution
-                     s = hOption[:unitsOfDistribution]
-                     unless s.nil?
-                        @xml.tag!('gmd:unitsOfDistribution') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hOption[:unitsOfDistribution].nil?
+                        @xml.tag!('mrd:unitsOfDistribution') do
+                           @xml.tag!('gco:CharacterString', hOption[:unitsOfDistribution])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:unitsOfDistribution')
+                     if hOption[:unitsOfDistribution].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:unitsOfDistribution')
                      end
 
                      # digital transfer options - transfer size {MB}
-                     s = hOption[:transferSize]
-                     unless s.nil?
-                        @xml.tag!('gmd:transferSize') do
-                           @xml.tag!('gco:Real', s.to_s)
+                     unless hOption[:transferSize].nil?
+                        @xml.tag!('mrd:transferSize') do
+                           @xml.tag!('gco:Real', hOption[:transferSize].to_s)
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:transferSize')
+                     if hOption[:transferSize].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:transferSize')
                      end
 
                      # digital transfer options - online [] {CI_OnlineResource}
-                     aOnTranOpts = hOption[:onlineOptions]
-                     aOnTranOpts.each do |hOlOption|
-                        @xml.tag!('gmd:onLine') do
+                     aOnlineOps = hOption[:onlineOptions]
+                     aOnlineOps.each do |hOlOption|
+                        @xml.tag!('mrd:onLine') do
                            olResClass.writeXML(hOlOption, outContext)
                         end
                      end
-                     if aOnTranOpts.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:onLine')
+                     if aOnlineOps.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:onLine')
                      end
 
-                     # digital transfer options - offline {MD_Medium}
-                     aOffTranOpt = hOption[:offlineOptions]
-                     unless aOffTranOpt.empty?
-                        hOffTranOpt = aOffTranOpt[0]
-                        unless hOffTranOpt.empty?
-                           @xml.tag!('gmd:offLine') do
-                              medClass.writeXML(hOffTranOpt)
-                           end
+                     # digital transfer options - offline [] {MD_Medium}
+                     aOfflineOps = hOption[:offlineOptions]
+                     aOfflineOps.each do |hOffline|
+                        @xml.tag!('mrd:offLine') do
+                           mediumClass.writeXML(hOffline)
                         end
                      end
-                     if aOffTranOpt.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:offLine')
+                     if aOfflineOps.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:offLine')
                      end
 
-                  end # gmd:MD_DigitalTransferOptions tag
+                     # digital transfer options - transfer frequency {TM_PeriodDuration}
+                     hDuration = hOption[:transferFrequency]
+                     unless hDuration.empty?
+                        duration = AdiwgDateTimeFun.writeDuration(hDuration)
+                        @xml.tag!('mrd:transferFrequency') do
+                           @xml.tag!('gco:TM_PeriodDuration', duration)
+                        end
+                     end
+                     if hDuration.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:transferFrequency')
+                     end
+
+                     # digital transfer options - distribution format [] {MD_Format}
+                     aFormats = hOption[:distributionFormats]
+                     aFormats.each do |hFormat|
+                        @xml.tag!('mrd:distributionFormat') do
+                           formatClass.writeXML(hFormat)
+                        end
+                     end
+                     if aFormats.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:distributionFormat')
+                     end
+
+                  end # mrd:MD_DigitalTransferOptions tag
                end # writeXML
             end # MD_DigitalTransferOptions class
 

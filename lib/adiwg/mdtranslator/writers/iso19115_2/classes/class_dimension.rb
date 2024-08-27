@@ -1,26 +1,24 @@
 # ISO <<Class>> MD_Dimension
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-11-23 refactored for mdTranslator/mdJson 2.0
-# 	Stan Smith 2015-07-30 original script.
+# 	Stan Smith 2019-04-16 original script.
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_codelist'
 require_relative 'class_measure'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Dimension
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hDim, inContext = nil)
@@ -32,39 +30,36 @@ module ADIWG
                   outContext = 'dimension'
                   outContext = inContext + ' dimension' unless inContext.nil?
 
-                  @xml.tag!('gmd:MD_Dimension') do
+                  @xml.tag!('msr:MD_Dimension') do
 
                      # dimension information - dimension type code (required)
-                     s = hDim[:dimensionType]
-                     unless s.nil?
-                        @xml.tag!('gmd:dimensionName') do
-                           codelistClass.writeXML('gmd', 'iso_dimensionNameType', s)
+                     unless hDim[:dimensionType].nil?
+                        @xml.tag!('msr:dimensionName') do
+                           codelistClass.writeXML('msr', 'iso_dimensionNameType', hDim[:dimensionType])
                         end
                      end
-                     if s.nil?
-                        @NameSpace.issueWarning(80, 'gmd:dimensionName', inContext)
+                     if hDim[:dimensionType].nil?
+                        @NameSpace.issueWarning(80, 'msr:dimensionName', inContext)
                      end
 
                      # dimension information - dimension size (required)
-                     s = hDim[:dimensionSize]
-                     unless s.nil?
-                        @xml.tag!('gmd:dimensionSize') do
-                           @xml.tag!('gco:Integer', s)
+                     unless hDim[:dimensionSize].nil?
+                        @xml.tag!('msr:dimensionSize') do
+                           @xml.tag!('gco:Integer', hDim[:dimensionSize])
                         end
                      end
-                     if s.nil?
-                        @NameSpace.issueWarning(81, 'gmd:dimensionSize', inContext)
+                     if hDim[:dimensionSize].nil?
+                        @NameSpace.issueWarning(81, 'msr:dimensionSize', inContext)
                      end
 
                      # dimension information - dimension resolution
-                     hMeasure = hDim[:resolution]
-                     unless hMeasure.empty?
-                        @xml.tag!('gmd:resolution') do
-                           measureClass.writeXML(hMeasure, outContext)
+                     unless hDim[:resolution].empty?
+                        @xml.tag!('msr:resolution') do
+                           measureClass.writeXML(hDim[:resolution], outContext)
                         end
                      end
-                     if hMeasure.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:resolution')
+                     if hDim[:resolution].empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('msr:resolution')
                      end
 
                   end # MD_Dimension tag

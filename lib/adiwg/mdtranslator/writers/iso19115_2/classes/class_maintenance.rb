@@ -1,121 +1,94 @@
 # ISO <<Class>> MD_MaintenanceInformation
-# 19115-2 writer output in XML
+# 19115-3
 
-# History:
-#  Stan Smith 2018-04-10 add error and warning messaging
-#  Stan Smith 2016-12-12 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2015-06-11 change all codelists to use 'class_codelist' method
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-12-18 added contact
-# 	Stan Smith 2013-10-31 original script.
+# 	Stan Smith 2019-03-22 original script.
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_codelist'
-require_relative 'class_responsibleParty'
-require_relative 'class_scopeDescription'
-require_relative 'class_gcoDateTime'
+require_relative 'class_responsibility'
+require_relative 'class_scope'
+require_relative 'class_date'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_MaintenanceInformation
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hMaintenance, inContext = nil)
 
                   # classes used
                   codelistClass = MD_Codelist.new(@xml, @hResponseObj)
-                  partyClass = CI_ResponsibleParty.new(@xml, @hResponseObj)
-                  dateTimeClass = GcoDateTime.new(@xml, @hResponseObj)
+                  dateClass = CI_Date.new(@xml, @hResponseObj)
+                  partyClass = CI_Responsibility.new(@xml, @hResponseObj)
+                  scopeClass = MD_Scope.new(@xml, @hResponseObj)
 
                   outContext = 'maintenance information'
                   outContext = inContext + ' maintenance information' unless inContext.nil?
 
-                  @xml.tag! 'gmd:MD_MaintenanceInformation' do
+                  @xml.tag! 'mmi:MD_MaintenanceInformation' do
 
-                     # maintenance information - frequency code (required)
-                     s = hMaintenance[:frequency]
-                     unless s.nil?
-                        @xml.tag!('gmd:maintenanceAndUpdateFrequency') do
-                           codelistClass.writeXML('gmd', 'iso_maintenanceFrequency', s)
+                     # maintenance information - frequency code {MD_MaintenanceFrequencyCode} (required)
+                     unless hMaintenance[:frequency].nil?
+                        @xml.tag!('mmi:maintenanceAndUpdateFrequency') do
+                           codelistClass.writeXML('mmi', 'iso_maintenanceFrequency', hMaintenance[:frequency])
                         end
                      end
-                     if s.nil?
-                        @NameSpace.issueWarning(220, 'gmd:maintenanceAndUpdateFrequency', inContext)
+                     if hMaintenance[:frequency].nil?
+                        @NameSpace.issueWarning(220, 'mmi:maintenanceAndUpdateFrequency', inContext)
                      end
 
-                     # maintenance information - date of next update
-                     found = false
+                     # maintenance information - maintenance dates [] {CI_Date}
                      aDates = hMaintenance[:dates]
                      aDates.each do |hDate|
-                        if hDate[:dateType] == 'nextUpdate'
-                           found = true
-                           @xml.tag!('gmd:dateOfNextUpdate') do
-                              dateTimeClass.writeXML(hDate)
-                           end
+                        @xml.tag!('mmi:maintenanceDate') do
+                           dateClass.writeXML(hDate)
                         end
                      end
-                     if !found && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:dateOfNextUpdate')
+                     if aDates.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mmi:maintenanceDate')
                      end
 
-                     # maintenance information - user defined maintenance frequency (not supported)
+                     # maintenance information - user defined maintenance frequency {TM_PeriodDuration} - not implemented
 
-                     # maintenance information - update scope [{MD_ScopeCode}]
-                     haveScope = false
+                     # maintenance information - maintenance scope [] {MD_ScopeCode}
                      aScopes = hMaintenance[:scopes]
                      aScopes.each do |hScope|
-                        s = hScope[:scopeCode]
-                        haveScope = true
-                        @xml.tag!('gmd:updateScope') do
-                           codelistClass.writeXML('gmd', 'iso_scope', s)
+                        @xml.tag!('mmi:maintenanceScope') do
+                           scopeClass.writeXML(hScope, outContext)
                         end
                      end
-                     if !haveScope && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:updateScope')
+                     if aScopes.empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mmi:maintenanceScope')
                      end
-
-                     # maintenance information - update scope description [] (dropped)
-                     # according to XSD content type is 'element only' - so tag only, no text within
-                     # allowed tags are [featureInstances, attributes, features, other, attributeInstances, dataset]
-                     # not collecting this info in mdJson
-                     # this field was dropped in 19115-1
 
                      # maintenance information - note []
                      aNotes = hMaintenance[:notes]
                      aNotes.each do |note|
-                        @xml.tag!('gmd:maintenanceNote') do
+                        @xml.tag!('mmi:maintenanceNote') do
                            @xml.tag!('gco:CharacterString', note)
                         end
                      end
                      if aNotes.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:maintenanceNote')
+                        @xml.tag!('mmi:maintenanceNote')
                      end
 
                      # maintenance information - contact [{CI_ResponsibleParty}]
                      aParties = hMaintenance[:contacts]
-                     aParties.each do |hRParty|
-                        role = hRParty[:roleName]
-                        aParties = hRParty[:parties]
-                        aParties.each do |hParty|
-                           @xml.tag!('gmd:contact') do
-                              partyClass.writeXML(role, hParty, outContext)
-                           end
+                     aParties.each do |hParty|
+                        @xml.tag!('mmi:contact') do
+                           partyClass.writeXML(hParty, outContext)
                         end
                      end
                      if aParties.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:contact')
+                        @xml.tag!('mmi:contact')
                      end
 
                   end # gmd:MD_MaintenanceInformation tag

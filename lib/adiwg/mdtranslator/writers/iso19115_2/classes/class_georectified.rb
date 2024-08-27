@@ -1,71 +1,80 @@
 # ISO <<Class>> MD_Georectified
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-# 	Stan Smith 2016-12-08 original script.
+# 	Stan Smith 2019-04-16 original script.
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_grid'
 require_relative 'class_point'
+require_relative 'class_scope'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Georectified
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
-               def writeXML(hGeoRec)
+               def writeXML(hGeoRec, inContext = nil)
 
                   # classes used
                   gridClass = Grid.new(@xml, @hResponseObj)
                   pointClass = Point.new(@xml, @hResponseObj)
+                  scopeClass = MD_Scope.new(@xml, @hResponseObj)
 
-                  @xml.tag!('gmd:MD_Georectified') do
+
+                  outContext = 'georectified representation'
+                  outContext = inContext + ' georectified representation' unless inContext.nil?
+
+                  @xml.tag!('msr:MD_Georectified') do
+
+                     hGeoRec[:scope].each do |scope|
+                        @xml.tag!('msr:scope') do
+                           scopeClass.writeXML(scope, inContext)
+                        end
+                     end
 
                      # georectified - add grid info
                      hGrid = hGeoRec[:gridRepresentation]
-                     gridClass.writeXML(hGrid, 'georectified representation')
+                     gridClass.writeXML(hGrid, outContext)
 
                      # georectified - checkpoint availability
-                     s = hGeoRec[:checkPointAvailable]
-                     @xml.tag!('gmd:checkPointAvailability') do
-                        @xml.tag!('gco:Boolean', s)
+                     @xml.tag!('msr:checkPointAvailability') do
+                        @xml.tag!('gco:Boolean', hGeoRec[:checkPointAvailable])
                      end
 
                      # georectified - checkpoint description
-                     s = hGeoRec[:checkPointDescription]
-                     unless s.nil?
-                        @xml.tag!('gmd:checkPointDescription') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hGeoRec[:checkPointDescription].nil?
+                        @xml.tag!('msr:checkPointDescription') do
+                           @xml.tag!('gco:CharacterString', hGeoRec[:checkPointDescription])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:checkPointDescription')
+                     if hGeoRec[:checkPointDescription].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('msr:checkPointDescription')
                      end
 
-                     # georectified - corner points (required)
-                     # note: 2 - 4 points are required, but XSD only allows 1
-                     # ... coordinates are flattened into one multi-dimensional point
+                     # georectified - corner points (2 or 4 required)
                      aCoords = hGeoRec[:cornerPoints]
-                     unless aCoords.empty?
-                        aCoords = aCoords.flatten
+                     aCoords.each do |aPoint|
                         hPoint = {}
                         hPoint[:type] = 'Point'
-                        hPoint[:coordinates] = aCoords
-                        @xml.tag!('gmd:cornerPoints') do
+                        hPoint[:coordinates] = aPoint
+                        @xml.tag!('msr:cornerPoints') do
                            pointClass.writeXML(hPoint, {}, nil)
                         end
                      end
                      if aCoords.empty?
-                        @NameSpace.issueWarning(170, 'gmd:cornerPoints', 'spatial representation')
+                        @NameSpace.issueWarning(170, 'msr:cornerPoints', 'spatial representation')
+                     end
+                     unless (aCoords.length == 2 || aCoords.length == 4)
+                        @NameSpace.issueWarning(172, 'msr:cornerPoints', 'spatial representation')
                      end
 
                      # georectified - center point
@@ -74,47 +83,44 @@ module ADIWG
                         hPoint = {}
                         hPoint[:type] = 'Point'
                         hPoint[:coordinates] = aCoords
-                        @xml.tag!('gmd:centerPoint') do
+                        @xml.tag!('msr:centrePoint') do
                            pointClass.writeXML(hPoint, {}, nil)
                         end
                      end
                      if aCoords.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:centerPoint')
+                        @xml.tag!('msr:centrePoint')
                      end
 
                      # georectified - point in pixel (required)
-                     s = hGeoRec[:pointInPixel]
-                     if s.nil?
-                        @NameSpace.issueWarning(171, 'gmd:pointInPixel', 'spatial representation')
+                     if hGeoRec[:pointInPixel].nil?
+                        @NameSpace.issueWarning(171, 'msr:pointInPixel', 'spatial representation')
                      else
-                        @xml.tag!('gmd:pointInPixel') do
-                           @xml.tag!('gmd:MD_PixelOrientationCode', s)
+                        @xml.tag!('msr:pointInPixel') do
+                           @xml.tag!('msr:MD_PixelOrientationCode', hGeoRec[:pointInPixel])
                         end
                      end
 
                      # georectified - transformation dimension description
-                     s = hGeoRec[:transformationDimensionDescription]
-                     unless s.nil?
-                        @xml.tag!('gmd:transformationDimensionDescription') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hGeoRec[:transformationDimensionDescription].nil?
+                        @xml.tag!('msr:transformationDimensionDescription') do
+                           @xml.tag!('gco:CharacterString', hGeoRec[:transformationDimensionDescription])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:transformationDimensionDescription')
+                     if hGeoRec[:transformationDimensionDescription].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('msr:transformationDimensionDescription')
                      end
 
                      # georectified - transformation dimension mapping
-                     s = hGeoRec[:transformationDimensionMapping]
-                     unless s.nil?
-                        @xml.tag!('gmd:transformationDimensionMapping') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hGeoRec[:transformationDimensionMapping].nil?
+                        @xml.tag!('msr:transformationDimensionMapping') do
+                           @xml.tag!('gco:CharacterString', hGeoRec[:transformationDimensionMapping])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:transformationDimensionMapping')
+                     if hGeoRec[:transformationDimensionMapping].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('msr:transformationDimensionMapping')
                      end
 
-                  end # gmd:MD_Georectified tag
+                  end # msr:MD_Georectified tag
                end # writeXML
             end # MD_Georectified class
 

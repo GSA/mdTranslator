@@ -1,19 +1,13 @@
 # ISO <<Class>> MD_StandardOrderProcess
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-12-07 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-09-25 original script.
+# 	Stan Smith 2019-04-10 original script.
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_StandardOrderProcess
 
@@ -23,60 +17,59 @@ module ADIWG
                end
 
                def writeXML(hOrder)
-
-                  # classes used
-
-                  @xml.tag!('gmd:MD_StandardOrderProcess') do
+                  
+                  @xml.tag!('mrd:MD_StandardOrderProcess') do
 
                      # order process - fees
-                     s = hOrder[:fees]
-                     unless s.nil?
-                        @xml.tag!('gmd:fees') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hOrder[:fees].nil?
+                        @xml.tag!('mrd:fees') do
+                           @xml.tag!('gco:CharacterString', hOrder[:fees])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:fees')
+                     if hOrder[:fees].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:fees')
                      end
 
-                     # order process - plannedAvailableDateTime
+                     # order process - plannedAvailableDateTime {DateTime}
                      hDateTime = hOrder[:plannedAvailability]
                      unless hDateTime.empty?
                         paDateTime = hDateTime[:dateTime]
                         paDateRes = hDateTime[:dateResolution]
-                        @xml.tag!('gmd:plannedAvailableDateTime') do
+                        @xml.tag!('mrd:plannedAvailableDateTime') do
                            dateTimeStr =
                               AdiwgDateTimeFun.stringDateTimeFromDateTime(paDateTime, paDateRes)
                            @xml.tag!('gco:DateTime', dateTimeStr)
                         end
                      end
                      if hDateTime.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:plannedAvailableDateTime')
+                        @xml.tag!('mrd:plannedAvailableDateTime')
                      end
 
                      # order process - orderingInstructions
-                     s = hOrder[:orderingInstructions]
-                     unless s.nil?
-                        @xml.tag!('gmd:orderingInstructions') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hOrder[:orderingInstructions].nil?
+                        @xml.tag!('mrd:orderingInstructions') do
+                           @xml.tag!('gco:CharacterString', hOrder[:orderingInstructions])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:orderingInstructions')
+                     if hOrder[:orderingInstructions].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:orderingInstructions')
                      end
 
                      # order process - turnaround
-                     s = hOrder[:turnaround]
-                     unless s.nil?
-                        @xml.tag!('gmd:turnaround') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hOrder[:turnaround].nil?
+                        @xml.tag!('mrd:turnaround') do
+                           @xml.tag!('gco:CharacterString', hOrder[:turnaround])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:turnaround')
+                     if hOrder[:turnaround].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:turnaround')
                      end
 
-                  end # gmd:MD_StandardOrderProcess tag
+                     # order process - orderOptions -  not implemented
+
+                     # order process - orderOptionsType -  not implemented
+
+                  end # mrd:MD_StandardOrderProcess tag
                end # writeXML
             end # MD_StandardOrderProcess class
 

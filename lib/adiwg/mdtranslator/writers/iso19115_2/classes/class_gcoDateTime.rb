@@ -1,13 +1,13 @@
 # ISO <<Class>> Date, DateTime
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-# 	Stan Smith 2017-02-10 original script
+# 	Stan Smith 2019-03-14 original script
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class GcoDateTime
 
@@ -24,8 +24,14 @@ module ADIWG
                   # date - date (required)
                   unless date.nil?
                      case dateRes
-                        when 'Y', 'YM', 'YMD'
-                           dateStr = AdiwgDateTimeFun.stringDateFromDateTime(date, dateRes)
+                        when 'Y'
+                           dateStr = AdiwgDateTimeFun.stringDateFromDateTime(date, 'Y')
+                           @xml.tag!('gco:Date', dateStr)
+                        when 'YM'
+                           dateStr = AdiwgDateTimeFun.stringDateFromDateTime(date, 'YM')
+                           @xml.tag!('gco:Date', dateStr)
+                        when 'YMD'
+                           dateStr = AdiwgDateTimeFun.stringDateFromDateTime(date, 'YMD')
                            @xml.tag!('gco:Date', dateStr)
                         when 'YMDh', 'YMDhm', 'YMDhms'
                            dateStr = AdiwgDateTimeFun.stringDateTimeFromDateTime(date, 'YMDhms')

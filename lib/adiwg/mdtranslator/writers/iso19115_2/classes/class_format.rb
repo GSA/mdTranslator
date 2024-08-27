@@ -1,86 +1,68 @@
 # ISO <<Class>> MD_Format
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-12-07 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-09-15 added compression method element
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-# 	Stan Smith 2013-08-26 original script
+# 	Stan Smith 2019-03-22 original script
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
+require_relative 'class_citation'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Format
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hFormat, inContext = nil)
 
-                  @xml.tag!('gmd:MD_Format') do
+                  # classes used
+                  citationClass = CI_Citation.new(@xml, @hResponseObj)
 
-                     # get required 19115-2 elements from citation
-                     citation = hFormat[:formatSpecification]
-                     if citation.empty?
-                        name = nil
-                        version = nil
-                     else
-                        name = citation[:title]
-                        version = citation[:edition]
-                     end
+                  outContext = 'format'
+                  outContext = inContext + ' format' unless inContext.nil?
 
-                     # format - name (required)
-                     unless name.nil?
-                        @xml.tag!('gmd:name') do
-                           @xml.tag!('gco:CharacterString', name)
+                  @xml.tag!('mrd:MD_Format') do
+
+                     # format - format specification citation {CI_Citation} (required)
+                     unless hFormat[:formatSpecification].empty?
+                        @xml.tag!('mrd:formatSpecificationCitation') do
+                           citationClass.writeXML(hFormat[:formatSpecification], outContext)
                         end
                      end
-                     if name.nil?
+                     if hFormat[:formatSpecification].empty?
                         @NameSpace.issueWarning(120, 'gmd:name', inContext)
                      end
 
-                     # format - version (required)
-                     unless version.nil?
-                        @xml.tag!('gmd:version') do
-                           @xml.tag!('gco:CharacterString', version)
-                        end
-                     end
-                     if version.nil?
-                        @NameSpace.issueWarning(121, 'gmd:version', inContext)
-                     end
-
                      # format - amendment number
-                     s = hFormat[:amendmentNumber]
-                     unless s.nil?
-                        @xml.tag!('gmd:amendmentNumber') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hFormat[:amendmentNumber].nil?
+                        @xml.tag!('mrd:amendmentNumber') do
+                           @xml.tag!('gco:CharacterString', hFormat[:amendmentNumber])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:amendmentNumber')
+                     if hFormat[:amendmentNumber].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:amendmentNumber')
                      end
 
-                     # format - compression method
-                     s = hFormat[:compressionMethod]
-                     unless s.nil?
-                        @xml.tag!('gmd:fileDecompressionTechnique') do
-                           @xml.tag!('gco:CharacterString', s)
+                     # format - file decompression method
+                     unless hFormat[:compressionMethod].nil?
+                        @xml.tag!('mrd:fileDecompressionTechnique') do
+                           @xml.tag!('gco:CharacterString',hFormat[:compressionMethod])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:fileDecompressionTechnique')
+                     if hFormat[:compressionMethod].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:fileDecompressionTechnique')
                      end
+
+                     # format - medium [] {MD_Medium} - not implemented in MD_Format
+
+                     # format - distributor [] {MD_Distributor} - not implemented in MD_Format
 
                   end # MD_Format tag
                end # writeXML

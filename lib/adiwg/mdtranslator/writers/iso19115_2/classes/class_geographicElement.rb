@@ -1,18 +1,10 @@
 # ISO <<Class>> geographicElement {abstract}
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-#  Stan Smith 2016-12-05 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-#  Stan Smith 2014-05-30 added multi-point, multi-linestring, multi-polygon support
-# 	Stan Smith 2014-05-29 original script
+# 	Stan Smith 2019-03-19 original script
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_point'
 require_relative 'class_lineString'
 require_relative 'class_polygon'
@@ -26,14 +18,14 @@ require_relative 'class_featureCollection'
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class GeographicElement
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(aGeoElement)
@@ -50,7 +42,7 @@ module ADIWG
                   featureCollectClass = FeatureCollection.new(@xml, @hResponseObj)
 
                   aGeoElement.each do |hGeoElement|
-                     @xml.tag!('gmd:polygon') do
+                     @xml.tag!('gex:polygon') do
                         case hGeoElement[:type]
                            when 'Point'
                               pointClass.writeXML(hGeoElement, {}, nil)

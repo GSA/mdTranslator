@@ -1,20 +1,15 @@
 # ISO <<Class>> TimeInstant
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-12-01 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-11-04 original script.
+# 	Stan Smith 2019-03-19 original script.
 
 require_relative 'class_gmlIdentifier'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class TimeInstant
 
@@ -40,10 +35,10 @@ module ADIWG
                   @xml.tag!('gml:TimeInstant', {'gml:id' => timeID}) do
 
                      # time instant - description
-                     s = hInstant[:description]
-                     if !s.nil?
-                        @xml.tag!('gml:description', s)
-                     elsif @hResponseObj[:writerShowTags]
+                     unless hInstant[:description].nil?
+                        @xml.tag!('gml:description', hInstant[:description])
+                     end
+                     if hInstant[:description].nil? && @hResponseObj[:writerShowTags]
                         @xml.tag!('gml:description')
                      end
 
@@ -64,6 +59,9 @@ module ADIWG
                      if aNames.empty? && @hResponseObj[:writerShowTags]
                         @xml.tag!('gml:name')
                      end
+
+                     # time instant - related Time [] { TmeInstant | TimePeriod}
+                     # not implemented
 
                      # time instant - time position
                      hDateTime = hInstant[:timeInstant]

@@ -1,71 +1,76 @@
-# ISO <<Class>> MD_GridSpatialRepresentation
-# 19115-2 writer output in XML
+# ISO <<Class>> GridRepresentation
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2018-04-09 add error and warning messaging
-# 	Stan Smith 2016-12-08 original script.
+# 	Stan Smith 2019-04-16 original script.
 
-require_relative '../iso19115_2_writer'
+require_relative '../iso19115_3_writer'
 require_relative 'class_dimension'
+require_relative 'class_scope'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class Grid
 
                def initialize(xml, hResponseObj)
                   @xml = xml
                   @hResponseObj = hResponseObj
-                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_2
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
                end
 
                def writeXML(hGrid, inContext = nil)
 
                   # classes used
                   codelistClass = MD_Codelist.new(@xml, @hResponseObj)
-                  dimClass = MD_Dimension.new(@xml, @hResponseObj)
+                  dimensionClass = MD_Dimension.new(@xml, @hResponseObj)
+                  scopeClass = MD_Scope.new(@xml, @hResponseObj)
 
+                  # grid - scope
+                  hGrid[:scope].each do |scope|
+                     @xml.tag!('msr:scope') do
+                        scopeClass.writeXML(scope, inContext)
+                     end
+                  end
 
                   # grid - number of dimensions (required)
-                  s = hGrid[:numberOfDimensions]
-                  unless s.nil?
-                     @xml.tag!('gmd:numberOfDimensions') do
-                        @xml.tag!('gco:Integer', s.to_s)
+                  unless hGrid[:numberOfDimensions].nil?
+                     @xml.tag!('msr:numberOfDimensions') do
+                        @xml.tag!('gco:Integer', hGrid[:numberOfDimensions].to_s)
                      end
                   end
-                  if s.nil?
-                     @NameSpace.issueWarning(190, 'gmd:numberOfDimensions', inContext)
+                  if hGrid[:numberOfDimensions].nil?
+                     @NameSpace.issueWarning(190, 'msr:numberOfDimensions', inContext)
                   end
 
-                  # grid - axis dimension properties [{MD_Dimension}] (required)
+                  # grid - axis dimension properties [] {MD_Dimension}
                   aDims = hGrid[:dimension]
                   aDims.each do |hDimension|
-                     @xml.tag!('gmd:axisDimensionProperties') do
-                        dimClass.writeXML(hDimension, inContext)
+                     @xml.tag!('msr:axisDimensionProperties') do
+                        dimensionClass.writeXML(hDimension, inContext)
                      end
                   end
-                  if aDims.empty?
-                     @NameSpace.issueWarning(191, 'gmd:axisDimensionProperties', inContext)
+                  if aDims.empty? && @hResponseObj[:writerShowTags]
+                     @xml.tag!('msr:axisDimensionProperties')
                   end
 
                   # grid - cell geometry (required)
-                  s = hGrid[:cellGeometry]
-                  unless s.nil?
-                     @xml.tag!('gmd:cellGeometry') do
-                        codelistClass.writeXML('gmd', 'iso_cellGeometry', s)
+                  unless hGrid[:cellGeometry].nil?
+                     @xml.tag!('msr:cellGeometry') do
+                        codelistClass.writeXML('msr', 'iso_cellGeometry', hGrid[:cellGeometry])
                      end
                   end
-                  if s.nil?
-                     @NameSpace.issueWarning(192, 'gmd:cellGeometry', inContext)
+                  if hGrid[:cellGeometry].nil?
+                     @NameSpace.issueWarning(192, 'msr:cellGeometry', inContext)
                   end
 
                   # grid - transformation parameters availability (required)
-                  s = hGrid[:transformationParameterAvailable]
-                  @xml.tag!('gmd:transformationParameterAvailability') do
-                     @xml.tag!('gco:Boolean', s)
+                  @xml.tag!('msr:transformationParameterAvailability') do
+                     @xml.tag!('gco:Boolean', hGrid[:transformationParameterAvailable])
                   end
+
 
                end # writeXML
             end # Grid class

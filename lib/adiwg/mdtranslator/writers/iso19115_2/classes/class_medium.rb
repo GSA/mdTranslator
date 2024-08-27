@@ -1,23 +1,17 @@
 # ISO <<Class>> MD_Medium
-# 19115-2 writer output in XML
+# 19115-3 writer output in XML
 
 # History:
-#  Stan Smith 2016-11-30 refactored for mdTranslator/mdJson 2.0
-#  Stan Smith 2015-09-15 added density, densityUnits elements
-#  Stan Smith 2015-07-14 refactored to eliminate namespace globals $WriterNS and $IsoNS
-#  Stan Smith 2015-07-14 refactored to make iso19110 independent of iso19115_2 classes
-#  Stan Smith 2015-06-22 replace global ($response) with passed in object (hResponseObj)
-#  Stan Smith 2015-06-11 change all codelists to use 'class_codelist' method
-#  Stan Smith 2014-12-12 refactored to handle namespacing readers and writers
-#  Stan Smith 2014-07-08 modify require statements to function in RubyGem structure
-# 	Stan Smith 2013-09-26 original script.
+# 	Stan Smith 2019-04-10 original script.
 
+require_relative 'class_citation'
+require_relative 'class_identifier'
 require_relative 'class_codelist'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_Medium
 
@@ -26,85 +20,90 @@ module ADIWG
                   @hResponseObj = hResponseObj
                end
 
-               def writeXML(hMedium)
+               def writeXML(hMedium, inContext = nil)
 
                   # classes used
                   codelistClass = MD_Codelist.new(@xml, @hResponseObj)
+                  citationClass = CI_Citation.new(@xml, @hResponseObj)
+                  identifierClass = MD_Identifier.new(@xml, @hResponseObj)
 
-                  @xml.tag!('gmd:MD_Medium') do
+                  outContext = 'medium'
+                  outContext = inContext + ' medium' unless inContext.nil?
 
-                     # medium - name {MD_MediumNameCode}
-                     hIdentifier = hMedium[:identifier]
-                     s = nil
-                     unless hIdentifier.empty?
-                        s = hIdentifier[:identifier]
-                        unless s.nil?
-                           @xml.tag!('gmd:name') do
-                              codelistClass.writeXML('gmd', 'iso_mediumName', s)
-                           end
+                  @xml.tag!('mrd:MD_Medium') do
+
+                     # medium - name {CI_Citation}
+                     unless hMedium[:mediumSpecification].empty?
+                        @xml.tag!('mrd:name') do
+                           citationClass.writeXML(hMedium[:mediumSpecification], outContext)
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:name')
+                     if hMedium[:mediumSpecification].empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:name')
                      end
 
-                     # medium - density {MB}
-                     s = hMedium[:density]
-                     unless s.nil?
-                        @xml.tag!('gmd:density') do
-                           @xml.tag!('gco:Real', s.to_s)
+                     # medium - density {Real}
+                     unless hMedium[:density].nil?
+                        @xml.tag!('mrd:density') do
+                           @xml.tag!('gco:Real', hMedium[:density].to_s)
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:density')
+                     if hMedium[:density].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:density')
                      end
 
                      # medium density units
-                     s = hMedium[:units]
-                     unless s.nil?
-                        s = s.downcase
-                        @xml.tag!('gmd:densityUnits') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hMedium[:units].nil?
+                        @xml.tag!('mrd:densityUnits') do
+                           @xml.tag!('gco:CharacterString', hMedium[:units].downcase)
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:densityUnits')
+                     if hMedium[:units].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:densityUnits')
                      end
 
-                     # medium - volumes
-                     s = hMedium[:numberOfVolumes]
-                     unless s.nil?
-                        @xml.tag!('gmd:volumes') do
-                           @xml.tag!('gco:Integer', s.to_s)
+                     # medium - volumes {Integer}
+                     unless hMedium[:numberOfVolumes].nil?
+                        @xml.tag!('mrd:volumes') do
+                           @xml.tag!('gco:Integer', hMedium[:numberOfVolumes].to_s)
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:volumes')
+                     if hMedium[:numberOfVolumes].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:volumes')
                      end
 
                      # medium - medium format code [] {MD_MediumFormatCode}
                      aCode = hMedium[:mediumFormat]
                      aCode.each do |code|
-                        @xml.tag!('gmd:mediumFormat') do
-                           codelistClass.writeXML('gmd', 'iso_mediumFormat', code)
+                        @xml.tag!('mrd:mediumFormat') do
+                           codelistClass.writeXML('mrd', 'iso_mediumFormat', code)
                         end
                      end
                      if aCode.empty? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:mediumFormat')
+                        @xml.tag!('mrd:mediumFormat')
                      end
 
                      # medium - note
-                     s = hMedium[:note]
-                     unless s.nil?
-                        @xml.tag!('gmd:mediumNote') do
-                           @xml.tag!('gco:CharacterString', s)
+                     unless hMedium[:note].nil?
+                        @xml.tag!('mrd:mediumNote') do
+                           @xml.tag!('gco:CharacterString', hMedium[:note])
                         end
                      end
-                     if s.nil? && @hResponseObj[:writerShowTags]
-                        @xml.tag!('gmd:mediumNote')
+                     if hMedium[:note].nil? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:mediumNote')
                      end
 
-                  end # gmd:MD_Medium
+                     # medium - identifier {MD_Identifier}
+                     unless hMedium[:identifier].empty?
+                        @xml.tag!('mrd:identifier') do
+                           identifierClass.writeXML(hMedium[:identifier], outContext)
+                        end
+                     end
+                     if hMedium[:identifier].empty? && @hResponseObj[:writerShowTags]
+                        @xml.tag!('mrd:identifier')
+                     end
+
+                  end # mrd:MD_Medium
                end # writeXML
             end # MD_Medium class
 

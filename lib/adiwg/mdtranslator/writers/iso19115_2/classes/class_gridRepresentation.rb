@@ -2,14 +2,14 @@
 # writer output in XML
 
 # History:
-# 	Stan Smith 2015-07-30 original script.
+# 	Stan Smith 2019-04-16 original script.
 
 require_relative 'class_grid'
 
 module ADIWG
    module Mdtranslator
       module Writers
-         module Iso19115_2
+         module Iso19115_3
 
             class MD_GridSpatialRepresentation
 
@@ -18,12 +18,12 @@ module ADIWG
                   @hResponseObj = hResponseObj
                end
 
-               def writeXML(hGrid)
+               def writeXML(hGrid, inContext = nil)
 
                   # classes used
                   gridClass = Grid.new(@xml, @hResponseObj)
 
-                  @xml.tag!('gmd:MD_GridSpatialRepresentation') do
+                  @xml.tag!('msr:MD_GridSpatialRepresentation') do
                      gridClass.writeXML(hGrid, 'grid representation')
                   end
 
