@@ -29,8 +29,9 @@ module ADIWG
    module Mdtranslator
       module Writers
          module Dcat_us
-
             def self.build(intObj, responseObj)
+               @contacts = intObj[:contacts]
+
                metadataInfo = intObj[:metadata][:metadataInfo]
                resourceInfo = intObj[:metadata][:resourceInfo]
                citation = resourceInfo[:citation]
@@ -70,7 +71,7 @@ module ADIWG
                   json.set!('description', description)
                   json.set!('keyword', keyword)
                   json.set!('modified', modified)
-                  json.set!('publisher', publisher) 
+                  json.set!('publisher', publisher)
                   json.set!('contactPoint', contactPoint)
                   json.set!('identifier', identifier)
                   json.set!('accessLevel', accessLevel)
@@ -97,6 +98,61 @@ module ADIWG
                   json.set!('describedByType', describedByType)
                   # json.set!('conformsTo', metadataInfo[:metadataStandards][0][:standardName])
                end
+            end
+
+            # find contact in contact array and return the contact hash
+            def self.get_contact_by_index(contactIndex)
+               return @contacts[contactIndex] if @contacts[contactIndex]
+
+               {}
+            end
+
+            # find contact in contact array and return the contact hash
+            def self.get_contact_by_id(contactId)
+               @contacts.each do |hContact|
+                  return hContact if hContact[:contactId] == contactId
+               end
+               {}
+            end
+
+            # find contact in contact array and return the contact index
+            def self.get_contact_index_by_id(contactId)
+               @contacts.each_with_index do |hContact, index|
+                  return index if hContact[:contactId] == contactId
+               end
+               {}
+            end
+
+            # ignore jBuilder object mapping when array is empty
+            def self.json_map(collection = [], _class)
+               return nil if collection.nil? || collection.empty?
+
+               collection.map { |item| _class.build(item).attributes! }
+            end
+
+            # find all nested objects in 'obj' that contain the element 'ele'
+            def self.nested_objs_by_element(obj, ele, excludeList = [])
+               aCollected = []
+               obj.each do |key, value|
+                  skipThisOne = false
+                  excludeList.each do |exclude|
+                     skipThisOne = true if key == exclude.to_sym
+                  end
+                  next if skipThisOne
+
+                  if key == ele.to_sym
+                     aCollected << obj
+                  elsif obj.is_a?(Array)
+                     if key.respond_to?(:each)
+                        aReturn = nested_objs_by_element(key, ele, excludeList)
+                        aCollected = aCollected.concat(aReturn) unless aReturn.empty?
+                     end
+                  elsif obj[key].respond_to?(:each)
+                     aReturn = nested_objs_by_element(value, ele, excludeList)
+                     aCollected = aCollected.concat(aReturn) unless aReturn.empty?
+                  end
+               end
+               aCollected
             end
          end
       end
