@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_resource_info'
 require_relative 'iso19115_2_test_parent'
-require 'debug'
 
 class TestReaderIso191152ResourceInformation < TestReaderIso191152Parent
    @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152::ResourceInformation
