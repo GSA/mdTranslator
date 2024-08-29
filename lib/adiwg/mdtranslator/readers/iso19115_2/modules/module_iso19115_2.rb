@@ -5,16 +5,12 @@ require 'uuidtools'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative '../version'
 require_relative 'module_metadata'
-require_relative 'module_responsibility'
-require_relative 'module_feature_catalog'
 
 module ADIWG
    module Mdtranslator
       module Readers
-         module Iso191153
-            module Iso191153
-               @@contactXPath = 'mdb:contact'
-               @@contentInfoXPath = 'mdb:contentInfo'
+         module Iso191152
+            module Iso191152
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
 
@@ -24,33 +20,12 @@ module ADIWG
 
                   # :schema
                   hSchema = intMetadataClass.newSchema
-                  hSchema[:name] = 'iso19115_3'
-                  hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso191153::VERSION
+                  hSchema[:name] = 'iso19115_2'
+                  hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso191152::VERSION
                   @intObj[:schema] = hSchema
 
                   hMetadata = Metadata.unpack(xMetadata, hResponseObj)
                   @intObj[:metadata] = hMetadata
-
-                  # :contacts (required)
-                  # <element maxOccurs="unbounded" name="contact"
-                  # type="mcc:Abstract_Responsibility_PropertyType">
-                  xContacts = xMetadata.xpath(@@contactXPath)
-                  if xContacts.empty?
-                     msg = 'WARNING: ISO19115-3 reader: element \'mdb:contact\' '\
-                        'is missing in mdb:MD_Metadata'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return intObj
-                  end
-
-                  # @intObj[:contacts] = xContacts.map { |c| Responsibility.unpack(c, hResponseObj) }
-
-                  # :dataDictionaries
-                  xContentInfos = xMetadata.xpath(@@contentInfoXPath)
-                  @intObj[:dataDictionaries] = xContentInfos.map { |ci| FeatureCatalog.unpack(ci, hResponseObj) }
-
-                  # :metadataRepositories
-                  # @intObj[:metadataRepositories] = [] # TODO
 
                   intObj
                end

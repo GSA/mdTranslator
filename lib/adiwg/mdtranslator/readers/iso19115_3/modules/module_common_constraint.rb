@@ -8,8 +8,6 @@ require_relative 'module_browse_graphic'
 require_relative 'module_citation'
 require_relative 'module_responsibility'
 
-require 'debug'
-
 module ADIWG
    module Mdtranslator
       module Readers

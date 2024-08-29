@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_phone'
 require_relative 'iso19115_3_test_parent'
-require 'debug'
 
 class TestReaderIso191153Telephone < TestReaderIso191153Parent
    @@xDoc = TestReaderIso191153Parent.get_xml('iso19115-3.xml')
