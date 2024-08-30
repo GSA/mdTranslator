@@ -100,7 +100,7 @@
         </gmd:CI_Citation>
       </gmd:citation>
       <gmd:abstract>
-        <gco:CharacterString>abstract</gco:CharacterString>
+        <gco:CharacterString>this is a test abstract for iso19115-2</gco:CharacterString>
       </gmd:abstract>
       <gmd:purpose>
         <gco:CharacterString>purpose</gco:CharacterString>

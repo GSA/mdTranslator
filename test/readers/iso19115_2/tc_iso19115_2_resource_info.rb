@@ -21,6 +21,7 @@ class TestReaderIso191152ResourceInformation < TestReaderIso191152Parent
       assert hDictionary.instance_of? Hash
       refute_empty hDictionary[:citation]
       assert hDictionary[:citation].instance_of? Hash
+      assert_equal('this is a test abstract for iso19115-2', hDictionary[:abstract])
    end
 
    def test_no_citation
@@ -32,6 +33,19 @@ class TestReaderIso191152ResourceInformation < TestReaderIso191152Parent
       _hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
       assert_equal(["WARNING: ISO19115-2 reader: element 'gmd:citation' is missing in MD_DataIdentification"],
+                   hResponse[:readerExecutionMessages])
+      assert_equal(false, hResponse[:readerExecutionPass])
+   end
+
+   def test_no_abstract
+      xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_abstract_dataid.xml')
+      TestReaderIso191152Parent.set_xdoc(xDoc)
+
+      xIn = xDoc.xpath('.//gmd:MD_DataIdentification')[0]
+      hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+      _hDictionary = @@nameSpace.unpack(xIn, hResponse)
+
+      assert_equal(["WARNING: ISO19115-2 reader: element 'gmd:abstract//gco:CharacterString' is missing in MD_DataIdentification"],
                    hResponse[:readerExecutionMessages])
       assert_equal(false, hResponse[:readerExecutionPass])
    end
