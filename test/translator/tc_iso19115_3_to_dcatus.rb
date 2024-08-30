@@ -7,7 +7,6 @@ require 'minitest/autorun'
 require 'nokogiri'
 require 'json'
 require 'adiwg/mdtranslator'
-require 'debug'
 require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_iso19115_3'
 require 'adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us'
 

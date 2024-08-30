@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_3/modules/module_party'
 require_relative 'iso19115_3_test_parent'
-require 'debug'
 
 class TestReaderIso191153Party < TestReaderIso191153Parent
    # TODO: the Party module needs to be revisited.
