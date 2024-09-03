@@ -43,4 +43,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal('abstract', res)
    end
+
+   def test_keyword
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Keyword
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal(%w[biota farming], res)
+   end
 end

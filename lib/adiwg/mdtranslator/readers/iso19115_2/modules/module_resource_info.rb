@@ -3,6 +3,7 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_citation'
+require_relative 'module_keyword'
 
 module ADIWG
    module Mdtranslator
@@ -11,6 +12,7 @@ module ADIWG
             module ResourceInformation
                @@mdIdentifierCitationXPath = 'gmd:citation'
                @@abstractXPath = 'gmd:abstract//gco:CharacterString'
+               @@keywordsXPath = 'gmd:descriptiveKeywords'
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -40,6 +42,12 @@ module ADIWG
                   end
 
                   hResourceInfo[:abstract] = xAbstract.text
+
+                  # keyword (optional)
+                  # <xs:element name="descriptiveKeywords" type="gmd:MD_Keywords_PropertyType" minOccurs="0"
+                  # maxOccurs="unbounded"/>
+                  xKeywords = xDataIdentification.xpath(@@keywordsXPath)
+                  hResourceInfo[:keywords] = xKeywords.map { |k| Keyword.unpack(k, hResponseObj) }
 
                   hResourceInfo
                end
