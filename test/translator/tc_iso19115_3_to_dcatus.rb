@@ -43,7 +43,15 @@ class TestIso191153DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Description
       res = dcatusNS.build(@@intMetadata)
 
-      assert !res.nil?
+      expected = 'Climate change has been shown to influence lake ' \
+      'temperatures globally. To better understand the diversity of lake ' \
+      'responses to climate change and give managers tools to manage individual ' \
+      'lakes, we modelled daily water temperature profiles for 10,774 lakes in ' \
+      'Michigan, Minnesota and Wisconsin for contemporary (1979-2015) and future ' \
+      '(2020-2040 and 2080-2100) time periods with climate models based on the ' \
+      'Representative Concentration Pathway 8.5, the worst-case emission scenario.'
+
+      assert_equal(expected, res)
    end
 
    def test_keywords

@@ -10,6 +10,7 @@ module ADIWG
          module Iso191152
             module ResourceInformation
                @@mdIdentifierCitationXPath = 'gmd:citation'
+               @@abstractXPath = 'gmd:abstract//gco:CharacterString'
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -26,6 +27,19 @@ module ADIWG
                   end
 
                   hResourceInfo[:citation] = Citation.unpack(xCitation, hResponseObj)
+
+                  # abstract: (required)
+                  # <xs:element name="abstract" type="gco:CharacterString_PropertyType"/>
+                  xAbstract = xDataIdentification.xpath(@@abstractXPath)[0]
+                  if xAbstract.nil?
+                     msg = "WARNING: ISO19115-2 reader: element \'#{@@abstractXPath}\' " \
+                     "is missing in #{xDataIdentification.name}"
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return hResourceInfo
+                  end
+
+                  hResourceInfo[:abstract] = xAbstract.text
 
                   hResourceInfo
                end

@@ -36,4 +36,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal(expected, @@intMetadata[:metadata][:resourceInfo][:citation][:title])
    end
+
+   def test_description
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Description
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('abstract', res)
+   end
 end
