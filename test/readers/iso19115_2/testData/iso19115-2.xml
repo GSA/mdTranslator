@@ -25,82 +25,102 @@
     <gmd:MD_DataIdentification>
       <gmd:citation>
         <gmd:CI_Citation>
-          <gmd:title>
-            <gco:CharacterString>ISO19115-2 citation title test 123456</gco:CharacterString>
-          </gmd:title>
-          <gmd:alternateTitle/>
-          <gmd:date>
-            <gmd:CI_Date>
-              <gmd:date>
-                <gco:Date>2017-11-22</gco:Date>
-              </gmd:date>
-              <gmd:dateType>
-                <gmd:CI_DateTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_DateTypeCode" codeListValue="publication" codeSpace="002"/>
-              </gmd:dateType>
-            </gmd:CI_Date>
-          </gmd:date>
-          <gmd:edition/>
-          <gmd:identifier/>
-          <gmd:citedResponsibleParty>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>person name</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:positionName>
-                <gco:CharacterString>position name</gco:CharacterString>
-              </gmd:positionName>
-              <gmd:contactInfo>
-                <gmd:CI_Contact>
-                  <gmd:phone>
-                    <gmd:CI_Telephone>
-                      <gmd:voice>
-                        <gco:CharacterString>phone name: 111-111-1111</gco:CharacterString>
-                      </gmd:voice>
-                      <gmd:facsimile/>
-                    </gmd:CI_Telephone>
-                  </gmd:phone>
-                  <gmd:address>
-                    <gmd:CI_Address>
-                      <gmd:deliveryPoint>
-                        <gco:CharacterString>address line 1</gco:CharacterString>
-                      </gmd:deliveryPoint>
-                      <gmd:deliveryPoint>
-                        <gco:CharacterString>address line 2</gco:CharacterString>
-                      </gmd:deliveryPoint>
-                      <gmd:city>
-                        <gco:CharacterString>city</gco:CharacterString>
-                      </gmd:city>
-                      <gmd:administrativeArea>
-                        <gco:CharacterString>administrative area</gco:CharacterString>
-                      </gmd:administrativeArea>
-                      <gmd:postalCode>
-                        <gco:CharacterString>postal code</gco:CharacterString>
-                      </gmd:postalCode>
-                      <gmd:country>
-                        <gco:CharacterString>country</gco:CharacterString>
-                      </gmd:country>
-                      <gmd:electronicMailAddress/>
-                    </gmd:CI_Address>
-                  </gmd:address>
-                  <gmd:onlineResource/>
-                  <gmd:hoursOfService/>
-                  <gmd:contactInstructions/>
-                </gmd:CI_Contact>
-              </gmd:contactInfo>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmd:citedResponsibleParty>
-          <gmd:presentationForm/>
-          <gmd:series/>
-          <gmd:otherCitationDetails/>
-          <gmd:ISBN/>
-          <gmd:ISSN/>
+            <gmd:title>
+               <gco:CharacterString>ISO19115-2 citation title test 123456</gco:CharacterString>
+            </gmd:title>
+            <gmd:alternateTitle/>
+            <gmd:date>
+               <gmd:CI_Date>
+               <gmd:date>
+                  <gco:Date>2017</gco:Date>
+               </gmd:date>
+               <gmd:dateType>
+                  <gmd:CI_DateTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_DateTypeCode" codeListValue="publication" codeSpace="002"/>
+               </gmd:dateType>
+               </gmd:CI_Date>
+            </gmd:date>
+            <gmd:date>
+               <gmd:CI_Date>
+                  <gmd:date>
+                     <gco:Date>2020-10</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                     <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="revision" codeSpace="002"/>
+                  </gmd:dateType>
+               </gmd:CI_Date>
+            </gmd:date>
+            <gmd:date>
+               <gmd:CI_Date>
+               <gmd:date>
+                  <gco:Date>2023-11-22</gco:Date>
+               </gmd:date>
+               <gmd:dateType>
+                  <gmd:CI_DateTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_DateTypeCode" codeListValue="lastUpdated" codeSpace="002"/>
+               </gmd:dateType>
+               </gmd:CI_Date>
+            </gmd:date>
+            <gmd:edition/>
+            <gmd:identifier/>
+            <gmd:citedResponsibleParty>
+               <gmd:CI_ResponsibleParty>
+               <gmd:individualName>
+                  <gco:CharacterString>person name</gco:CharacterString>
+               </gmd:individualName>
+               <gmd:positionName>
+                  <gco:CharacterString>position name</gco:CharacterString>
+               </gmd:positionName>
+               <gmd:contactInfo>
+                  <gmd:CI_Contact>
+                     <gmd:phone>
+                     <gmd:CI_Telephone>
+                        <gmd:voice>
+                           <gco:CharacterString>phone name: 111-111-1111</gco:CharacterString>
+                        </gmd:voice>
+                        <gmd:facsimile/>
+                     </gmd:CI_Telephone>
+                     </gmd:phone>
+                     <gmd:address>
+                     <gmd:CI_Address>
+                        <gmd:deliveryPoint>
+                           <gco:CharacterString>address line 1</gco:CharacterString>
+                        </gmd:deliveryPoint>
+                        <gmd:deliveryPoint>
+                           <gco:CharacterString>address line 2</gco:CharacterString>
+                        </gmd:deliveryPoint>
+                        <gmd:city>
+                           <gco:CharacterString>city</gco:CharacterString>
+                        </gmd:city>
+                        <gmd:administrativeArea>
+                           <gco:CharacterString>administrative area</gco:CharacterString>
+                        </gmd:administrativeArea>
+                        <gmd:postalCode>
+                           <gco:CharacterString>postal code</gco:CharacterString>
+                        </gmd:postalCode>
+                        <gmd:country>
+                           <gco:CharacterString>country</gco:CharacterString>
+                        </gmd:country>
+                        <gmd:electronicMailAddress/>
+                     </gmd:CI_Address>
+                     </gmd:address>
+                     <gmd:onlineResource/>
+                     <gmd:hoursOfService/>
+                     <gmd:contactInstructions/>
+                  </gmd:CI_Contact>
+               </gmd:contactInfo>
+               <gmd:role>
+                  <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
+               </gmd:role>
+               </gmd:CI_ResponsibleParty>
+            </gmd:citedResponsibleParty>
+            <gmd:presentationForm/>
+            <gmd:series/>
+            <gmd:otherCitationDetails/>
+            <gmd:ISBN/>
+            <gmd:ISSN/>
         </gmd:CI_Citation>
       </gmd:citation>
       <gmd:abstract>
-        <gco:CharacterString>this is a test abstract for iso19115-2</gco:CharacterString>
+        <gco:CharacterString>abstract</gco:CharacterString>
       </gmd:abstract>
       <gmd:purpose>
         <gco:CharacterString>purpose</gco:CharacterString>
