@@ -9,6 +9,7 @@ require 'json'
 require 'adiwg/mdtranslator'
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_iso19115_2'
 require 'adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us'
+require 'debug'
 
 # these tests are organized according to how data is processed in
 # the dcat_us writer lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us.rb
@@ -49,5 +50,12 @@ class TestIso191152DcatusTranslation < Minitest::Test
       res = dcatusNS.build(@@intMetadata)
 
       assert_equal(%w[biota farming], res)
+   end
+
+   def test_modified
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Modified
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal(DateTime.iso8601('2023-11-22T00:00:00+00:00'), res)
    end
 end
