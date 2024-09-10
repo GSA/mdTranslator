@@ -21,6 +21,7 @@ class TestReaderIso191152Citation < TestReaderIso191152Parent
       assert hDictionary.instance_of? Hash
       assert_equal('ISO19115-2 citation title test 123456', hDictionary[:title])
       assert_equal(3, hDictionary[:dates].size)
+      assert_equal(3, hDictionary[:responsibleParties].size)
    end
 
    def test_no_citation_title

@@ -11,15 +11,13 @@ module ADIWG
       module Readers
          module Iso191152
             module Iso191152
+               @intMetadataClass = InternalMetadata.new
+               @intObj = @intMetadataClass.newBase
+               @contacts = @intObj[:contacts]
+
                def self.unpack(xMetadata, hResponseObj)
-                  intMetadataClass = InternalMetadata.new
-
-                  intObj = intMetadataClass.newBase
-                  @intObj = intObj
-                  @contacts = intObj[:contacts]
-
                   # :schema
-                  hSchema = intMetadataClass.newSchema
+                  hSchema = @intMetadataClass.newSchema
                   hSchema[:name] = 'iso19115_2'
                   hSchema[:version] = ADIWG::Mdtranslator::Readers::Iso191152::VERSION
                   @intObj[:schema] = hSchema
@@ -27,7 +25,7 @@ module ADIWG
                   hMetadata = Metadata.unpack(xMetadata, hResponseObj)
                   @intObj[:metadata] = hMetadata
 
-                  intObj
+                  @intObj
                end
 
                # find the array pointer and type for a contact
