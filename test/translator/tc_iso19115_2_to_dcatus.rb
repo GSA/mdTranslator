@@ -58,4 +58,12 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal(DateTime.iso8601('2023-11-22T00:00:00+00:00'), res)
    end
+
+   def test_publisher
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
+      res = dcatusNS.build(@@intMetadata).target!
+
+      expected = '{"@type":"org:Organization","name":"organization name"}'
+      assert_equal(expected, res)
+   end
 end
