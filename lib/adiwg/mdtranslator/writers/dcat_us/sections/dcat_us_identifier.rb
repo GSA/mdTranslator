@@ -10,14 +10,10 @@ module ADIWG
                   onlineResources = citation&.dig(:onlineResources)
                   uri = onlineResources.dig(0, :olResURI)
                 
-                  namespace_is_doi = identifiers&.any? { |identifier| identifier[:namespace]&.casecmp?("DOI") }
-                
-                  if namespace_is_doi
-                    return uri
-                  elsif uri && uri.downcase.include?("doi")
-                    return uri
-                  end
-                
+                  # return uri if it exists, or the first identifier found
+                  return uri unless uri.nil?
+                  return identifiers[0][:identifier] unless identifiers.nil? || identifiers.empty?
+
                   nil
                end
                                     
