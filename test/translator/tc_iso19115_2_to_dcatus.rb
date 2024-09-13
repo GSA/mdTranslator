@@ -66,4 +66,12 @@ class TestIso191152DcatusTranslation < Minitest::Test
       expected = '{"@type":"org:Organization","name":"organization name"}'
       assert_equal(expected, res)
    end
+
+   def test_contact_point
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::ContactPoint
+      res = dcatusNS.build(@@intMetadata).target!
+
+      expected = '{"@type":"vcard:Contact","fn":"person name","hasEmail":"email@test.com"}'
+      assert_equal(expected, res)
+   end
 end

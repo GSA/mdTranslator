@@ -12,6 +12,7 @@ module ADIWG
                @@individualXPath = 'gmd:individualName//gco:CharacterString'
                @@orgXPath = 'gmd:organisationName//gco:CharacterString'
                @@roleCodeXPath = 'gmd:role//gmd:CI_RoleCode'
+               @@emailXPath = './/gmd:electronicMailAddress//gco:CharacterString'
                def self.unpack(xRParty, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hRespblty = intMetadataClass.newResponsibility
@@ -71,6 +72,12 @@ module ADIWG
                      hContact[:contactName] = contactName # TODO: revisit this.
                      hContact[:contactType] = hContact[:isOrganization] ? 'organization' : 'individual'
                   end
+
+                  # :emailList
+                  # <xs:element name="electronicMailAddress" type="gco:CharacterString_PropertyType" minOccurs="0"
+                  # maxOccurs="unbounded"/>
+                  xEmails = xRParty.xpath(@@emailXPath)
+                  hContact[:eMailList] = xEmails.map(&:text).compact
 
                   Iso191152.set_contact(hContact)
 
