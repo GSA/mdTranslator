@@ -76,6 +76,10 @@ module ADIWG
                   # :emailList
                   # <xs:element name="electronicMailAddress" type="gco:CharacterString_PropertyType" minOccurs="0"
                   # maxOccurs="unbounded"/>
+                  # TODO: add contact module and address module
+                  # grabbing the emails directly is an antipattern but
+                  # we need a way to bubble up that information from my
+                  # great grandchild
                   xEmails = xRParty.xpath(@@emailXPath)
                   hContact[:eMailList] = xEmails.map(&:text).compact
 
