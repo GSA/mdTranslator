@@ -34,7 +34,7 @@
       <gmd:thesaurusName>
         <gmd:CI_Citation>
           <gmd:title>
-            <gco:CharacterString>ISO 19115 Topic Category</gco:CharacterString>
+            <gco:CharacterString>ISO Topic Categories</gco:CharacterString>
           </gmd:title>
           <gmd:alternateTitle/>
           <gmd:date>

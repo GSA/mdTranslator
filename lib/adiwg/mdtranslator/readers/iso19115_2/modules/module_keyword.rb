@@ -2,6 +2,7 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
+require_relative 'module_citation'
 
 module ADIWG
    module Mdtranslator
@@ -34,6 +35,11 @@ module ADIWG
                      k[:keyword] = keyword.text
                      hKeyword[:keywords] << k
                   end
+
+                  # :thesaurus (optional)
+                  # <xs:element name="thesaurusName" type="gmd:CI_Citation_PropertyType" minOccurs="0"/>
+                  xThesarus = xMDKeywords.xpath(@@thesaurusXPath)[0]
+                  hKeyword[:thesaurus] = xThesarus.nil? ? nil : Citation.unpack(xThesarus, hResponseObj)
 
                   hKeyword
                end
