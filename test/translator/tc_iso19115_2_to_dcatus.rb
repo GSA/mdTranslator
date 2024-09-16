@@ -66,4 +66,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal('biota farming', res)
    end
 
+   def test_publisher
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
+      res = dcatusNS.build(@@intMetadata).target!
+
+      expected = '{"@type":"org:Organization","name":"organization name"}'
+      assert_equal(expected, res)
+   end
 end

@@ -2,7 +2,9 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
+require 'adiwg/mdtranslator/internal/module_utils'
 require_relative 'module_date'
+require_relative 'module_responsibility'
 
 module ADIWG
    module Mdtranslator
@@ -12,6 +14,7 @@ module ADIWG
                @@citationXpath = 'gmd:CI_Citation'
                @@titleXPath = 'gmd:title//gco:CharacterString'
                @@dateXPath = 'gmd:date'
+               @@responsibilityXPath = 'gmd:citedResponsibleParty'
                def self.unpack(xCitationParent, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hCitation = intMetadataClass.newCitation
@@ -52,6 +55,17 @@ module ADIWG
                   end
 
                   hCitation[:dates] = xDates.map { |d| Date.unpack(d, hResponseObj) }
+
+                  # <xs:element name="citedResponsibleParty"
+                  # type="gmd:CI_ResponsibleParty_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                  xResponsibleParties = xCitation.xpath(@@responsibilityXPath)
+                  hCitation[:responsibleParties] = xResponsibleParties.map do |r|
+                     Responsibility.unpack(r, hResponseObj)
+                  end
+
+                  # responsible parties are grouped by role (see class_citation:121 in iso19115-2 writer)
+                  hCitation[:responsibleParties] =
+                     AdiwgUtils.consolidate_iso191152_rparties(hCitation[:responsibleParties]).compact
 
                   hCitation
                end
