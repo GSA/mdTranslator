@@ -20,6 +20,8 @@ class TestReaderIso191152Keyword < TestReaderIso191152Parent
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
 
+      refute_empty hDictionary[:thesaurus]
+
       expected = [{ keyword: 'biota', keywordId: nil }, { keyword: 'farming', keywordId: nil }]
       assert_equal(expected, hDictionary[:keywords])
    end

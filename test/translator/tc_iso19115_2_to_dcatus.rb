@@ -59,6 +59,13 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(DateTime.iso8601('2023-11-22T00:00:00+00:00'), res)
    end
 
+   def test_theme
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('biota farming', res)
+   end
+
    def test_publisher
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
       res = dcatusNS.build(@@intMetadata).target!

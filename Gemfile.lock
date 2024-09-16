@@ -73,6 +73,8 @@ GEM
     mutex_m (0.2.0)
     nokogiri (1.16.6-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.16.6-x86_64-darwin)
+      racc (~> 1.4)
     parallel (1.25.1)
     parser (3.3.3.0)
       ast (~> 2.4.1)
@@ -121,6 +123,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
+  x86_64-darwin-23
 
 DEPENDENCIES
   adiwg-mdtranslator!

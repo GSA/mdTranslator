@@ -63,6 +63,8 @@ module ADIWG
                      Responsibility.unpack(r, hResponseObj)
                   end
 
+                  hCitation[:responsibleParties] = hCitation[:responsibleParties].compact
+
                   # responsible parties are grouped by role (see class_citation:121 in iso19115-2 writer)
                   hCitation[:responsibleParties] =
                      AdiwgUtils.consolidate_iso191152_rparties(hCitation[:responsibleParties]).compact
