@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_citation'
 require_relative 'module_keyword'
+require_relative 'module_responsibility'
 
 module ADIWG
    module Mdtranslator
@@ -13,6 +14,7 @@ module ADIWG
                @@mdIdentifierCitationXPath = 'gmd:citation'
                @@abstractXPath = 'gmd:abstract//gco:CharacterString'
                @@keywordsXPath = 'gmd:descriptiveKeywords'
+               @@pointOfContactXPath = 'gmd:pointOfContact'
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -48,6 +50,14 @@ module ADIWG
                   # maxOccurs="unbounded"/>
                   xKeywords = xDataIdentification.xpath(@@keywordsXPath)
                   hResourceInfo[:keywords] = xKeywords.map { |k| Keyword.unpack(k, hResponseObj) }
+
+                  # :pointOfContact (optional)
+                  # <xs:element name="pointOfContact" type="gmd:CI_ResponsibleParty_PropertyType" minOccurs="0"
+                  # maxOccurs="unbounded"/>
+                  xPointOfContact = xDataIdentification.xpath(@@pointOfContactXPath)
+                  hResourceInfo[:pointOfContacts] = xPointOfContact.map do |poc|
+                     Responsibility.unpack(poc, hResponseObj)
+                  end
 
                   hResourceInfo
                end

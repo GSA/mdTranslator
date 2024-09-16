@@ -12,6 +12,7 @@ module ADIWG
                @@individualXPath = 'gmd:individualName//gco:CharacterString'
                @@orgXPath = 'gmd:organisationName//gco:CharacterString'
                @@roleCodeXPath = 'gmd:role//gmd:CI_RoleCode'
+               @@emailXPath = './/gmd:electronicMailAddress//gco:CharacterString'
                def self.unpack(xRParty, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hRespblty = intMetadataClass.newResponsibility
@@ -71,6 +72,16 @@ module ADIWG
                      hContact[:contactName] = contactName # TODO: revisit this.
                      hContact[:contactType] = hContact[:isOrganization] ? 'organization' : 'individual'
                   end
+
+                  # :emailList
+                  # <xs:element name="electronicMailAddress" type="gco:CharacterString_PropertyType" minOccurs="0"
+                  # maxOccurs="unbounded"/>
+                  # TODO: add contact module and address module
+                  # grabbing the emails directly is an antipattern but
+                  # we need a way to bubble up that information from my
+                  # great grandchild
+                  xEmails = xRParty.xpath(@@emailXPath)
+                  hContact[:eMailList] = xEmails.map(&:text).compact
 
                   Iso191152.set_contact(hContact)
 

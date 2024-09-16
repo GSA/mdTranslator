@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_responsibility'
 require_relative 'iso19115_2_test_parent'
-require 'debug'
 
 class TestReaderIso191152Responsibility < TestReaderIso191152Parent
    @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152::Responsibility
@@ -28,6 +27,8 @@ class TestReaderIso191152Responsibility < TestReaderIso191152Parent
       assert_equal('organization name', party[:name])
       assert_equal('organization', party[:contactType])
       assert_equal('organization name', party[:contactName])
+
+      assert_equal(['test@gmail.com'], party[:emailList])
    end
 
    def test_responsibility_no_role_code

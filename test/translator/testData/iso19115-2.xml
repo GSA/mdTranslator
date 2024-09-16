@@ -97,7 +97,9 @@
                         <gmd:country>
                            <gco:CharacterString>country</gco:CharacterString>
                         </gmd:country>
-                        <gmd:electronicMailAddress/>
+                        <gmd:electronicMailAddress>
+                           <gco:CharacterString>test@gmail.com</gco:CharacterString>
+                        </gmd:electronicMailAddress>
                         </gmd:CI_Address>
                      </gmd:address>
                      <gmd:onlineResource/>
@@ -149,7 +151,9 @@
                            <gmd:country>
                               <gco:CharacterString>country</gco:CharacterString>
                            </gmd:country>
-                           <gmd:electronicMailAddress/>
+                           <gmd:electronicMailAddress>
+                              <gco:CharacterString>email@test.com</gco:CharacterString>
+                           </gmd:electronicMailAddress>
                         </gmd:CI_Address>
                         </gmd:address>
                         <gmd:onlineResource/>
@@ -322,7 +326,9 @@
                   <gmd:country>
                     <gco:CharacterString>country</gco:CharacterString>
                   </gmd:country>
-                  <gmd:electronicMailAddress/>
+                  <gmd:electronicMailAddress>
+                     <gco:CharacterString>email@test.com</gco:CharacterString>
+                  </gmd:electronicMailAddress>
                 </gmd:CI_Address>
               </gmd:address>
               <gmd:onlineResource/>
