@@ -20,9 +20,6 @@ module ADIWG
 
                   hConstraint[:type] = @@type
 
-                  # xLegalConstraint = xConstraint.xpath(@@legalConstraintXPath)[0]
-                  return nil if xLegalConstraint.nil?
-
                   # :accessCodes (optional)
                   # <gmd:MD_RestrictionCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_RestrictionCode" codeListValue="access constraint" codeSpace="userCode"/>
                   xAccessConstraints = xLegalConstraint.xpath(@@accessConstraintsXPath)
