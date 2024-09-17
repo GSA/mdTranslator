@@ -5,6 +5,7 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_citation'
 require_relative 'module_keyword'
 require_relative 'module_responsibility'
+require_relative 'module_constraint'
 
 module ADIWG
    module Mdtranslator
@@ -15,6 +16,7 @@ module ADIWG
                @@abstractXPath = 'gmd:abstract//gco:CharacterString'
                @@keywordsXPath = 'gmd:descriptiveKeywords'
                @@pointOfContactXPath = 'gmd:pointOfContact'
+               @@constraintsXPath = 'gmd:resourceConstraints'
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -57,6 +59,11 @@ module ADIWG
                   xPointOfContact = xDataIdentification.xpath(@@pointOfContactXPath)
                   hResourceInfo[:pointOfContacts] = xPointOfContact.map do |poc|
                      Responsibility.unpack(poc, hResponseObj)
+                  end
+                                    
+                  xResourceConstraints = xDataIdentification.xpath(@@constraintsXPath)
+                  hResourceInfo[:constraints] = xResourceConstraints.map do |r|
+                     Constraint.unpack(r, hResponseObj)
                   end
 
                   hResourceInfo

@@ -406,6 +406,30 @@
           </gmd:otherConstraints>
         </gmd:MD_LegalConstraints>
       </gmd:resourceConstraints>
+
+      <gmd:resourceConstraints>
+        <gmd:MD_SecurityConstraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>use limitation one</gco:CharacterString>
+          </gmd:useLimitation>
+          <gmd:useLimitation>
+            <gco:CharacterString>use limitation two</gco:CharacterString>
+          </gmd:useLimitation>
+          <gmd:classification>
+            <gmd:MD_ClassificationCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_ClassificationCode" codeListValue="classification" codeSpace="userCode"/>
+          </gmd:classification>
+          <gmd:userNote>
+            <gco:CharacterString>user note</gco:CharacterString>
+          </gmd:userNote>
+          <gmd:classificationSystem>
+            <gco:CharacterString>classification system</gco:CharacterString>
+          </gmd:classificationSystem>
+          <gmd:handlingDescription>
+            <gco:CharacterString>handling instructions</gco:CharacterString>
+          </gmd:handlingDescription>
+        </gmd:MD_SecurityConstraints>
+      </gmd:resourceConstraints>
+      
       <gmd:aggregationInfo/>
       <gmd:taxonomy/>
       <gmd:spatialRepresentationType/>
@@ -644,7 +668,7 @@
           <gmd:thesaurusName/>
         </gmd:MD_Keywords>
       </gmd:descriptiveKeywords>
-      <gmd:resourceSpecificUsage/>
+      <gmd:resourceSpecificUsage/>      
       <gmd:resourceConstraints>
         <gmd:MD_LegalConstraints>
           <gmd:useLimitation/>
@@ -915,7 +939,7 @@
             <gco:CharacterString>other constraint</gco:CharacterString>
           </gmd:otherConstraints>
         </gmd:MD_LegalConstraints>
-      </gmd:resourceConstraints>
+      </gmd:resourceConstraints>    
       <gmd:aggregationInfo/>
       <gmd:taxonomy/>
       <gmd:spatialRepresentationType/>
