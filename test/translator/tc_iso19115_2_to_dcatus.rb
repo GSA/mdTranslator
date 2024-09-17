@@ -84,7 +84,6 @@ class TestIso191152DcatusTranslation < Minitest::Test
    def test_theme
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
       res = dcatusNS.build(@@intMetadata)
-
       assert_equal('biota farming', res)
    end
 end
