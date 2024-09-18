@@ -13,13 +13,16 @@ module ADIWG
                @@legalConstraintXPath = 'gmd:MD_LegalConstraints'
                @@securityConstraintXPath = 'gmd:MD_SecurityConstraints'
                def self.unpack(xConstraint, hResponseObj)
-                  # legal constraints
+
+                  # LegalConstraint (optional)
+                  # <xs:element name="MD_LegalConstraints" type="gmd:MD_LegalConstraints_Type" substitutionGroup="gmd:MD_Constraints"/>
                   xLegalConstraint = xConstraint.xpath(@@legalConstraintXPath)[0]
                   unless xLegalConstraint.nil?
                      return LegalConstraint.unpack(xLegalConstraint, hResponseObj)
                   end
 
-                  # security constraints
+                  # SecurityConstraint (optional)
+                  # <xs:element name="MD_SecurityConstraints" type="gmd:MD_SecurityConstraints_Type" substitutionGroup="gmd:MD_Constraints"/>
                   xSecurityConstraint = xConstraint.xpath(@@securityConstraintXPath)[0]
                   unless xSecurityConstraint.nil?
                      return SecurityConstraint.unpack(xSecurityConstraint, hResponseObj)

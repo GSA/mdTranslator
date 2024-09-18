@@ -27,4 +27,18 @@ class TestReaderIso191152SecurityConstraint < TestReaderIso191152Parent
       assert_equal('classification system', hSecurityConstraint[:classSystem])
       assert_equal('handling instructions', hSecurityConstraint[:handling])
    end
+
+   def test_no_sec_const_class
+      xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_sec_const_class.xml')
+      TestReaderIso191152Parent.set_xdoc(xDoc)
+
+      xIn = xDoc.xpath('.//gmd:MD_DataIdentification')[0]
+      hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+      _hDictionary = @@nameSpace.unpack(xIn, hResponse)
+
+      assert_equal(['WARNING: ISO19115-2 reader: element \'gmd:classification\' '\
+                     'is missing in gmd:MD_SecurityConstraints'],
+                   hResponse[:readerExecutionMessages])
+      assert_equal(false, hResponse[:readerExecutionPass])
+   end   
 end

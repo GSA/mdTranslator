@@ -21,14 +21,11 @@ module ADIWG
 
                   hConstraint[:type] = @@type
 
-                  # xSecurityConstraint = xConstraint.xpath(@@securityConstraintXPath)[0]
-                  return nil if xSecurityConstraint.nil?
-
                   # :classCode (required)
-                  # <gmd:MD_ClassificationCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_ClassificationCode" codeListValue="classification" codeSpace="userCode"/>
+                  # <xs:element name="classification" type="gmd:MD_ClassificationCode_PropertyType"/>
                   xClassCode = xSecurityConstraint.xpath(@@classificationXPath)[0]
                   if xClassCode.nil?
-                     msg = 'WARNING: ISO19115-3 reader: element \'gmd:classification\' '\
+                     msg = 'WARNING: ISO19115-2 reader: element \'gmd:classification\' '\
                      'is missing in gmd:MD_SecurityConstraints'
                      hResponseObj[:readerExecutionMessages] << msg
                      hResponseObj[:readerExecutionPass] = false
@@ -38,17 +35,17 @@ module ADIWG
                   hSecConstraint[:classCode] = xClassCode.attr('codeListValue')
 
                   # userNote (optional)
-                  # <gco:CharacterString>user note</gco:CharacterString>
+                  # <xs:element name="userNote" type="gco:CharacterString_PropertyType" minOccurs="0"/>
                   xUserNote = xSecurityConstraint.xpath(@@userNoteXPath)[0]
                   hSecConstraint[:userNote] = xUserNote.nil? ? nil : xUserNote.text
 
                   # :classSystem (optional)
-                  # <gco:CharacterString>classification system</gco:CharacterString>
+                  # <xs:element name="classificationSystem" type="gco:CharacterString_PropertyType" minOccurs="0"/>
                   xClassSys = xSecurityConstraint.xpath(@@classSysXPath)[0]
                   hSecConstraint[:classSystem] = xClassSys.nil? ? nil : xClassSys.text
 
                   # :handling (optional)
-                  # <gco:CharacterString>handling instructions</gco:CharacterString>
+                  # <xs:element name="handlingDescription" type="gco:CharacterString_PropertyType" minOccurs="0"/>
                   xHandling = xSecurityConstraint.xpath(@@handlingXPath)[0]
                   hSecConstraint[:handling] = xHandling.nil? ? nil : xHandling.text
 

@@ -21,7 +21,7 @@ module ADIWG
                   hConstraint[:type] = @@type
 
                   # :accessCodes (optional)
-                  # <gmd:MD_RestrictionCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_RestrictionCode" codeListValue="access constraint" codeSpace="userCode"/>
+                  # <xs:element name="accessConstraints" type="gmd:MD_RestrictionCode_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
                   xAccessConstraints = xLegalConstraint.xpath(@@accessConstraintsXPath)
                   unless xAccessConstraints.empty?
                      hLegalConstraint[:accessCodes] = xAccessConstraints.map do |a|
@@ -30,7 +30,7 @@ module ADIWG
                   end
 
                   # :useCodes (optional)
-                  # <gmd:MD_RestrictionCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_RestrictionCode" codeListValue="use constraint" codeSpace="userCode"/>
+                  # <xs:element name="useConstraints" type="gmd:MD_RestrictionCode_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
                   xUseConstraints = xLegalConstraint.xpath(@@useConstraintsXPath)
                   unless @@useConstraintsXPath.empty?
                      hLegalConstraint[:useCodes] = xUseConstraints.map do |u|
@@ -39,7 +39,7 @@ module ADIWG
                   end
 
                   # :otherCons (optional)
-                  # <gco:CharacterString>other constraint</gco:CharacterString>
+                  # <xs:element name="otherConstraints" type="gco:CharacterString_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
                   xOtherConstraints = xLegalConstraint.xpath(@@otherConstraintsXPath)
                   hLegalConstraint[:otherCons] = xOtherConstraints.map(&:text).compact unless xOtherConstraints.empty?
 
