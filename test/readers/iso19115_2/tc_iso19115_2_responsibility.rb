@@ -28,7 +28,7 @@ class TestReaderIso191152Responsibility < TestReaderIso191152Parent
       assert_equal('organization', party[:contactType])
       assert_equal('organization name', party[:contactName])
 
-      assert_equal(['test@gmail.com'], party[:emailList])
+      assert_equal(['test@gmail.com'], party[:eMailList])
    end
 
    def test_responsibility_no_role_code
