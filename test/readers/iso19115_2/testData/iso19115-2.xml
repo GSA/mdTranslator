@@ -65,7 +65,7 @@
             <gmd:citedResponsibleParty>
                <gmd:CI_ResponsibleParty>
                   <gmd:organisationName>
-                     <gco:CharacterString>organization name</gco:CharacterString>
+                     <gco:CharacterString>citation organization name</gco:CharacterString>
                   </gmd:organisationName>
                   <gmd:contactInfo>
                      <gmd:CI_Contact>
@@ -112,165 +112,6 @@
                   </gmd:role>
                </gmd:CI_ResponsibleParty>
             </gmd:citedResponsibleParty>
-            
-            <gmd:citedResponsibleParty>
-               <gmd:CI_ResponsibleParty>
-                  <gmd:individualName>
-                     <gco:CharacterString>person name</gco:CharacterString>
-                  </gmd:individualName>
-                  <gmd:positionName>
-                     <gco:CharacterString>position name</gco:CharacterString>
-                  </gmd:positionName>
-                  <gmd:contactInfo>
-                     <gmd:CI_Contact>
-                        <gmd:phone>
-                        <gmd:CI_Telephone>
-                           <gmd:voice>
-                              <gco:CharacterString>phone name: 111-111-1111</gco:CharacterString>
-                           </gmd:voice>
-                           <gmd:facsimile/>
-                        </gmd:CI_Telephone>
-                        </gmd:phone>
-                        <gmd:address>
-                        <gmd:CI_Address>
-                           <gmd:deliveryPoint>
-                              <gco:CharacterString>address line 1</gco:CharacterString>
-                           </gmd:deliveryPoint>
-                           <gmd:deliveryPoint>
-                              <gco:CharacterString>address line 2</gco:CharacterString>
-                           </gmd:deliveryPoint>
-                           <gmd:city>
-                              <gco:CharacterString>city</gco:CharacterString>
-                           </gmd:city>
-                           <gmd:administrativeArea>
-                              <gco:CharacterString>administrative area</gco:CharacterString>
-                           </gmd:administrativeArea>
-                           <gmd:postalCode>
-                              <gco:CharacterString>postal code</gco:CharacterString>
-                           </gmd:postalCode>
-                           <gmd:country>
-                              <gco:CharacterString>country</gco:CharacterString>
-                           </gmd:country>
-                           <gmd:electronicMailAddress>
-                              <gco:CharacterString>whatever@test.com</gco:CharacterString>
-                           </gmd:electronicMailAddress>
-                        </gmd:CI_Address>
-                        </gmd:address>
-                        <gmd:onlineResource/>
-                        <gmd:hoursOfService/>
-                        <gmd:contactInstructions/>
-                     </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                     <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
-                  </gmd:role>
-               </gmd:CI_ResponsibleParty>
-            </gmd:citedResponsibleParty>
-
-            <gmd:citedResponsibleParty>
-               <gmd:CI_ResponsibleParty>
-                  <gmd:individualName>
-                     <gco:CharacterString>person name 2</gco:CharacterString>
-                  </gmd:individualName>
-                  <gmd:positionName>
-                     <gco:CharacterString>position name 2</gco:CharacterString>
-                  </gmd:positionName>
-                  <gmd:contactInfo>
-                     <gmd:CI_Contact>
-                        <gmd:phone>
-                        <gmd:CI_Telephone>
-                           <gmd:voice>
-                              <gco:CharacterString>phone name: 111-111-2222</gco:CharacterString>
-                           </gmd:voice>
-                           <gmd:facsimile/>
-                        </gmd:CI_Telephone>
-                        </gmd:phone>
-                        <gmd:address>
-                        <gmd:CI_Address>
-                           <gmd:deliveryPoint>
-                              <gco:CharacterString>address line 1234</gco:CharacterString>
-                           </gmd:deliveryPoint>
-                           <gmd:deliveryPoint>
-                              <gco:CharacterString>address line 2567</gco:CharacterString>
-                           </gmd:deliveryPoint>
-                           <gmd:city>
-                              <gco:CharacterString>city 5</gco:CharacterString>
-                           </gmd:city>
-                           <gmd:administrativeArea>
-                              <gco:CharacterString>administrative area 123</gco:CharacterString>
-                           </gmd:administrativeArea>
-                           <gmd:postalCode>
-                              <gco:CharacterString>postal code test</gco:CharacterString>
-                           </gmd:postalCode>
-                           <gmd:country>
-                              <gco:CharacterString>country test value</gco:CharacterString>
-                           </gmd:country>
-                           <gmd:electronicMailAddress/>
-                        </gmd:CI_Address>
-                        </gmd:address>
-                        <gmd:onlineResource/>
-                        <gmd:hoursOfService/>
-                        <gmd:contactInstructions/>
-                     </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                     <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="006"/>
-                  </gmd:role>
-               </gmd:CI_ResponsibleParty>
-            </gmd:citedResponsibleParty>
-
-            <gmd:citedResponsibleParty>
-               <gmd:CI_ResponsibleParty>
-                  <gmd:individualName>
-                     <gco:CharacterString>person name 10293</gco:CharacterString>
-                  </gmd:individualName>
-                  <gmd:positionName>
-                     <gco:CharacterString>position name a0s8hda98hd</gco:CharacterString>
-                  </gmd:positionName>
-                  <gmd:contactInfo>
-                     <gmd:CI_Contact>
-                        <gmd:phone>
-                        <gmd:CI_Telephone>
-                           <gmd:voice>
-                              <gco:CharacterString>phone name: 111-111-2222</gco:CharacterString>
-                           </gmd:voice>
-                           <gmd:facsimile/>
-                        </gmd:CI_Telephone>
-                        </gmd:phone>
-                        <gmd:address>
-                        <gmd:CI_Address>
-                           <gmd:deliveryPoint>
-                              <gco:CharacterString>address line 1234</gco:CharacterString>
-                           </gmd:deliveryPoint>
-                           <gmd:deliveryPoint>
-                              <gco:CharacterString>address line 2567</gco:CharacterString>
-                           </gmd:deliveryPoint>
-                           <gmd:city>
-                              <gco:CharacterString>city 5</gco:CharacterString>
-                           </gmd:city>
-                           <gmd:administrativeArea>
-                              <gco:CharacterString>administrative area 123</gco:CharacterString>
-                           </gmd:administrativeArea>
-                           <gmd:postalCode>
-                              <gco:CharacterString>postal code test</gco:CharacterString>
-                           </gmd:postalCode>
-                           <gmd:country>
-                              <gco:CharacterString>country test value</gco:CharacterString>
-                           </gmd:country>
-                           <gmd:electronicMailAddress/>
-                        </gmd:CI_Address>
-                        </gmd:address>
-                        <gmd:onlineResource/>
-                        <gmd:hoursOfService/>
-                        <gmd:contactInstructions/>
-                     </gmd:CI_Contact>
-                  </gmd:contactInfo>
-                  <gmd:role>
-                     <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="006"/>
-                  </gmd:role>
-               </gmd:CI_ResponsibleParty>
-            </gmd:citedResponsibleParty>
-
             <gmd:presentationForm/>
             <gmd:series/>
             <gmd:otherCitationDetails/>
@@ -291,7 +132,7 @@
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
           <gmd:individualName>
-            <gco:CharacterString>person name</gco:CharacterString>
+            <gco:CharacterString>test person test name</gco:CharacterString>
           </gmd:individualName>
           <gmd:positionName>
             <gco:CharacterString>position name</gco:CharacterString>
@@ -326,7 +167,9 @@
                   <gmd:country>
                     <gco:CharacterString>country</gco:CharacterString>
                   </gmd:country>
-                  <gmd:electronicMailAddress/>
+                  <gmd:electronicMailAddress>
+                     <gco:CharacterString>whatever@gmail.com</gco:CharacterString>
+                  </gmd:electronicMailAddress>
                 </gmd:CI_Address>
               </gmd:address>
               <gmd:onlineResource/>
@@ -366,7 +209,7 @@
           <gmd:thesaurusName>
             <gmd:CI_Citation>
               <gmd:title>
-                <gco:CharacterString>ISO 19115 Topic Category</gco:CharacterString>
+                <gco:CharacterString>ISO Topic Categories</gco:CharacterString>
               </gmd:title>
               <gmd:alternateTitle/>
               <gmd:date>
@@ -517,57 +360,7 @@
           </gmd:date>
           <gmd:edition/>
           <gmd:identifier/>
-          <gmd:citedResponsibleParty>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>person name</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:positionName>
-                <gco:CharacterString>position name</gco:CharacterString>
-              </gmd:positionName>
-              <gmd:contactInfo>
-                <gmd:CI_Contact>
-                  <gmd:phone>
-                    <gmd:CI_Telephone>
-                      <gmd:voice>
-                        <gco:CharacterString>phone name: 111-111-1111</gco:CharacterString>
-                      </gmd:voice>
-                      <gmd:facsimile/>
-                    </gmd:CI_Telephone>
-                  </gmd:phone>
-                  <gmd:address>
-                    <gmd:CI_Address>
-                      <gmd:deliveryPoint>
-                        <gco:CharacterString>address line 1</gco:CharacterString>
-                      </gmd:deliveryPoint>
-                      <gmd:deliveryPoint>
-                        <gco:CharacterString>address line 2</gco:CharacterString>
-                      </gmd:deliveryPoint>
-                      <gmd:city>
-                        <gco:CharacterString>city</gco:CharacterString>
-                      </gmd:city>
-                      <gmd:administrativeArea>
-                        <gco:CharacterString>administrative area</gco:CharacterString>
-                      </gmd:administrativeArea>
-                      <gmd:postalCode>
-                        <gco:CharacterString>postal code</gco:CharacterString>
-                      </gmd:postalCode>
-                      <gmd:country>
-                        <gco:CharacterString>country</gco:CharacterString>
-                      </gmd:country>
-                      <gmd:electronicMailAddress/>
-                    </gmd:CI_Address>
-                  </gmd:address>
-                  <gmd:onlineResource/>
-                  <gmd:hoursOfService/>
-                  <gmd:contactInstructions/>
-                </gmd:CI_Contact>
-              </gmd:contactInfo>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty/>
           <gmd:presentationForm/>
           <gmd:series/>
           <gmd:otherCitationDetails/>
@@ -593,7 +386,7 @@
       <gmd:pointOfContact>
         <gmd:CI_ResponsibleParty>
           <gmd:individualName>
-            <gco:CharacterString>person name</gco:CharacterString>
+            <gco:CharacterString>person name asoida891h2e</gco:CharacterString>
           </gmd:individualName>
           <gmd:positionName>
             <gco:CharacterString>position name</gco:CharacterString>
@@ -779,57 +572,7 @@
           </gmd:date>
           <gmd:edition/>
           <gmd:identifier/>
-          <gmd:citedResponsibleParty>
-            <gmd:CI_ResponsibleParty>
-              <gmd:individualName>
-                <gco:CharacterString>person name</gco:CharacterString>
-              </gmd:individualName>
-              <gmd:positionName>
-                <gco:CharacterString>position name</gco:CharacterString>
-              </gmd:positionName>
-              <gmd:contactInfo>
-                <gmd:CI_Contact>
-                  <gmd:phone>
-                    <gmd:CI_Telephone>
-                      <gmd:voice>
-                        <gco:CharacterString>phone name: 111-111-1111</gco:CharacterString>
-                      </gmd:voice>
-                      <gmd:facsimile/>
-                    </gmd:CI_Telephone>
-                  </gmd:phone>
-                  <gmd:address>
-                    <gmd:CI_Address>
-                      <gmd:deliveryPoint>
-                        <gco:CharacterString>address line 1</gco:CharacterString>
-                      </gmd:deliveryPoint>
-                      <gmd:deliveryPoint>
-                        <gco:CharacterString>address line 2</gco:CharacterString>
-                      </gmd:deliveryPoint>
-                      <gmd:city>
-                        <gco:CharacterString>city</gco:CharacterString>
-                      </gmd:city>
-                      <gmd:administrativeArea>
-                        <gco:CharacterString>administrative area</gco:CharacterString>
-                      </gmd:administrativeArea>
-                      <gmd:postalCode>
-                        <gco:CharacterString>postal code</gco:CharacterString>
-                      </gmd:postalCode>
-                      <gmd:country>
-                        <gco:CharacterString>country</gco:CharacterString>
-                      </gmd:country>
-                      <gmd:electronicMailAddress/>
-                    </gmd:CI_Address>
-                  </gmd:address>
-                  <gmd:onlineResource/>
-                  <gmd:hoursOfService/>
-                  <gmd:contactInstructions/>
-                </gmd:CI_Contact>
-              </gmd:contactInfo>
-              <gmd:role>
-                <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
-              </gmd:role>
-            </gmd:CI_ResponsibleParty>
-          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty/>
           <gmd:presentationForm/>
           <gmd:series/>
           <gmd:otherCitationDetails/>
@@ -885,7 +628,9 @@
                   <gmd:country>
                     <gco:CharacterString>country</gco:CharacterString>
                   </gmd:country>
-                  <gmd:electronicMailAddress/>
+                  <gmd:electronicMailAddress>
+                     <gco:CharacterString>poc abc@def.com</gco:CharacterString>
+                  </gmd:electronicMailAddress>
                 </gmd:CI_Address>
               </gmd:address>
               <gmd:onlineResource/>
