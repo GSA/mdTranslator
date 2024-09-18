@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # MdTranslator - minitest of
-# readers / iso19115-2 / module_Keyword
+# readers / iso19115-2 / module_keyword
 
-require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_Keyword'
+require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_keyword'
 require_relative 'iso19115_2_test_parent'
 
 class TestReaderIso191152Keyword < TestReaderIso191152Parent
