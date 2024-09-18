@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # MdTranslator - minitest of
-# readers / iso19115-3 / module_security_constraint
+# readers / iso19115-2 / module_security_constraint
 
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_security_constraint'
 require_relative 'iso19115_2_test_parent'
