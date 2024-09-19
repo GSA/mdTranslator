@@ -7,6 +7,9 @@ module ADIWG
             module IsPartOf
 
                def self.build(intObj)
+                  parentIdentifier = intObj.dig(:metadata, :parentIdentifier)
+                  return parentIdentifier unless parentIdentifier.nil?
+
                   associatedResources = intObj.dig(:metadata, :associatedResources)
                 
                   associatedResources.each do |resource|

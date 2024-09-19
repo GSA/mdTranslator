@@ -11,6 +11,8 @@ module ADIWG
             module Metadata
                @@identificationInfoXPath = 'gmd:identificationInfo'
                @@dataIdentificationXPath = 'gmd:MD_DataIdentification'
+               @@fileIdentifierXPath = 'gmd:fileIdentifier//gco:CharacterString'
+               @@parentIdentifierXPath = 'gmd:parentIdentifier//gco:CharacterString'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   intMetadata = intMetadataClass.newMetadata
@@ -41,6 +43,12 @@ module ADIWG
                   end
 
                   intMetadata[:resourceInfo] = ResourceInformation.unpack(xDataIdentification, hResponseObj)
+
+                  fileIdentifier = xMetadata.xpath(@@fileIdentifierXPath)[0]
+                  intMetadata[:fileIdentifier] = fileIdentifier.text unless fileIdentifier.nil?
+
+                  parentIdentifier = xMetadata.xpath(@@parentIdentifierXPath)[0]
+                  intMetadata[:parentIdentifier] = parentIdentifier.text unless parentIdentifier.nil?
 
                   # :distributorInfo
                   # :associatedResources

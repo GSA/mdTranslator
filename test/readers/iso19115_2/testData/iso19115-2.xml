@@ -20,7 +20,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.isotc211.org/2005/gmi
         ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/schemas/ISObio/schema.xsd">
-
+  <gmd:fileIdentifier>
+    <gco:CharacterString>ISO19115-2-ID-123456</gco:CharacterString>
+  </gmd:fileIdentifier>
+  <gmd:parentIdentifier>
+    <gco:CharacterString>ISO19115-2-ID-123456-parent</gco:CharacterString>
+  </gmd:parentIdentifier>
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
       <gmd:citation>
