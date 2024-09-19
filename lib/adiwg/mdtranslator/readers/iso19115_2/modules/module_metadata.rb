@@ -44,9 +44,11 @@ module ADIWG
 
                   intMetadata[:resourceInfo] = ResourceInformation.unpack(xDataIdentification, hResponseObj)
 
+                  # <xs:element name="fileIdentifier" type="gco:CharacterString_PropertyType" minOccurs="0"/>
                   fileIdentifier = xMetadata.xpath(@@fileIdentifierXPath)[0]
                   intMetadata[:fileIdentifier] = fileIdentifier.text unless fileIdentifier.nil?
 
+                  # <xs:element name="parentIdentifier" type="gco:CharacterString_PropertyType" minOccurs="0"/>
                   parentIdentifier = xMetadata.xpath(@@parentIdentifierXPath)[0]
                   intMetadata[:parentIdentifier] = parentIdentifier.text unless parentIdentifier.nil?
 

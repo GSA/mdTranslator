@@ -94,14 +94,16 @@ class TestIso191152DcatusTranslation < Minitest::Test
    end
 
    def test_identifier
-      expected = 'ISO19115-2-ID-123456'
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
+      res = dcatusNS.build(@@intMetadata)
 
-      assert_equal(expected, @@intMetadata[:metadata][:fileIdentifier])
+      assert_equal('ISO19115-2-ID-123456', res)
    end
 
    def test_is_part_of
-      expected = 'ISO19115-2-ID-123456-parent'
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
+      res = dcatusNS.build(@@intMetadata)
 
-      assert_equal(expected, @@intMetadata[:metadata][:parentIdentifier])
+      assert_equal('ISO19115-2-ID-123456-parent', res)
    end
 end
