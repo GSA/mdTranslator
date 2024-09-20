@@ -3,6 +3,7 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_resource_info'
+require_relative 'module_metadata_info'
 
 module ADIWG
    module Mdtranslator
@@ -11,8 +12,6 @@ module ADIWG
             module Metadata
                @@identificationInfoXPath = 'gmd:identificationInfo'
                @@dataIdentificationXPath = 'gmd:MD_DataIdentification'
-               @@fileIdentifierXPath = 'gmd:fileIdentifier//gco:CharacterString'
-               @@parentIdentifierXPath = 'gmd:parentIdentifier//gco:CharacterString'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   intMetadata = intMetadataClass.newMetadata
@@ -44,13 +43,7 @@ module ADIWG
 
                   intMetadata[:resourceInfo] = ResourceInformation.unpack(xDataIdentification, hResponseObj)
 
-                  # <xs:element name="fileIdentifier" type="gco:CharacterString_PropertyType" minOccurs="0"/>
-                  fileIdentifier = xMetadata.xpath(@@fileIdentifierXPath)[0]
-                  intMetadata[:fileIdentifier] = fileIdentifier.text unless fileIdentifier.nil?
-
-                  # <xs:element name="parentIdentifier" type="gco:CharacterString_PropertyType" minOccurs="0"/>
-                  parentIdentifier = xMetadata.xpath(@@parentIdentifierXPath)[0]
-                  intMetadata[:parentIdentifier] = parentIdentifier.text unless parentIdentifier.nil?
+                  intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
 
                   # :distributorInfo
                   # :associatedResources

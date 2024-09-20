@@ -5,8 +5,8 @@ module ADIWG
             module Identifier
 
                def self.build(intObj)
-                  fileIdentifier = intObj.dig(:metadata, :fileIdentifier)
-                  return fileIdentifier unless fileIdentifier.nil?
+                  identifier = intObj.dig(:metadata, :metadataInfo, :metadataIdentifier, :identifier)
+                  return identifier unless identifier.nil?
 
                   citation = intObj.dig(:metadata, :resourceInfo, :citation)
                   identifiers = citation&.dig(:identifiers)
