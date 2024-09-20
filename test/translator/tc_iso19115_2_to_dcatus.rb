@@ -9,7 +9,6 @@ require 'json'
 require 'adiwg/mdtranslator'
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_iso19115_2'
 require 'adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us'
-require 'debug'
 
 # these tests are organized according to how data is processed in
 # the dcat_us writer lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us.rb
@@ -92,5 +91,19 @@ class TestIso191152DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
       res = dcatusNS.build(@@intMetadata)
       assert_equal('biota farming', res)
+   end
+
+   def test_identifier
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456', res)
+   end
+
+   def test_is_part_of
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456-parent', res)
    end
 end

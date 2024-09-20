@@ -3,6 +3,7 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_resource_info'
+require_relative 'module_metadata_info'
 
 module ADIWG
    module Mdtranslator
@@ -41,6 +42,8 @@ module ADIWG
                   end
 
                   intMetadata[:resourceInfo] = ResourceInformation.unpack(xDataIdentification, hResponseObj)
+
+                  intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
 
                   # :distributorInfo
                   # :associatedResources
