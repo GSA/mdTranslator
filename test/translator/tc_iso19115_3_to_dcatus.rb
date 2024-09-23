@@ -133,7 +133,7 @@ class TestIso191153DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
       res = dcatusNS.build(@@intMetadata)
 
-      assert_equal('http://dx.doi.org/10.5066/F7DV1H10', res)
+      assert_equal('57d97341e4b090824ffb0e6f', res)
    end
 
    def test_distribution_translate

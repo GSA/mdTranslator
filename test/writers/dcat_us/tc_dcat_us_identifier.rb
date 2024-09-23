@@ -8,6 +8,7 @@ class TestWriterDcatUsIdentifier < TestWriterDcatUsParent
    # get input JSON for test
    @@jsonIn = TestWriterDcatUsParent.getJson('identifier.json')
    @@jsonIn2 = TestWriterDcatUsParent.getJson('identifier2.json')
+   @@jsonIn3 = TestWriterDcatUsParent.getJson('identifier3.json')
 
    def test_identifier_namespace
       metadata = ADIWG::Mdtranslator.translate(
@@ -29,6 +30,17 @@ class TestWriterDcatUsIdentifier < TestWriterDcatUsParent
       got = hJsonOut['identifier']
 
       assert_equal 'http://myOnlineResource-doi.com', got
+   end
+
+   def test_identifier_metadataInfo
+      metadata = ADIWG::Mdtranslator.translate(
+         file: @@jsonIn3, reader: 'mdJson', validate: 'normal',
+         writer: 'dcat_us', showAllTags: false)
+
+      hJsonOut = JSON.parse(metadata[:writerOutput])
+      got = hJsonOut['identifier']
+
+      assert_equal 'myMetadataIdentifierID', got
    end
 
 end
