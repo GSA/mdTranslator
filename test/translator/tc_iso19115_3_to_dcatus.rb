@@ -158,7 +158,7 @@ class TestIso191153DcatusTranslation < Minitest::Test
       accessLevel = accessLevelNS.build(@@intMetadata)
       res = dcatusNS.build(@@intMetadata, accessLevel)
 
-      expected = "this is a releasability statement. it's important topSecret superSecret"
+      expected = 'Common constraint for use of this thing Important Disclaimer'
       assert_equal(expected, res)
    end
 

@@ -13,10 +13,10 @@ class TestReaderIso191152SecurityConstraint < TestReaderIso191152Parent
    def test_security_constraint_complete
       TestReaderIso191152Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gmd:MD_SecurityConstraints')[0]
+      xIn = @@xDoc.xpath('.//gmd:resourceConstraints')[1]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
-            
+
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
       assert_equal('security', hDictionary[:type])
@@ -32,7 +32,7 @@ class TestReaderIso191152SecurityConstraint < TestReaderIso191152Parent
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_sec_const_class.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      xIn = xDoc.xpath('.//gmd:MD_DataIdentification')[0]
+      xIn = xDoc.xpath('.//gmd:resourceConstraints')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       _hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
@@ -40,5 +40,5 @@ class TestReaderIso191152SecurityConstraint < TestReaderIso191152Parent
                      'is missing in gmd:MD_SecurityConstraints'],
                    hResponse[:readerExecutionMessages])
       assert_equal(false, hResponse[:readerExecutionPass])
-   end   
+   end
 end

@@ -77,7 +77,7 @@ class TestIso191152DcatusTranslation < Minitest::Test
    def test_access_level
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
       res = dcatusNS.build(@@intMetadata)
-      assert_equal('public', res)
+      assert_equal('non-public', res)
    end
 
    def test_issued
@@ -98,6 +98,13 @@ class TestIso191152DcatusTranslation < Minitest::Test
       res = dcatusNS.build(@@intMetadata)
 
       assert_equal('ISO19115-2-ID-123456', res)
+   end
+
+   def test_rights
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Rights
+      res = dcatusNS.build(@@intMetadata, 'non-public')
+
+      assert_equal('use constraint limitation value 123 use constraint limitation abc', res)
    end
 
    def test_is_part_of

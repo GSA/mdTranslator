@@ -277,7 +277,41 @@
           </gmd:handlingDescription>
         </gmd:MD_SecurityConstraints>
       </gmd:resourceConstraints>
+
+      <gmd:resourceConstraints>
+        <gmd:MD_SecurityConstraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>restricted security constraint 1</gco:CharacterString>
+          </gmd:useLimitation>
+          <gmd:useLimitation>
+            <gco:CharacterString>restricted security constraint 2</gco:CharacterString>
+          </gmd:useLimitation>
+          <gmd:classification>
+            <gmd:MD_ClassificationCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_ClassificationCode" codeListValue="restricted" codeSpace="userCode"/>
+          </gmd:classification>
+          <gmd:userNote>
+            <gco:CharacterString>test user note aoishd</gco:CharacterString>
+          </gmd:userNote>
+          <gmd:classificationSystem>
+            <gco:CharacterString>classification system 0192j3iansd</gco:CharacterString>
+          </gmd:classificationSystem>
+          <gmd:handlingDescription>
+            <gco:CharacterString>handling instructions aoishd8hi2</gco:CharacterString>
+          </gmd:handlingDescription>
+        </gmd:MD_SecurityConstraints>
+      </gmd:resourceConstraints>
       
+      <gmd:resourceConstraints>
+         <gmd:MD_Constraints>
+            <gmd:useLimitation>
+               <gco:CharacterString>use constraint limitation value 123</gco:CharacterString>
+            </gmd:useLimitation>
+            <gmd:useLimitation>
+               <gco:CharacterString>use constraint limitation abc</gco:CharacterString>
+            </gmd:useLimitation>
+         </gmd:MD_Constraints>
+      </gmd:resourceConstraints>
+
       <gmd:aggregationInfo/>
       <gmd:taxonomy/>
       <gmd:spatialRepresentationType/>
