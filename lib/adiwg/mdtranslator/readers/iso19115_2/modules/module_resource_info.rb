@@ -6,7 +6,7 @@ require_relative 'module_citation'
 require_relative 'module_keyword'
 require_relative 'module_responsibility'
 require_relative 'module_extent'
-require 'debug'
+require_relative 'module_constraint'
 
 module ADIWG
    module Mdtranslator
@@ -18,7 +18,7 @@ module ADIWG
                @@keywordsXPath = 'gmd:descriptiveKeywords'
                @@pointOfContactXPath = 'gmd:pointOfContact'
                @@extentsXPath = 'gmd:extent'
-
+               @@constraintsXPath = 'gmd:resourceConstraints'
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -61,6 +61,13 @@ module ADIWG
                   xPointOfContact = xDataIdentification.xpath(@@pointOfContactXPath)
                   hResourceInfo[:pointOfContacts] = xPointOfContact.map do |poc|
                      Responsibility.unpack(poc, hResponseObj)
+                  end
+                  
+                  # resourceConstraints (optional)
+                  # <xs:element name="resourceConstraints" type="gmd:MD_Constraints_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                  xResourceConstraints = xDataIdentification.xpath(@@constraintsXPath)
+                  hResourceInfo[:constraints] = xResourceConstraints.map do |r|
+                     Constraint.unpack(r, hResponseObj)
                   end
 
                   # :extent (optional)

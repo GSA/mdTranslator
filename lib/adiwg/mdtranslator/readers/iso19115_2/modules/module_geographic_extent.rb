@@ -15,15 +15,21 @@ module ADIWG
                   intMetadataClass = InternalMetadata.new
                   hGeoExt = intMetadataClass.newGeographicExtent
 
-                  # :boundingBox
+                  # :boundingBox (optional)
+                  # <xs:sequence minOccurs="0"><xs:element ref="gmd:EX_GeographicBoundingBox"/></xs:sequence>
                   hGeoExt[:boundingBox] = BoundingBox.unpack(xGeoElem, hResponseObj)
 
-                  # :identifier
+                  # :identifier (optional)
+                  # <xs:sequence minOccurs="0"><xs:element ref="gmd:EX_GeographicDescription"/></xs:sequence>
                   hGeoExt[:identifier] = GeographicDescription.unpack(xGeoElem, hResponseObj)
 
-                  # :containsData
+                  # :containsData (optional)
+                  # <xs:element name="extentTypeCode" type="gco:Boolean_PropertyType" minOccurs="0"/>
                   xExtTypeCode = xGeoElem.xpath(@@extTypeCodeXPath)[0]
                   hGeoExt[:containsData] = xExtTypeCode.nil? ? nil : xExtTypeCode.text
+
+                  # dcat_us_spatial writer try to find a point in :geographicElement with :type and :coordinate
+                  # we are not going to process geographicElement now -- TODO
 
                   hGeoExt
                end

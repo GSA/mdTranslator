@@ -23,24 +23,10 @@
 
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
-      <gmd:citation>
-        <gmd:CI_Citation>
-          <gmd:title>
-            <gco:CharacterString>ISO19115-2 citation title test 123456</gco:CharacterString>
-          </gmd:title>
-          <gmd:date>
-            <gmd:CI_Date>
-            <gmd:date>
-               <gco:Date>2017</gco:Date>
-            </gmd:date>
-            <gmd:dateType>
-               <gmd:CI_DateTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_DateTypeCode" codeListValue="publication" codeSpace="002"/>
-            </gmd:dateType>
-            </gmd:CI_Date>
-         </gmd:date>
-        </gmd:CI_Citation>
-      </gmd:citation>
-      <!-- no abstract for MD_DataIdentification -->
+      <gmd:resourceConstraints>
+        <gmd:MD_SecurityConstraints>
+        </gmd:MD_SecurityConstraints>
+      </gmd:resourceConstraints>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
 

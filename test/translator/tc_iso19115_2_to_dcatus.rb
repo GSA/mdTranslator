@@ -9,7 +9,6 @@ require 'json'
 require 'adiwg/mdtranslator'
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_iso19115_2'
 require 'adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us'
-require 'debug'
 
 # these tests are organized according to how data is processed in
 # the dcat_us writer lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us.rb
@@ -59,18 +58,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(DateTime.iso8601('2023-11-22T00:00:00+00:00'), res)
    end
 
-   def test_theme
-      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
-      res = dcatusNS.build(@@intMetadata)
-
-      assert_equal('biota farming', res)
-   end
-
    def test_publisher
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
       res = dcatusNS.build(@@intMetadata).target!
 
-      expected = '{"@type":"org:Organization","name":"organization name"}'
+      expected = '{"@type":"org:Organization","name":"citation organization name"}'
       assert_equal(expected, res)
    end
 
@@ -78,7 +70,7 @@ class TestIso191152DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::ContactPoint
       res = dcatusNS.build(@@intMetadata).target!
 
-      expected = '{"@type":"vcard:Contact","fn":"person name","hasEmail":"email@test.com"}'
+      expected = '{"@type":"vcard:Contact","fn":"test person test name","hasEmail":"whatever@gmail.com"}'
       assert_equal(expected, res)
    end
 
@@ -88,5 +80,37 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       expected = '-74.0,24.0,-166.0,71.0'
       assert_equal(expected, res)
+
+   def test_access_level
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
+      res = dcatusNS.build(@@intMetadata)
+      assert_equal('public', res)
+   end
+
+   def test_issued
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Issued
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal(DateTime.iso8601('2017-01-01T00:00:00+00:00'), res)
+   end
+
+   def test_theme
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
+      res = dcatusNS.build(@@intMetadata)
+      assert_equal('biota farming', res)
+   end
+
+   def test_identifier
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456', res)
+   end
+
+   def test_is_part_of
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456-parent', res)
    end
 end
