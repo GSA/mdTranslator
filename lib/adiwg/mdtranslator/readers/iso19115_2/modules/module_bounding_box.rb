@@ -22,55 +22,30 @@ module ADIWG
 
                   # :westLongitude (required)
                   # <xs:element name="westBoundLongitude" type="gco:Decimal_PropertyType"/>
-                  xWest = xBbox.xpath(@@westXPath)
-
-                  if xWest.empty?
-                     msg = 'WARNING: ISO19115-2 reader: element \'gmd:EX_GeographicBoundingBox\' '\
-                        'is missing in gmd:EX_GeographicBoundingBox'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                  else
-                     hBbox[:westLongitude] = xWest[0].text.to_f
-                  end
-
                   # :eastLongitude (required)
                   # <xs:element name="eastBoundLongitude" type="gco:Decimal_PropertyType"/>
-                  xEast = xBbox.xpath(@@eastXPath)
-
-                  if xEast.empty?
-                     msg = 'WARNING: ISO19115-2 reader: element \'gmd:eastBoundLongitude\' '\
-                        'is missing in gmd:EX_GeographicBoundingBox'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                  else
-                     hBbox[:eastLongitude] = xEast[0].text.to_f
-                  end
-
                   # :northLatitude (required)
                   # <xs:element name="southBoundLatitude" type="gco:Decimal_PropertyType"/>
-                  xNorth = xBbox.xpath(@@northXPath)
-
-                  if xNorth.empty?
-                     msg = 'WARNING: ISO19115-2 reader: element \'gmd:northBoundLongitude\' '\
-                        'is missing in gmd:EX_GeographicBoundingBox'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                  else
-                     hBbox[:northLatitude] = xNorth[0].text.to_f
-                  end
-
                   # :southLatitude (required)
                   # <xs:element name="northBoundLatitude" type="gco:Decimal_PropertyType"/>
-                  xSouth = xBbox.xpath(@@southXPath)
+                  bounding_elements = {
+                     westLongitude: { xpath: @@westXPath, message: 'gmd:westBoundLongitude' },
+                     eastLongitude: { xpath: @@eastXPath, message: 'gmd:eastBoundLongitude' },
+                     northLatitude: { xpath: @@northXPath, message: 'gmd:northBoundLatitude' },
+                     southLatitude: { xpath: @@southXPath, message: 'gmd:southBoundLatitude' }
+                   }
 
-                  if xSouth.empty?
-                     msg = 'WARNING: ISO19115-2 reader: element \'gmd:southBoundLongitude\' '\
-                        'is missing in gmd:EX_GeographicBoundingBox'
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                  else
-                     hBbox[:southLatitude] = xSouth[0].text.to_f
-                  end
+                   bounding_elements.each do |key, info|
+                     element = xBbox.xpath(info[:xpath])
+                     if element.empty?
+                       msg = "WARNING: ISO19115-2 reader: element '#{info[:message]}' " \
+                        "is missing in gmd:EX_GeographicBoundingBox"
+                       hResponseObj[:readerExecutionMessages] << msg
+                       hResponseObj[:readerExecutionPass] = false
+                     else
+                       hBbox[key] = element[0].text.to_f
+                     end
+                   end
 
                   hBbox
                end
