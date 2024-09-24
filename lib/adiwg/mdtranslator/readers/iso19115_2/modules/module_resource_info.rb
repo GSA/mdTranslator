@@ -5,6 +5,8 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_citation'
 require_relative 'module_keyword'
 require_relative 'module_responsibility'
+require_relative 'module_extent'
+require 'debug'
 
 module ADIWG
    module Mdtranslator
@@ -15,6 +17,8 @@ module ADIWG
                @@abstractXPath = 'gmd:abstract//gco:CharacterString'
                @@keywordsXPath = 'gmd:descriptiveKeywords'
                @@pointOfContactXPath = 'gmd:pointOfContact'
+               @@extentsXPath = 'gmd:extent'
+
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
@@ -58,6 +62,11 @@ module ADIWG
                   hResourceInfo[:pointOfContacts] = xPointOfContact.map do |poc|
                      Responsibility.unpack(poc, hResponseObj)
                   end
+
+                  # :extent (optional)
+                  # <xs:element name="extent" type="gmd:EX_Extent_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                  xExtents = xDataIdentification.xpath(@@extentsXPath)
+                  hResourceInfo[:extents] = xExtents.map { |e| Extent.unpack(e, hResponseObj) }
 
                   hResourceInfo
                end
