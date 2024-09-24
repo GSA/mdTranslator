@@ -74,17 +74,18 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(expected, res)
    end
 
+   def test_access_level
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
+      res = dcatusNS.build(@@intMetadata)
+      assert_equal('public', res)
+   end
+
    def test_spatial
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Spatial
       res = dcatusNS.build(@@intMetadata)
 
       expected = '-74.0,24.0,-166.0,71.0'
       assert_equal(expected, res)
-
-   def test_access_level
-      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccessLevel
-      res = dcatusNS.build(@@intMetadata)
-      assert_equal('public', res)
    end
 
    def test_issued

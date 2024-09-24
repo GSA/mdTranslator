@@ -28,8 +28,8 @@ module ADIWG
                   xExtTypeCode = xGeoElem.xpath(@@extTypeCodeXPath)[0]
                   hGeoExt[:containsData] = xExtTypeCode.nil? ? nil : xExtTypeCode.text
 
-                  # dcat_us_spatial writer try to find a point in :geographicElement with :type and :coordinate
-                  # we are not going to process geographicElement now -- TODO
+                  # Note: In cases without a boundingBox, the dcat_us_spatial writer checks for a 'point' type 
+                  # within :geographicElement, geographicElement processing is not yet implemented -- TODO
 
                   hGeoExt
                end
