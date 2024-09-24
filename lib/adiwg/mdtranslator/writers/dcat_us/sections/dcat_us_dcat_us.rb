@@ -87,7 +87,7 @@ module ADIWG
                   json.set!('issued', issued)
                   json.set!('accrualPeriodicity', accrualPeriodicity)
                   json.set!('language', language)
-                  json.set!('dataQuality', metadataInfo[:metadataMaintenance][:maintenanceNote])
+                  # json.set!('dataQuality', metadataInfo[:metadataMaintenance][:maintenanceNote])
                   json.set!('theme', theme)
                   json.set!('references', references)
                   json.set!('landingPage', landingPage)
@@ -96,7 +96,7 @@ module ADIWG
                   json.set!('primaryITInvestmentUII', primaryITInvestmentUII)
                   json.set!('describedBy', describedBy)
                   json.set!('describedByType', describedByType)
-                  json.set!('conformsTo', metadataInfo[:metadataStandards][0][:standardName])
+                  # json.set!('conformsTo', metadataInfo[:metadataStandards][0][:standardName])
                end
             end
 

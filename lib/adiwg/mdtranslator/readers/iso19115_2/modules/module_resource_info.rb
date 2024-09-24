@@ -5,8 +5,8 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_citation'
 require_relative 'module_keyword'
 require_relative 'module_responsibility'
-require_relative 'module_extent'
 require_relative 'module_constraint'
+require_relative 'module_extent'
 
 module ADIWG
    module Mdtranslator
@@ -17,8 +17,8 @@ module ADIWG
                @@abstractXPath = 'gmd:abstract//gco:CharacterString'
                @@keywordsXPath = 'gmd:descriptiveKeywords'
                @@pointOfContactXPath = 'gmd:pointOfContact'
-               @@extentsXPath = 'gmd:extent'
                @@constraintsXPath = 'gmd:resourceConstraints'
+               @@extentsXPath = 'gmd:extent'
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
