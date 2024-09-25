@@ -10,7 +10,6 @@ module ADIWG
          module Iso191152
             module Extent
                @@exExtentXPath = 'gmd:EX_Extent'
-               @@descXPath = 'gmd:description//gco:CharacterString'
                @@geoElemXPath = 'gmd:geographicElement'
                def self.unpack(xExtent, hResponseObj)
                   intMetadataClass = InternalMetadata.new
