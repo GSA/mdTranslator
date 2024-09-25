@@ -9,7 +9,7 @@ require_relative 'iso19115_2_test_parent'
 class TestReaderIso191152Extent < TestReaderIso191152Parent
    @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152::Extent
 
-   def test_responsibility_extent_complete 
+   def test_extent_complete 
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
