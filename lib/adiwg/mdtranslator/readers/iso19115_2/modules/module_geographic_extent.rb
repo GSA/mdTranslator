@@ -3,7 +3,6 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_bounding_box'
-require_relative 'module_geographic_desc'
 
 module ADIWG
    module Mdtranslator
@@ -18,10 +17,6 @@ module ADIWG
                   # :boundingBox (optional)
                   # <xs:sequence minOccurs="0"><xs:element ref="gmd:EX_GeographicBoundingBox"/></xs:sequence>
                   hGeoExt[:boundingBox] = BoundingBox.unpack(xGeoElem, hResponseObj)
-
-                  # :identifier (optional)
-                  # <xs:sequence minOccurs="0"><xs:element ref="gmd:EX_GeographicDescription"/></xs:sequence>
-                  hGeoExt[:identifier] = GeographicDescription.unpack(xGeoElem, hResponseObj)
 
                   # :containsData (optional)
                   # <xs:element name="extentTypeCode" type="gco:Boolean_PropertyType" minOccurs="0"/>
