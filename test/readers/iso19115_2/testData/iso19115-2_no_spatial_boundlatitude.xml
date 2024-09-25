@@ -31,7 +31,37 @@
               <gmd:extentTypeCode>
                 <gco:Boolean>true</gco:Boolean>
               </gmd:extentTypeCode>
- 
+              <gmd:westBoundLongitude>
+                <gco:Decimal>-166.0</gco:Decimal>
+              </gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude>
+                <gco:Decimal>-74.0</gco:Decimal>
+              </gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude>
+                <gco:Decimal>24.0</gco:Decimal>
+              </gmd:southBoundLatitude>
+              <gmd:northBoundLatitude>
+                <gco:Decimal>71.0</gco:Decimal>
+              </gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+          <gmd:temporalElement/>
+          <gmd:verticalElement/>
+        </gmd:EX_Extent>
+      </gmd:extent>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:description/>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:extentTypeCode>
+                <gco:Boolean>true</gco:Boolean>
+              </gmd:extentTypeCode>
               <gmd:eastBoundLongitude>
                 <gco:Decimal>-74.0</gco:Decimal>
               </gmd:eastBoundLongitude>

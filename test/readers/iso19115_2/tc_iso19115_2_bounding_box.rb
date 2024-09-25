@@ -31,10 +31,10 @@ class TestReaderIso191152BoundingBox < TestReaderIso191152Parent
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_spatial_boundlatitude.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      xIn = xDoc.xpath('.//gmd:geographicElement')[0]
+      xIn = xDoc.xpath('.//gmd:geographicElement')[1]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
-      
+
       assert_equal(["WARNING: ISO19115-2 reader: element 'gmd:westBoundLongitude' is missing in gmd:EX_GeographicBoundingBox"],
                    hResponse[:readerExecutionMessages])
       assert_equal(false, hResponse[:readerExecutionPass])

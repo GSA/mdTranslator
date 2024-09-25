@@ -18,11 +18,6 @@ module ADIWG
                   xExExtent = xExtent.xpath(@@exExtentXPath)[0]
                   return nil if xExExtent.nil?
 
-                  # :description (optional)
-                  # <xs:element name="description" type="gco:CharacterString_PropertyType" minOccurs="0"/>
-                  xDesc = xExExtent.xpath(@@descXPath)[0]
-                  hExtent[:description] = xDesc.nil? ? nil : xDesc.text
-
                   # :geographicExtents (optional)
                   # <xs:element name="geographicElement" type="gmd:EX_GeographicExtent_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
                   xGeoElems = xExExtent.xpath(@@geoElemXPath)
