@@ -13,7 +13,7 @@ class TestReaderIso191152LegalConstraint < TestReaderIso191152Parent
    def test_legal_constraint_complete
       TestReaderIso191152Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gmd:MD_LegalConstraints')[0]
+      xIn = @@xDoc.xpath('.//gmd:resourceConstraints')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

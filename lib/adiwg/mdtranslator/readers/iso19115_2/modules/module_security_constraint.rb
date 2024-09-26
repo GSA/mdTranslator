@@ -14,10 +14,13 @@ module ADIWG
                @@classSysXPath = 'gmd:classificationSystem//gco:CharacterString'
                @@handlingXPath = 'gmd:handlingDescription//gco:CharacterString'
                @@type = 'security'
-               def self.unpack(xSecurityConstraint, hResponseObj)
+               def self.unpack(xConstraint, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hConstraint = intMetadataClass.newConstraint
                   hSecConstraint = intMetadataClass.newSecurityConstraint
+
+                  xSecurityConstraint = xConstraint.xpath(@@securityConstraintXPath)[0]
+                  return nil if xSecurityConstraint.nil?
 
                   hConstraint[:type] = @@type
 

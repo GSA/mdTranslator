@@ -62,9 +62,10 @@ module ADIWG
                   hResourceInfo[:pointOfContacts] = xPointOfContact.map do |poc|
                      Responsibility.unpack(poc, hResponseObj)
                   end
-                  
+
                   # resourceConstraints (optional)
-                  # <xs:element name="resourceConstraints" type="gmd:MD_Constraints_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                  # <xs:element name="resourceConstraints" type="gmd:MD_Constraints_PropertyType" minOccurs="0"
+                  # maxOccurs="unbounded"/>
                   xResourceConstraints = xDataIdentification.xpath(@@constraintsXPath)
                   hResourceInfo[:constraints] = xResourceConstraints.map do |r|
                      Constraint.unpack(r, hResponseObj)
