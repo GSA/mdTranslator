@@ -145,7 +145,7 @@ Or install it yourself as:
    bundle exec mdtranslator translate $f -r iso19115_2 -w dcat_us
 ```
 
-Note: to debug a test, you want to add `require 'debug'` to test/readers/iso19115_2/iso19115_2_test_parent.rb, prior to invoking `bundle exec rake test TEST={path to test file}`
+Note: to debug a test, you want to add `require 'debug'` to `vendor/ruby/3.2.0/gems/rake-13.2.1/lib/rake/rake_test_loader.rb`, prior to invoking `bundle exec rake test TEST={path to test file}`
 
 2. [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to "debug"
 - insert a "breakpoint" by adding `binding.irb` on the line of your choice. here's an example of what that might look like...

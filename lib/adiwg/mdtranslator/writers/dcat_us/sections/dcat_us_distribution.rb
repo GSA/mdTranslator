@@ -23,6 +23,7 @@ module ADIWG
                 break if break_flag
 
                 distributor[:transferOptions]&.each do |transfer|
+                  # TODO: should we break here or do we need to traverse the entire array?
                   break if break_flag
 
                   mediaType = MediaType.build(transfer)
@@ -32,10 +33,10 @@ module ADIWG
                     accessURL = AccessURL.build(option)
                     downloadURL = DownloadURL.build(option)
                     title = option[:olResName] || ''
-
                     distribution = Jbuilder.new do |json|
                       json.set!('@type', 'dcat:Distribution')
-                      json.set!('description', description)
+                      #TODO: description is found in option[:olResDesc]
+                      json.set!('description', description) 
                       json.set!('accessURL', accessURL) if accessURL
                       json.set!('downloadURL', downloadURL) if downloadURL
                       json.set!('mediaType', mediaType)
@@ -49,6 +50,7 @@ module ADIWG
                 end
               end
             end
+
             distributions
           end
 
