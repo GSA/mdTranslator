@@ -5,7 +5,7 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_bounding_box'
 require_relative 'iso19115_2_test_parent'
-require 'debug'
+
 class TestReaderIso191152BoundingBox < TestReaderIso191152Parent
    @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152::BoundingBox
 
@@ -28,16 +28,24 @@ class TestReaderIso191152BoundingBox < TestReaderIso191152Parent
    end
 
    def test_no_boundingbox_boundlatitude
-      xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_spatial_boundlatitude.xml')
+      xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_spatial_boundingbox.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      xIn = xDoc.xpath('.//gmd:geographicElement')[1]
-      hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-      hDictionary = @@nameSpace.unpack(xIn, hResponse)
+      warnings = [
+         "WARNING: ISO19115-2 reader: element 'gmd:westBoundLongitude' is missing in gmd:EX_GeographicBoundingBox",
+         "WARNING: ISO19115-2 reader: element 'gmd:eastBoundLongitude' is missing in gmd:EX_GeographicBoundingBox",
+         "WARNING: ISO19115-2 reader: element 'gmd:southBoundLatitude' is missing in gmd:EX_GeographicBoundingBox",
+         "WARNING: ISO19115-2 reader: element 'gmd:northBoundLatitude' is missing in gmd:EX_GeographicBoundingBox"
+       ]
+     
+       xDoc.xpath('.//gmd:geographicElement').each_with_index do |xIn, index|
+         hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+         hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-      assert_equal(["WARNING: ISO19115-2 reader: element 'gmd:westBoundLongitude' is missing in gmd:EX_GeographicBoundingBox"],
-                   hResponse[:readerExecutionMessages])
-      assert_equal(false, hResponse[:readerExecutionPass])
+         assert_equal([warnings[index]], hResponse[:readerExecutionMessages])
+         assert_equal(false, hResponse[:readerExecutionPass])
+       end
+
    end
 
 end
