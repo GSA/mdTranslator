@@ -19,9 +19,7 @@ class TestReaderIso191152Extent < TestReaderIso191152Parent
 
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
-      if hDictionary.key?(:geographicExtents)
-         assert_equal(1, hDictionary[:geographicExtents].size)
-      end
+      assert_equal(1, hDictionary[:geographicExtents].size)
 
    end
 end
