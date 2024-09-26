@@ -80,6 +80,14 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal('non-public', res)
    end
 
+   def test_spatial
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Spatial
+      res = dcatusNS.build(@@intMetadata)
+
+      expected = '-74.0,24.0,-166.0,71.0'
+      assert_equal(expected, res)
+   end
+
    def test_issued
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Issued
       res = dcatusNS.build(@@intMetadata)
