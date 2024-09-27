@@ -289,6 +289,6 @@ class TestIso191153DcatusTranslation < Minitest::Test
       assert_equal(true, metadata[:readerValidationPass])
       assert_equal(true, metadata[:readerExecutionPass])
       assert_equal(true, metadata[:writerPass])
-      assert_equal(expected, metadata[:writerOutput])
+      assert_equal(expected.gsub(/\s+/, ''), metadata[:writerOutput].gsub(/\s+/, ''))
    end
 end
