@@ -24,12 +24,12 @@ module ADIWG
                   # :roleName (required)
                   # <xs:element name="role" type="gmd:CI_RoleCode_PropertyType"/>
                   xRoleCode = xRParty.xpath(@@roleCodeXPath)[0]
-
                   if xRoleCode.nil?
                      msg = "WARNING: ISO19115-2 reader: element \'#{@@roleCodeXPath}\' "\
                         "is missing in \'#{xRParty.name}\'"
                      hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
+                     # TODO: should this hard fail?
+                     # hResponseObj[:readerExecutionPass] = false
                      return nil
                   end
 

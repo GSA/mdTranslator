@@ -129,10 +129,28 @@ Or install it yourself as:
 
 ## Development
 ### Debugger
-- [debug](https://github.com/ruby/debug) comes with ruby installations >= 3.1. this is a proper debugger with more features than IRB. 
-- [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to "debug"
+1. [debug](https://github.com/ruby/debug) comes with ruby installations >= 3.1. this is a proper debugger with more features than IRB. 
+
+#### Steps to get 'debug' wired up:
+
+- Uncomment / add `require 'debug'` in bin/mdtranslator to run debugger
+- Add a breakpoint anywhere in the code via `binding.b`
+- Assign your test file to a variable in the CLI: 
+```bash
+    export f=test/readers/iso19115_2/testData/iso19115-2.xml
+```
+- Invoke MDTranslator with the following command:
+
+```bash
+   bundle exec mdtranslator translate $f -r iso19115_2 -w dcat_us
+```
+
+Note: to debug a test, you want to add `require 'debug'` to test/readers/iso19115_2/iso19115_2_test_parent.rb, prior to invoking `bundle exec rake test TEST={path to test file}`
+
+2. [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to "debug"
 - insert a "breakpoint" by adding `binding.irb` on the line of your choice. here's an example of what that might look like...
-```console 
+
+```
 From: /home/bobsmith/.rbenv/versions/3.2.2/lib/ruby/vendor_ruby/gems/3.2.0/gems/adiwg-mdtranslator-2.20.0.pre.beta.5/lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_contact_point.rb @ line 10 :
 
      5:       module Writers
@@ -150,14 +168,14 @@ From: /home/bobsmith/.rbenv/versions/3.2.2/lib/ruby/vendor_ruby/gems/3.2.0/gems/
 irb(ADIWG::Mdtranslator::Writers:...):001> # execute your expressions here...
 ```
 
-### Requirements
+## Requirements
 
 Requires
 - [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 - bundler (`gem install bundler`)
 - rake (`gem install rake`)
 
-### Tests
+## Tests
 
 In order to run the tests, first install the dependencies
 
