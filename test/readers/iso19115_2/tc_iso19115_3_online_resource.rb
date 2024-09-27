@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # MdTranslator - minitest of
-# readers / iso19115-3 / module_online_resource
+# readers / iso19115-2 / module_online_resource
 
 require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_online_resource'
 require_relative 'iso19115_2_test_parent'
 
-class TestReaderIso191153OnlineResource < TestReaderIso191152Parent
+class TestReaderIso191152OnlineResource < TestReaderIso191152Parent
    @@xDoc = TestReaderIso191152Parent.get_xml('iso19115-2.xml')
    @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152::OnlineResource
 
