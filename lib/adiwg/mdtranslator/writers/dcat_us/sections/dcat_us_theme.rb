@@ -11,13 +11,12 @@ module ADIWG
                   keywords_str = []
                 
                   resourceInfo[:keywords].each do |keyword_group|
-                    if keyword_group[:thesaurus][:title] == "ISO Topic Categories"
+                    if keyword_group.dig(:thesaurus, :title) == "ISO Topic Categories"
                       keyword_group[:keywords].each do |keyword_obj|
                         keywords_str << keyword_obj[:keyword]
                       end
                     end
                   end
-                
                   return keywords_str.join(" ")
                end                
 
