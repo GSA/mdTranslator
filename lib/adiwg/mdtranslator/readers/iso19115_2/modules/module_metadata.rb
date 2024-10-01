@@ -45,6 +45,11 @@ module ADIWG
 
                   intMetadata[:resourceInfo] = ResourceInformation.unpack(xDataIdentification, hResponseObj)
 
+                  # :associatedResources (optional)
+                  # <xs:element name="aggregationInfo" type="gmd:MD_AggregateInformation_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                  xAbstractIdentification = xDataIdentification.xpath(@@aggregationInfoXPath)
+                  intMetadata[:associatedResources] = xAbstractIdentification.map { |a| AggregateInformation.unpack(a, hResponseObj) }
+
                   intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
 
                   # :associatedResources (optional)
@@ -62,7 +67,6 @@ module ADIWG
                   # :additionalDocuments
                   # :funding
                   # :dataQuality
-
                   intMetadata
                end
             end

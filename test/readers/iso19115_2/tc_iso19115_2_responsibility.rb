@@ -42,9 +42,7 @@ class TestReaderIso191152Responsibility < TestReaderIso191152Parent
       expected = ["WARNING: ISO19115-2 reader: element 'gmd:role//gmd:CI_RoleCode' is missing in 'CI_ResponsibleParty'"]
 
       assert_equal(expected, hResponse[:readerExecutionMessages])
-      # TODO: assert true b/c we commented out readerExecutionPass
-      # https://github.com/GSA/mdTranslator/blob/iso19115-2-to-dcatus-landingpage/lib/adiwg/mdtranslator/readers/iso19115_2/modules/module_responsibility.rb#L32
-      assert_equal(true, hResponse[:readerExecutionPass])
+      assert_equal(false, hResponse[:readerExecutionPass])
    end
 
    def test_responsibility_no_ind_or_org

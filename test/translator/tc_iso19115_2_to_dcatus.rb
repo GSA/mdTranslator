@@ -116,6 +116,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal('ISO19115-2-ID-123456-parent', res)
    end
 
+   def test_system_of_records
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::SystemOfRecords
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('https://aggregation_info_sample_url.gov', res)
    def test_theme
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
       res = dcatusNS.build(@@intMetadata)
