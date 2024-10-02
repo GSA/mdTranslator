@@ -2,7 +2,7 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
-require 'debug'
+
 module ADIWG
    module Mdtranslator
       module Readers

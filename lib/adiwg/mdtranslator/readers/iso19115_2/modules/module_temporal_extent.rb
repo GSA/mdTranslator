@@ -3,7 +3,7 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_time_period'
-require 'debug'
+
 module ADIWG
    module Mdtranslator
       module Readers
