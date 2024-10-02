@@ -143,4 +143,12 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal('ISO19115-2-ID-123456', res)
    end
+
+   def test_accrual_periodicity
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccrualPeriodicity
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('R/P1M', res)
+   end
+
 end
