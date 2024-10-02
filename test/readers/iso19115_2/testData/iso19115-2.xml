@@ -136,7 +136,7 @@
                      </gmd:CI_Contact>
                   </gmd:contactInfo>
                   <gmd:role>
-                  <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="007"/>
+                    <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="007"/>
                   </gmd:role>
                </gmd:CI_ResponsibleParty>
             </gmd:citedResponsibleParty>
@@ -415,7 +415,7 @@
             <gmd:DS_AssociationTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#DS_AssociationTypeCode" codeListValue="largerWorkCitation" codeSpace="002"/>
             </gmd:associationType>
             <gmd:initiativeType>
-            <gmd:DS_InitiativeTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#DS_InitiativeTypeCode" codeListValue="initiative type" codeSpace="userCode"/>
+            <gmd:DS_InitiativeTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#DS_InitiativeTypeCode" codeListValue="sorn" codeSpace="userCode"/>
             </gmd:initiativeType>
          </gmd:MD_AggregateInformation>
       </gmd:aggregationInfo>
@@ -590,7 +590,9 @@
               <gmd:identifier/>
               <gmd:citedResponsibleParty>
                 <gmd:CI_ResponsibleParty>
-                  <gmd:organisationName gco:nilReason="inapplicable" />
+                  <gmd:organisationName>
+                     <gco:CharacterString>citation organization name</gco:CharacterString>
+                  </gmd:organisationName>
                   <gmd:contactInfo>
                     <gmd:CI_Contact>
                       <gmd:onlineResource>
@@ -614,7 +616,9 @@
                       </gmd:onlineResource>
                     </gmd:CI_Contact>
                   </gmd:contactInfo>
-                  <gmd:role gco:nilReason="inapplicable" />
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
+                  </gmd:role>
                 </gmd:CI_ResponsibleParty>
               </gmd:citedResponsibleParty>
               <gmd:presentationForm/>

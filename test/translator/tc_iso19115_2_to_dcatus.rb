@@ -120,7 +120,9 @@ class TestIso191152DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::SystemOfRecords
       res = dcatusNS.build(@@intMetadata)
 
-      assert_equal('https://aggregation_info_sample_url.gov', res)
+      assert_equal('aggregate_information_online_resources', res)
+   end
+
    def test_theme
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
       res = dcatusNS.build(@@intMetadata)
@@ -131,7 +133,7 @@ class TestIso191152DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::References
       res = dcatusNS.build(@@intMetadata)
 
-      expected = 'aggregate_information_online_resources,aggregate_information_online_resources 12309u'
+      expected = 'aggregate_information_online_resources,aggregate_information_online_resources 12309u,https://aggregation_info_sample_url.gov'
       assert_equal(expected, res)
    end
 
