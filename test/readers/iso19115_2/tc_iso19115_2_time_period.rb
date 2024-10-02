@@ -20,9 +20,9 @@ class TestReaderIso191152TimePeriod < TestReaderIso191152Parent
 
       refute_empty hDictionary
       assert_equal('timePeriod_001', hDictionary[:timeId])
-      assert_equal({ dateTime: '2017-12-01T00:00:00', dateResolution: 'YMDhmsZ' },
+      assert_equal({ dateTime: '2017-12-01T00:00:00+00:00', dateResolution: 'YMDhms' },
                    hDictionary[:startDateTime])
-      assert_equal({ dateTime: 'unknown', dateResolution: 'indeterminatePosition' },
+      assert_equal({ dateTime: 'unknown', dateResolution: 'indeterminate' },
                    hDictionary[:endDateTime])
    end
 end
