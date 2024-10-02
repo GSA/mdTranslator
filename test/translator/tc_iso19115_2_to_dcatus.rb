@@ -95,12 +95,6 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(DateTime.iso8601('2017-01-01T00:00:00+00:00'), res)
    end
 
-   def test_theme
-      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
-      res = dcatusNS.build(@@intMetadata)
-      assert_equal('biota farming', res)
-   end
-
    def test_identifier
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
       res = dcatusNS.build(@@intMetadata)
@@ -116,6 +110,27 @@ class TestIso191152DcatusTranslation < Minitest::Test
    end
 
    def test_is_part_of
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456-parent', res)
+   end
+
+   def test_theme
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
+      res = dcatusNS.build(@@intMetadata)
+      assert_equal('biota farming', res)
+   end
+
+   def test_references
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::References
+      res = dcatusNS.build(@@intMetadata)
+
+      expected = 'aggregate_information_online_resources,aggregate_information_online_resources 12309u'
+      assert_equal(expected, res)
+   end
+
+   def test_landing_page
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
       res = dcatusNS.build(@@intMetadata)
 

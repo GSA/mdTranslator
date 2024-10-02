@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_resource_info'
 require_relative 'module_metadata_info'
+require_relative 'module_aggregation_info'
 
 module ADIWG
    module Mdtranslator
@@ -12,6 +13,7 @@ module ADIWG
             module Metadata
                @@identificationInfoXPath = 'gmd:identificationInfo'
                @@dataIdentificationXPath = 'gmd:MD_DataIdentification'
+               @@aggregationInfoXPath = 'gmd:identificationInfo//gmd:MD_DataIdentification//gmd:aggregationInfo'
                def self.unpack(xMetadata, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   intMetadata = intMetadataClass.newMetadata
@@ -45,8 +47,16 @@ module ADIWG
 
                   intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
 
+                  # :associatedResources (optional)
+                  # <xs:element name="aggregationInfo" type="gmd:MD_AggregateInformation_PropertyType"
+                  # minOccurs="0" maxOccurs="unbounded"/>
+                  xAggregationInfos = xMetadata.xpath(@@aggregationInfoXPath)
+                  intMetadata[:associatedResources] = xAggregationInfos.map do |a|
+                     AggregationInformation.unpack(a, hResponseObj)
+                  end
+                  intMetadata[:associatedResources] = intMetadata[:associatedResources].compact
+
                   # :distributorInfo
-                  # :associatedResources
                   # :additionalDocuments
                   # :lineageInfo
                   # :additionalDocuments

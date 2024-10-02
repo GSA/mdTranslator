@@ -5,6 +5,7 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require 'adiwg/mdtranslator/internal/module_utils'
 require_relative 'module_date'
 require_relative 'module_responsibility'
+require_relative 'module_online_resource'
 
 module ADIWG
    module Mdtranslator
@@ -15,6 +16,7 @@ module ADIWG
                @@titleXPath = 'gmd:title//gco:CharacterString'
                @@dateXPath = 'gmd:date'
                @@responsibilityXPath = 'gmd:citedResponsibleParty'
+               @@onlineResourceXPath = './/gmd:onlineResource'
                def self.unpack(xCitationParent, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hCitation = intMetadataClass.newCitation
@@ -56,6 +58,7 @@ module ADIWG
 
                   hCitation[:dates] = xDates.map { |d| Date.unpack(d, hResponseObj) }
 
+                  # :citedResponsibleParty (optional)
                   # <xs:element name="citedResponsibleParty"
                   # type="gmd:CI_ResponsibleParty_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
                   xResponsibleParties = xCitation.xpath(@@responsibilityXPath)
@@ -68,6 +71,12 @@ module ADIWG
                   # responsible parties are grouped by role (see class_citation:121 in iso19115-2 writer)
                   hCitation[:responsibleParties] =
                      AdiwgUtils.consolidate_iso191152_rparties(hCitation[:responsibleParties]).compact
+
+                  # onlineResource (optional)
+                  # <xs:element name="onlineResource" type="gmd:CI_OnlineResource_PropertyType" minOccurs="0"/>
+                  xOnlineResource = xCitation.xpath(@@onlineResourceXPath)[0]
+                  hCitation[:onlineResources] =
+                     xOnlineResource.nil? ? nil : [OnlineResource.unpack(xOnlineResource, hResponseObj)]
 
                   hCitation
                end

@@ -34,7 +34,9 @@ class TestReaderIso191152Date < TestReaderIso191152Parent
 
       assert_equal(["WARNING: ISO19115-2 reader: element 'gmd:CI_Date' is missing in 'date'"],
                    hResponse[:readerExecutionMessages])
-      assert_equal(false, hResponse[:readerExecutionPass])
+      # TODO: assert true b/c we commented out readerExecutionPass
+      # https://github.com/GSA/mdTranslator/blob/iso19115-2-to-dcatus-landingpage/lib/adiwg/mdtranslator/readers/iso19115_2/modules/module_date.rb#L30
+      assert_equal(true, hResponse[:readerExecutionPass])
    end
 
    def test_no_date_date
