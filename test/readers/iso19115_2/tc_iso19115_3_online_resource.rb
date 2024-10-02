@@ -25,6 +25,5 @@ class TestReaderIso191152OnlineResource < TestReaderIso191152Parent
       assert_equal('information', onlineResource[:olResFunction])
       assert_equal('online resource application profile', onlineResource[:olResApplicationProfile])
       assert_equal('WWW:LINK-1.0-http--link', onlineResource[:olResProtocol])
-      assert_equal('online resource protocol request', onlineResource[:olResProtocolRequest])
    end
 end

@@ -75,8 +75,9 @@ module ADIWG
                   # onlineResource (optional)
                   # <xs:element name="onlineResource" type="gmd:CI_OnlineResource_PropertyType" minOccurs="0"/>
                   xOnlineResource = xCitation.xpath(@@onlineResourceXPath)[0]
-                  hCitation[:onlineResources] = xOnlineResource.nil? ? nil : [OnlineResource.unpack(xOnlineResource, hResponseObj)]
-                  
+                  hCitation[:onlineResources] =
+                     xOnlineResource.nil? ? nil : [OnlineResource.unpack(xOnlineResource, hResponseObj)]
+
                   hCitation
                end
             end
