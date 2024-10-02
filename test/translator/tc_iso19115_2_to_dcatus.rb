@@ -136,4 +136,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal('ISO19115-2-ID-123456-parent', res)
    end
+
+   def test_primaryitinvestmentuii
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::PrimaryITInvestmentUII
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456', res)
+   end
 end
