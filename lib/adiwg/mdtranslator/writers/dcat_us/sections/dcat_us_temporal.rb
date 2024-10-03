@@ -9,14 +9,6 @@ module ADIWG
                   extent = resourceInfo&.dig(:extents, 0)
                   temporalExtents = extent&.dig(:temporalExtents)
 
-                  if temporalExtents.nil? || temporalExtents.empty?
-                     extents = resourceInfo&.dig(:extents)
-                     if extents && extents.size > 1
-                       extent_with_temporal = extents[1..].find { |e| e.dig(:temporalExtents) }
-                       temporalExtents = extent_with_temporal&.dig(:temporalExtents)
-                     end
-                  end
-
                   if temporalExtents
                     temporalExtents.each do |temporalExtent|
                       timePeriod = temporalExtent&.dig(:timePeriod)

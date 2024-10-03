@@ -15,18 +15,11 @@ class TestReaderIso191152Extent < TestReaderIso191152Parent
 
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       
-      # geographicExtents
       xIn = xDoc.xpath('.//gmd:extent')[0]
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
       assert_equal(1, hDictionary[:geographicExtents].size)
-
-      # temporalExtents
-      xIn = xDoc.xpath('.//gmd:extent')[1]
-      hDictionary = @@nameSpace.unpack(xIn, hResponse)
-      refute_empty hDictionary
-      assert hDictionary.instance_of? Hash
       assert_equal(1, hDictionary[:temporalExtents].size)
 
    end

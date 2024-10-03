@@ -19,6 +19,7 @@ module ADIWG
                   return nil if xTemporalExt.nil?
 
                   # :timePeriod
+                  # <sequence minOccurs="0"> <element ref="gml:TimePeriod"/> </sequence>
                   xTimePeriod = xTemporalExt.xpath(@@timePeriodXPath)[0]
                   hTemporalExt[:timePeriod] = TimePeriod.unpack(xTimePeriod, hResponseObj) unless xTimePeriod.nil?
 

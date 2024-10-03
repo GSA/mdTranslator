@@ -9,50 +9,57 @@ module ADIWG
          module Iso191152
             module TimePeriod
                @@idAttr = 'gml:id'
-               @@PositionAttr = 'indeterminatePosition'
-               @@beginPosXPath = 'gml:beginPosition'
-               @@endPosXPath = 'gml:endPosition'
+               @@beginPosXPath = 'gml:beginPosition | gml:begin'
+               @@endPosXPath = 'gml:endPosition | gml:end'
                def self.unpack(xTimePeriod, hResponseObj)
                   intMetadataClass = InternalMetadata.new
 
                   hTimePeriod = intMetadataClass.newTimePeriod
 
-                  # :timeId
+                  # :timePeriod :id
                   timeId = xTimePeriod.attr(@@idAttr)
                   if timeId.nil?
-                     msg = 'ERROR: ISO19115-2 reader: element \'gml:TimePeriod\' is missing gml:id attribute'
+                     msg = 'ERROR: ISO19115-2 reader: Attribut gml:id is missing in gml:TimePeriod'
                      hResponseObj[:readerExecutionMessages] << msg
                   end
 
                   hTimePeriod[:timeId] = timeId
                   
-                  # :startDatetime
+                  # <sequence>
+                  #    <choice>
+                  #    <element name="beginPosition" type="gml:TimePositionType"/>
+                  #    <element name="begin" type="gml:TimeInstantPropertyType"/>
+                  #    </choice>
+                  #    <choice>
+                  #    <element name="endPosition" type="gml:TimePositionType"/>
+                  #    <element name="end" type="gml:TimeInstantPropertyType"/>
+                  #    </choice>
+                  #    <group ref="gml:timeLength" minOccurs="0"/>
+                  # </sequence>
                   xStartDatetime = xTimePeriod.xpath(@@beginPosXPath)[0]
                   startDatetime = intMetadataClass.newDateTime
-
-                  unless xStartDatetime.nil?
+                  if !xStartDatetime.nil? && !xStartDatetime.text.strip.empty?
                      dt = AdiwgDateTimeFun.dateTimeFromString(xStartDatetime.text)
                      startDatetime[:dateTime] = dt[0].to_s
                      startDatetime[:dateResolution] = dt[1]
+                  else
+                     msg = 'ERROR: ISO19115-2 reader: Element gml:beginPosition or gml:begin '\
+                           'is missing in gml:TimePeriod'
+                     hResponseObj[:readerExecutionMessages] << msg
                   end
-
                   hTimePeriod[:startDateTime] = startDatetime
 
-                  # :endDateTime
                   xEndDatetime = xTimePeriod.xpath(@@endPosXPath)[0]
                   endDatetime = intMetadataClass.newDateTime
-
                   if !xEndDatetime.nil? && !xEndDatetime.text.strip.empty?
-                     # If the text is not empty, process it as a date
                      dt = AdiwgDateTimeFun.dateTimeFromString(xEndDatetime.text)
                      endDatetime[:dateTime] = dt[0].to_s
                      endDatetime[:dateResolution] = dt[1]
-                   elsif !xEndDatetime.nil? && !xEndDatetime.attr(@@PositionAttr).nil?
-                     # If the text is empty but indeterminatePosition exists, use its value
-                     endDatetime[:dateTime] = xEndDatetime.attr(@@PositionAttr)
-                     endDatetime[:dateResolution] = 'indeterminate'
-                   end
-
+                  else
+                     msg = 'ERROR: ISO19115-2 reader: Element gml:endPosition or gml:end '\
+                           'is missing in gml:TimePeriod'
+                     hResponseObj[:readerExecutionMessages] << msg
+                  end
                   hTimePeriod[:endDateTime] = endDatetime
 
                   hTimePeriod

@@ -13,7 +13,7 @@ class TestReaderIso191152TemporalExtent < TestReaderIso191152Parent
    def test_temporal_extent_complete
       TestReaderIso191152Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gmd:temporalElement')[1]
+      xIn = @@xDoc.xpath('.//gmd:temporalElement')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
