@@ -13,10 +13,8 @@ module ADIWG
                @@endPosXPath = 'gml:endPosition | gml:end'
                def self.unpack(xTimePeriod, hResponseObj)
                   intMetadataClass = InternalMetadata.new
-
                   hTimePeriod = intMetadataClass.newTimePeriod
 
-                  # :timePeriod :id
                   timeId = xTimePeriod.attr(@@idAttr)
                   if timeId.nil?
                      msg = 'ERROR: ISO19115-2 reader: Attribut gml:id is missing in gml:TimePeriod'
@@ -25,14 +23,15 @@ module ADIWG
 
                   hTimePeriod[:timeId] = timeId
                   
+                  # :beginPosition/:begin and :endPosition/:end
                   # <sequence>
                   #    <choice>
-                  #    <element name="beginPosition" type="gml:TimePositionType"/>
-                  #    <element name="begin" type="gml:TimeInstantPropertyType"/>
+                  #      <element name="beginPosition" type="gml:TimePositionType"/>
+                  #      <element name="begin" type="gml:TimeInstantPropertyType"/>
                   #    </choice>
                   #    <choice>
-                  #    <element name="endPosition" type="gml:TimePositionType"/>
-                  #    <element name="end" type="gml:TimeInstantPropertyType"/>
+                  #      <element name="endPosition" type="gml:TimePositionType"/>
+                  #      <element name="end" type="gml:TimeInstantPropertyType"/>
                   #    </choice>
                   #    <group ref="gml:timeLength" minOccurs="0"/>
                   # </sequence>
