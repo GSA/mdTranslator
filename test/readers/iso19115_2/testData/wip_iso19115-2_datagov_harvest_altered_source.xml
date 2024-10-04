@@ -118,7 +118,16 @@
                   <gmd:title>
                     <gco:CharacterString>NOAA/NMFS/EDM</gco:CharacterString>
                   </gmd:title>
-                  <gmd:date gco:nilReason="inapplicable" />
+                  <gmd:date>
+                    <gmd:CI_Date>
+                      <gmd:date>
+                        <gco:Date>2014-06-01</gco:Date>
+                      </gmd:date>
+                      <gmd:dateType>
+                        <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                      </gmd:dateType>
+                    </gmd:CI_Date>
+                  </gmd:date>                  
                 </gmd:CI_Citation>
               </gmd:authority>
               <gmd:code>
@@ -128,7 +137,9 @@
           </gmd:identifier>
           <gmd:citedResponsibleParty>
             <gmd:CI_ResponsibleParty>
-              <gmd:organisationName gco:nilReason="inapplicable" />
+              <gmd:organisationName>
+                <gco:CharacterString>citation organization name</gco:CharacterString>
+              </gmd:organisationName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:onlineResource>
@@ -152,12 +163,16 @@
                   </gmd:onlineResource>
                 </gmd:CI_Contact>
               </gmd:contactInfo>
-              <gmd:role gco:nilReason="inapplicable" />
+                     <gmd:role>
+                        <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
+                     </gmd:role>
             </gmd:CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
           <gmd:citedResponsibleParty>
             <gmd:CI_ResponsibleParty>
-              <gmd:organisationName gco:nilReason="inapplicable" />
+              <gmd:organisationName>
+                <gco:CharacterString>citation organization name</gco:CharacterString>
+              </gmd:organisationName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:onlineResource>
@@ -181,7 +196,9 @@
                   </gmd:onlineResource>
                 </gmd:CI_Contact>
               </gmd:contactInfo>
-              <gmd:role gco:nilReason="inapplicable" />
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007"/>
+              </gmd:role>
             </gmd:CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
           <gmd:presentationForm>
@@ -330,7 +347,16 @@
               <gmd:title>
                 <gco:CharacterString>NOS Data Explorer Topic Category</gco:CharacterString>
               </gmd:title>
-              <gmd:date gco:nilReason="missing" />
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>2017-04-24</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="https://data.noaa.gov/resources/iso19139/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>              
             </gmd:CI_Citation>
           </gmd:thesaurusName>
         </gmd:MD_Keywords>
@@ -436,7 +462,16 @@
               <gmd:title>
                 <gco:CharacterString>InPort</gco:CharacterString>
               </gmd:title>
-              <gmd:date gco:nilReason="inapplicable" />
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>2014-06-01</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date> 
             </gmd:CI_Citation>
           </gmd:thesaurusName>
         </gmd:MD_Keywords>
@@ -504,7 +539,16 @@
               <gmd:title>
                 <gco:CharacterString>NOAA Data Management Plan (DMP)</gco:CharacterString>
               </gmd:title>
-              <gmd:date gco:nilReason="unknown" />
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>2017-04-24</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="https://data.noaa.gov/resources/iso19139/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
               <gmd:identifier>
                 <gmd:MD_Identifier>
                   <gmd:authority>
@@ -512,7 +556,16 @@
                       <gmd:title>
                         <gco:CharacterString>NOAA/NMFS/EDM</gco:CharacterString>
                       </gmd:title>
-                      <gmd:date gco:nilReason="inapplicable" />
+                                        <gmd:date>
+                    <gmd:CI_Date>
+                      <gmd:date>
+                        <gco:Date>2014-06-01</gco:Date>
+                      </gmd:date>
+                      <gmd:dateType>
+                        <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                      </gmd:dateType>
+                    </gmd:CI_Date>
+                  </gmd:date> 
                     </gmd:CI_Citation>
                   </gmd:authority>
                   <gmd:code>
@@ -522,7 +575,9 @@
               </gmd:identifier>
               <gmd:citedResponsibleParty>
                 <gmd:CI_ResponsibleParty>
-                  <gmd:organisationName gco:nilReason="inapplicable" />
+                  <gmd:organisationName>
+                <gco:CharacterString>citation organization name</gco:CharacterString>
+              </gmd:organisationName>
                   <gmd:contactInfo>
                     <gmd:CI_Contact>
                       <gmd:onlineResource>
@@ -546,7 +601,9 @@
                       </gmd:onlineResource>
                     </gmd:CI_Contact>
                   </gmd:contactInfo>
-                  <gmd:role gco:nilReason="inapplicable" />
+                  <gmd:role>
+                      <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
+                  </gmd:role>
                 </gmd:CI_ResponsibleParty>
               </gmd:citedResponsibleParty>
             </gmd:CI_Citation>

@@ -10,16 +10,23 @@ module ADIWG
          module Iso191152
             module AggregationInformation
                @@mdAggregationInfoXPath = 'gmd:MD_AggregateInformation'
+               @@initiativeTypeXpath = 'gmd:initiativeType//gmd:DS_InitiativeTypeCode'
                @@aggDatasetNameXPath = 'gmd:aggregateDataSetName'
                def self.unpack(xAggregrationInfo, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hAggInfo = intMetadataClass.newAssociatedResource
-
                   xMDAggregationInfo = xAggregrationInfo.xpath(@@mdAggregationInfoXPath)[0]
+                  
+                  return hAggInfo if xMDAggregationInfo.nil?
 
-                  return nil if xMDAggregationInfo.nil?
+                  # initiativeType (optional)
+                  # <xs:element name="initiativeType" type="gmd:DS_InitiativeTypeCode_PropertyType" minOccurs="0"/>
+                  xInitiativeType = xMDAggregationInfo.xpath(@@initiativeTypeXpath)[0]
+                  unless xInitiativeType.nil?
+                     hAggInfo[:initiativeType] = xInitiativeType.attr('codeListValue')
+                  end
 
-                  # :resourceCitation (optional)
+                  # aggregateDataSetName (optional)
                   # <xs:element name="aggregateDataSetName" type="gmd:CI_Citation_PropertyType" minOccurs="0"/>
                   xAggDatasetName = xMDAggregationInfo.xpath(@@aggDatasetNameXPath)[0]
                   unless xAggDatasetName.nil?

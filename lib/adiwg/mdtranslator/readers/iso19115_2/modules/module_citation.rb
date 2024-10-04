@@ -30,8 +30,6 @@ module ADIWG
                      return hCitation
                   end
 
-                  return hCitation if xCitation.nil?
-
                   # :title (required)
                   # <xs:element name="title" type="gco:CharacterString_PropertyType"/>
                   title = xCitation.xpath(@@titleXPath)[0]
