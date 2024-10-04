@@ -542,14 +542,6 @@
               </gmd:northBoundLatitude>
             </gmd:EX_GeographicBoundingBox>
           </gmd:geographicElement>
-          <gmd:temporalElement/>
-          <gmd:verticalElement/>
-        </gmd:EX_Extent>
-      </gmd:extent>
-      <gmd:extent>
-        <gmd:EX_Extent>
-          <gmd:description/>
-          <gmd:geographicElement/>
           <gmd:temporalElement>
             <gmd:EX_TemporalExtent>
               <gmd:extent>
@@ -558,7 +550,7 @@
                   <gml:identifier codeSpace=""/>
                   <gml:name/>
                   <gml:beginPosition>2017-12-01T00:00:00</gml:beginPosition>
-                  <gml:endPosition indeterminatePosition="unknown"/>
+                  <gml:end>2023-12-01T00:00:00</gml:end>
                 </gml:TimePeriod>
               </gmd:extent>
             </gmd:EX_TemporalExtent>
@@ -1049,5 +1041,13 @@
       <gmd:supplementalInformation/>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
+  <gmd:metadataMaintenance>
+    <gmd:MD_MaintenanceInformation>
+      <gmd:maintenanceAndUpdateFrequency>
+        <gmd:MD_MaintenanceFrequencyCode codeList="http://schemas.opengis.net/iso/19139/20070417/resources/codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode"
+                                         codeListValue="monthly">monthly</gmd:MD_MaintenanceFrequencyCode>
+      </gmd:maintenanceAndUpdateFrequency>
+    </gmd:MD_MaintenanceInformation>
+  </gmd:metadataMaintenance>
 
 </gmi:MI_Metadata>

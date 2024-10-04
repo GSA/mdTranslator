@@ -13,7 +13,7 @@ class TestReaderIso191152BoundingBox < TestReaderIso191152Parent
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      xIn = xDoc.xpath('.//gmd:geographicElement')[2]
+      xIn = xDoc.xpath('.//gmd:geographicElement')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 

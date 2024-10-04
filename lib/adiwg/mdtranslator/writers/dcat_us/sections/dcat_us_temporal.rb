@@ -8,7 +8,7 @@ module ADIWG
                   resourceInfo = intObj.dig(:metadata, :resourceInfo)
                   extent = resourceInfo&.dig(:extents, 0)
                   temporalExtents = extent&.dig(:temporalExtents)
-                
+
                   if temporalExtents
                     temporalExtents.each do |temporalExtent|
                       timePeriod = temporalExtent&.dig(:timePeriod)
@@ -19,7 +19,7 @@ module ADIWG
                       
                       startDate = startDateHash&.dig(:dateTime)
                       endDate = endDateHash&.dig(:dateTime)
-                
+
                       if startDate && endDate
                         return "#{startDate}/#{endDate}"
                       elsif startDate

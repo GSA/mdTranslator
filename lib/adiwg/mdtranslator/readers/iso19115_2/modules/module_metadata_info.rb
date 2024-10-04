@@ -1,5 +1,7 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
+require_relative 'module_maintenance'
+
 
 module ADIWG
    module Mdtranslator
@@ -8,6 +10,7 @@ module ADIWG
             module MetadataInformation
                @@fileIdentifierXPath = 'gmd:fileIdentifier//gco:CharacterString'
                @@parentIdentifierXPath = 'gmd:parentIdentifier//gco:CharacterString'
+               @@maintenanceXPath = 'gmd:metadataMaintenance'
                def self.unpack(xMetadata, hResponseObj)
 
                   # instance classes needed in script
@@ -21,6 +24,10 @@ module ADIWG
                   # <xs:element name="parentIdentifier" type="gco:CharacterString_PropertyType" minOccurs="0"/>
                   parentIdentifier = xMetadata.xpath(@@parentIdentifierXPath)[0]
                   hMetadataInfo[:parentMetadata][:identifier] = [{"identifier":parentIdentifier.text}] unless parentIdentifier.nil?
+
+                  # <xs:element name="metadataMaintenance" type="gmd:MD_MaintenanceInformation_PropertyType" minOccurs="0"/>
+                  xMaintenance = xMetadata.xpath(@@maintenanceXPath)[0]
+                  hMetadataInfo[:metadataMaintenance] = Maintenance.unpack(xMaintenance, hResponseObj) unless xMaintenance.nil?
 
                   return hMetadataInfo
 

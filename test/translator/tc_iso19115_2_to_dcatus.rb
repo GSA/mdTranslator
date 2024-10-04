@@ -88,6 +88,14 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(expected, res)
    end
 
+   def test_temporal
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Temporal
+      res = dcatusNS.build(@@intMetadata)
+
+      expected = '2017-12-01T00:00:00+00:00/2023-12-01T00:00:00+00:00'
+      assert_equal(expected, res)
+   end
+
    def test_issued
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Issued
       res = dcatusNS.build(@@intMetadata)
@@ -143,4 +151,19 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal('ISO19115-2-ID-123456-parent', res)
    end
+
+   def test_primaryitinvestmentuii
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::PrimaryITInvestmentUII
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('ISO19115-2-ID-123456', res)
+   end
+
+   def test_accrual_periodicity
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::AccrualPeriodicity
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('R/P1M', res)
+   end
+
 end
