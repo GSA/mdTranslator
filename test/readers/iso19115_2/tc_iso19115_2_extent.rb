@@ -13,13 +13,14 @@ class TestReaderIso191152Extent < TestReaderIso191152Parent
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      xIn = xDoc.xpath('.//gmd:extent')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+      
+      xIn = xDoc.xpath('.//gmd:extent')[0]
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
-
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
       assert_equal(1, hDictionary[:geographicExtents].size)
+      assert_equal(1, hDictionary[:temporalExtents].size)
 
    end
 end
