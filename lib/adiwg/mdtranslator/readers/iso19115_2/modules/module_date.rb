@@ -26,8 +26,7 @@ module ADIWG
                      msg = "WARNING: ISO19115-2 reader: element \'#{@@ciDateXPath}\' "\
                         "is missing in \'#{xDateParent.name}\'"
                      hResponseObj[:readerExecutionMessages] << msg
-                     # TODO: should this hard fail?
-                     # hResponseObj[:readerExecutionPass] = false
+                     hResponseObj[:readerExecutionPass] = false
                      return hDate
                   end
 

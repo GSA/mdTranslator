@@ -28,8 +28,7 @@ module ADIWG
                      msg = "WARNING: ISO19115-2 reader: element \'#{@@roleCodeXPath}\' "\
                         "is missing in \'#{xRParty.name}\'"
                      hResponseObj[:readerExecutionMessages] << msg
-                     # TODO: should this hard fail?
-                     # hResponseObj[:readerExecutionPass] = false
+                     hResponseObj[:readerExecutionPass] = false
                      return nil
                   end
 
