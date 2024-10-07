@@ -13,35 +13,43 @@ class TestReaderIso191152TimePeriod < TestReaderIso191152Parent
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      xIn = xDoc.xpath('.//gml:TimePeriod')[0]
-
+      xIn = xDoc.xpath('//gmd:EX_TemporalExtent/gmd:extent')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
       refute_empty hDictionary
-      assert_equal('timePeriod_001', hDictionary[:timeId])
       assert_equal({ dateTime: '2017-12-01T00:00:00+00:00', dateResolution: 'YMDhms' },
                    hDictionary[:startDateTime])
       assert_equal({ dateTime: '2023-12-01T00:00:00+00:00', dateResolution: 'YMDhms' },
                    hDictionary[:endDateTime])
    end
 
-   def test_no_time_period
+   def test_no_time_period_begin
       xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_temporal_timeperiod.xml')
       TestReaderIso191152Parent.set_xdoc(xDoc)
 
-      warnings = [
-         "ERROR: ISO19115-2 reader: Attribut gml:id is missing in gml:TimePeriod",
-         "ERROR: ISO19115-2 reader: Element gml:beginPosition or gml:begin is missing in gml:TimePeriod",
-         "ERROR: ISO19115-2 reader: Element gml:endPosition or gml:end is missing in gml:TimePeriod"
-       ]
+      xIn = xDoc.xpath('.//gmd:extent')[0]
+      hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+      _hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-       xDoc.xpath('.//gml:TimePeriod').each_with_index do |xIn, index|
-         hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-         hDictionary = @@nameSpace.unpack(xIn, hResponse)
-         assert_equal([warnings[index]], hResponse[:readerExecutionMessages])
-      end
+      assert_equal(["ERROR: ISO19115-2 reader: Element gml:beginPosition or gml:begin is missing in gml:TimePeriod"],
+                  hResponse[:readerExecutionMessages])
+      assert_equal(false, hResponse[:readerExecutionPass])
+
    end
 
+   def test_no_time_period_end
+      xDoc = TestReaderIso191152Parent.get_xml('iso19115-2_no_temporal_timeperiod.xml')
+      TestReaderIso191152Parent.set_xdoc(xDoc)
+
+      xIn = xDoc.xpath('.//gmd:extent')[1]
+      hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+      _hDictionary = @@nameSpace.unpack(xIn, hResponse)
+
+      assert_equal(["ERROR: ISO19115-2 reader: Element gml:endPosition or gml:end is missing in gml:TimePeriod"],
+                  hResponse[:readerExecutionMessages])
+      assert_equal(false, hResponse[:readerExecutionPass])
+
+   end
 
 end

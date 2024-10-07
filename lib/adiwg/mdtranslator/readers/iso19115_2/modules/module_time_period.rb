@@ -8,20 +8,18 @@ module ADIWG
       module Readers
          module Iso191152
             module TimePeriod
+               @@timePeriodXPath = 'gml:TimePeriod'
                @@idAttr = 'gml:id'
                @@beginPosXPath = 'gml:beginPosition | gml:begin'
                @@endPosXPath = 'gml:endPosition | gml:end'
-               def self.unpack(xTimePeriod, hResponseObj)
+               def self.unpack(xTimePeriodExt, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hTimePeriod = intMetadataClass.newTimePeriod
 
-                  timeId = xTimePeriod.attr(@@idAttr)
-                  if timeId.nil?
-                     msg = 'ERROR: ISO19115-2 reader: Attribut gml:id is missing in gml:TimePeriod'
-                     hResponseObj[:readerExecutionMessages] << msg
-                  end
-
-                  hTimePeriod[:timeId] = timeId
+                  # :timeperod (optional)
+                  # <sequence minOccurs="0"> <element ref="gml:TimePeriod"/> </sequence>
+                  xTimePeriod = xTimePeriodExt.xpath(@@timePeriodXPath)
+                  return nil if xTimePeriod.nil? # to-do: report an error?
                   
                   # :beginPosition/:begin and :endPosition/:end
                   # <sequence>
@@ -45,6 +43,8 @@ module ADIWG
                      msg = 'ERROR: ISO19115-2 reader: Element gml:beginPosition or gml:begin '\
                            'is missing in gml:TimePeriod'
                      hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return nil
                   end
                   hTimePeriod[:startDateTime] = startDatetime
 
@@ -58,6 +58,8 @@ module ADIWG
                      msg = 'ERROR: ISO19115-2 reader: Element gml:endPosition or gml:end '\
                            'is missing in gml:TimePeriod'
                      hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return nil
                   end
                   hTimePeriod[:endDateTime] = endDatetime
 

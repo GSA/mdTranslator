@@ -10,18 +10,27 @@ module ADIWG
          module Iso191152
             module TemporalExtent
                @@temporalExtXPath = 'gmd:EX_TemporalExtent'
-               @@timePeriodXPath = './/gml:TimePeriod'
+               @@timePeriodExtXPath = 'gmd:extent'
                def self.unpack(xtemporalelem, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hTemporalExt = intMetadataClass.newTemporalExtent
 
+                  # :EX_TemporalExtent (optional)
+                  # <xs:sequence minOccurs="0"> <xs:element ref="gmd:EX_TemporalExtent"/> </xs:sequence>
                   xTemporalExt = xtemporalelem.xpath(@@temporalExtXPath)[0]
                   return nil if xTemporalExt.nil?
 
-                  # :timePeriod
-                  # <sequence minOccurs="0"> <element ref="gml:TimePeriod"/> </sequence>
-                  xTimePeriod = xTemporalExt.xpath(@@timePeriodXPath)[0]
-                  hTemporalExt[:timePeriod] = TimePeriod.unpack(xTimePeriod, hResponseObj) unless xTimePeriod.nil?
+                  # :extent (required)
+                  # <xs:element name="extent" type="gts:TM_Primitive_PropertyType"/>
+                  xTimePeriodExt = xTemporalExt.xpath(@@timePeriodExtXPath)[0]
+                  if xTimePeriodExt.nil?
+                     msg = "ERROR: ISO19115-2 reader: Element gmd:extent is missing in gmd:EX_TemporalExtent"
+                     hResponseObj[:readerExecutionMessages] << msg
+                     hResponseObj[:readerExecutionPass] = false
+                     return nil
+                  end
+
+                  hTemporalExt[:timePeriod] = TimePeriod.unpack(xTimePeriodExt, hResponseObj)
 
                   hTemporalExt
                end
