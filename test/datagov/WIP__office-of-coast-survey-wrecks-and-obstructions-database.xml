@@ -128,6 +128,7 @@
                       </gmd:dateType>
                     </gmd:CI_Date>
                   </gmd:date>                  
+                  <!-- <gmd:date gco:nilReason="inapplicable" /> -->
                 </gmd:CI_Citation>
               </gmd:authority>
               <gmd:code>
@@ -140,6 +141,7 @@
               <gmd:organisationName>
                 <gco:CharacterString>citation organization name</gco:CharacterString>
               </gmd:organisationName>
+              <!-- <gmd:organisationName gco:nilReason="inapplicable" /> -->
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:onlineResource>
@@ -163,9 +165,10 @@
                   </gmd:onlineResource>
                 </gmd:CI_Contact>
               </gmd:contactInfo>
-                     <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
-                     </gmd:role>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
+              </gmd:role>
+              <!-- <gmd:role gco:nilReason="inapplicable" /> -->
             </gmd:CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
           <gmd:citedResponsibleParty>
@@ -173,6 +176,7 @@
               <gmd:organisationName>
                 <gco:CharacterString>citation organization name</gco:CharacterString>
               </gmd:organisationName>
+              <!-- <gmd:organisationName gco:nilReason="inapplicable" /> -->
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:onlineResource>
@@ -199,6 +203,7 @@
               <gmd:role>
                 <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="007"/>
               </gmd:role>
+              <!-- <gmd:role gco:nilReason="inapplicable" /> -->
             </gmd:CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
           <gmd:presentationForm>
@@ -356,7 +361,8 @@
                     <gmd:CI_DateTypeCode codeList="https://data.noaa.gov/resources/iso19139/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
                   </gmd:dateType>
                 </gmd:CI_Date>
-              </gmd:date>              
+              </gmd:date>
+              <!-- <gmd:date gco:nilReason="missing" /> -->
             </gmd:CI_Citation>
           </gmd:thesaurusName>
         </gmd:MD_Keywords>
@@ -471,7 +477,8 @@
                     <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
                   </gmd:dateType>
                 </gmd:CI_Date>
-              </gmd:date> 
+              </gmd:date>
+              <!-- <gmd:date gco:nilReason="missing" /> -->
             </gmd:CI_Citation>
           </gmd:thesaurusName>
         </gmd:MD_Keywords>
@@ -549,6 +556,7 @@
                   </gmd:dateType>
                 </gmd:CI_Date>
               </gmd:date>
+              <!-- <gmd:date gco:nilReason="missing" /> -->
               <gmd:identifier>
                 <gmd:MD_Identifier>
                   <gmd:authority>
@@ -556,16 +564,17 @@
                       <gmd:title>
                         <gco:CharacterString>NOAA/NMFS/EDM</gco:CharacterString>
                       </gmd:title>
-                                        <gmd:date>
-                    <gmd:CI_Date>
                       <gmd:date>
-                        <gco:Date>2014-06-01</gco:Date>
-                      </gmd:date>
-                      <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
-                      </gmd:dateType>
-                    </gmd:CI_Date>
-                  </gmd:date> 
+                        <gmd:CI_Date>
+                          <gmd:date>
+                            <gco:Date>2014-06-01</gco:Date>
+                          </gmd:date>
+                          <gmd:dateType>
+                            <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                          </gmd:dateType>
+                        </gmd:CI_Date>
+                      </gmd:date> 
+                      <!-- <gmd:date gco:nilReason="inapplicable" /> -->
                     </gmd:CI_Citation>
                   </gmd:authority>
                   <gmd:code>
@@ -576,8 +585,9 @@
               <gmd:citedResponsibleParty>
                 <gmd:CI_ResponsibleParty>
                   <gmd:organisationName>
-                <gco:CharacterString>citation organization name</gco:CharacterString>
-              </gmd:organisationName>
+                    <gco:CharacterString>citation organization name</gco:CharacterString>
+                  </gmd:organisationName>
+                  <!-- <gmd:organisationName gco:nilReason="inapplicable" /> -->
                   <gmd:contactInfo>
                     <gmd:CI_Contact>
                       <gmd:onlineResource>
@@ -604,6 +614,7 @@
                   <gmd:role>
                       <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="originator" codeSpace="006"/>
                   </gmd:role>
+                <!-- <gmd:role gco:nilReason="inapplicable" /> -->
                 </gmd:CI_ResponsibleParty>
               </gmd:citedResponsibleParty>
             </gmd:CI_Citation>
@@ -652,7 +663,8 @@
                 <gml:TimePeriod gml:id="boundingTemporalExtent-1-1">
                   <gml:description>| Currentness: Publication Date</gml:description>
                   <gml:beginPosition>1981-01-01</gml:beginPosition>
-                  <gml:endPosition indeterminatePosition="now" />
+                  <gml:end>2023-12-01T00:00:00</gml:end>
+                  <!-- <gml:endPosition indeterminatePosition="now" /> -->
                 </gml:TimePeriod>
               </gmd:extent>
             </gmd:EX_TemporalExtent>
