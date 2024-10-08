@@ -23,8 +23,11 @@ module ADIWG
                 break if break_flag
 
                 distributor[:transferOptions]&.each do |transfer|
-                  # TODO: should we break here or do we need to traverse the entire array?
-                  break if break_flag
+                  # TODO: discuss with jonathan 
+                  # we should not break here so we can get all available distribution resources
+                  # see files in MDTranslator > dcat-translation-issues > distribution
+                  # https://drive.google.com/drive/folders/1fwYX_tFBcwwRqdGR_gDITkvD2GI74eld?usp=drive_link
+                  # break if break_flag
 
                   mediaType = MediaType.build(transfer)
 
