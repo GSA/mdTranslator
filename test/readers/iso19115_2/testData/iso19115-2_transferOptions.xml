@@ -33,12 +33,18 @@
           <gmd:linkage>
             <gmd:URL>http://adiwg.org/1</gmd:URL>
           </gmd:linkage>
-          <gmd:protocol/>
+          <gmd:protocol>
+            <gco:CharacterString>protocol</gco:CharacterString>
+          </gmd:protocol>
           <gmd:applicationProfile/>
-          <gmd:name/>
-          <gmd:description/>
+          <gmd:name>
+            <gco:CharacterString>online resource name</gco:CharacterString>
+          </gmd:name>
+          <gmd:description>
+            <gco:CharacterString>online resource description</gco:CharacterString>
+          </gmd:description>
           <gmd:function/>
-        </gmd:CI_OnlineResource>
+        </gmd:CI_OnlineResource>      
       </gmd:onLine>
       <gmd:offLine>
         <gmd:MD_Medium>
@@ -52,62 +58,6 @@
           </gmd:mediumNote>
         </gmd:MD_Medium>
       </gmd:offLine>
-    </gmd:MD_DigitalTransferOptions>
-  </gmd:distributorTransferOptions>
-
-  <gmd:distributorTransferOptions>
-    <gmd:MD_DigitalTransferOptions>
-      <gmd:unitsOfDistribution>
-        <gco:CharacterString>MB</gco:CharacterString>
-      </gmd:unitsOfDistribution>
-      <gmd:transferSize>
-        <gco:Real>999</gco:Real>
-      </gmd:transferSize>
-      <gmd:onLine>
-        <gmd:CI_OnlineResource>
-          <gmd:linkage>
-            <gmd:URL>http://adiwg.org/1</gmd:URL>
-          </gmd:linkage>
-          <gmd:protocol/>
-          <gmd:applicationProfile/>
-          <gmd:name/>
-          <gmd:description/>
-          <gmd:function/>
-        </gmd:CI_OnlineResource>
-      </gmd:onLine>
-      <gmd:onLine>
-        <gmd:CI_OnlineResource>
-          <gmd:linkage>
-            <gmd:URL>http://adiwg.org/2</gmd:URL>
-          </gmd:linkage>
-          <gmd:protocol/>
-          <gmd:applicationProfile/>
-          <gmd:name/>
-          <gmd:description/>
-          <gmd:function/>
-        </gmd:CI_OnlineResource>
-      </gmd:onLine>
-      <gmd:offLine>
-        <gmd:MD_Medium>
-          <gmd:name/>
-          <gmd:density/>
-          <gmd:densityUnits/>
-          <gmd:volumes/>
-          <gmd:mediumFormat/>
-          <gmd:mediumNote>
-            <gco:CharacterString>medium note</gco:CharacterString>
-          </gmd:mediumNote>
-        </gmd:MD_Medium>
-      </gmd:offLine>
-    </gmd:MD_DigitalTransferOptions>
-  </gmd:distributorTransferOptions>
-
-  <gmd:distributorTransferOptions>
-    <gmd:MD_DigitalTransferOptions>
-      <gmd:unitsOfDistribution/>
-      <gmd:transferSize/>
-      <gmd:onLine/>
-      <gmd:offLine/>
     </gmd:MD_DigitalTransferOptions>
   </gmd:distributorTransferOptions>
 

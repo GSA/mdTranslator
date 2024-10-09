@@ -13,7 +13,7 @@ class TestReaderIso191152Distributor < TestReaderIso191152Parent
    def test_distributor_complete
       TestReaderIso191152Parent.set_xdoc(@@xDoc)
 
-      xIn = @@xDoc.xpath('.//gmd:distributor')[1]
+      xIn = @@xDoc.xpath('.//gmd:distributor')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
@@ -26,6 +26,10 @@ class TestReaderIso191152Distributor < TestReaderIso191152Parent
       assert hDictionary[:transferOptions][0][:distributionFormats].instance_of? Array
       assert_equal(1, hDictionary[:transferOptions][0][:distributionFormats].size)
       assert hDictionary[:transferOptions][0][:distributionFormats][0][:formatSpecification].instance_of? Hash
+      assert_equal('http://oneline-resource-url.gov', hDictionary[:transferOptions][0][:onlineOptions][0][:olResURI])
+      assert_equal('Online Resource Name', hDictionary[:transferOptions][0][:onlineOptions][0][:olResName])
+      assert_equal('Downloadable Data', hDictionary[:transferOptions][0][:onlineOptions][0][:olResDesc])
+      assert_equal('WWW:LINK-1.0-http--link', hDictionary[:transferOptions][0][:onlineOptions][0][:olResProtocol])
       assert_equal('format specification', hDictionary[:transferOptions][0][:distributionFormats][0][:formatSpecification][:title])
    end
 end

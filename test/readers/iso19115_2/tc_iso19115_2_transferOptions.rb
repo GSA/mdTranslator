@@ -23,5 +23,8 @@ class TestReaderIso191152Transfer < TestReaderIso191152Parent
       assert hDictionary[:onlineOptions].instance_of? Array
       assert_equal(1, hDictionary[:onlineOptions].size)
       assert_equal("http://adiwg.org/1", hDictionary.dig(:onlineOptions, 0, :olResURI))
+      assert_equal("online resource name", hDictionary.dig(:onlineOptions, 0, :olResName))
+      assert_equal("online resource description", hDictionary.dig(:onlineOptions, 0, :olResDesc))
+      assert_equal("protocol", hDictionary.dig(:onlineOptions, 0, :olResProtocol))
    end
 end
