@@ -103,6 +103,13 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(DateTime.iso8601('2017-01-01T00:00:00+00:00'), res)
    end
 
+   def test_language
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Language
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal(%w[eng], res)
+   end
+
    def test_identifier
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
       res = dcatusNS.build(@@intMetadata)
