@@ -16,10 +16,10 @@ class TestReaderIso191152Format < TestReaderIso191152Parent
       xIn = @@xDoc.xpath('.//gmd:distributorFormat')[0]
       hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
       hDictionary = @@nameSpace.unpack(xIn, hResponse)
-
       refute_empty hDictionary
       assert hDictionary.instance_of? Hash
       refute_empty hDictionary[:formatSpecification]
       assert hDictionary[:formatSpecification].instance_of? Hash
+      assert_equal('format specification', hDictionary[:formatSpecification][:title])
    end
 end
