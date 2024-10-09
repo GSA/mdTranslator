@@ -19,6 +19,7 @@ module ADIWG
                @@pointOfContactXPath = 'gmd:pointOfContact'
                @@constraintsXPath = 'gmd:resourceConstraints'
                @@extentsXPath = 'gmd:extent'
+
                def self.unpack(xDataIdentification, hResponseObj)
                   intMetadataClass = InternalMetadata.new
                   hResourceInfo = intMetadataClass.newResourceInfo
