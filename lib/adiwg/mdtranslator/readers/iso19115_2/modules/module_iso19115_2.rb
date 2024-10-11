@@ -5,6 +5,7 @@ require 'uuidtools'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative '../version'
 require_relative 'module_metadata'
+require_relative 'module_feature_catalog_description'
 
 module ADIWG
    module Mdtranslator
@@ -15,6 +16,7 @@ module ADIWG
                @intObj = @intMetadataClass.newBase
                @contacts = @intObj[:contacts]
 
+               @@contentInfoXPath = 'gmd:contentInfo'
                def self.unpack(xMetadata, hResponseObj)
                   # :schema
                   hSchema = @intMetadataClass.newSchema
@@ -24,6 +26,13 @@ module ADIWG
 
                   hMetadata = Metadata.unpack(xMetadata, hResponseObj)
                   @intObj[:metadata] = hMetadata
+
+                  # TODO: this is forced. just trying to make dcatus writer happy. revisit.
+                  xContentInfos = xMetadata.xpath(@@contentInfoXPath)
+                  @intObj[:dataDictionaries] = xContentInfos.map do |c|
+                     FeatureCatalogDescription.unpack(c, hResponseObj)
+                  end
+                  @intObj[:dataDictionaries] = @intObj[:dataDictionaries].compact
 
                   @intObj
                end

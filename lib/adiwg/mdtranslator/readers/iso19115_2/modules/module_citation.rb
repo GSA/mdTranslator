@@ -72,6 +72,7 @@ module ADIWG
 
                   # onlineResource (optional)
                   # <xs:element name="onlineResource" type="gmd:CI_OnlineResource_PropertyType" minOccurs="0"/>
+                  # this is actually in "CI_Contact_Type". TODO: revisit.
                   xOnlineResource = xCitation.xpath(@@onlineResourceXPath)[0]
                   hCitation[:onlineResources] =
                      xOnlineResource.nil? ? nil : [OnlineResource.unpack(xOnlineResource, hResponseObj)]

@@ -48,7 +48,9 @@ module ADIWG
                   # :associatedResources (optional)
                   # <xs:element name="aggregationInfo" type="gmd:MD_AggregateInformation_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
                   xAbstractIdentification = xDataIdentification.xpath(@@aggregationInfoXPath)
-                  intMetadata[:associatedResources] = xAbstractIdentification.map { |a| AggregateInformation.unpack(a, hResponseObj) }
+                  intMetadata[:associatedResources] = xAbstractIdentification.map do |a|
+                     AggregateInformation.unpack(a, hResponseObj)
+                  end
 
                   intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
 
