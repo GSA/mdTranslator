@@ -16,7 +16,9 @@ class TestWriterDcatUsDistribution < TestWriterDcatUsParent
       hJsonOut = JSON.parse(metadata[:writerOutput])
       got = hJsonOut['distribution']
 
-      expect = [{"@type"=>"dcat:Distribution", "description"=>"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "downloadURL"=>"http://ISO.uri/adiwg/0", "mediaType"=>"CSV", "title"=>""}]
+      # expect = [{"@type"=>"dcat:Distribution", "description"=>"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "downloadURL"=>"http://ISO.uri/adiwg/0", "mediaType"=>"CSV", "title"=>""}]
+      # TODO: due to necessary change in lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_distribution.rb
+      expect = [{"@type"=>"dcat:Distribution", "description"=>"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "downloadURL"=>"http://ISO.uri/adiwg/0", "mediaType"=>"CSV", "title"=>""}, {"@type"=>"dcat:Distribution", "description"=>"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "downloadURL"=>"http://ISO.uri/adiwg/3", "mediaType"=>"Microsoft Excel", "title"=>""}]
 
       assert_equal expect, got
    end

@@ -145,7 +145,7 @@ Or install it yourself as:
    bundle exec mdtranslator translate $f -r iso19115_2 -w dcat_us
 ```
 
-Note: to debug a test, you want to add `require 'debug'` to test/readers/iso19115_2/iso19115_2_test_parent.rb, prior to invoking `bundle exec rake test TEST={path to test file}`
+Note: to debug a test, you want to add `require 'debug'` to `vendor/ruby/3.2.0/gems/rake-13.2.1/lib/rake/rake_test_loader.rb`, prior to invoking `bundle exec rake test TEST={path to test file}`
 
 2. [IRB](https://github.com/ruby/irb) comes with your ruby installation and can be used to "debug"
 - insert a "breakpoint" by adding `binding.irb` on the line of your choice. here's an example of what that might look like...
@@ -194,3 +194,29 @@ _TODO: There are currently 4 tests that are not passing, related to mdJSON reade
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Data.gov specific notes
+For our purposes, we are building a spec compliant reader first and then cloning that reader and making changes to that `ISO19115-2-datagov` reader so that documents which have been marked valid historically by our harvester are passed so long as there is not a good reason to fail them. 
+
+To that end, we have settled up this workflow:
+
+- Create test documents in `testData` folders that are spec compliant
+- Run a secondary translation test against this document `test/datagov/WIP__office-of-coast-survey-wrecks-and-obstructions-database.xml` via the command: `bundle exec mdtranslator translate $f -r iso19115_2 -w dcat_us` where `$f` is equal to the above file
+- Comment out failing lines
+- Add lines to XML to allow spec compliant reader to pass
+
+(as an example)
+   ```
+   <gmd:date>
+      <gmd:CI_Date>
+         <gmd:date>
+         <gco:Date>2014-06-01</gco:Date>
+         </gmd:date>
+         <gmd:dateType>
+         <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+         </gmd:dateType>
+      </gmd:CI_Date>
+   </gmd:date>                  
+   <!-- <gmd:date gco:nilReason="inapplicable" /> -->
+   ```
+- Once we begin work on the sibling reader we will begin to back out those changes and slowly make our document pass

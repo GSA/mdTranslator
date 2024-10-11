@@ -186,4 +186,11 @@ class TestIso191152DcatusTranslation < Minitest::Test
 
       assert_equal('R/P1M', res)
    end
+
+   def test_license
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::License
+      res = dcatusNS.build(@@intMetadata)
+      # TODO: default used. reference https://github.com/GSA/data.gov/issues/4883 for notes
+      assert_equal('https://creativecommons.org/publicdomain/zero/1.0/', res)
+   end
 end
