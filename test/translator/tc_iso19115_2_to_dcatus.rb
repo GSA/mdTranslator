@@ -110,6 +110,13 @@ class TestIso191152DcatusTranslation < Minitest::Test
       assert_equal(%w[eng], res)
    end
 
+   def test_described_by
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedBy
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('https://datadictionaryhost.zip', res)
+   end
+
    def test_identifier
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
       res = dcatusNS.build(@@intMetadata)
@@ -136,6 +143,13 @@ class TestIso191152DcatusTranslation < Minitest::Test
       res = dcatusNS.build(@@intMetadata)
 
       assert_equal('aggregate_information_online_resources', res)
+   end
+
+   def test_described_by_type
+      dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedByType
+      res = dcatusNS.build(@@intMetadata)
+
+      assert_equal('DD-WWW-123', res)
    end
 
    def test_theme
@@ -179,5 +193,4 @@ class TestIso191152DcatusTranslation < Minitest::Test
       # TODO: default used. reference https://github.com/GSA/data.gov/issues/4883 for notes
       assert_equal('https://creativecommons.org/publicdomain/zero/1.0/', res)
    end
-
 end

@@ -1089,6 +1089,126 @@
     </gmd:MD_MaintenanceInformation>
   </gmd:metadataMaintenance>
 
+  <gmd:contentInfo>
+    <gmd:MD_FeatureCatalogueDescription>
+      <gmd:complianceCode>
+        <gco:Boolean>false</gco:Boolean>
+      </gmd:complianceCode>
+      <gmd:language>
+        <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng">eng</gmd:LanguageCode>
+      </gmd:language>
+      <gmd:includedWithDataset>
+        <gco:Boolean>true</gco:Boolean>
+      </gmd:includedWithDataset>
+      <gmd:featureCatalogueCitation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>NOAA/NOS/OCS</gco:CharacterString>
+          </gmd:title>
+          <gmd:date gco:nilReason="unavailable" />
+            <gmd:citedResponsibleParty>
+               <gmd:CI_ResponsibleParty>
+                  <gmd:organisationName>
+                     <gco:CharacterString>data dictionary organization name</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:contactInfo>
+                     <gmd:CI_Contact>
+                        <gmd:onlineResource>
+                           <gmd:CI_OnlineResource>
+                              <gmd:linkage>
+                                 <gmd:URL>https://datadictionaryhost.html</gmd:URL>
+                              </gmd:linkage>
+                              <gmd:protocol>
+                                 <gco:CharacterString>DD-WWW</gco:CharacterString>
+                              </gmd:protocol>
+                              <gmd:name>
+                                 <gco:CharacterString>dd online resource name</gco:CharacterString>
+                              </gmd:name>
+                              <gmd:description>
+                                 <gco:CharacterString>dd online resource description</gco:CharacterString>
+                              </gmd:description>
+                              <gmd:applicationProfile>
+                                 <gco:CharacterString>dd online resource application profile</gco:CharacterString>
+                              </gmd:applicationProfile>
+                              <gmd:function>
+                                 <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
+                              </gmd:function>
+                           </gmd:CI_OnlineResource>
+                        </gmd:onlineResource>
+                        <gmd:hoursOfService/>
+                        <gmd:contactInstructions/>
+                     </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                     <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="007"/>
+                  </gmd:role>
+               </gmd:CI_ResponsibleParty>
+            </gmd:citedResponsibleParty>
+        </gmd:CI_Citation>
+      </gmd:featureCatalogueCitation>
+    </gmd:MD_FeatureCatalogueDescription>
+  </gmd:contentInfo>
+  
+  <gmd:contentInfo>
+    <gmd:MD_FeatureCatalogueDescription>
+      <gmd:complianceCode>
+        <gco:Boolean>false</gco:Boolean>
+      </gmd:complianceCode>
+      <gmd:language>
+        <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng">eng</gmd:LanguageCode>
+      </gmd:language>
+      <gmd:includedWithDataset>
+        <gco:Boolean>false</gco:Boolean>
+      </gmd:includedWithDataset>
+      <gmd:featureCatalogueCitation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>NOAA/NOS/OCS/TEST/TEST</gco:CharacterString>
+          </gmd:title>
+          <gmd:date gco:nilReason="unavailable" />
+            <gmd:citedResponsibleParty>
+               <gmd:CI_ResponsibleParty>
+                  <gmd:organisationName>
+                     <gco:CharacterString>data dictionary organization name 102u3</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:contactInfo>
+                     <gmd:CI_Contact>
+                        <gmd:onlineResource>
+                           <gmd:CI_OnlineResource>
+                              <gmd:linkage>
+                                 <gmd:URL>https://datadictionaryhost.zip</gmd:URL>
+                              </gmd:linkage>
+                              <gmd:protocol>
+                                 <gco:CharacterString>DD-WWW-123</gco:CharacterString>
+                              </gmd:protocol>
+                              <gmd:name>
+                                 <gco:CharacterString>dd online resource name 0192j3</gco:CharacterString>
+                              </gmd:name>
+                              <gmd:description>
+                                 <gco:CharacterString>dd online resource description 10293j </gco:CharacterString>
+                              </gmd:description>
+                              <gmd:applicationProfile>
+                                 <gco:CharacterString>dd online resource application profile 1029j</gco:CharacterString>
+                              </gmd:applicationProfile>
+                              <gmd:function>
+                                 <gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information">information</gmd:CI_OnLineFunctionCode>
+                              </gmd:function>
+                           </gmd:CI_OnlineResource>
+                        </gmd:onlineResource>
+                        <gmd:hoursOfService/>
+                        <gmd:contactInstructions/>
+                     </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                     <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="007"/>
+                  </gmd:role>
+               </gmd:CI_ResponsibleParty>
+            </gmd:citedResponsibleParty>
+        </gmd:CI_Citation>
+      </gmd:featureCatalogueCitation>
+    </gmd:MD_FeatureCatalogueDescription>
+  </gmd:contentInfo>
+  
   <gmd:distributionInfo>
     <gmd:MD_Distribution>
       <gmd:distributor>
