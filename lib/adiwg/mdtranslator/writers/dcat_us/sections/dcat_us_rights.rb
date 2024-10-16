@@ -11,7 +11,13 @@ module ADIWG
                   if accessLevel && ["restricted public", "non-public"].include?(accessLevel)
                     constraints&.each do |constraint|
                       if constraint[:type] == "use"
-                        return constraint[:useLimitation].join(" ")
+                        statement = constraint.dig(:releasability, :statement)
+                        disseminationConstraints = constraint.dig(:releasability, :disseminationConstraint)
+                
+                        if statement && disseminationConstraints
+                          combinedConstraints = disseminationConstraints.join(" ")
+                          return "#{statement} #{combinedConstraints}".strip
+                        end
                       end
                     end
                   end

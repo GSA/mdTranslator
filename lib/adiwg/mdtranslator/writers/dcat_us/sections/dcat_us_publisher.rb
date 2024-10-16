@@ -24,10 +24,7 @@ module ADIWG
           
           def self.find_publisher(responsible_parties)
             responsible_parties&.detect do |party|
-              contact = party.dig(:parties)&.first
-              if party[:roleName] == 'publisher' && contact&.dig(:contactType) == 'organization'
-               return party
-              end
+              party[:roleName] == 'publisher' && party.dig(:parties)&.first&.dig(:contactType) == 'organization'
             end
           end
 

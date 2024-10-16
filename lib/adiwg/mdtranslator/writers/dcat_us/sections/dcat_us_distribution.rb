@@ -23,11 +23,7 @@ module ADIWG
                 break if break_flag
 
                 distributor[:transferOptions]&.each do |transfer|
-                  # TODO: discuss with jonathan 
-                  # we should not break here so we can get all available distribution resources
-                  # see files in MDTranslator > dcat-translation-issues > distribution
-                  # https://drive.google.com/drive/folders/1fwYX_tFBcwwRqdGR_gDITkvD2GI74eld?usp=drive_link
-                  # break if break_flag
+                  break if break_flag
 
                   mediaType = MediaType.build(transfer)
 
@@ -36,10 +32,10 @@ module ADIWG
                     accessURL = AccessURL.build(option)
                     downloadURL = DownloadURL.build(option)
                     title = option[:olResName] || ''
+
                     distribution = Jbuilder.new do |json|
                       json.set!('@type', 'dcat:Distribution')
-                      #TODO: description is found in option[:olResDesc]
-                      json.set!('description', description) 
+                      json.set!('description', description)
                       json.set!('accessURL', accessURL) if accessURL
                       json.set!('downloadURL', downloadURL) if downloadURL
                       json.set!('mediaType', mediaType)
@@ -53,7 +49,6 @@ module ADIWG
                 end
               end
             end
-
             distributions
           end
 

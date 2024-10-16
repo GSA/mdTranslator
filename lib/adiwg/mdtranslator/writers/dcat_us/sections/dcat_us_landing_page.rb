@@ -8,10 +8,10 @@ module ADIWG
 
                def self.build(intObj)
                   onlineResources = intObj.dig(:metadata, :resourceInfo, :citation, :onlineResources)
+                
                   if onlineResources
                     onlineResources.each do |resource|
-                     # TODO: revisit this with Chris
-                      if resource.dig(:olResFunction) == 'landingPage' || 'information'
+                      if resource.dig(:olResFunction) == 'landingPage'
                         return resource.dig(:olResURI)
                       end
                     end

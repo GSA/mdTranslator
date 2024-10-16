@@ -5,22 +5,23 @@ module ADIWG
             module Identifier
 
                def self.build(intObj)
-                  # identifier from metadataInfo has priority
-                  identifier = intObj.dig(:metadata, :metadataInfo, :metadataIdentifier, :identifier)
-                  return identifier unless identifier.nil?
-
-                  # identifier from resourceInfo
                   citation = intObj.dig(:metadata, :resourceInfo, :citation)
                   identifiers = citation&.dig(:identifiers)
                   onlineResources = citation&.dig(:onlineResources)
                   uri = onlineResources.dig(0, :olResURI)
                 
-                  # uri is supposed to be more descriptive than identifiers
-                  return uri unless uri.nil?
-                  return identifiers[0][:identifier] unless identifiers.nil? || identifiers.empty?
-
+                  namespace_is_doi = identifiers&.any? { |identifier| identifier[:namespace]&.casecmp?("DOI") }
+                
+                  if namespace_is_doi
+                    return uri
+                  elsif uri && uri.downcase.include?("doi")
+                    return uri
+                  end
+                
                   nil
                end
+                                    
+
             end
          end
       end
