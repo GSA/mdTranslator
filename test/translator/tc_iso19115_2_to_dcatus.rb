@@ -114,7 +114,7 @@ class TestIso191152DcatusTranslation < Minitest::Test
       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedBy
       res = dcatusNS.build(@@intMetadata)
 
-      assert_equal('https://datadictionaryhost.zip', res)
+      assert_equal('https://datadictionaryhost.html', res)
    end
 
    def test_identifier
