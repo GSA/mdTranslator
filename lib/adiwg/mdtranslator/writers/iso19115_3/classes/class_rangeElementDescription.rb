@@ -4,43 +4,41 @@
 require_relative '../iso19115_3_writer'
 
 module ADIWG
-  module Mdtranslator
-    module Writers
-      module Iso19115_3
+   module Mdtranslator
+      module Writers
+         module Iso19115_3
+            class MI_RangeElementDescription
+               def initialize(xml, hResponseObj)
+                  @xml = xml
+                  @hResponseObj = hResponseObj
+                  @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
+               end
 
-        class MI_RangeElementDescription
+               def writeXML(hAttribute, inContext = nil)
+                  @xml.tag!('mrc:MI_RangeElementDescription') do
+                     unless hAttribute[:name].nil?
+                        @xml.tag!('mrc:name') do
+                           @xml.tag!('gco:CharacterString', hAttribute[:name])
+                        end
+                     end
 
-          def initialize(xml, hResponseObj)
-            @xml = xml
-            @hResponseObj = hResponseObj
-            @NameSpace = ADIWG::Mdtranslator::Writers::Iso19115_3
-          end
+                     unless hAttribute[:definition].nil?
+                        @xml.tag!('mrc:definition') do
+                           @xml.tag!('gco:CharacterString', hAttribute[:definition])
+                        end
+                     end
 
-          def writeXML(hAttribute, inContext = nil)
-            @xml.tag!('mrc:MI_RangeElementDescription') do
-              unless hAttribute[:name].nil?
-                @xml.tag!('mrc:name') do
-                  @xml.tag!('gco:CharacterString', hAttribute[:name])
-                end
-              end
-
-              unless hAttribute[:definition].nil?
-                @xml.tag!('mrc:definition') do
-                  @xml.tag!('gco:CharacterString', hAttribute[:definition])
-                end
-              end
-
-              hAttribute[:rangeElement].each do |hRangeElement|
-                @xml.tag!('mrc:rangeElement') do
-                  @xml.tag!('gco:Record') do
-                    @xml.tag!('gco:CharacterString', hRangeElement)
+                     hAttribute[:rangeElement].each do |hRangeElement|
+                        @xml.tag!('mrc:rangeElement') do
+                           @xml.tag!('gco:Record') do
+                              @xml.tag!('gco:CharacterString', hRangeElement)
+                           end
+                        end
+                     end
                   end
-                end
-              end
+               end
             end
-          end
-        end
+         end
       end
-    end
-  end
+   end
 end

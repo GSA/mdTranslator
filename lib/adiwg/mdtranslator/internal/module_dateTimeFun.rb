@@ -114,6 +114,15 @@ module AdiwgDateTimeFun
       return s
    end
 
+   def self.convertDurationToNamedGroup(sDuration)
+      # named grouping pattern for xsd:duration
+      # with format of P[n]Y[n]M[n]DT[n]H[n]M[n]S
+      pattern = %r{(?<sign>P)(?:(?<years>\d+)Y)?(?:(?<months>\d+)M)?(?:(?<days>\d+)D)?(?:T(?<hours>\d+)H)?(?:(?<minutes>\d+)M)?(?:(?<seconds>\d+)S)?}
+
+      matches = pattern.match(sDuration)
+      matches.nil? ? matches : matches.named_captures
+   end
+
    def self.writeDuration(hDuration)
       # format P[n]Y[n]M[n]DT[n]H[n]M[n]S
       # example P1DT12H
