@@ -109,7 +109,7 @@ module ADIWG
 
                # add or replace the contact
                def self.set_contact(hContact)
-                  return 1 if @contacts.nil?
+                  return 0 if @contacts.nil?
 
                   index = find_contact_by_id(hContact[:contactId])[0]
                   if index.nil?
