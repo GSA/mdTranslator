@@ -84,6 +84,8 @@ module ADIWG
 
                # add new contact to contacts array
                def self.add_contact(name, isOrg)
+                  return UUIDTools::UUID.random_create.to_s if @contacts.nil?
+
                   contactId = find_contact_by_name(name)
                   if contactId.nil?
                      intMetadataClass = InternalMetadata.new
@@ -107,6 +109,8 @@ module ADIWG
 
                # add or replace the contact
                def self.set_contact(hContact)
+                  return 1 if @contacts.nil?
+
                   index = find_contact_by_id(hContact[:contactId])[0]
                   if index.nil?
                      @contacts << hContact
