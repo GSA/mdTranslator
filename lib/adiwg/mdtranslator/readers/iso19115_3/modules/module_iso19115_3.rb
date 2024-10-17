@@ -84,6 +84,7 @@ module ADIWG
 
                # add new contact to contacts array
                def self.add_contact(name, isOrg)
+                  # TODO: revisit this.
                   return UUIDTools::UUID.random_create.to_s if @contacts.nil?
 
                   contactId = find_contact_by_name(name)
