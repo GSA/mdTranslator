@@ -7,13 +7,13 @@ require 'minitest/autorun'
 require 'nokogiri'
 require 'json'
 require 'adiwg/mdtranslator'
-require 'adiwg/mdtranslator/readers/iso19115_2/modules/module_iso19115_2'
+require 'adiwg/mdtranslator/readers/iso19115_2_datagov/modules/module_iso19115_2'
 require 'adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us'
 
 # these tests are organized according to how data is processed in
 # the dcat_us writer lib/adiwg/mdtranslator/writers/dcat_us/sections/dcat_us_dcat_us.rb
 
-class TestIso191152DcatusTranslation < Minitest::Test
+class TestIso191152datagovDcatusTranslation < Minitest::Test
    @@hResponseObj = {
       readerExecutionPass: true,
       readerExecutionMessages: [],
@@ -21,13 +21,13 @@ class TestIso191152DcatusTranslation < Minitest::Test
       readerStructureMessages: []
    }
    # keeping these here for now. TODO: will add more files to test against
-   @@file = File.join(File.dirname(__FILE__), 'testData', 'iso19115-2.xml')
+   @@file = File.join(File.dirname(__FILE__), 'testData', 'iso19115-2_datagov.xml')
    @@fileData = File.read(@@file)
    @@xml = Nokogiri::XML(@@fileData)
 
    @@xIn = @@xml.xpath('gmi:MI_Metadata')[0]
    @@hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-   @@iso191152NS = ADIWG::Mdtranslator::Readers::Iso191152::Iso191152
+   @@iso191152NS = ADIWG::Mdtranslator::Readers::Iso191152datagov::Iso191152datagov
 
    @@intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
