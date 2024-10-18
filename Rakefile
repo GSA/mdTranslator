@@ -1,4 +1,3 @@
-
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 
@@ -15,6 +14,7 @@ Rake::TestTask.new do |t|
    t.test_files = FileList[
       'test/readers/fgdc/tc*.rb',
       'test/readers/iso19115_2/tc*.rb',
+      'test/readers/iso19115_2_datagov/tc*.rb',
       'test/readers/iso19115_3/tc*.rb',
       'test/readers/mdJson/tc*.rb',
       'test/readers/sbJson/tc*.rb',
@@ -33,4 +33,4 @@ Rake::TestTask.new do |t|
 end
 
 desc 'Run tests'
-task :default => :test
+task default: :test
