@@ -23,9 +23,48 @@
 
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
-      <gmd:abstract>
-        <gco:CharacterString>abtract test value</gco:CharacterString>
-      </gmd:abstract>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:description/>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:extentTypeCode>
+                <gco:Boolean>true</gco:Boolean>
+              </gmd:extentTypeCode>
+
+              <gmd:northBoundLatitude>
+              </gmd:northBoundLatitude>
+
+              <gmd:westBoundLongitude>
+              </gmd:westBoundLongitude>
+
+              <gmd:eastBoundLongitude>
+              </gmd:eastBoundLongitude>
+
+              <gmd:southBoundLatitude>
+              </gmd:southBoundLatitude>
+
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:extentTypeCode>
+                <gco:Boolean>true</gco:Boolean>
+              </gmd:extentTypeCode>
+
+              <gmd:northBoundLatitude gco:nilReason="unavailable"/>
+              <gmd:westBoundLongitude gco:nilReason="missing"/>
+              <gmd:eastBoundLongitude gco:nilReason="unknown"/>
+              <gmd:southBoundLatitude gco:nilReason="other:ab"/>
+
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+
+          <gmd:temporalElement/>
+          <gmd:verticalElement/>
+        </gmd:EX_Extent>
+      </gmd:extent>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
 

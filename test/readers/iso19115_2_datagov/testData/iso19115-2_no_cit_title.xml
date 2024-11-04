@@ -30,4 +30,15 @@
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
 
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title/>
+          <gmd:date/>
+        </gmd:CI_Citation>
+      </gmd:citation>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+
 </gmi:MI_Metadata>

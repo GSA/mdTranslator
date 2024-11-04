@@ -7,66 +7,83 @@ require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 # requiring gmd:CI_Date gets tricky with self-closing elements. revist this...
 
 module ADIWG
-   module Mdtranslator
-      module Readers
-         module Iso191152datagov
-            module Date
-               @@ciDateXPath = 'gmd:CI_Date'
-               @@dateXPath = 'gmd:date//gco:Date'
-               @@dateTypeXPath = 'gmd:dateType//gmd:CI_DateTypeCode'
-               def self.unpack(xDateParent, hResponseObj)
-                  intMetadataClass = InternalMetadata.new
-                  hDate = intMetadataClass.newDate
+  module Mdtranslator
+    module Readers
+      module Iso191152datagov
+        module Date
+          @@ciDateXPath = 'gmd:CI_Date'
+          @@dateXPath = 'gmd:date'
+          @@dateTypeXPath = 'gmd:dateType'
+          def self.unpack(xDateParent, hResponseObj)
+            intMetadataClass = InternalMetadata.new
+            hDate = intMetadataClass.newDate
 
-                  # CI_Date (required)
-                  # <xs:element name="CI_Date" type="gmd:CI_Date_Type"/>
-                  xDate = xDateParent.xpath(@@ciDateXPath)[0]
+            # CI_Date (optional)
+            # <xs:sequence minOccurs="0">
+            #   <xs:element ref="gmd:CI_Date"/>
+            # </xs:sequence>
+            xDate = xDateParent.xpath(@@ciDateXPath)[0]
+            return nil if xDate.nil?
 
-                  if xDate.nil?
-                     msg = "WARNING: ISO19115-2 reader: element \'#{@@ciDateXPath}\' "\
-                        "is missing in \'#{xDateParent.name}\'"
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return hDate
-                  end
+            # :date (required)
+            # <xs:element name="date" type="gco:Date_PropertyType"/>
+            xDateDate = xDate.xpath(@@dateXPath)[0]
+            if xDateDate.nil?
+              msg = "WARNING: ISO19115-2 reader: element \'#{@@dateXPath}\' is missing in #{xDate.name}"
+              hResponseObj[:readerValidationMessages] << msg
+              hResponseObj[:readerValidationPass] = false
+            else
 
-                  hasDate = false
+              # Date is optional
+              # <xs:choice minOccurs="0">
+              #   <xs:element ref="gco:Date"/>
+              #   <xs:element ref="gco:DateTime"/>
+              # </xs:choice>
+              xD = xDateDate.xpath('gco:Date')[0]
 
-                  # :date (required)
-                  # <xs:element name="date" type="gco:Date_PropertyType"/>
-                  xDateData = xDate.xpath(@@dateXPath)
-                  xDateData.each do |xdate|
-                     next if xdate.nil?
+              if xD.nil? && !AdiwgUtils.valid_nil_reason(xDateDate, hResponseObj)
+                msg = "WARNING: ISO19115-2 reader: element \'#{xDateDate.name}\' "\
+                 "is missing valid nil reason within \'#{xDate.name}\'"
+                hResponseObj[:readerValidationMessages] << msg
+                hResponseObj[:readerValidationPass] = false
+              end
 
-                     myDateTime, dateResolution = AdiwgDateTimeFun.dateTimeFromString(xdate.text)
-                     hDate[:date] = myDateTime
-                     hDate[:dateResolution] = dateResolution
-                     hasDate = true
-                  end
-
-                  if hasDate == false
-                     msg = "WARNING: ISO19115-3 reader: element \'#{@@ciDateXPath}\' is missing a date element"
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return hDate
-                  end
-
-                  # :dateType (required)
-                  # <xs:element name="dateType" type="gmd:CI_DateTypeCode_PropertyType"/>
-                  xDateTypeCode = xDate.xpath(@@dateTypeXPath)[0]
-                  if xDateTypeCode.nil?
-                     msg = "WARNING: ISO19115-3 reader: element \'#{@@dateTypeXPath}\' is missing in #{@@ciDateXPath}"
-                     hResponseObj[:readerExecutionMessages] << msg
-                     hResponseObj[:readerExecutionPass] = false
-                     return hDate
-                  end
-
-                  hDate[:dateType] = xDateTypeCode.attr('codeListValue')
-
-                  hDate
-               end
+              unless xD.nil?
+                myDateTime, dateResolution = AdiwgDateTimeFun.dateTimeFromString(xD.text)
+                hDate[:date] = myDateTime
+                hDate[:dateResolution] = dateResolution
+              end
             end
-         end
+
+            # :dateType (required)
+            # <xs:element name="dateType" type="gmd:CI_DateTypeCode_PropertyType"/>
+            xDateTypeCode = xDate.xpath(@@dateTypeXPath)[0]
+            if xDateTypeCode.nil?
+              msg = "WARNING: ISO19115-2 reader: element \'#{@@dateTypeXPath}\' is missing in #{xDate.name}"
+              hResponseObj[:readerValidationMessages] << msg
+              hResponseObj[:readerValidationPass] = false
+            else
+
+              # DateTypeCode is optional
+              #   <xs:sequence minOccurs="0">
+              # <xs:element ref="gmd:CI_DateTypeCode"/>
+              # </xs:sequence>
+              xDTCode = xDateTypeCode.xpath('gmd:CI_DateTypeCode')[0]
+
+              if xDTCode.nil? && !AdiwgUtils.valid_nil_reason(xDateTypeCode, hResponseObj)
+                msg = "WARNING: ISO19115-2 reader: element \'#{xDateTypeCode.name}\' "\
+                 "is missing valid nil reason within \'#{xDate.name}\'"
+                hResponseObj[:readerValidationMessages] << msg
+                hResponseObj[:readerValidationPass] = false
+              end
+
+              hDate[:dateType] = xDTCode.attr('codeListValue') unless xDTCode.nil?
+            end
+
+            hDate
+          end
+        end
       end
-   end
+    end
+  end
 end

@@ -21,18 +21,15 @@
         xsi:schemaLocation="http://www.isotc211.org/2005/gmi
         ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/schemas/ISObio/schema.xsd">
 
-  <gmd:identificationInfo>
-    <gmd:MD_DataIdentification>
-      <gmd:citation>
-        <gmd:CI_Citation>
-          <gmd:title>
-            <gco:CharacterString>ISO19115-2 citation title test 123456</gco:CharacterString>
-          </gmd:title>
-          <gmd:date>
-          </gmd:date>
-        </gmd:CI_Citation>
-      </gmd:citation>
-    </gmd:MD_DataIdentification>
-  </gmd:identificationInfo>
+  <gmd:metadataMaintenance>
+    <gmd:MD_MaintenanceInformation>
+      <gmd:maintenanceAndUpdateFrequency/>
+    </gmd:MD_MaintenanceInformation>
+  </gmd:metadataMaintenance>
 
+  <gmd:metadataMaintenance>
+    <gmd:MD_MaintenanceInformation>
+      <gmd:maintenanceAndUpdateFrequency gco:nilReason="test:uripath"/>
+    </gmd:MD_MaintenanceInformation>
+  </gmd:metadataMaintenance>
 </gmi:MI_Metadata>

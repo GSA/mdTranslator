@@ -1,7 +1,9 @@
 AllCops:
   Include:
-    - lib/adiwg/mdtranslator/readers/iso19115_3/**/*.rb
-    - test/readers/iso19115_3/**/*.rb
+    # - lib/adiwg/mdtranslator/readers/iso19115_3/**/*.rb
+    - lib/adiwg/mdtranslator/readers/iso19115_2_datagov/**/*.rb
+    # - test/readers/iso19115_3/**/*.rb
+    - test/readers/iso19115_2_datagov/**/*.rb
   Exclude:
     - bin/*
     - vendor/**/*
@@ -10,7 +12,7 @@ Layout/IndentationStyle:
   EnforcedStyle: spaces
 
 Layout/IndentationWidth:
-  Width: 3 
+  Width: 2
 
 Naming/ClassAndModuleCamelCase:
   Enabled: true
@@ -24,9 +26,6 @@ Style/ClassVars:
 Naming/AccessorMethodName:
   Enabled: false
 
-Metrics/MethodLength:
-  Max: 50
-
 Naming/MethodParameterName:
   Enabled: false
 
@@ -34,7 +33,10 @@ Style/Documentation:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 50
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
 
 Metrics/CyclomaticComplexity:
   Enabled: false

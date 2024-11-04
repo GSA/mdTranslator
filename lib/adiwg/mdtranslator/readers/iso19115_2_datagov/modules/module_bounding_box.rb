@@ -2,55 +2,75 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
+require 'adiwg/mdtranslator/internal/module_utils'
 
 module ADIWG
-   module Mdtranslator
-      module Readers
-         module Iso191152datagov
-            module BoundingBox
-               @@bbXPath = 'gmd:EX_GeographicBoundingBox'
-               @@westXPath = 'gmd:westBoundLongitude/gco:Decimal'
-               @@eastXPath = 'gmd:eastBoundLongitude/gco:Decimal'
-               @@northXPath = 'gmd:northBoundLatitude/gco:Decimal'
-               @@southXPath = 'gmd:southBoundLatitude/gco:Decimal'
-               def self.unpack(xGeoElem, hResponseObj)
-                  intMetadataClass = InternalMetadata.new
-                  hBbox = intMetadataClass.newBoundingBox
+  module Mdtranslator
+    module Readers
+      module Iso191152datagov
+        module BoundingBox
+          @@bbXPath = 'gmd:EX_GeographicBoundingBox'
+          @@westXPath = 'gmd:westBoundLongitude'
+          @@eastXPath = 'gmd:eastBoundLongitude'
+          @@northXPath = 'gmd:northBoundLatitude'
+          @@southXPath = 'gmd:southBoundLatitude'
+          def self.unpack(xGeoElem, hResponseObj)
+            intMetadataClass = InternalMetadata.new
+            hBbox = intMetadataClass.newBoundingBox
 
-                  xBbox = xGeoElem.xpath(@@bbXPath)
-                  return nil if xBbox.empty?
+            # all extensions of gmd:AbstractEX_GeographicExtent_Type are optional
+            # within EX_GeographicExtent_PropertyType
+            # xs:sequence minOccurs="0">
+            #   <xs:element ref="gmd:AbstractEX_GeographicExtent"/>
+            # </xs:sequence>
+            xBbox = xGeoElem.xpath(@@bbXPath)[0]
+            return nil if xBbox.nil?
 
-                  # :westLongitude (required)
-                  # <xs:element name="westBoundLongitude" type="gco:Decimal_PropertyType"/>
-                  # :eastLongitude (required)
-                  # <xs:element name="eastBoundLongitude" type="gco:Decimal_PropertyType"/>
-                  # :northLatitude (required)
-                  # <xs:element name="southBoundLatitude" type="gco:Decimal_PropertyType"/>
-                  # :southLatitude (required)
-                  # <xs:element name="northBoundLatitude" type="gco:Decimal_PropertyType"/>
-                  bounding_elements = {
-                     westLongitude: { xpath: @@westXPath, message: 'gmd:westBoundLongitude' },
-                     eastLongitude: { xpath: @@eastXPath, message: 'gmd:eastBoundLongitude' },
-                     northLatitude: { xpath: @@northXPath, message: 'gmd:northBoundLatitude' },
-                     southLatitude: { xpath: @@southXPath, message: 'gmd:southBoundLatitude' }
-                  }
+            # :westLongitude (required)
+            # <xs:element name="westBoundLongitude" type="gco:Decimal_PropertyType"/>
+            # :eastLongitude (required)
+            # <xs:element name="eastBoundLongitude" type="gco:Decimal_PropertyType"/>
+            # :northLatitude (required)
+            # <xs:element name="southBoundLatitude" type="gco:Decimal_PropertyType"/>
+            # :southLatitude (required)
+            # <xs:element name="northBoundLatitude" type="gco:Decimal_PropertyType"/>
+            boundingElements = {
+              westLongitude: { xpath: @@westXPath, message: 'gmd:westBoundLongitude' },
+              eastLongitude: { xpath: @@eastXPath, message: 'gmd:eastBoundLongitude' },
+              northLatitude: { xpath: @@northXPath, message: 'gmd:northBoundLatitude' },
+              southLatitude: { xpath: @@southXPath, message: 'gmd:southBoundLatitude' }
+            }
 
-                  bounding_elements.each do |key, info|
-                     element = xBbox.xpath(info[:xpath])
-                     if element.empty?
-                        msg = "WARNING: ISO19115-2 reader: element '#{info[:message]}' " \
-                         'is missing in gmd:EX_GeographicBoundingBox'
-                        hResponseObj[:readerExecutionMessages] << msg
-                        hResponseObj[:readerExecutionPass] = false
-                     else
-                        hBbox[key] = element[0].text.to_f
-                     end
-                  end
+            boundingElements.each do |key, info|
+              element = xBbox.xpath(info[:xpath])[0]
 
-                  hBbox
-               end
+              if element.nil?
+                msg = "WARNING: ISO19115-2 reader: element '#{info[:message]}' " \
+                 'is missing in gmd:EX_GeographicBoundingBox'
+                hResponseObj[:readerValidationMessages] << msg
+                hResponseObj[:readerValidationPass] = false
+              else
+                # all gco:Decimal are optional
+                # <xs:sequence minOccurs="0">
+                # <xs:element ref="gco:Decimal"/>
+                # </xs:sequence>
+                xDec = element.xpath('gco:Decimal')[0]
+
+                if xDec.nil? && !AdiwgUtils.valid_nil_reason(element, hResponseObj)
+                  msg = "WARNING: ISO19115-2 reader: element \'#{element.name}\' "\
+                   "is missing valid nil reason within \'#{xBbox.name}\'"
+                  hResponseObj[:readerValidationMessages] << msg
+                  hResponseObj[:readerValidationPass] = false
+                end
+
+                hBbox[key] = xDec.text.to_f unless xDec.nil?
+              end
             end
-         end
+
+            hBbox
+          end
+        end
       end
-   end
+    end
+  end
 end

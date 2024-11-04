@@ -50,4 +50,41 @@
     </gmd:CI_OnlineResource>
   </gmd:onlineResource>
 
+  <gmd:onlineResource>
+    <gmd:CI_OnlineResource>
+      <!-- <gmd:linkage>
+        <gmd:URL>http://online.adiwg.org/1</gmd:URL>
+      </gmd:linkage> -->
+      <gmd:protocol/>
+      <gmd:applicationProfile/>
+      <gmd:name/>
+      <gmd:description/>
+      <gmd:function/>
+    </gmd:CI_OnlineResource>
+  </gmd:onlineResource>
+
+  <gmd:onlineResource>
+    <gmd:CI_OnlineResource>
+      <gmd:linkage>
+        <!-- <gmd:URL>http://online.adiwg.org/1</gmd:URL> -->
+      </gmd:linkage>
+      <gmd:protocol/>
+      <gmd:applicationProfile/>
+      <gmd:name/>
+      <gmd:description/>
+      <gmd:function/>
+    </gmd:CI_OnlineResource>
+  </gmd:onlineResource>
+
+  <gmd:onlineResource>
+    <gmd:CI_OnlineResource>
+      <gmd:linkage gco:nilReason="other:ab"/>
+      <gmd:protocol/>
+      <gmd:applicationProfile/>
+      <gmd:name/>
+      <gmd:description/>
+      <gmd:function/>
+    </gmd:CI_OnlineResource>
+  </gmd:onlineResource>
+
 </gmi:MI_Metadata>
