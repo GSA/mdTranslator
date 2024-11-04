@@ -7,30 +7,30 @@ require_relative 'module_security_constraint'
 require_relative 'module_use_constraint'
 
 module ADIWG
-   module Mdtranslator
-      module Readers
-         module Iso191152datagov
-            module Constraint
-               def self.unpack(xConstraint, hResponseObj)
-                  # the requirement of these is inherited from the parent since
-                  # a constraint can be 1 of 3 types
-                  # for example, gmd:resourceConstraints is optional under
-                  # gmd:MD_DataIdentification so all of these are optional
+  module Mdtranslator
+    module Readers
+      module Iso191152datagov
+        module Constraint
+          def self.unpack(xConstraint, hResponseObj)
+            # all of these are optional and are siblings so any one of these can occur.
+            # <xs:sequence minOccurs="0">
+            #     <xs:element ref="gmd:MD_Constraints"/>
+            # </xs:sequence>
 
-                  # LegalConstraint (optional)
-                  xLegalConstraint = LegalConstraint.unpack(xConstraint, hResponseObj)
-                  return xLegalConstraint unless xLegalConstraint.nil?
+            # LegalConstraint (optional)
+            xLegalConstraint = LegalConstraint.unpack(xConstraint, hResponseObj)
+            return xLegalConstraint unless xLegalConstraint.nil?
 
-                  # SecurityConstraint (optional)
-                  xSecurityConstraint = SecurityConstraint.unpack(xConstraint, hResponseObj)
-                  return xSecurityConstraint unless xSecurityConstraint.nil?
+            # SecurityConstraint (optional)
+            xSecurityConstraint = SecurityConstraint.unpack(xConstraint, hResponseObj)
+            return xSecurityConstraint unless xSecurityConstraint.nil?
 
-                  # UseConstraint (optional)
-                  xUseConstraint = UseConstraint.unpack(xConstraint, hResponseObj)
-                  xUseConstraint unless xUseConstraint.nil?
-               end
-            end
-         end
+            # UseConstraint (optional)
+            xUseConstraint = UseConstraint.unpack(xConstraint, hResponseObj)
+            xUseConstraint unless xUseConstraint.nil?
+          end
+        end
       end
-   end
+    end
+  end
 end

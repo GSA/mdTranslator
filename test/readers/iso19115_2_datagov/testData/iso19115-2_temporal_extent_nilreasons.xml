@@ -21,12 +21,18 @@
         xsi:schemaLocation="http://www.isotc211.org/2005/gmi
         ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/schemas/ISObio/schema.xsd">
 
-  <gmd:identificationInfo>
-    <gmd:MD_DataIdentification>
-      <gmd:abstract>
-        <gco:CharacterString>abtract test value</gco:CharacterString>
-      </gmd:abstract>
-    </gmd:MD_DataIdentification>
-  </gmd:identificationInfo>
+          
+  <gmd:temporalElement>
+    <gmd:EX_TemporalExtent>
+      <gmd:extent>
+    </gmd:EX_TemporalExtent>
+  </gmd:temporalElement>
+
+  <gmd:temporalElement>
+    <gmd:EX_TemporalExtent>
+      <gmd:extent gco:nilReason="template">
+    </gmd:EX_TemporalExtent>
+  </gmd:temporalElement>
+
 
 </gmi:MI_Metadata>

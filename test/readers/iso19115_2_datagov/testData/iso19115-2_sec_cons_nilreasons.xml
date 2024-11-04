@@ -23,9 +23,16 @@
 
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
-      <gmd:abstract>
-        <gco:CharacterString>abtract test value</gco:CharacterString>
-      </gmd:abstract>
+      <gmd:resourceConstraints>
+        <gmd:MD_SecurityConstraints>
+          <gmd:classification/>
+        </gmd:MD_SecurityConstraints>
+      </gmd:resourceConstraints>
+      <gmd:resourceConstraints>
+        <gmd:MD_SecurityConstraints>
+          <gmd:classification gco:nilReason="withheld"/>
+        </gmd:MD_SecurityConstraints>
+      </gmd:resourceConstraints>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
 

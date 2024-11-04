@@ -23,9 +23,25 @@
 
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
-      <gmd:abstract>
-        <gco:CharacterString>abtract test value</gco:CharacterString>
-      </gmd:abstract>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>ISO19115-2 citation title test 123456</gco:CharacterString>
+          </gmd:title>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date/>
+              <gmd:dateType/>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date  gco:nilReason="template"/>
+              <gmd:dateType gco:nilReason="withheld"/>
+            </gmd:CI_Date>
+          </gmd:date>
+        </gmd:CI_Citation>
+      </gmd:citation>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
 

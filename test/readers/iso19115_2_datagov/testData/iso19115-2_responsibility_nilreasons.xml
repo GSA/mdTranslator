@@ -23,10 +23,33 @@
 
   <gmd:identificationInfo>
     <gmd:MD_DataIdentification>
-      <gmd:abstract>
-        <gco:CharacterString>abtract test value</gco:CharacterString>
-      </gmd:abstract>
+      <gmd:citation>
+        <gmd:CI_Citation>
+            <gmd:title>
+               <gco:CharacterString>ISO19115-2 citation title test 123456</gco:CharacterString>
+            </gmd:title>
+            <gmd:citedResponsibleParty>
+               <gmd:CI_ResponsibleParty>
+                  <gmd:role>
+                    <!-- <gmd:CI_RoleCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#CI_RoleCode" codeListValue="publisher" codeSpace="007"/> -->
+                  </gmd:role>
+                  <gmd:organisationName>
+                     <gco:CharacterString>organization name</gco:CharacterString>
+                  </gmd:organisationName>
+               </gmd:CI_ResponsibleParty>
+            </gmd:citedResponsibleParty>
+            <gmd:citedResponsibleParty>
+               <gmd:CI_ResponsibleParty>
+                  <gmd:role gco:nilReason="missing"/>
+                  <gmd:organisationName>
+                     <gco:CharacterString>organization name</gco:CharacterString>
+                  </gmd:organisationName>
+               </gmd:CI_ResponsibleParty>
+            </gmd:citedResponsibleParty>
+        </gmd:CI_Citation>
+      </gmd:citation>
     </gmd:MD_DataIdentification>
   </gmd:identificationInfo>
+
 
 </gmi:MI_Metadata>
