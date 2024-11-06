@@ -80,7 +80,7 @@ class TestReaderIso191152datagovTimePeriod < TestReaderIso191152datagovParent
 
     infos = [
       "INFO: ISO19115-2 reader: element 'begin' contains acceptable nilReason: 'missing'",
-      "INFO: ISO19115-2 reader: element 'end' contains acceptable nilReason: 'missing'"
+      "INFO: ISO19115-2 reader: element 'end' contains acceptable nilReason: 'now'"
     ]
     assert_equal(infos, hResponse[:readerValidationMessages])
     assert_equal(true, hResponse[:readerValidationPass])

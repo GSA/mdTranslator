@@ -2,6 +2,7 @@ AllCops:
   Include:
     # - lib/adiwg/mdtranslator/readers/iso19115_3/**/*.rb
     - lib/adiwg/mdtranslator/readers/iso19115_2_datagov/**/*.rb
+    - lib/adiwg/mdtranslator/internal/module_utils.rb
     # - test/readers/iso19115_3/**/*.rb
     - test/readers/iso19115_2_datagov/**/*.rb
   Exclude:

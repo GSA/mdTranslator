@@ -20,7 +20,7 @@ class TestReaderIso191152datagovDate < TestReaderIso191152datagovParent
     refute_empty hDictionary
     assert hDictionary.instance_of? Hash
     assert_equal(DateTime.iso8601('2017-01-01T00:00:00+00:00'), hDictionary[:date])
-    assert_equal('Y', hDictionary[:dateResolution])
+    assert_equal('YMDhms', hDictionary[:dateResolution])
     assert_equal('publication', hDictionary[:dateType])
   end
 

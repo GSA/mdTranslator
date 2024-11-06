@@ -36,7 +36,7 @@ module ADIWG
                   next
                 end
 
-                keyword = keyword.xpath('gco:CharacterString')[0]
+                keyword = keyword.xpath('gco:CharacterString | gmx:Anchor')[0]
                 next if keyword.nil?
 
                 k = intMetadataClass.newKeywordObject

@@ -29,38 +29,49 @@ module AdiwgUtils
   def self.check_nil_reason(elem)
     # nilreason documentation: https://www.isotc211.org/2005/gml/basicTypes.xsd
 
-    nilReason = elem.attr('gco:nilReason')
-    return false if nilReason.nil?
+    nilReason = nil
+    nilReasonAttrs = ['gco:nilReason', 'indeterminatePosition']
+    nilReasonAttrs.each do |nr|
+      nr = elem.attr(nr)
+      nilReason = nr unless nr.nil?
+    end
+    return false, nilReason if nilReason.nil?
 
     nilReason.downcase! # modifies in-place
 
-    # enumeration values
+    # nil reason enumeration values
     nilReasons = %w[inapplicable missing template unknown withheld]
-    return true if nilReasons.include? nilReason
+    return true, nilReason if nilReasons.include? nilReason
+
+    # indeterminatePosition enumeration values
+    # xsd: https://schemas.opengis.net/gml/3.2.1/temporal.xsd
+    indeterminateReasons = %w[after before now unknown]
+    return true, nilReason if indeterminateReasons.include? nilReason
 
     # non-spec but found in production nilReasons
     nonSpecNilReasons = %w[unavailable]
-    return true if nonSpecNilReasons.include? nilReason
+    return true, nilReason if nonSpecNilReasons.include? nilReason
 
     # regex patterns
     nilRegexs = [/other:\w{2,}/, %r{([a-zA-Z][a-zA-Z0-9\-+.]*:|\.\./|\./|#).*}]
     nilRegexs.each do |regex|
-      return true unless regex.match(nilReason).nil?
+      return true, nilReason unless regex.match(nilReason).nil?
     end
 
-    false
+    [false, nilReason]
   end
 
   def self.valid_nil_reason(elem, hResponseObj)
     # true means the element has a present and acceptable nilReason
     # false means it doesn't
 
-    return false unless check_nil_reason(elem)
+    validNil, nilReason = check_nil_reason(elem)
+    return false if validNil == false
 
     # this is only used in ISO19115-2_datagov for now. TODO: update it to reflect
     # whatever reader it is
     msg = "INFO: ISO19115-2 reader: element \'#{elem.name}\' "\
-      "contains acceptable nilReason: \'#{elem.attr('gco:nilReason')}\'"
+      "contains acceptable nilReason: \'#{nilReason}\'"
     hResponseObj[:readerValidationMessages] << msg
     true
   end
