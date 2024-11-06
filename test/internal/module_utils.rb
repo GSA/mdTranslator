@@ -56,7 +56,9 @@ class TestDateTimeFun < Minitest::Test
       ['<foo gco:nilReason="withheld"></foo>', [true, 'withheld']],
       ['<foo gco:nilReason="unavailable"></foo>', [true, 'unavailable']],
       ['<foo gco:nilReason="other:ab"></foo>', [true, 'other:ab']],
-      ['<foo gco:nilReason="test:uri"></foo>', [true, 'test:uri']],
+      ['<foo gco:nilReason="https://john.doe@www.example.com:1234"></foo>',
+       [true, 'https://john.doe@www.example.com:1234']],
+      ['<foo indeterminatePosition="now"></foo>', [true, 'now']],
       ['<foo gco:nilReason="bad value"></foo>', [false, 'bad value']],
       ['<foo></foo>', [false, nil]]
     ]
