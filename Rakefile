@@ -12,6 +12,7 @@ require 'rake/testtask'
 Rake::TestTask.new do |t|
    t.libs << 'test'
    t.test_files = FileList[
+      'test/internal/*.rb',
       'test/readers/fgdc/tc*.rb',
       'test/readers/iso19115_2/tc*.rb',
       'test/readers/iso19115_2_datagov/tc*.rb',

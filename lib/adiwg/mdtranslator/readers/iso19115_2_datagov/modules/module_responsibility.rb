@@ -72,17 +72,7 @@ module ADIWG
               contactName = xIndividual.text
             end
 
-            if contactName.nil?
-              # TODO: revisit this. this seems like the right decision.
-              # talk to chris about this. can there a responsibility party without an i or o?
-              # this may need to be elevated to an error not a warning.
-              msg = "WARNING: ISO19115-2 reader: \'#{@@responsibilityXPath}\' must have at " \
-              'least an individual or organization. neither are present.'
-              hResponseObj[:readerValidationMessages] << msg
-              hResponseObj[:readerValidationPass] = false
-              # returning nil to not interfere with setting a non-existent contact later
-              return nil
-            else
+            unless contactName.nil?
               hContact[:name] = contactName
               contactId = Iso191152datagov.add_contact(contactName, hContact[:isOrganization])
               hContact[:contactId] = contactId

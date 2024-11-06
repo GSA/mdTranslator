@@ -49,16 +49,16 @@ class TestDateTimeFun < Minitest::Test
 
   def test_nil_reason_checker
     tests = [
-      ['<foo gco:nilReason="inapplicable"></foo>', true],
-      ['<foo gco:nilReason="missing"></foo>', true],
-      ['<foo gco:nilReason="template"></foo>', true],
-      ['<foo gco:nilReason="unknown"></foo>', true],
-      ['<foo gco:nilReason="withheld"></foo>', true],
-      ['<foo gco:nilReason="unavailable"></foo>', true],
-      ['<foo gco:nilReason="other:ab"></foo>', true],
-      ['<foo gco:nilReason="test:uri"></foo>', true],
-      ['<foo gco:nilReason="bad value"></foo>', false],
-      ['<foo></foo>', false]
+      ['<foo gco:nilReason="inapplicable"></foo>', [true, 'inapplicable']],
+      ['<foo gco:nilReason="missing"></foo>', [true, 'missing']],
+      ['<foo gco:nilReason="template"></foo>', [true, 'template']],
+      ['<foo gco:nilReason="unknown"></foo>', [true, 'unknown']],
+      ['<foo gco:nilReason="withheld"></foo>', [true, 'withheld']],
+      ['<foo gco:nilReason="unavailable"></foo>', [true, 'unavailable']],
+      ['<foo gco:nilReason="other:ab"></foo>', [true, 'other:ab']],
+      ['<foo gco:nilReason="test:uri"></foo>', [true, 'test:uri']],
+      ['<foo gco:nilReason="bad value"></foo>', [false, 'bad value']],
+      ['<foo></foo>', [false, nil]]
     ]
 
     tests.each do |test|

@@ -39,7 +39,7 @@ module ADIWG
               #   <xs:element ref="gco:Date"/>
               #   <xs:element ref="gco:DateTime"/>
               # </xs:choice>
-              xD = xDateDate.xpath('gco:Date')[0]
+              xD = xDateDate.xpath('gco:Date | gco:DateTime')[0]
 
               if xD.nil? && !AdiwgUtils.valid_nil_reason(xDateDate, hResponseObj)
                 msg = "WARNING: ISO19115-2 reader: element \'#{xDateDate.name}\' "\

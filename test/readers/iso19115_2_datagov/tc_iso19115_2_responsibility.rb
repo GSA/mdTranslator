@@ -45,21 +45,6 @@ class TestReaderIso191152datagovResponsibility < TestReaderIso191152datagovParen
     assert_equal(false, hResponse[:readerValidationPass])
   end
 
-  def test_responsibility_no_ind_or_org
-    xDoc = TestReaderIso191152datagovParent.get_xml('iso19115-2_rp_no_ind_or_org.xml')
-    TestReaderIso191152datagovParent.set_xdoc(xDoc)
-
-    xIn = xDoc.xpath('.//gmd:citedResponsibleParty')[0]
-    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
-    _hDictionary = @@nameSpace.unpack(xIn, hResponse)
-
-    expected = "WARNING: ISO19115-2 reader: 'gmd:CI_ResponsibleParty' must have "\
-    'at least an individual or organization. neither are present.'
-
-    assert_equal([expected], hResponse[:readerValidationMessages])
-    assert_equal(false, hResponse[:readerValidationPass])
-  end
-
   def test_no_nil_reasons
     xDoc = TestReaderIso191152datagovParent.get_xml('iso19115-2_responsibility_nilreasons.xml')
     TestReaderIso191152datagovParent.set_xdoc(xDoc)
