@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_2_datagov/modules/module_maintenance'
 require_relative 'iso19115_2_test_parent'
-require 'debug'
 
 class TestReaderIso191152datagovMaintenance < TestReaderIso191152datagovParent
   @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152datagov::Maintenance

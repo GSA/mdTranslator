@@ -23,8 +23,6 @@ module ADIWG
             # <xs:element name="keyword" type="gco:CharacterString_PropertyType" maxOccurs="unbounded"/>
             xKeywords = xMDKeywords.xpath(@@keywordXPath)
 
-            require 'debug'
-
             if xKeywords.empty?
               msg = "WARNING: ISO19115-2 reader: element \'#{@@keywordXPath}\' "\
                 "is missing in \'#{xMDKeywords.name}\'"

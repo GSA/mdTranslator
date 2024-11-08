@@ -88,8 +88,6 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Spatial
     res = dcatusNS.build(@@intMetadata)
 
-    # require 'debug'
-    # binding.b
     expected = '-74.0,24.0,-166.0,71.0'
     assert_equal(expected, res)
   end
