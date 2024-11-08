@@ -5,7 +5,6 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_2_datagov/modules/module_online_resource'
 require_relative 'iso19115_2_test_parent'
-require 'debug'
 
 class TestReaderIso191152datagovOnlineResource < TestReaderIso191152datagovParent
   @@xDoc = TestReaderIso191152datagovParent.get_xml('iso19115-2_onlineResource.xml')

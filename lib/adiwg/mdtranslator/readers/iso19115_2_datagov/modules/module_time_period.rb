@@ -12,7 +12,7 @@ module ADIWG
           @@idAttr = 'gml:id'
           @@beginPosXPath = 'gml:beginPosition | gml:begin'
           @@endPosXPath = 'gml:endPosition | gml:end'
-          def self.unpack(xTimePeriodExt, hResponseObj)
+          def self.unpack(xExtent, hResponseObj)
             intMetadataClass = InternalMetadata.new
             hTimePeriod = intMetadataClass.newTimePeriod
 
@@ -20,7 +20,7 @@ module ADIWG
             # <sequence minOccurs="0">
             #   <element ref="gml:TimePeriod"/>
             # </sequence>
-            xTimePeriod = xTimePeriodExt.xpath(@@timePeriodXPath)[0]
+            xTimePeriod = xExtent.xpath(@@timePeriodXPath)[0]
             return nil if xTimePeriod.nil?
 
             # :beginPosition/:begin and :endPosition/:end

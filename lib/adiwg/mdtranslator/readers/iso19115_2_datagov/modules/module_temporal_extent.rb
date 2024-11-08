@@ -3,6 +3,7 @@
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_time_period'
+require_relative 'module_time_instant'
 
 module ADIWG
   module Mdtranslator
@@ -37,18 +38,22 @@ module ADIWG
               #   <element ref="gml:TimePeriod"/>
               # </sequence>
               xTP = xExtent.xpath('gml:TimePeriod')[0]
+              hTemporalExt[:timePeriod] = TimePeriod.unpack(xExtent, hResponseObj) unless xTP.nil?
 
-              # TODO: because TimePeriod has a sibling this isn't correct.
-              if xTP.nil? && !AdiwgUtils.valid_nil_reason(xExtent, hResponseObj)
+              # :TimeInstant (optional)
+              # <sequence minOccurs="0">
+              #   <element ref="gml:TimeInstant"/>
+              # </sequence>
+              xTI = xExtent.xpath('gml:TimeInstant')[0]
+              hTemporalExt[:timeInstant] = TimeInstant.unpack(xExtent, hResponseObj) unless xTI.nil?
+
+              if (xTI.nil? && xTP.nil?) && !AdiwgUtils.valid_nil_reason(xExtent, hResponseObj)
                 msg = "WARNING: ISO19115-2 reader: element \'#{xExtent.name}\' "\
                  "is missing valid nil reason within \'#{xTemporalExt.name}\'"
                 hResponseObj[:readerValidationMessages] << msg
                 hResponseObj[:readerValidationPass] = false
               end
 
-              # TimeInstant and TimePeriod are siblings. either can occur within "extent" in this context.
-              # however, dcatus temporal only looks for timePeriod.
-              hTemporalExt[:timePeriod] = TimePeriod.unpack(xExtent, hResponseObj) unless xTP.nil?
             end
 
             hTemporalExt

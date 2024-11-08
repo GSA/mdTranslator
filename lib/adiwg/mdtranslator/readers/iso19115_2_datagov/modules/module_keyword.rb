@@ -36,7 +36,10 @@ module ADIWG
                   next
                 end
 
-                keyword = keyword.xpath('gco:CharacterString | gmx:Anchor')[0]
+                # TODO: this may come up again
+                gmxNS = keyword.namespaces['xmlns:gmx'].nil? ? '' : 'gmx:'
+
+                keyword = keyword.xpath("gco:CharacterString | #{gmxNS}Anchor")[0]
                 next if keyword.nil?
 
                 k = intMetadataClass.newKeywordObject
