@@ -20,6 +20,6 @@ class TestReaderIso191152datagovExtent < TestReaderIso191152datagovParent
     refute_empty hDictionary
     assert hDictionary.instance_of? Hash
     assert_equal(1, hDictionary[:geographicExtents].size)
-    assert_equal(1, hDictionary[:temporalExtents].size)
+    assert_equal(2, hDictionary[:temporalExtents].size)
   end
 end

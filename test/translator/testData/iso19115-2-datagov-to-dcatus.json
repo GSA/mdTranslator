@@ -1,0 +1,39 @@
+{
+  "@type": "dcat:Dataset",
+  "title": "ISO19115-2 citation title test 123456",
+  "keyword": ["biota", "farming"],
+  "modified": "2023-11-22T00:00:00+00:00",
+  "publisher": {
+    "@type": "org:Organization",
+    "name": "citation organization name"
+  },
+  "contactPoint": {
+    "@type": "vcard:Contact",
+    "fn": "test person test name",
+    "hasEmail": "whatever@gmail.com"
+  },
+  "accessLevel": "non-public",
+  "bureauCode": [],
+  "programCode": [],
+  "distribution": [
+    {
+      "@type": "dcat:Distribution",
+      "description": "",
+      "downloadURL": "online resource URL",
+      "mediaType": "format specification",
+      "title": "online resource name"
+    }
+  ],
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "spatial": "-74.0,24.0,-166.0,71.0",
+  "temporal": "2017-12-01T00:00:00+00:00/2023-12-01T00:00:00+00:00",
+  "issued": "2017-01-01T00:00:00+00:00",
+  "accrualPeriodicity": "R/P1M",
+  "language": ["eng"],
+  "theme": "biota farming",
+  "references": "aggregate_information_online_resources,aggregate_information_online_resources 12309u,https://aggregation_info_sample_url.gov",
+  "systemOfRecords": "aggregate_information_online_resources",
+  "primaryITInvestmentUII": "ISO19115-2-ID-123456",
+  "describedBy": "https://datadictionaryhost.html",
+  "describedByType": "DD-WWW-123"
+}

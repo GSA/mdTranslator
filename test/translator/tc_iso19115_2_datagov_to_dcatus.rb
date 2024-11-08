@@ -88,6 +88,8 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Spatial
     res = dcatusNS.build(@@intMetadata)
 
+    # require 'debug'
+    # binding.b
     expected = '-74.0,24.0,-166.0,71.0'
     assert_equal(expected, res)
   end
@@ -202,5 +204,43 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     res = dcatusNS.build(@@intMetadata)
     # TODO: default used. reference https://github.com/GSA/data.gov/issues/4883 for notes
     assert_equal('https://creativecommons.org/publicdomain/zero/1.0/', res)
+  end
+
+  def test_valid_full_translate
+    metadata = ADIWG::Mdtranslator.translate(
+      file: @@fileData, reader: 'iso19115_2_datagov', writer: 'dcat_us'
+    )
+
+    f = File.join(File.dirname(__FILE__), 'testData', 'iso19115-2-datagov-to-dcatus.json')
+    expected = File.open(f).read
+
+    assert_equal('iso19115_2_datagov', metadata[:readerRequested])
+    assert_equal('dcat_us', metadata[:writerRequested])
+    assert_equal(true, metadata[:readerStructurePass])
+    assert_equal(true, metadata[:readerValidationPass])
+    assert_equal(true, metadata[:readerExecutionPass])
+    assert_equal(true, metadata[:writerPass])
+    assert_equal(expected.gsub(/\s+/, ''), metadata[:writerOutput].gsub(/\s+/, ''))
+  end
+
+  def test_invalid_full_translate
+    file = File.join(File.dirname(__FILE__), 'testData', 'invalid_iso19115_2_datagov.xml')
+    fileData = File.read(file)
+
+    metadata = ADIWG::Mdtranslator.translate(
+      file: fileData, reader: 'iso19115_2_datagov', writer: 'dcat_us'
+    )
+
+    assert_equal('iso19115_2_datagov', metadata[:readerRequested])
+    assert_equal('dcat_us', metadata[:writerRequested])
+    assert_equal(true, metadata[:readerStructurePass])
+    assert_equal(false, metadata[:readerValidationPass])
+    assert_equal(true, metadata[:readerExecutionPass])
+    assert_equal(true, metadata[:writerPass])
+
+    expected = 'WARNING: ISO19115-2 reader: Element gml:endPosition or gml:end ' \
+    "is missing valid nilReason within 'TimePeriod'"
+
+    metadata[:readerValidationMessages].include? expected
   end
 end

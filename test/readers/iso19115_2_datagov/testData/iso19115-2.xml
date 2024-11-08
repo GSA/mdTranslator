@@ -595,6 +595,18 @@
               </gmd:extent>
             </gmd:EX_TemporalExtent>
           </gmd:temporalElement>
+
+          <gmd:temporalElement>
+            <gmd:EX_TemporalExtent>
+              <gmd:extent>
+                <gml:TimeInstant gml:id="boundingTemporalExtent-1-1">
+                  <gml:description>| Currentness: Ground Condition</gml:description>
+                  <gml:timePosition>2013-01-30</gml:timePosition>
+                </gml:TimeInstant>
+              </gmd:extent>
+            </gmd:EX_TemporalExtent>
+          </gmd:temporalElement>
+          
           <gmd:verticalElement/>
         </gmd:EX_Extent>
       </gmd:extent>

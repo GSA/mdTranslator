@@ -38,24 +38,22 @@ module ADIWG
             # <element maxOccurs="unbounded" minOccurs="0" name="distributorTransferOptions"
             # type="gmd:MD_DigitalTransferOptions_PropertyType"/>
             xTransfers = xDistribution.xpath(@@transferOptionsXPath)
-            # TODO: should we only set transfer options on the first distributor?
-            if hDistribution[:distributor][0][:transferOptions].empty?
-              hDistribution[:distributor][0][:transferOptions] = xTransfers.map do |t|
-                Transfer.unpack(t, hResponseObj)
-              end.compact
-            end
+            transferOptions = xTransfers.map { |t| Transfer.unpack(t, hResponseObj) }.compact
+            optionSize = transferOptions.size
 
             # : distributionFormats (optional)
             # <element maxOccurs="unbounded" minOccurs="0" name="distributionFormat"
             # type="gmd:MD_Format_PropertyType">
             xDistFormat = xDistribution.xpath(@@distributionFormatXPath)
-            unless xDistFormat.empty?
-              distributionFormats = xDistFormat.map { |f| Format.unpack(f, hResponseObj) }.compact
+            distributionFormats = xDistFormat.map { |f| Format.unpack(f, hResponseObj) }.compact
+            formatSize = distributionFormats.size
 
-              if !distributionFormats.compact.empty? && !hDistribution[:distributor][0][:transferOptions].empty?
-                hDistribution[:distributor][0][:transferOptions].map.with_index do |opts, idx|
-                  opts[:distributionFormats] = [distributionFormats[idx]]
-                end
+            smallestArr = formatSize > optionSize ? transferOptions : distributionFormats
+
+            hDistribution[:distributor].each do |distributor|
+              (0...smallestArr.size).each do |idx|
+                distributor[:transferOptions][idx] = transferOptions[idx]
+                distributor[:transferOptions][idx][:distributionFormats] = [distributionFormats[idx]]
               end
             end
 

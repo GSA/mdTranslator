@@ -23,6 +23,8 @@ module ADIWG
             # <xs:element name="keyword" type="gco:CharacterString_PropertyType" maxOccurs="unbounded"/>
             xKeywords = xMDKeywords.xpath(@@keywordXPath)
 
+            require 'debug'
+
             if xKeywords.empty?
               msg = "WARNING: ISO19115-2 reader: element \'#{@@keywordXPath}\' "\
                 "is missing in \'#{xMDKeywords.name}\'"
@@ -36,7 +38,10 @@ module ADIWG
                   next
                 end
 
-                keyword = keyword.xpath('gco:CharacterString | gmx:Anchor')[0]
+                # TODO: this may come up again
+                gmxNS = keyword.namespaces['xmlns:gmx'].nil? ? '' : 'gmx:'
+
+                keyword = keyword.xpath("gco:CharacterString | #{gmxNS}Anchor")[0]
                 next if keyword.nil?
 
                 k = intMetadataClass.newKeywordObject

@@ -1,19 +1,18 @@
 require 'jbuilder'
 
 module ADIWG
-   module Mdtranslator
-      module Writers
-         module Dcat_us
-            module Issued
+  module Mdtranslator
+    module Writers
+      module Dcat_us
+        module Issued
+          def self.build(intObj)
+            dates = intObj[:metadata][:resourceInfo][:citation][:dates]
+            dates = dates.reject { |o| o[:date].nil? }.map { |o| o[:date] }
 
-               def self.build(intObj)
-                  dates = intObj[:metadata][:resourceInfo][:citation][:dates].map { |obj| obj[:date] }
-                  earliest_date = dates.min
-                  return earliest_date
-                end
-                
-            end
-         end
+            dates.min
+          end
+        end
       end
-   end
+    end
+  end
 end
