@@ -35,7 +35,7 @@ class MdtranslatorCLI < Thor
    LONGDESC
    # define cli options
    method_option :reader, aliases: '-r', desc: 'Reader to read your input metadata file',
-                          enum: %w[mdJson sbJson fgdc iso19115_2 iso19115_2_datagov iso19115_3], required: true
+                          enum: %w[mdJson sbJson fgdc iso19115_1_datagov iso19115_2 iso19115_2_datagov iso19115_3], required: true
    method_option :writer, aliases: '-w',
                           desc: 'Writer to create your output metadata file, leave blank to validate input only',
                           enum: %w[fgdc html iso19110 iso19115_1 iso19115_2 iso19115_3 mdJson sbJson simple_html dcat_us]
