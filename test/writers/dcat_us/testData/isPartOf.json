@@ -2441,7 +2441,7 @@
             "name": "name1"
           }
         ],
-        "associationType": "collectiveTitle",
+        "associationType": "largerWorkCitation",
         "initiativeType": "collection",
         "resourceCitation": {
           "title": "title",

@@ -7,6 +7,7 @@ require_relative 'module_keyword'
 require_relative 'module_responsibility'
 require_relative 'module_constraint'
 require_relative 'module_extent'
+require_relative 'module_maintenance'
 
 module ADIWG
   module Mdtranslator
@@ -20,6 +21,7 @@ module ADIWG
           @@pointOfContactXPath = 'gmd:pointOfContact'
           @@constraintsXPath = 'gmd:resourceConstraints'
           @@extentsXPath = 'gmd:extent'
+          @@resourceMaintenanceXPath = 'gmd:resourceMaintenance'
           def self.unpack(xIdentificationInfo, hResponseObj)
             intMetadataClass = InternalMetadata.new
             hResourceInfo = intMetadataClass.newResourceInfo
@@ -107,6 +109,14 @@ module ADIWG
             # <xs:element name="extent" type="gmd:EX_Extent_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
             xExtents = xDataIdentification.xpath(@@extentsXPath)
             hResourceInfo[:extents] = xExtents.map { |e| Extent.unpack(e, hResponseObj) }.compact
+
+            # :resourceMaintenance (optional)
+            # <xs:element name="resourceMaintenance" type="gmd:MD_MaintenanceInformation_PropertyType"
+            # minOccurs="0" maxOccurs="unbounded"/>
+            xResourceMaintenances = xDataIdentification.xpath(@@resourceMaintenanceXPath)
+            hResourceInfo[:resourceMaintenance] = xResourceMaintenances.map do |r|
+              Maintenance.unpack(r, hResponseObj)
+            end.compact
 
             hResourceInfo
           end

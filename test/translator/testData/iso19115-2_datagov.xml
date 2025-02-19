@@ -252,7 +252,7 @@
       <gmd:resourceMaintenance>
         <gmd:MD_MaintenanceInformation>
           <gmd:maintenanceAndUpdateFrequency>
-            <gmd:MD_MaintenanceFrequencyCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_MaintenanceFrequencyCode" codeListValue="resource maintenance frequency" codeSpace="userCode"/>
+            <gmd:MD_MaintenanceFrequencyCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_MaintenanceFrequencyCode" codeListValue="monthly" codeSpace="userCode"/>
           </gmd:maintenanceAndUpdateFrequency>
           <gmd:dateOfNextUpdate/>
           <gmd:updateScope/>
@@ -451,7 +451,7 @@
                </gmd:CI_Citation>
             </gmd:aggregateDataSetName>
             <gmd:associationType>
-            <gmd:DS_AssociationTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#DS_AssociationTypeCode" codeListValue="largerWorkCitation" codeSpace="002"/>
+            <gmd:DS_AssociationTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#DS_AssociationTypeCode" codeListValue="crossreference" codeSpace="002"/>
             </gmd:associationType>
             <gmd:initiativeType>
             <gmd:DS_InitiativeTypeCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#DS_InitiativeTypeCode" codeListValue="sorn" codeSpace="userCode"/>
@@ -1116,10 +1116,10 @@
                         <gmd:onlineResource>
                            <gmd:CI_OnlineResource>
                               <gmd:linkage>
-                                 <gmd:URL>https://datadictionaryhost.html</gmd:URL>
+                                 <gmd:URL>https://datadictionaryhost.gov</gmd:URL>
                               </gmd:linkage>
                               <gmd:protocol>
-                                 <gco:CharacterString>DD-WWW</gco:CharacterString>
+                                 <gco:CharacterString>HTTPS</gco:CharacterString>
                               </gmd:protocol>
                               <gmd:name>
                                  <gco:CharacterString>dd online resource name</gco:CharacterString>

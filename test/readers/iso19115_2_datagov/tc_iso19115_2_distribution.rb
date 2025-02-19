@@ -28,8 +28,8 @@ class TestReaderIso191152datagovDistribution < TestReaderIso191152datagovParent
     assert_equal('download', hOnlineOptions[:olResFunction])
     assert_equal('protocol', hOnlineOptions[:olResProtocol])
 
-    hDistributionFormatSpec = hTransferOptions.dig(:distributionFormats, 0, :formatSpecification)
-    assert_equal('format specification', hDistributionFormatSpec[:title])
+    # distribution formats aren't calculated because they need to be
+    # determined based on the url not on what's in the metadata
 
     # second block
     xIn = @@xDoc.xpath('.//gmd:distributionInfo')[1]

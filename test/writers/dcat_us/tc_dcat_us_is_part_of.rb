@@ -16,7 +16,7 @@ class TestWriterDcatUsIsPartOf < TestWriterDcatUsParent
       hJsonOut = JSON.parse(metadata[:writerOutput])
       got = hJsonOut['isPartOf']
 
-      expect = 'http://ISO.uri/adiwg/0'
+      expect = 'title'
 
       assert_equal expect, got
    end

@@ -1,17 +1,17 @@
 require 'jbuilder'
 
 module ADIWG
-   module Mdtranslator
-      module Writers
-         module Dcat_us
-            module MediaType
+  module Mdtranslator
+    module Writers
+      module Dcat_us
+        module MediaType
+          def self.build(transfer)
+            return unless transfer[:distributionFormats].size.positive?
 
-               def self.build(transfer)
-                  transfer.dig(:distributionFormats)&.find { |format| format.dig(:formatSpecification, :title) }&.dig(:formatSpecification, :title) || ''
-                end                
-
-            end
-         end
+            transfer[:distributionFormats][0][:formatSpecification][:title]
+          end
+        end
       end
-   end
+    end
+  end
 end

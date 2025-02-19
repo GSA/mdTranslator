@@ -1,33 +1,26 @@
 require 'jbuilder'
 
 module ADIWG
-   module Mdtranslator
-      module Writers
-         module Dcat_us
-            module DescribedByType
+  module Mdtranslator
+    module Writers
+      module Dcat_us
+        module DescribedByType
+          def self.build(intObj)
+            #  metadataInfo[:metadataOnlineOptions][0][:olResProtocol]
+            dataDictionaries = intObj[:dataDictionaries]
 
-               def self.build(intObj)
+            dataDictionaries.each do |datadictionary|
+              next if datadictionary[:includedWithDataset]
 
-                  #  metadataInfo[:metadataOnlineOptions][0][:olResProtocol]
-                  dataDictionaries = intObj[:dataDictionaries]
-                  describedByType = ''
-                  dataDictionaries.each do |dataDictionary|
-                     unless dataDictionary[:includedWithDataset]
-                        onlineResources = dataDictionary[:citation][:onlineResources]
-                        onlineResources.each do |resource|
-                           if resource[:olResURI] && !resource[:olResURI].end_with?('.html')
-                              describedByType = resource[:olResProtocol]
-                              break
-                           end
-                        end
-                     end
-                  end
-                
-                  describedByType
-               end                
-
+              onlineResources = datadictionary[:citation][:onlineResources]
+              onlineResources.each do |resource|
+                return resource[:olResProtocol] if resource[:olResURI] && !resource[:olResURI].end_with?('.html')
+              end
             end
-         end
+            nil
+          end
+        end
       end
-   end
+    end
+  end
 end

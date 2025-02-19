@@ -228,6 +228,11 @@
       ]
     },
     "resourceInfo": {
+      "resourceMaintenance": [
+          {
+            "frequency": "semiannual"
+          }
+       ],
       "resourceType": [
         {
           "type": "tableDigital",

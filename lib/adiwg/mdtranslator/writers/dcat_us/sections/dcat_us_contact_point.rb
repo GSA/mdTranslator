@@ -11,6 +11,7 @@ module ADIWG
 
             fn = ''
             hasEmail = ''
+
             unless pointOfContact.nil?
               contactId = pointOfContact[:parties][0][:contactId]
 

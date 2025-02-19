@@ -1,6 +1,7 @@
 {
   "@type": "dcat:Dataset",
   "title": "ISO19115-2 citation title test 123456",
+  "description": "abstract",
   "keyword": ["biota", "farming"],
   "modified": "2023-11-22T00:00:00+00:00",
   "publisher": {
@@ -12,19 +13,20 @@
     "fn": "test person test name",
     "hasEmail": "whatever@gmail.com"
   },
+  "identifier": "ISO19115-2-ID-123456",
   "accessLevel": "non-public",
   "bureauCode": [],
   "programCode": [],
   "distribution": [
     {
       "@type": "dcat:Distribution",
-      "description": "",
+      "description": "online resource description",
       "downloadURL": "online resource URL",
-      "mediaType": "format specification",
       "title": "online resource name"
     }
   ],
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "rights": "access constraint, classification, restricted",
   "spatial": "-74.0,24.0,-166.0,71.0",
   "temporal": "2017-12-01T00:00:00+00:00/2023-12-01T00:00:00+00:00",
   "issued": "2017-01-01T00:00:00+00:00",
@@ -32,8 +34,10 @@
   "language": ["eng"],
   "theme": "biota farming",
   "references": "aggregate_information_online_resources,aggregate_information_online_resources 12309u,https://aggregation_info_sample_url.gov",
+  "landingPage": "https://online_resource_url.gov",
+  "isPartOf": "associated resource title 1",
   "systemOfRecords": "aggregate_information_online_resources",
   "primaryITInvestmentUII": "ISO19115-2-ID-123456",
-  "describedBy": "https://datadictionaryhost.html",
-  "describedByType": "DD-WWW-123"
+  "describedBy": "https://datadictionaryhost.gov",
+  "describedByType": "HTTPS"
 }
