@@ -78,6 +78,20 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     assert_equal(expected, res)
   end
 
+  def test_distribution
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Distribution
+
+    res = dcatusNS.build(intMetadata)
+
+    expected = [{ '@type' => 'dcat:Distribution',
+                  'description' => 'online resource description',
+                  'downloadURL' => 'online resource URL',
+                  'title' => 'online resource name' }]
+
+    assert_equal(expected, res)
+  end
+
   def test_contact_point
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
