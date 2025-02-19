@@ -688,6 +688,11 @@
        "metadataStatus": "notAccepted"
      },
      "resourceInfo": {
+       "resourceMaintenance": [
+          {
+            "frequency": "semiannual"
+          }
+       ],
        "resourceType": [
          {
            "type": "tableDigital",
@@ -878,7 +883,7 @@
          "onlineResource": [
            {
              "uri": "http://ISO.uri/adiwg/0",
-             "function": "landingPage"
+             "function": "information"
            },
            {
              "uri": "http://ISO.uri/adiwg/1"

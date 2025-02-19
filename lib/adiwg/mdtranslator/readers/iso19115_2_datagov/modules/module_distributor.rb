@@ -35,12 +35,15 @@ module ADIWG
             # distributorFormat (optional)
             # <xs:element name="distributorFormat" type="gmd:MD_Format_PropertyType"
             # minOccurs="0" maxOccurs="unbounded"/>
+
+            # distribution formats aren't processed in this application so
+            # empty strings are used instead.
             xDistrFormats = xMdDistributor.xpath(@@distributorFormatOptionsXpath)
             unless xDistrFormats.empty?
               distributionFormats = xDistrFormats.map { |f| Format.unpack(f, hResponseObj) }.compact
               if !distributionFormats.empty? && !hDistributor[:transferOptions].empty?
-                hDistributor[:transferOptions].map.with_index do |opts, idx|
-                  opts[:distributionFormats] = [distributionFormats[idx]]
+                hDistributor[:transferOptions].map.with_index do |opts, _|
+                  opts[:distributionFormats] = []
                 end
               end
             end

@@ -11,7 +11,7 @@ module ADIWG
                 
                   if onlineResources
                     onlineResources.each do |resource|
-                      if resource.dig(:olResFunction) == 'landingPage'
+                      if resource.dig(:olResFunction) == 'information'
                         return resource.dig(:olResURI)
                       end
                     end

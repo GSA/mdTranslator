@@ -12,6 +12,7 @@ module ADIWG
           @@mdAggregationInfoXPath = 'gmd:MD_AggregateInformation'
           @@initiativeTypeXpath = 'gmd:initiativeType//gmd:DS_InitiativeTypeCode'
           @@aggDatasetNameXPath = 'gmd:aggregateDataSetName'
+          @@associationTypeXPath = 'gmd:associationType'
           def self.unpack(xAggregrationInfo, hResponseObj)
             intMetadataClass = InternalMetadata.new
             hAggInfo = intMetadataClass.newAssociatedResource
@@ -22,6 +23,33 @@ module ADIWG
             # </xs:sequence>
             xMDAggregationInfo = xAggregrationInfo.xpath(@@mdAggregationInfoXPath)[0]
             return nil if xMDAggregationInfo.nil?
+
+            # TODO: add tests for this
+            # associationType (required)
+            # <xs:element name="associationType" type="gmd:DS_AssociationTypeCode_PropertyType"/>
+            xAssociationType = xMDAggregationInfo.xpath(@@associationTypeXPath)[0]
+            if xAssociationType.nil?
+              msg = "WARNING: ISO19115-2 reader: element \'#{@@associationTypeXPath}\'" \
+                " is missing in #{xMDAggregationInfo.name}"
+              hResponseObj[:readerValidationMessages] << msg
+              hResponseObj[:readerValidationPass] = false
+            else
+
+              # DS_AssociationTypeCode is optional
+              # <xs:sequence minOccurs="0">
+              #   <xs:element ref="gmd:DS_AssociationTypeCode"/>
+              # </xs:sequence>
+              xAssociationTypeCode = xAssociationType.xpath('gmd:DS_AssociationTypeCode')[0]
+
+              if xAssociationTypeCode.nil? && !AdiwgUtils.valid_nil_reason(xAssociationType, hResponseObj)
+                msg = "WARNING: ISO19115-2 reader: element \'#{xAssociationTypeCode.name}\' "\
+                 "is missing valid nil reason within \'#{xAssociationType.name}\'"
+                hResponseObj[:readerValidationMessages] << msg
+                hResponseObj[:readerValidationPass] = false
+              end
+
+              hAggInfo[:associationType] = xAssociationTypeCode.attr('codeListValue') unless xAssociationTypeCode.nil?
+            end
 
             # initiativeType (optional)
             # <xs:element name="initiativeType" type="gmd:DS_InitiativeTypeCode_PropertyType" minOccurs="0"/>

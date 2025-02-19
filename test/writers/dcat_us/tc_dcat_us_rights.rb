@@ -16,7 +16,7 @@ class TestWriterDcatUsRights < TestWriterDcatUsParent
       hJsonOut = JSON.parse(metadata[:writerOutput])
       got = hJsonOut['rights']
 
-      expect = 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. restricted unrestricted'
+      expect = 'otherRestrictions, non-public, in-confidence, secret'
 
       assert_equal expect, got
    end

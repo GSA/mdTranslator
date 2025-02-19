@@ -8,7 +8,7 @@ module ADIWG
   module Mdtranslator
     module Readers
       module Iso191152datagov
-        @@rootXPath = 'gmi:MI_Metadata'
+        @@rootXPath = 'gmi:MI_Metadata | gmd:MD_Metadata'
         def self.readFile(file, hResponseObj) # rubocop:disable Naming/MethodName
           # add Iso19115_2 reader version
           hResponseObj[:readerVersionUsed] = ADIWG::Mdtranslator::Readers::Iso191152datagov::VERSION

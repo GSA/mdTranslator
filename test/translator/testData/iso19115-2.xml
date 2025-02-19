@@ -252,7 +252,7 @@
       <gmd:resourceMaintenance>
         <gmd:MD_MaintenanceInformation>
           <gmd:maintenanceAndUpdateFrequency>
-            <gmd:MD_MaintenanceFrequencyCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_MaintenanceFrequencyCode" codeListValue="resource maintenance frequency" codeSpace="userCode"/>
+            <gmd:MD_MaintenanceFrequencyCode codeList="http://mdtranslator.adiwg.org/api/codelists?format=xml#MD_MaintenanceFrequencyCode" codeListValue="monthly" codeSpace="userCode"/>
           </gmd:maintenanceAndUpdateFrequency>
           <gmd:dateOfNextUpdate/>
           <gmd:updateScope/>

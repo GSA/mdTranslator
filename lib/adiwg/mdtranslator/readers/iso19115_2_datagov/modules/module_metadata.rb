@@ -55,14 +55,6 @@ module ADIWG
 
             intMetadata[:metadataInfo] = MetadataInformation.unpack(xMetadata, hResponseObj)
 
-            # :associatedResources (optional)
-            # <xs:element name="aggregationInfo" type="gmd:MD_AggregateInformation_PropertyType"
-            # minOccurs="0" maxOccurs="unbounded"/>
-            xAggregationInfos = xMetadata.xpath(@@aggregationInfoXPath)
-            intMetadata[:associatedResources] = xAggregationInfos.map do |a|
-              AggregationInformation.unpack(a, hResponseObj)
-            end.compact
-
             # :distributorInfo (optional)
             # <xs:element name="distributionInfo" type="gmd:MD_Distribution_PropertyType" minOccurs="0"/>
             # TODO: for Distribution, the spec expects a hash, but the DCAT writer expects an array

@@ -20,7 +20,9 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     readerStructurePass: true,
     readerStructureMessages: [],
     readerValidationPass: true,
-    readerValidationMessages: []
+    readerValidationMessages: [],
+    writerPass: true,
+    writerMessages: []
   }
   # keeping these here for now. TODO: will add more files to test against
   @@file = File.join(File.dirname(__FILE__), 'testData', 'iso19115-2_datagov.xml')
@@ -39,13 +41,14 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     assert_equal(expected, intMetadata[:metadata][:resourceInfo][:citation][:title])
   end
 
-  # TODO: fix and add back this test
-  #    def test_description
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Description
-  #       res = dcatusNS.build(@@intMetadata)
+  def test_description
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  #       assert_equal('abstract', res)
-  #    end
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Description
+    res = dcatusNS.build(intMetadata)
+
+    assert_equal('abstract', res)
+  end
 
   def test_keyword
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
@@ -75,14 +78,15 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     assert_equal(expected, res)
   end
 
-  # TODO: fix and add back this test
-  #    def test_contact_point
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::ContactPoint
-  #       res = dcatusNS.build(@@intMetadata).target!
+  def test_contact_point
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  #       expected = '{"@type":"vcard:Contact","fn":"test person test name","hasEmail":"whatever@gmail.com"}'
-  #       assert_equal(expected, res)
-  #    end
+    res = ADIWG::Mdtranslator::Writers::Dcat_us.startWriter(intMetadata, @@hResponse)
+    data = JSON.parse res
+
+    expected = JSON.parse '{"@type":"vcard:Contact","fn":"test person test name","hasEmail":"whatever@gmail.com"}'
+    assert_equal(expected, data['contactPoint'])
+  end
 
   def test_access_level
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
@@ -129,37 +133,41 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     assert_equal(%w[eng], res)
   end
 
-  # TODO: fix and add back this test
-  #    def test_described_by
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedBy
-  #       res = dcatusNS.build(@@intMetadata)
+  def test_described_by
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  #       assert_equal('https://datadictionaryhost.html', res)
-  #    end
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedBy
+    res = dcatusNS.build(intMetadata)
 
-  # TODO: fix and add back this test
-  #    def test_identifier
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
-  #       res = dcatusNS.build(@@intMetadata)
+    assert_equal('https://datadictionaryhost.gov', res)
+  end
 
-  #       assert_equal('ISO19115-2-ID-123456', res)
-  #    end
+  def test_identifier
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  # TODO: fix and add back this test
-  #    def test_rights
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Rights
-  #       res = dcatusNS.build(@@intMetadata, 'non-public')
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Identifier
+    res = dcatusNS.build(intMetadata)
 
-  #       assert_equal('use constraint limitation value 123 use constraint limitation abc', res)
-  #    end
+    assert_equal('ISO19115-2-ID-123456', res)
+  end
 
-  # TODO: fix and add back this test
-  #    def test_is_part_of
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
-  #       res = dcatusNS.build(@@intMetadata)
+  def test_rights
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  #       assert_equal('ISO19115-2-ID-123456-parent', res)
-  #    end
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Rights
+    res = dcatusNS.build(intMetadata, 'non-public')
+
+    assert_equal('access constraint, classification, restricted', res)
+  end
+
+  def test_is_part_of
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
+
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
+    res = dcatusNS.build(intMetadata)
+
+    assert_equal('associated resource title 1', res)
+  end
 
   def test_system_of_records
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
@@ -170,13 +178,14 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     assert_equal('aggregate_information_online_resources', res)
   end
 
-  # TODO: fix and add back this test
-  #    def test_described_by_type
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedByType
-  #       res = dcatusNS.build(@@intMetadata)
+  def test_described_by_type
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  #       assert_equal('DD-WWW-123', res)
-  #    end
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::DescribedByType
+    res = dcatusNS.build(intMetadata)
+
+    assert_equal('HTTPS', res)
+  end
 
   def test_theme
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
@@ -193,16 +202,18 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     res = dcatusNS.build(intMetadata)
 
     expected = 'aggregate_information_online_resources,aggregate_information_online_resources 12309u,https://aggregation_info_sample_url.gov'
+
     assert_equal(expected, res)
   end
 
-  # TODO: fix and add back this test
-  #    def test_landing_page
-  #       dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::IsPartOf
-  #       res = dcatusNS.build(@@intMetadata)
+  def test_landing_page
+    intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
-  #       assert_equal('ISO19115-2-ID-123456-parent', res)
-  #    end
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::LandingPage
+    res = dcatusNS.build(intMetadata)
+
+    assert_equal('https://online_resource_url.gov', res)
+  end
 
   def test_primaryitinvestmentuii
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)

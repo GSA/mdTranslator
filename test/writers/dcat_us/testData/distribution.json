@@ -2598,7 +2598,8 @@
                "transferSize": 9.9,
                "onlineOption": [
                  {
-                   "uri": "http://ISO.uri/adiwg/0"
+                   "uri": "http://ISO.uri/adiwg/0",
+                   "description": "distribution online resource description"
                  },
                  {
                    "uri": "http://ISO.uri/adiwg/1"
@@ -2649,7 +2650,8 @@
              {
                "transferSize": 10.9,
                "onlineOption": [{
-                 "uri": "http://ISO.uri/adiwg/3"
+                 "uri": "http://ISO.uri/adiwg/3",
+                 "description": "distribution description"
                }],
                "distributionFormat": [{
                  "formatSpecification": {

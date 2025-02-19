@@ -28,7 +28,7 @@ class TestWriterDcatUsIdentifier < TestWriterDcatUsParent
       hJsonOut = JSON.parse(metadata[:writerOutput])
       got = hJsonOut['identifier']
 
-      assert_equal 'http://myOnlineResource-doi.com', got
+      assert_equal 'myMetadataIdentifierID', got
    end
 
 end
