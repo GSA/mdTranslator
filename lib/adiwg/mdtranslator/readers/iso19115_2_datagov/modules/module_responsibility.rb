@@ -11,6 +11,7 @@ module ADIWG
           @@responsibilityXPath = 'gmd:CI_ResponsibleParty'
           @@individualXPath = 'gmd:individualName//gco:CharacterString'
           @@orgXPath = 'gmd:organisationName//gco:CharacterString'
+          @@posXPath = 'gmd:positionName//gco:CharacterString'
           @@roleXPath = 'gmd:role'
           @@emailXPath = './/gmd:electronicMailAddress//gco:CharacterString'
           def self.unpack(xRParty, hResponseObj)
@@ -56,6 +57,7 @@ module ADIWG
             # <xs:element name="individualName" type="gco:CharacterString_PropertyType" minOccurs="0"/>
             # <xs:element name="organisationName" type="gco:CharacterString_PropertyType" minOccurs="0"/
             # >
+            # <xs:element name="positionName" type="gco:CharacterString_PropertyType" minOccurs="0"/>
             xOrgName = xRParty.xpath(@@orgXPath)[0]
             contactTypeFound = false
             contactName = nil
@@ -70,6 +72,13 @@ module ADIWG
             if !xIndividual.nil? && contactTypeFound == false
               hContact[:isOrganization] = false
               contactName = xIndividual.text
+              contactTypeFound = true
+            end
+
+            xPositionName = xRParty.xpath(@@posXPath)[0]
+            if !xPositionName.nil? && contactTypeFound == false
+              hContact[:isOrganization] = false
+              contactName = xPositionName.text
             end
 
             unless contactName.nil?
