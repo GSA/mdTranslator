@@ -74,7 +74,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
     res = dcatusNS.build(intMetadata).target!
 
-    expected = '{"@type":"org:Organization","name":"citation organization name"}'
+    expected = '{"@type":"org:Organization","name":"Office of National Marine Sanctuaries"}'
     assert_equal(expected, res)
   end
 

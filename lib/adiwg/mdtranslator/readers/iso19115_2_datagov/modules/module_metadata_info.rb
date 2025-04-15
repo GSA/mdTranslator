@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
 require_relative 'module_maintenance'
 require_relative 'module_locale'
+require_relative 'module_responsibility'
 
 module ADIWG
   module Mdtranslator
@@ -14,6 +15,7 @@ module ADIWG
           @@parentIdentifierXPath = 'gmd:parentIdentifier//gco:CharacterString'
           @@maintenanceXPath = 'gmd:metadataMaintenance'
           @@localeXPath = 'gmd:locale'
+          @@contactXPath = 'gmd:contact'
           def self.unpack(xMetadata, hResponseObj)
             # instance classes needed in script
             intMetadataClass = InternalMetadata.new
@@ -46,6 +48,18 @@ module ADIWG
             xLocale = xMetadata.xpath(@@localeXPath)
             hMetadataInfo[:defaultMetadataLocale] = Locale.unpack(xLocale, hResponseObj) unless xLocale.nil?
 
+            # :metadataContacts (required)
+            # <xs:element name="contact" type="gmd:CI_ResponsibleParty_PropertyType" maxOccurs="unbounded"/>
+            # TODO: we're just grabbing the first one for times sake.
+            xContact = xMetadata.xpath(@@contactXPath)[0]
+            if xContact.nil?
+              msg = "WARNING: ISO19115-2 reader: element \'#{@@contactXPath}\'" \
+              " is missing in #{xMetadata.name}"
+              hResponseObj[:readerValidationMessages] << msg
+              hResponseObj[:readerValidationPass] = false
+            else
+              hMetadataInfo[:metadataContacts] = [Responsibility.unpack(xContact, hResponseObj)]
+            end
             hMetadataInfo
           end
         end
