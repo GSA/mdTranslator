@@ -21,4 +21,5 @@
         xsi:schemaLocation="http://www.isotc211.org/2005/gmi
         ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/schemas/ISObio/schema.xsd">
   <gmd:identificationInfo gco:nilReason="missing"/>
+  <gmd:contact nilReason="unknown"></gmd:contact>
 </gmi:MI_Metadata>
