@@ -15,8 +15,6 @@
   },
   "identifier": "ISO19115-2-ID-123456",
   "accessLevel": "non-public",
-  "bureauCode": [],
-  "programCode": [],
   "distribution": [
     {
       "@type": "dcat:Distribution",
@@ -32,12 +30,15 @@
   "issued": "2017-01-01T00:00:00+00:00",
   "accrualPeriodicity": "R/P1M",
   "language": ["eng"],
-  "theme": "biota farming",
-  "references": "aggregate_information_online_resources,aggregate_information_online_resources 12309u,https://aggregation_info_sample_url.gov",
+  "theme": ["biota", "farming"],
+  "references": [
+    "aggregate_information_online_resources",
+    "aggregate_information_online_resources 12309u",
+    "https://aggregation_info_sample_url.gov"
+  ],
   "landingPage": "https://online_resource_url.gov",
   "isPartOf": "associated resource title 1",
   "systemOfRecords": "aggregate_information_online_resources",
-  "primaryITInvestmentUII": "ISO19115-2-ID-123456",
   "describedBy": "https://datadictionaryhost.gov",
   "describedByType": "HTTPS"
 }

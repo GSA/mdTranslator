@@ -98,7 +98,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     res = ADIWG::Mdtranslator::Writers::Dcat_us.startWriter(intMetadata, @@hResponse)
     data = JSON.parse res
 
-    expected = JSON.parse '{"@type":"vcard:Contact","fn":"test person test name","hasEmail":"whatever@gmail.com"}'
+    expected = JSON.parse '{"@type":"vcard:Contact", "fn":"test person test name", "hasEmail":"whatever@gmail.com"}'
     assert_equal(expected, data['contactPoint'])
   end
 
@@ -206,7 +206,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
 
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Theme
     res = dcatusNS.build(intMetadata)
-    assert_equal('biota farming', res)
+    assert_equal(%w[biota farming], res)
   end
 
   def test_references
@@ -215,7 +215,9 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::References
     res = dcatusNS.build(intMetadata)
 
-    expected = 'aggregate_information_online_resources,aggregate_information_online_resources 12309u,https://aggregation_info_sample_url.gov'
+    expected = ['aggregate_information_online_resources',
+                'aggregate_information_online_resources 12309u',
+                'https://aggregation_info_sample_url.gov']
 
     assert_equal(expected, res)
   end
@@ -235,7 +237,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::PrimaryITInvestmentUII
     res = dcatusNS.build(intMetadata)
 
-    assert_equal('ISO19115-2-ID-123456', res)
+    assert_nil res
   end
 
   def test_accrual_periodicity
