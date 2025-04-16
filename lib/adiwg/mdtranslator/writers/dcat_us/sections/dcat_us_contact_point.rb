@@ -12,13 +12,16 @@ module ADIWG
             fn = ''
             hasEmail = ''
 
-            unless pointOfContact.nil?
-              contactId = pointOfContact[:parties][0][:contactId]
+            return if pointOfContact.nil?
 
-              contact = Dcat_us.get_contact_by_id(contactId)
-              fn = contact[:name]
-              hasEmail = contact[:eMailList][0]
-            end
+            contactId = pointOfContact[:parties][0][:contactId]
+
+            contact = Dcat_us.get_contact_by_id(contactId)
+            fn = contact[:name]
+            hasEmail = contact[:eMailList][0]
+
+            # there's an email and it doesn't already start with "mailto:"
+            hasEmail = "mailto:#{hasEmail}" if !hasEmail.nil? && (!hasEmail.start_with? 'mailto:')
 
             Jbuilder.new do |json|
               json.set!('@type', 'vcard:Contact')

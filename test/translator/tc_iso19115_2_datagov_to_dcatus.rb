@@ -98,7 +98,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     res = ADIWG::Mdtranslator::Writers::Dcat_us.startWriter(intMetadata, @@hResponse)
     data = JSON.parse res
 
-    expected = JSON.parse '{"@type":"vcard:Contact", "fn":"test person test name", "hasEmail":"whatever@gmail.com"}'
+    expected = JSON.parse '{"@type":"vcard:Contact", "fn":"test person test name", "hasEmail":"mailto:whatever@gmail.com"}'
     assert_equal(expected, data['contactPoint'])
   end
 

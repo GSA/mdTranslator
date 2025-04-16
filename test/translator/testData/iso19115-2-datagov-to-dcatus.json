@@ -11,7 +11,7 @@
   "contactPoint": {
     "@type": "vcard:Contact",
     "fn": "test person test name",
-    "hasEmail": "whatever@gmail.com"
+    "hasEmail": "mailto:whatever@gmail.com"
   },
   "identifier": "ISO19115-2-ID-123456",
   "accessLevel": "non-public",
