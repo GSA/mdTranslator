@@ -23,9 +23,9 @@ module ADIWG
               if startDate && endDate
                 return "#{startDate}/#{endDate}"
               elsif startDate
-                return startDate
+                return "#{startDate}/#{startDate}"
               elsif endDate
-                return endDate
+                return "#{endDate}/#{endDate}"
               end
             end
 

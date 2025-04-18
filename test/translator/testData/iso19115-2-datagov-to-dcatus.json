@@ -20,6 +20,7 @@
       "@type": "dcat:Distribution",
       "description": "online resource description",
       "downloadURL": "online resource URL",
+      "mediaType": "placeholder/value",
       "title": "online resource name"
     }
   ],

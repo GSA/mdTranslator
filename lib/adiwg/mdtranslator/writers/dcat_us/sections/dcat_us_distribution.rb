@@ -15,7 +15,10 @@ module ADIWG
             resourceDistributions&.each do |resource|
               resource[:distributor]&.each do |distributor|
                 distributor[:transferOptions]&.each do |transfer|
-                  mediaType = MediaType.build(transfer)
+                  # mediaType = MediaType.build(transfer)
+                  # TODO: change this when mediatype conversion works.
+                  # the mediatype needs to be set if there's a downloadURL
+                  mediaType = 'placeholder/value'
 
                   transfer[:onlineOptions]&.each do |option|
                     next unless option[:olResURI]

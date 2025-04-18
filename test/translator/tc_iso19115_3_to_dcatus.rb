@@ -151,7 +151,7 @@ class TestIso191153DcatusTranslation < Minitest::Test
     assert_equal('dcat:Distribution', dist['@type'])
     assert_equal('description of the online resource via transfer options', dist['description'])
     assert_equal('https://distributiontransfer.com/onlineresource.png', dist['downloadURL'])
-    assert_equal('format specification', dist['mediaType'])
+    assert_equal('placeholder/value', dist['mediaType'])
     assert_equal('name test 123', dist['title'])
   end
 
