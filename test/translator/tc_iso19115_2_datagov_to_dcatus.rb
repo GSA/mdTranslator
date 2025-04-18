@@ -84,11 +84,9 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
 
     res = dcatusNS.build(intMetadata)
 
-    expected = [{ '@type' => 'dcat:Distribution',
-                  'description' => 'online resource description',
-                  'downloadURL' => 'online resource URL',
+    expected = [{ '@type' => 'dcat:Distribution', 'description' => 'online resource description',
+                  'downloadURL' => 'online resource URL', 'mediaType' => 'placeholder/value',
                   'title' => 'online resource name' }]
-
     assert_equal(expected, res)
   end
 

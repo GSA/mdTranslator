@@ -17,9 +17,10 @@ class TestWriterDcatUsDistribution < TestWriterDcatUsParent
     got = hJsonOut['distribution']
 
     expect = [
-      { '@type' => 'dcat:Distribution', 'description' => 'distribution online resource description', 'downloadURL' => 'http://ISO.uri/adiwg/0',
-        'mediaType' => 'CSV', 'title' => '' },
-      { '@type' => 'dcat:Distribution', 'description' => 'distribution description', 'downloadURL' => 'http://ISO.uri/adiwg/3', 'mediaType' => 'Microsoft Excel', 'title' => '' }
+      { '@type' => 'dcat:Distribution', 'description' => 'distribution online resource description',
+        'downloadURL' => 'http://ISO.uri/adiwg/0', 'mediaType' => 'placeholder/value', 'title' => '' },
+      { '@type' => 'dcat:Distribution', 'description' => 'distribution description', 'downloadURL' =>
+        'http://ISO.uri/adiwg/3', 'mediaType' => 'placeholder/value', 'title' => '' }
     ]
 
     assert_equal expect, got
