@@ -75,4 +75,26 @@ module AdiwgUtils
     hResponseObj[:readerValidationMessages] << msg
     true
   end
+
+  def self.add_iso19115_namespaces(xmlDoc)
+    # some ISO19115 docs don't declare the required namespaces at the root
+    # but rather on each element. nokogiri doesn't like that so registering
+    # them here.
+    ns = { gmi: 'http://www.isotc211.org/2005/gmi',
+           gmd: 'http://www.isotc211.org/2005/gmd',
+           gco: 'http://www.isotc211.org/2005/gco',
+           gml: 'http://www.opengis.net/gml/3.2',
+           gsr: 'http://www.isotc211.org/2005/gsr',
+           gss: 'http://www.isotc211.org/2005/gss',
+           gst: 'http://www.isotc211.org/2005/gst',
+           gmx: 'http://www.isotc211.org/2005/gmx',
+           gfc: 'http://www.isotc211.org/2005/gfc',
+           srv: 'http://www.isotc211.org/2005/srv',
+           xlink: 'http://www.w3.org/1999/xlink',
+           xsi: 'http://www.w3.org/2001/XMLSchema-instance' }
+
+    ns.each do |key, value|
+      xmlDoc.root.add_namespace_definition(key.to_s, value)
+    end
+  end
 end

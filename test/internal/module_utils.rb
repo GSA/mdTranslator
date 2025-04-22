@@ -92,4 +92,22 @@ class TestDateTimeFun < Minitest::Test
       assert_equal(expected, AdiwgUtils.valid_nil_reason(elem, responseObj))
     end
   end
+
+  def test_namespace_configuration
+    file = File.join(File.dirname(__FILE__), 'testData', 'tl_2013_72_sldu.shp.xml')
+    xDoc = File.open(file) { |f| Nokogiri::XML(f, &:strict) }
+
+    # throws an exception because of misconfigured namespaces
+    begin
+      xDoc.xpath('gmi:MI_Metadata | gmd:MD_Metadata')
+    rescue StandardError => e
+      assert_equal('ERROR: Undefined namespace prefix: gmi:MI_Metadata | gmd:MD_Metadata', e.message)
+    end
+
+    AdiwgUtils.add_iso19115_namespaces(xDoc) # registers in-place
+
+    # no longer throws an exception because we registered the namespaces
+    xDoc.xpath('gmi:MI_Metadata | gmd:MD_Metadata')
+    assert true
+  end
 end
