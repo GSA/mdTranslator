@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
+require 'adiwg/mdtranslator/internal/module_utils'
 require_relative 'version'
 require_relative 'modules/module_iso19115_2'
 
@@ -29,6 +30,8 @@ module ADIWG
             hResponseObj[:readerStructurePass] = false
             return {}
           end
+
+          AdiwgUtils.add_iso19115_namespaces(xDoc) # registers in-place
 
           # file must contain an ISO 19115-2 <gmi:MI_Metadata> tag
           xMetadata = xDoc.xpath(@@rootXPath)
