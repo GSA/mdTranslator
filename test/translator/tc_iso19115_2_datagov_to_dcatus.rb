@@ -211,6 +211,11 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
 
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::References
+
+    # add a duplicate to check against uniqueness in the output
+    dup = intMetadata[:metadata][:associatedResources][0][:resourceCitation][:onlineResources][0]
+    intMetadata[:metadata][:associatedResources][0][:resourceCitation][:onlineResources] << dup
+
     res = dcatusNS.build(intMetadata)
 
     expected = ['aggregate_information_online_resources',

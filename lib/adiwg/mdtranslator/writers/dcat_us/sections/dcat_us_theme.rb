@@ -19,7 +19,7 @@ module ADIWG
 
             return nil if keywords_str.empty?
 
-            keywords_str
+            keywords_str.reject(&:empty?)
           end
         end
       end

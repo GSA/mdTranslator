@@ -18,9 +18,9 @@ class TestWriterDcatUsDistribution < TestWriterDcatUsParent
 
     expect = [
       { '@type' => 'dcat:Distribution', 'description' => 'distribution online resource description',
-        'downloadURL' => 'http://ISO.uri/adiwg/0', 'mediaType' => 'placeholder/value', 'title' => '' },
+        'downloadURL' => 'http://ISO.uri/adiwg/0', 'mediaType' => 'placeholder/value' },
       { '@type' => 'dcat:Distribution', 'description' => 'distribution description', 'downloadURL' =>
-        'http://ISO.uri/adiwg/3', 'mediaType' => 'placeholder/value', 'title' => '' }
+        'http://ISO.uri/adiwg/3', 'mediaType' => 'placeholder/value' }
     ]
 
     assert_equal expect, got

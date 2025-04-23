@@ -41,7 +41,7 @@ module ADIWG
 
             return nil if uris.empty?
 
-            uris
+            uris.uniq
           end
         end
       end
