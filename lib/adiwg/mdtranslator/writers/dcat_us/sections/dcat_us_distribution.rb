@@ -23,10 +23,10 @@ module ADIWG
                   transfer[:onlineOptions]&.each do |option|
                     next unless option[:olResURI]
 
-                    description = option[:olResDesc] || ''
+                    description = option[:olResDesc] || nil
                     accessURL = AccessURL.build(option)
                     downloadURL = DownloadURL.build(option)
-                    title = option[:olResName] || ''
+                    title = option[:olResName] || nil
 
                     distribution = Jbuilder.new do |json|
                       json.set!('@type', 'dcat:Distribution')
