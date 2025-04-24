@@ -23,6 +23,9 @@
   <gmd:fileIdentifier>
     <gco:CharacterString>ISO19115-2-ID-123456</gco:CharacterString>
   </gmd:fileIdentifier>
+  <gmd:dateStamp>
+    <gco:DateTime>2023-06-23</gco:DateTime>
+  </gmd:dateStamp>
   <gmd:locale>
     <gmd:PT_Locale>
       <gmd:languageCode>

@@ -22,4 +22,7 @@
         ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/schemas/ISObio/schema.xsd">
   <gmd:identificationInfo gco:nilReason="missing"/>
   <gmd:contact nilReason="unknown"></gmd:contact>
+  <gmd:dateStamp>
+    <gco:Date>2023-06-23</gco:Date>
+  </gmd:dateStamp>
 </gmi:MI_Metadata>
