@@ -20,9 +20,5 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.isotc211.org/2005/gmi
         ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/schemas/ISObio/schema.xsd">
-  <gmd:identificationInfo/>
   <gmd:contact nilReason="unknown"></gmd:contact>
-  <gmd:dateStamp>
-    <gco:Date>2023-06-23</gco:Date>
-  </gmd:dateStamp>
 </gmi:MI_Metadata>

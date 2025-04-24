@@ -16,6 +16,7 @@ module ADIWG
           @@maintenanceXPath = 'gmd:metadataMaintenance'
           @@localeXPath = 'gmd:locale'
           @@contactXPath = 'gmd:contact'
+          @@datestampXPath = 'gmd:dateStamp'
           def self.unpack(xMetadata, hResponseObj)
             # instance classes needed in script
             intMetadataClass = InternalMetadata.new
@@ -51,6 +52,7 @@ module ADIWG
             # :metadataContacts (required)
             # <xs:element name="contact" type="gmd:CI_ResponsibleParty_PropertyType" maxOccurs="unbounded"/>
             # TODO: we're just grabbing the first one for times sake.
+            # TODO: add nilreason check.
             xContact = xMetadata.xpath(@@contactXPath)[0]
             if xContact.nil?
               msg = "WARNING: ISO19115-2 reader: element \'#{@@contactXPath}\'" \
@@ -59,6 +61,42 @@ module ADIWG
               hResponseObj[:readerValidationPass] = false
             else
               hMetadataInfo[:metadataContacts] = [Responsibility.unpack(xContact, hResponseObj)]
+            end
+
+            # :metadataDates (required)
+            # <xs:element name="dateStamp" type="gco:Date_PropertyType"/>
+            xDatestamp = xMetadata.xpath(@@datestampXPath)[0]
+            if xDatestamp.nil?
+              msg = "WARNING: ISO19115-2 reader: element \'#{@@datestampXPath}\'" \
+              " is missing in #{xMetadata.name}"
+              hResponseObj[:readerValidationMessages] << msg
+              hResponseObj[:readerValidationPass] = false
+            else
+              # date/datetime is optional
+              # <xs:choice minOccurs="0">
+              #   <xs:element ref="gco:Date"/>
+              #   <xs:element ref="gco:DateTime"/>
+              # </xs:choice>
+              xDate = xDatestamp.xpath('gco:Date | gco:DateTime')[0]
+
+              if xDate.nil? && !AdiwgUtils.valid_nil_reason(xDatestamp, hResponseObj)
+                msg = "WARNING: ISO19115-2 reader: element \'#{@@datestampXPath}\' "\
+                 "is missing valid nil reason within \'#{xMetadata.name}\'"
+                hResponseObj[:readerValidationMessages] << msg
+                hResponseObj[:readerValidationPass] = false
+              end
+
+              unless xDate.nil?
+                dt = AdiwgDateTimeFun.dateTimeFromString(xDate.text)
+                if xDate.name == 'Date'
+                  dateData = intMetadataClass.newDate
+                  dateData[:date] = dt[0]
+                else
+                  dateData = intMetadataClass.newDateTime
+                  dateData[:dateTime] = dt[0]
+                end
+                hMetadataInfo[:metadataDates] << dateData
+              end
             end
             hMetadataInfo
           end
