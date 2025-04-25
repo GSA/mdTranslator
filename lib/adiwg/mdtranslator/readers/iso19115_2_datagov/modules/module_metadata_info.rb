@@ -51,8 +51,7 @@ module ADIWG
 
             # :metadataContacts (required)
             # <xs:element name="contact" type="gmd:CI_ResponsibleParty_PropertyType" maxOccurs="unbounded"/>
-            # TODO: we're just grabbing the first one for times sake.
-            # TODO: add nilreason check.
+            # TODO: we're only getting the first one for times sake
             xContact = xMetadata.xpath(@@contactXPath)[0]
             if xContact.nil?
               msg = "WARNING: ISO19115-2 reader: element \'#{@@contactXPath}\'" \
@@ -60,7 +59,24 @@ module ADIWG
               hResponseObj[:readerValidationMessages] << msg
               hResponseObj[:readerValidationPass] = false
             else
-              hMetadataInfo[:metadataContacts] = [Responsibility.unpack(xContact, hResponseObj)]
+
+              # CI_ResponsibleParty is optional
+              # <xs:sequence minOccurs="0">
+              #   <xs:element ref="gmd:CI_ResponsibleParty"/>
+              # </xs:sequence>
+              xResponsibility = xContact.xpath('gmd:CI_ResponsibleParty')[0]
+
+              if xResponsibility.nil? && !AdiwgUtils.valid_nil_reason(xContact, hResponseObj)
+                msg = "WARNING: ISO19115-2 reader: element \'#{@@contactXPath}\' "\
+                 "is missing valid nil reason within \'#{xMetadata.name}\'"
+                hResponseObj[:readerValidationMessages] << msg
+                hResponseObj[:readerValidationPass] = false
+              end
+
+              unless xResponsibility.nil?
+                hMetadataInfo[:metadataContacts] << Responsibility.unpack(xContact, hResponseObj)
+                hMetadataInfo[:metadataContacts].compact!
+              end
             end
 
             # :metadataDates (required)

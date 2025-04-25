@@ -32,7 +32,10 @@ class TestReaderIso191152datagovMetadata < TestReaderIso191152datagovParent
     hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
     _hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-    assert_equal(["WARNING: ISO19115-2 reader: element 'gmd:identificationInfo' is missing in MI_Metadata"],
+    expected = ["WARNING: ISO19115-2 reader: element 'gmd:identificationInfo' is missing in MI_Metadata",
+                "INFO: ISO19115-2 reader: element 'contact' contains acceptable nilReason: 'unknown'"]
+
+    assert_equal(expected,
                  hResponse[:readerValidationMessages])
     assert_equal(false, hResponse[:readerValidationPass])
   end
@@ -46,8 +49,8 @@ class TestReaderIso191152datagovMetadata < TestReaderIso191152datagovParent
     _hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
     warnings = [
-      "WARNING: ISO19115-2 reader: element 'identificationInfo' is missing valid " \
-      "nil reason within 'MI_Metadata'"
+      "WARNING: ISO19115-2 reader: element 'identificationInfo' is missing valid nil reason within 'MI_Metadata'",
+      "INFO: ISO19115-2 reader: element 'contact' contains acceptable nilReason: 'unknown'"
     ]
 
     assert_equal(warnings, hResponse[:readerValidationMessages])
@@ -62,9 +65,8 @@ class TestReaderIso191152datagovMetadata < TestReaderIso191152datagovParent
     hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
     _hDictionary = @@nameSpace.unpack(xIn, hResponse)
 
-    infos = [
-      "INFO: ISO19115-2 reader: element 'identificationInfo' contains acceptable nilReason: 'missing'"
-    ]
+    infos = ["INFO: ISO19115-2 reader: element 'identificationInfo' contains acceptable nilReason: 'missing'",
+             "INFO: ISO19115-2 reader: element 'contact' contains acceptable nilReason: 'unknown'"]
 
     assert_equal(infos, hResponse[:readerValidationMessages])
     assert_equal(true, hResponse[:readerValidationPass])
