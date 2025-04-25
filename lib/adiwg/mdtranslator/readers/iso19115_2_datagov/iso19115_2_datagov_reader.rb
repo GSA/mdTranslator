@@ -34,7 +34,7 @@ module ADIWG
           AdiwgUtils.add_iso19115_namespaces(xDoc) # registers in-place
 
           # file must contain an ISO 19115-2 <gmi:MI_Metadata> tag
-          xMetadata = xDoc.xpath(@@rootXPath)
+          xMetadata = xDoc.xpath(@@rootXPath)[0]
           if xMetadata.nil?
             msg = "ERROR: ISO 19115-2 file did not contain a #{@@rootXPath} tag"
             hResponseObj[:readerValidationMessages] << msg

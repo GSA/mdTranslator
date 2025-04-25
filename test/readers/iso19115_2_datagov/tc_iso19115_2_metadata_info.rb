@@ -39,7 +39,8 @@ class TestReaderIso191152datagovMetadataInformation < TestReaderIso191152datagov
     hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
     @@nameSpace.unpack(xIn, hResponse)
 
-    expected = ["WARNING: ISO19115-2 reader: element 'gmd:dateStamp' is missing in MI_Metadata"]
+    expected = ["INFO: ISO19115-2 reader: element 'contact' contains acceptable nilReason: 'unknown'",
+                "WARNING: ISO19115-2 reader: element 'gmd:dateStamp' is missing in MI_Metadata"]
     assert_equal(hResponse[:readerValidationMessages], expected)
   end
 
@@ -52,7 +53,8 @@ class TestReaderIso191152datagovMetadataInformation < TestReaderIso191152datagov
     hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
     @@nameSpace.unpack(xIn, hResponse)
 
-    expected = ["INFO: ISO19115-2 reader: element 'dateStamp' contains acceptable nilReason: 'unknown'"]
+    expected = ["INFO: ISO19115-2 reader: element 'contact' contains acceptable nilReason: 'unknown'",
+                "INFO: ISO19115-2 reader: element 'dateStamp' contains acceptable nilReason: 'unknown'"]
     assert_equal(hResponse[:readerValidationMessages], expected)
   end
 
@@ -65,7 +67,36 @@ class TestReaderIso191152datagovMetadataInformation < TestReaderIso191152datagov
     hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
     @@nameSpace.unpack(xIn, hResponse)
 
-    expected = ["WARNING: ISO19115-2 reader: element 'gmd:dateStamp' is missing valid nil reason within 'MI_Metadata'"]
+    expected = ["INFO: ISO19115-2 reader: element 'contact' contains acceptable nilReason: 'unknown'",
+                "WARNING: ISO19115-2 reader: element 'gmd:dateStamp' is missing valid nil reason within 'MI_Metadata'"]
+    assert_equal(hResponse[:readerValidationMessages], expected)
+  end
+
+  def test_missing_contact
+    xDoc = TestReaderIso191152datagovParent.get_xml('iso19115-2_metatadata_missing_contact.xml')
+
+    TestReaderIso191152datagovParent.set_xdoc(xDoc)
+
+    xIn = xDoc.xpath('gmi:MI_Metadata')[0]
+    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+    @@nameSpace.unpack(xIn, hResponse)
+
+    expected = ["WARNING: ISO19115-2 reader: element 'gmd:contact' is missing in MI_Metadata"]
+    assert_equal(hResponse[:readerValidationMessages], expected)
+  end
+
+  # we don't need a test_valid_nilreason_contact because the above
+  # tests assert that works correctly
+  def test_invalid_nilreason_contact
+    xDoc = TestReaderIso191152datagovParent.get_xml('iso19115-2_metatadata_contact_no_nilreason.xml')
+
+    TestReaderIso191152datagovParent.set_xdoc(xDoc)
+
+    xIn = xDoc.xpath('gmi:MI_Metadata')[0]
+    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+    @@nameSpace.unpack(xIn, hResponse)
+
+    expected = ["WARNING: ISO19115-2 reader: element 'gmd:contact' is missing valid nil reason within 'MI_Metadata'"]
     assert_equal(hResponse[:readerValidationMessages], expected)
   end
 end
