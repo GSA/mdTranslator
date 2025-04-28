@@ -74,7 +74,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
     res = dcatusNS.build(intMetadata).target!
 
-    expected = '{"@type":"org:Organization","name":"Office of National Marine Sanctuaries"}'
+    expected = '{"@type":"org:Organization","name":"citation organization name"}'
     assert_equal(expected, res)
   end
 
@@ -92,12 +92,12 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
 
   def test_contact_point
     intMetadata = @@iso191152NS.unpack(@@xIn, @@hResponse)
+    dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::ContactPoint
 
-    res = ADIWG::Mdtranslator::Writers::Dcat_us.startWriter(intMetadata, @@hResponse)
-    data = JSON.parse res
+    res = dcatusNS.build(intMetadata).target!
 
-    expected = JSON.parse '{"@type":"vcard:Contact", "fn":"test person test name", "hasEmail":"mailto:whatever@gmail.com"}'
-    assert_equal(expected, data['contactPoint'])
+    expected = '{"@type":"vcard:Contact","fn":"test person test name","hasEmail":"mailto:whatever@gmail.com"}'
+    assert_equal(expected, res)
   end
 
   def test_access_level

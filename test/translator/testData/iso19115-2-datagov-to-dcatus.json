@@ -6,7 +6,7 @@
   "modified": "2023-11-22T00:00:00+00:00",
   "publisher": {
     "@type": "org:Organization",
-    "name": "Office of National Marine Sanctuaries"
+    "name": "citation organization name"
   },
   "contactPoint": {
     "@type": "vcard:Contact",

@@ -7,26 +7,23 @@ module ADIWG
             contacts = intObj.dig(:contacts)
             metadata = intObj.dig(:metadata)
 
-            publisherAttempt1 = metadata.dig(:metadataInfo, :metadataContacts, 0, :parties, 0, :name)
-            unless publisherAttempt1.nil?
-              return Jbuilder.new do |json|
-                json.set!('@type', 'org:Organization')
-                json.set!('name', publisherAttempt1)
-              end
-            end
-
             responsible_parties = metadata&.dig(:resourceInfo, :citation, :responsibleParties)
             resource_distributions = metadata&.dig(:distributorInfo)
 
-            publisher = find_publisher(responsible_parties) || find_distributions_publisher(intObj)
+            publisherAttempt1 = find_publisher(responsible_parties) || find_distributions_publisher(intObj)
 
-            return if publisher.nil?
+            unless publisherAttempt1.nil?
+              name, org_name = extract_names(publisherAttempt1, contacts)
+              return build_json(name, org_name)
+            end
 
-            name, org_name = extract_names(publisher, contacts)
+            publisherAttempt2 = metadata.dig(:metadataInfo, :metadataContacts, 0, :parties, 0, :contactName)
+            return if publisherAttempt2.nil?
 
-            return if name.nil?
-
-            build_json(name, org_name)
+            Jbuilder.new do |json|
+              json.set!('@type', 'org:Organization')
+              json.set!('name', publisherAttempt2)
+            end
           end
 
           private

@@ -99,9 +99,16 @@ module ADIWG
             xEmails = xRParty.xpath(@@emailXPath)
             hContact[:eMailList] = xEmails.map(&:text).compact
 
-            Iso191152datagov.set_contact(hContact)
+            contactIdx = Iso191152datagov.set_contact(hContact)
 
-            hRespblty[:parties] = [hContact]
+            hParty = intMetadataClass.newParty
+            hParty[:contactId] = hContact[:contactId]
+            hParty[:contactIndex] = contactIdx
+            hParty[:contactType] = hContact[:contactType]
+            hParty[:contactName] = hContact[:contactName]
+            # :organizationMembers skipping for now.
+
+            hRespblty[:parties] = [hParty]
 
             hRespblty
           end
