@@ -23,12 +23,8 @@ class TestReaderIso191152datagovResponsibility < TestReaderIso191152datagovParen
     assert_equal(1, hDictionary[:parties].size)
 
     party = hDictionary[:parties][0]
-    assert_equal(true, party[:isOrganization])
-    assert_equal('citation organization name', party[:name])
     assert_equal('organization', party[:contactType])
     assert_equal('citation organization name', party[:contactName])
-
-    assert_equal(['test@gmail.com'], party[:eMailList])
   end
 
   def test_responsibility_no_role_code

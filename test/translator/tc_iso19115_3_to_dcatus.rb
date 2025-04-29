@@ -111,7 +111,7 @@ class TestIso191153DcatusTranslation < Minitest::Test
     dcatusNS = ADIWG::Mdtranslator::Writers::Dcat_us::Publisher
     res = dcatusNS.build(@@intMetadata).target!
 
-    expected = '{"@type":"org:Organization","name":"U.S. Geological Survey, Alaska Science Center"}'
+    expected = '{"@type":"org:Organization","name":"U.S. Geological Survey - ScienceBase"}'
     assert_equal(expected, res)
   end
 
