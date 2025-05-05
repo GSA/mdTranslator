@@ -84,9 +84,19 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
 
     res = dcatusNS.build(intMetadata)
 
-    expected = [{ '@type' => 'dcat:Distribution', 'description' => 'online resource description',
-                  'downloadURL' => 'online resource URL', 'mediaType' => 'placeholder/value',
-                  'title' => 'online resource name' }]
+    expected = [
+      { '@type' => 'dcat:Distribution', 'description' => 'online resource description',
+        'downloadURL' => 'online resource URL', 'mediaType' => 'placeholder/value', 'title' => 'online resource name' },
+      { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description',
+        'downloadURL' => 'aggregate_information_online_resources', 'mediaType' => 'placeholder/value',
+        'title' => 'name of aggregate information resource' },
+      { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description aoisd',
+        'downloadURL' => 'aggregate_information_online_resources 12309u', 'mediaType' => 'placeholder/value',
+        'title' => 'name of aggregate information resource 10923j' },
+      { '@type' => 'dcat:Distribution', 'description' => 'Aggregation Info Sample Description',
+        'downloadURL' => 'https://aggregation_info_sample_url.gov', 'mediaType' => 'placeholder/value',
+        'title' => 'Aggregation Info Sample Name' }
+    ]
     assert_equal(expected, res)
   end
 
