@@ -145,7 +145,7 @@ class TestIso191153DcatusTranslation < Minitest::Test
 
     refute_empty res
     assert res.instance_of? Array
-    assert_equal(1, res.size)
+    assert_equal(7, res.size)
 
     dist = res[0]
     assert_equal('dcat:Distribution', dist['@type'])
