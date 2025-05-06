@@ -12,6 +12,8 @@ module ADIWG
             resourceDistributions1 = intObj.dig(:metadata, :distributorInfo)
             resourceDistributions2 = intObj.dig(:metadata, :associatedResources)
             resourceDistributions3 = intObj.dig(:metadata, :resourceInfo, :keywords)
+            resourceDistributions4 = intObj.dig(:metadata, :resourceInfo, :citation)
+            resourceDistributions5 = intObj.dig(:metadata, :resourceInfo, :pointOfContacts, 0, :parties, 0)
 
             # gather up all our online resources from our options
             onlineResources = []
@@ -34,15 +36,22 @@ module ADIWG
               onlineResources += resource[:thesaurus][:onlineResources]
             end
 
-            onlineResources.uniq! # removes duplicates in-place
+            onlineResources += resourceDistributions4[:onlineResources]
+
+            unless resourceDistributions5.nil?
+              contact = intObj[:contacts].select { |c| c[:contactId] == resourceDistributions5[:contactId] }[0]
+              onlineResources += contact[:onlineResources]
+            end
+
+            # removes duplicates in-place by uri
+            onlineResources.uniq! { |onlineresource| onlineresource[:olResURI] }
 
             distributions = []
 
             onlineResources&.each do |option|
-              # mediaType = MediaType.build(transfer)
-              # TODO: change this when mediatype conversion works.
-              # the mediatype needs to be set if there's a downloadURL
-              mediaType = 'placeholder/value'
+              # we calculate the mediaType in the harvester
+              # because it's unreliable in the source
+              mediaType = nil
 
               next unless option[:olResURI]
 

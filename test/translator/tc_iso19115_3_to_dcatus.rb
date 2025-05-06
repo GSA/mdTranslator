@@ -145,13 +145,12 @@ class TestIso191153DcatusTranslation < Minitest::Test
 
     refute_empty res
     assert res.instance_of? Array
-    assert_equal(7, res.size)
+    assert_equal(9, res.size)
 
     dist = res[0]
     assert_equal('dcat:Distribution', dist['@type'])
     assert_equal('description of the online resource via transfer options', dist['description'])
     assert_equal('https://distributiontransfer.com/onlineresource.png', dist['downloadURL'])
-    assert_equal('placeholder/value', dist['mediaType'])
     assert_equal('name test 123', dist['title'])
   end
 

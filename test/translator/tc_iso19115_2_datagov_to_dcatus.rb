@@ -86,16 +86,18 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
 
     expected = [
       { '@type' => 'dcat:Distribution', 'description' => 'online resource description',
-        'downloadURL' => 'online resource URL', 'mediaType' => 'placeholder/value', 'title' => 'online resource name' },
+        'downloadURL' => 'online resource URL', 'title' => 'online resource name' },
       { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description',
-        'downloadURL' => 'aggregate_information_online_resources', 'mediaType' => 'placeholder/value',
+        'downloadURL' => 'aggregate_information_online_resources',
         'title' => 'name of aggregate information resource' },
       { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description aoisd',
-        'downloadURL' => 'aggregate_information_online_resources 12309u', 'mediaType' => 'placeholder/value',
+        'downloadURL' => 'aggregate_information_online_resources 12309u',
         'title' => 'name of aggregate information resource 10923j' },
       { '@type' => 'dcat:Distribution', 'description' => 'Aggregation Info Sample Description',
-        'downloadURL' => 'https://aggregation_info_sample_url.gov', 'mediaType' => 'placeholder/value',
-        'title' => 'Aggregation Info Sample Name' }
+        'downloadURL' => 'https://aggregation_info_sample_url.gov',
+        'title' => 'Aggregation Info Sample Name' },
+      { '@type' => 'dcat:Distribution', 'description' => 'online resource description',
+        'downloadURL' => 'https://online_resource_url.gov', 'title' => 'online resource name' }
     ]
     assert_equal(expected, res)
   end

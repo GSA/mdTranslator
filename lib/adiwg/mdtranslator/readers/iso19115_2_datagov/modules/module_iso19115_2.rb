@@ -64,17 +64,10 @@ module ADIWG
           end
 
           # add new contact to contacts array
-          def self.add_contact(name, isOrg)
-            contactId = find_contact_by_name(name)
-            if contactId.nil?
-              intMetadataClass = InternalMetadata.new
-              hContact = intMetadataClass.newContact
-              contactId = UUIDTools::UUID.random_create.to_s
-              hContact[:contactId] = contactId
-              hContact[:name] = name
-              hContact[:isOrganization] = isOrg
-              @contacts << hContact
-            end
+          def self.add_contact(hContact)
+            contactId = UUIDTools::UUID.random_create.to_s
+            hContact[:contactId] = contactId
+            @contacts << hContact
             contactId
           end
 
