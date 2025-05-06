@@ -2,6 +2,7 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
+require_relative 'module_online_resource'
 
 module ADIWG
   module Mdtranslator
@@ -14,6 +15,7 @@ module ADIWG
           @@posXPath = 'gmd:positionName//gco:CharacterString'
           @@roleXPath = 'gmd:role'
           @@emailXPath = './/gmd:electronicMailAddress//gco:CharacterString'
+          @@onlineResourceXPath = './/gmd:onlineResource'
           def self.unpack(xRParty, hResponseObj)
             intMetadataClass = InternalMetadata.new
             hRespblty = intMetadataClass.newResponsibility
@@ -72,21 +74,17 @@ module ADIWG
             if !xIndividual.nil? && contactTypeFound == false
               hContact[:isOrganization] = false
               contactName = xIndividual.text
-              contactTypeFound = true
             end
 
             xPositionName = xRParty.xpath(@@posXPath)[0]
-            if !xPositionName.nil? && contactTypeFound == false
-              hContact[:isOrganization] = false
-              contactName = xPositionName.text
-            end
+            hContact[:positionName] = xPositionName.text unless xPositionName.nil?
 
             unless contactName.nil?
               hContact[:name] = contactName
-              contactId = Iso191152datagov.add_contact(contactName, hContact[:isOrganization])
-              hContact[:contactId] = contactId
               hContact[:contactName] = contactName # TODO: revisit this.
               hContact[:contactType] = hContact[:isOrganization] ? 'organization' : 'individual'
+              contactId = Iso191152datagov.add_contact(hContact)
+              hContact[:contactId] = contactId
             end
 
             # :emailList
@@ -98,6 +96,17 @@ module ADIWG
             # great grandchild
             xEmails = xRParty.xpath(@@emailXPath)
             hContact[:eMailList] = xEmails.map(&:text).compact
+
+            # :onlineResources (optional)
+            # <xs:element name="onlineResource" type="gmd:CI_OnlineResource_PropertyType" minOccurs="0"/>
+            # hContact[:]
+            # TODO: this is also an anti-pattern but requires less work.
+            xOnlineResource = xRParty.xpath(@@onlineResourceXPath)[0]
+
+            unless xOnlineResource.nil?
+              hContact[:onlineResources] << OnlineResource.unpack(xOnlineResource, hResponseObj)
+              hContact[:onlineResources].compact!
+            end
 
             contactIdx = Iso191152datagov.set_contact(hContact)
 
