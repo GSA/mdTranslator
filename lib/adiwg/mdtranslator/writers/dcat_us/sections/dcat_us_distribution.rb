@@ -33,10 +33,16 @@ module ADIWG
             end
 
             resourceDistributions3&.each do |resource|
-              onlineResources += resource[:thesaurus][:onlineResources]
+              unless resource[:thesaurus][:onlineResources].nil?
+                onlineResources += resource[:thesaurus][:onlineResources]
+              end
             end
 
-            onlineResources += resourceDistributions4[:onlineResources]
+            # citation in resource info is required. if it's missing we wouldn't get here.
+            # but just in case
+            unless resourceDistributions4[:onlineResources].nil?
+              onlineResources += resourceDistributions4[:onlineResources]
+            end
 
             unless resourceDistributions5.nil?
               contact = intObj[:contacts].select { |c| c[:contactId] == resourceDistributions5[:contactId] }[0]
