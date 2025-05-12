@@ -55,15 +55,16 @@ module ADIWG
             distributions = []
 
             onlineResources&.each do |option|
-              # we calculate the mediaType in the harvester
-              # because it's unreliable in the source
-              mediaType = nil
-
               next unless option[:olResURI]
 
               description = option[:olResDesc] || nil
               accessURL = AccessURL.build(option)
               downloadURL = DownloadURL.build(option)
+              # we calculate the mediaType in the harvester
+              # because it's unreliable in the source
+              # mediaType is required if downloadURL is present
+              mediaType = 'placeholder/value' if downloadURL
+
               title = option[:olResName] || nil
 
               distribution = Jbuilder.new do |json|
