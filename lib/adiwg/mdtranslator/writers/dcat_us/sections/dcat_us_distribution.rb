@@ -29,7 +29,8 @@ module ADIWG
             end
 
             resourceDistributions2&.each do |resource|
-              onlineResources += resource[:resourceCitation][:onlineResources]
+              data = resource.dig(:resourceCitation, :onlineResources)
+              onlineResources += data unless data.nil?
             end
 
             resourceDistributions3&.each do |resource|
