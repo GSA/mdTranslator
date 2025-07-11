@@ -2,6 +2,7 @@
 
 require 'nokogiri'
 require 'adiwg/mdtranslator/internal/internal_metadata_obj'
+require 'adiwg/mdtranslator/internal/module_utils'
 require_relative 'module_maintenance'
 require_relative 'module_locale'
 require_relative 'module_responsibility'
@@ -65,6 +66,13 @@ module ADIWG
               #   <xs:element ref="gmd:CI_ResponsibleParty"/>
               # </xs:sequence>
               xResponsibility = xContact.xpath('gmd:CI_ResponsibleParty')[0]
+              xResponsibilityLink = xContact.attr('xlink:href')
+
+              # tries to get the element from the xlink:href attr
+              if xResponsibility.nil? && !xResponsibilityLink.nil?
+                xResponsibility = AdiwgUtils.convert_xlink_to_elem(xResponsibilityLink)
+                xContact.add_child(xResponsibility) unless xResponsibility.nil?
+              end
 
               if xResponsibility.nil? && !AdiwgUtils.valid_nil_reason(xContact, hResponseObj)
                 msg = "WARNING: ISO19115-2 reader: element \'#{@@contactXPath}\' "\

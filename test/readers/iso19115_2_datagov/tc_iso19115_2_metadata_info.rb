@@ -5,7 +5,18 @@
 
 require 'adiwg/mdtranslator/readers/iso19115_2_datagov/modules/module_metadata_info'
 require 'date'
+require 'adiwg/mdtranslator/internal/module_utils'
 require_relative 'iso19115_2_test_parent'
+
+# monkey patch fetch_doc
+module AdiwgUtils
+  def self.fetch_doc(_url)
+    # we're only using this for following element xlink:hrefs
+    # so for now just return the same fixture. consider adding an arg
+    # for other test cases to return different things
+    File.read(File.join(File.dirname(__FILE__), 'testData', 'xlinkhref.xml'))
+  end
+end
 
 class TestReaderIso191152datagovMetadataInformation < TestReaderIso191152datagovParent
   @@nameSpace = ADIWG::Mdtranslator::Readers::Iso191152datagov::MetadataInformation
@@ -98,5 +109,28 @@ class TestReaderIso191152datagovMetadataInformation < TestReaderIso191152datagov
 
     expected = ["WARNING: ISO19115-2 reader: element 'gmd:contact' is missing valid nil reason within 'MI_Metadata'"]
     assert_equal(hResponse[:readerValidationMessages], expected)
+  end
+
+  def test_get_contact_xlink_href
+    xDoc = TestReaderIso191152datagovParent.get_xml('iso19115-2_follow_xlinkhref.xml')
+
+    TestReaderIso191152datagovParent.set_xdoc(xDoc)
+
+    xIn = xDoc.xpath('gmi:MI_Metadata')[0]
+
+    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+    res = @@nameSpace.unpack(xIn, hResponse)
+
+    expected = [{ roleName: 'custodian',
+                  roleExtents: [],
+                  parties: [{ contactType: 'organization',
+                              contactName: 'xlink href document',
+                              organizationMembers: [] }] }]
+
+    # delete generated uuid and index
+    res[:metadataContacts][0][:parties][0].delete(:contactId)
+    res[:metadataContacts][0][:parties][0].delete(:contactIndex)
+
+    assert_equal(expected, res[:metadataContacts])
   end
 end

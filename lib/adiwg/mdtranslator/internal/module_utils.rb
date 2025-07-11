@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'net/http'
+
 module AdiwgUtils
   def self.reconcile_hashes(hashA, hashB)
     # merges hashes by value "truthyness"
@@ -96,5 +98,30 @@ module AdiwgUtils
     ns.each do |key, value|
       xmlDoc.root.add_namespace_definition(key.to_s, value)
     end
+  end
+
+  def self.fetch_doc(urlStr, limit = 10)
+    # fetch the input document. follows [limit] redirects.
+    return nil if limit.zero?
+
+    url = URI.parse(urlStr)
+    req = Net::HTTP::Get.new(url.path)
+    response = Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
+    case response
+    when Net::HTTPSuccess     then response.body
+    when Net::HTTPRedirection then fetch_doc(response['location'], limit - 1)
+    end
+  end
+
+  def self.convert_xlink_to_elem(link)
+    # follows xlink href and converts xmlstr to elem root
+    # this function is intended for processing xlink:href docs
+    # where the element is substituted for a link to the xml doc
+    # containing that element
+    xmlStr = AdiwgUtils.fetch_doc(link)
+    Nokogiri::XML(xmlStr, &:strict).root
+  rescue StandardError
+    # logging occurs in the calling function
+    nil
   end
 end
