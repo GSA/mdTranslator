@@ -6,6 +6,7 @@
 require 'minitest/autorun'
 require 'adiwg/mdtranslator/internal/module_utils'
 require 'nokogiri'
+require 'date'
 
 class TestDateTimeFun < Minitest::Test
   def test_reconcile_hashes
@@ -109,5 +110,21 @@ class TestDateTimeFun < Minitest::Test
     # no longer throws an exception because we registered the namespaces
     xDoc.xpath('gmi:MI_Metadata | gmd:MD_Metadata')
     assert true
+  end
+
+  def test_empty_string_to_nil
+    # these dtypes should cover our bases
+    tests = [[10, 10], # floats and ints are Numeric types
+             [false, false],
+             %w[test test], # text
+             [{}, {}],
+             [[], []],
+             %i[something something], # symbol
+             [DateTime.new(2001, 2, 3, 4, 5, 6), DateTime.new(2001, 2, 3, 4, 5, 6)],
+             ['', nil]] # this is what we're looking for
+    tests.each do |test|
+      value, expected = test
+      assert_equal(expected, AdiwgUtils.empty_string_to_nil(value))
+    end
   end
 end

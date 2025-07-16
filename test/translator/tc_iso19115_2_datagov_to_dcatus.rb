@@ -96,7 +96,7 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
       { '@type' => 'dcat:Distribution', 'description' => 'Aggregation Info Sample Description',
         'downloadURL' => 'https://aggregation_info_sample_url.gov',
         'title' => 'Aggregation Info Sample Name', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'description' => 'online resource description',
+      { '@type' => 'dcat:Distribution',
         'downloadURL' => 'https://online_resource_url.gov', 'title' => 'online resource name',
         'mediaType' => 'placeholder/value' }
     ]

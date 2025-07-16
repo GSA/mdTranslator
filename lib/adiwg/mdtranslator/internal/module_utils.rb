@@ -40,6 +40,7 @@ module AdiwgUtils
     return false, nilReason if nilReason.nil?
 
     nilReason.downcase! # modifies in-place
+    nilReason.strip!
 
     # nil reason enumeration values
     nilReasons = %w[inapplicable missing template unknown withheld]
@@ -123,5 +124,14 @@ module AdiwgUtils
   rescue StandardError
     # logging occurs in the calling function
     nil
+  end
+
+  def self.empty_string_to_nil(input)
+    # writing to json with nils cause the field to not populate
+    # but empty string do
+    # { "data": nil } => {} but { "data": "" } => { "data": "" }
+    return nil if input.is_a?(String) && input.empty?
+
+    input
   end
 end

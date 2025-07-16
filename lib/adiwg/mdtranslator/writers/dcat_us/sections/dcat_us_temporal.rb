@@ -20,6 +20,9 @@ module ADIWG
 
               startDate = timeInstant[:dateTime] if startDate.nil?
 
+              startDate = AdiwgUtils.empty_string_to_nil(startDate)
+              endDate = AdiwgUtils.empty_string_to_nil(endDate)
+
               if startDate && endDate
                 return "#{startDate}/#{endDate}"
               elsif startDate
