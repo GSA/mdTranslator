@@ -32,7 +32,7 @@
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title gco:nilReason="unavailable"/>
-          <gmd:date gco:nilReason="missing"/>
+          <gmd:date gco:nilReason="missing "/>
         </gmd:CI_Citation>
       </gmd:citation>
     </gmd:MD_DataIdentification>

@@ -46,7 +46,6 @@
     },
     {
       "@type": "dcat:Distribution",
-      "description": "online resource description",
       "downloadURL": "https://online_resource_url.gov",
       "mediaType": "placeholder/value",
       "title": "online resource name"

@@ -186,7 +186,7 @@
                               <gco:CharacterString>online resource name</gco:CharacterString>
                             </gmd:name>
                             <gmd:description>
-                              <gco:CharacterString>online resource description</gco:CharacterString>
+                              <gco:CharacterString></gco:CharacterString>
                             </gmd:description>
                             <gmd:applicationProfile>
                               <gco:CharacterString>online resource application profile</gco:CharacterString>

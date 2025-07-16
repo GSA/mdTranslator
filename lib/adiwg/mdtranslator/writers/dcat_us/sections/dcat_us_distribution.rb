@@ -1,4 +1,6 @@
 require 'jbuilder'
+require 'adiwg/mdtranslator/internal/module_utils'
+
 require_relative 'dcat_us_access_url'
 require_relative 'dcat_us_download_url'
 require_relative 'dcat_us_media_type'
@@ -58,7 +60,7 @@ module ADIWG
             onlineResources&.each do |option|
               next unless option[:olResURI]
 
-              description = option[:olResDesc] || nil
+              description = AdiwgUtils.empty_string_to_nil(option[:olResDesc])
               accessURL = AccessURL.build(option)
               downloadURL = DownloadURL.build(option)
               # we calculate the mediaType in the harvester
@@ -66,7 +68,7 @@ module ADIWG
               # mediaType is required if downloadURL is present
               mediaType = 'placeholder/value' if downloadURL
 
-              title = option[:olResName] || nil
+              title = AdiwgUtils.empty_string_to_nil(option[:olResName])
 
               distribution = Jbuilder.new do |json|
                 json.set!('@type', 'dcat:Distribution')
