@@ -32,6 +32,8 @@ module ADIWG
 
             return nil if fn.empty? | hasEmail.empty?
 
+            hasEmail = hasEmail.downcase.strip.gsub(/\s+/, '')
+
             # there's an email and it doesn't already start with "mailto:"
             hasEmail = "mailto:#{hasEmail}" if !hasEmail.nil? && (!hasEmail.start_with? 'mailto:')
 

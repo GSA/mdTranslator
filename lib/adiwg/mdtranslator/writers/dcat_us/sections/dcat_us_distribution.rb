@@ -61,8 +61,12 @@ module ADIWG
               next unless option[:olResURI]
 
               description = AdiwgUtils.empty_string_to_nil(option[:olResDesc])
-              accessURL = AccessURL.build(option)
-              downloadURL = DownloadURL.build(option)
+              accessURL = AdiwgUtils.empty_string_to_nil(AccessURL.build(option))
+              downloadURL = AdiwgUtils.empty_string_to_nil(DownloadURL.build(option))
+
+              # no point in creating a distribution if there's no link
+              next if accessURL.nil? && downloadURL.nil?
+
               # we calculate the mediaType in the harvester
               # because it's unreliable in the source
               # mediaType is required if downloadURL is present
