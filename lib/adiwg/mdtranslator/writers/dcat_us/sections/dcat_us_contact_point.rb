@@ -24,6 +24,8 @@ module ADIWG
               name = contact[:name]
               email = contact[:eMailList][0]
 
+              next if email == 'None'
+
               if !name.nil? && !email.nil?
                 fn = name
                 hasEmail = email
