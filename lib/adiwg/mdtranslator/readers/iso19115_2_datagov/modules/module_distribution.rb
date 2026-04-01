@@ -39,22 +39,19 @@ module ADIWG
             # type="gmd:MD_DigitalTransferOptions_PropertyType"/>
             xTransfers = xDistribution.xpath(@@transferOptionsXPath)
             transferOptions = xTransfers.map { |t| Transfer.unpack(t, hResponseObj) }.compact
-            optionSize = transferOptions.size
 
+            # we're not doing anything with formats. we let the harvester determine the format.
             # : distributionFormats (optional)
             # <element maxOccurs="unbounded" minOccurs="0" name="distributionFormat"
             # type="gmd:MD_Format_PropertyType">
-            xDistFormat = xDistribution.xpath(@@distributionFormatXPath)
-            distributionFormats = xDistFormat.map { |f| Format.unpack(f, hResponseObj) }.compact
-            formatSize = distributionFormats.size
+            # xDistFormat = xDistribution.xpath(@@distributionFormatXPath)
+            # distributionFormats = xDistFormat.map { |f| Format.unpack(f, hResponseObj) }.compact
 
-            smallestArr = formatSize > optionSize ? transferOptions : distributionFormats
-
-            hDistribution[:distributor].each do |distributor|
-              (0...smallestArr.size).each do |idx|
-                distributor[:transferOptions][idx] = transferOptions[idx]
-                distributor[:transferOptions][idx][:distributionFormats] = [distributionFormats[idx]]
-              end
+            # distributors and certain distributions/resources are siblings. the internal md object
+            # doesn't support that. distributions need to be within a distributor so we're putting
+            # the distributions without a distributor within the first one
+            unless hDistribution[:distributor].empty?
+              hDistribution[:distributor][0][:transferOptions] += transferOptions
             end
 
             hDistribution

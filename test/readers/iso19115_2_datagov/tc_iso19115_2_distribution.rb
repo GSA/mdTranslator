@@ -20,6 +20,9 @@ class TestReaderIso191152datagovDistribution < TestReaderIso191152datagovParent
     refute_empty hDictionary
     assert hDictionary.instance_of? Hash
 
+    # the distributor has 1 distribution along with 1 sibling distribution
+    assert_equal(2, hDictionary.dig(:distributor, 0, :transferOptions).size)
+
     hTransferOptions = hDictionary.dig(:distributor, 0, :transferOptions, 0)
     hOnlineOptions = hTransferOptions.dig(:onlineOptions, 0)
     assert_equal('online resource URL', hOnlineOptions[:olResURI])
