@@ -16,16 +16,12 @@ class TestWriterDcatUsDistribution < TestWriterDcatUsParent
     hJsonOut = JSON.parse(metadata[:writerOutput])
     got = hJsonOut['distribution']
 
-    expect = [
-      { '@type' => 'dcat:Distribution', 'description' => 'distribution online resource description',
-        'downloadURL' => 'http://ISO.uri/adiwg/0', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'downloadURL' => 'http://ISO.uri/adiwg/1',
-        'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'description' => 'distribution description',
-        'downloadURL' => 'http://ISO.uri/adiwg/3', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'downloadURL' => 'http://ISO.uri/adiwg/2',
-        'mediaType' => 'placeholder/value' }
-    ]
+    expect = [{ '@type' => 'dcat:Distribution', 'description' => 'distribution online resource description',
+                'accessURL' => 'http://ISO.uri/adiwg/0', 'mediaType' => 'text/html' },
+              { '@type' => 'dcat:Distribution', 'accessURL' => 'http://ISO.uri/adiwg/1', 'mediaType' => 'text/html' },
+              { '@type' => 'dcat:Distribution', 'description' => 'distribution description', 'accessURL' => 'http://ISO.uri/adiwg/3',
+                'mediaType' => 'text/html' },
+              { '@type' => 'dcat:Distribution', 'accessURL' => 'http://ISO.uri/adiwg/2', 'mediaType' => 'text/html' }]
 
     assert_equal expect, got
   end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'net/http'
+require 'uri'
 
 module AdiwgUtils
   def self.reconcile_hashes(hashA, hashB)
@@ -133,5 +134,17 @@ module AdiwgUtils
     return nil if input.is_a?(String) && input.empty?
 
     input
+  end
+
+  def self.normalized_path(url)
+    # strips url query params and fragments for compatibility with File.extname
+    # URI.parse("https://example.com/file.pdf?x=1#top").path -> /file.pdf
+    # without it we have File.extname("https://example.com/file.pdf?download=1") -> .pdf?download=1
+    uri = URI.parse(url)
+    path = uri.path.to_s
+    path = '/' if path.empty?
+    path
+  rescue URI::InvalidURIError
+    ''
   end
 end

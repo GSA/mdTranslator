@@ -61,24 +61,25 @@ module ADIWG
               next unless option[:olResURI]
 
               description = AdiwgUtils.empty_string_to_nil(option[:olResDesc])
-              accessURL = AdiwgUtils.empty_string_to_nil(AccessURL.build(option))
-              downloadURL = AdiwgUtils.empty_string_to_nil(DownloadURL.build(option))
+              accessURL = AccessURL.access_url?(option)
+              # if it's not a web page and it has a file extension then let's assume it's a downloadable file
+              downloadURL = DownloadURL.download_url?(option) unless accessURL
 
               # no point in creating a distribution if there's no link
-              next if accessURL.nil? && downloadURL.nil?
+              next unless accessURL || downloadURL
 
-              # we calculate the mediaType in the harvester
-              # because it's unreliable in the source
-              # mediaType is required if downloadURL is present
-              mediaType = 'placeholder/value' if downloadURL
+              # at this point one is true
+              linkData = accessURL ? ['accessURL', option[:olResURI]] : ['downloadURL', option[:olResURI]]
+
+              # if there's a downloadURL there has to be a mediaType in dcatus 1.1 so using a placeholder
+              mediaType = accessURL ? 'text/html' : 'placeholder/value'
 
               title = AdiwgUtils.empty_string_to_nil(option[:olResName])
 
               distribution = Jbuilder.new do |json|
                 json.set!('@type', 'dcat:Distribution')
                 json.set!('description', description)
-                json.set!('accessURL', accessURL) if accessURL
-                json.set!('downloadURL', downloadURL) if downloadURL
+                json.set!(*linkData)
                 json.set!('mediaType', mediaType)
                 json.set!('title', title)
               end
