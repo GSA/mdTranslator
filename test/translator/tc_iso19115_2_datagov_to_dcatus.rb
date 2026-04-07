@@ -84,22 +84,20 @@ class TestIso191152datagovDcatusTranslation < Minitest::Test
 
     res = dcatusNS.build(intMetadata)
 
-    expected = [
-      { '@type' => 'dcat:Distribution', 'description' => 'online resource description',
-        'downloadURL' => 'online resource URL', 'title' => 'online resource name', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description',
-        'downloadURL' => 'aggregate_information_online_resources',
-        'title' => 'name of aggregate information resource', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description aoisd',
-        'downloadURL' => 'aggregate_information_online_resources 12309u',
-        'title' => 'name of aggregate information resource 10923j', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution', 'description' => 'Aggregation Info Sample Description',
-        'downloadURL' => 'https://aggregation_info_sample_url.gov',
-        'title' => 'Aggregation Info Sample Name', 'mediaType' => 'placeholder/value' },
-      { '@type' => 'dcat:Distribution',
-        'downloadURL' => 'https://online_resource_url.gov', 'title' => 'online resource name',
-        'mediaType' => 'placeholder/value' }
-    ]
+    expected = [{ '@type' => 'dcat:Distribution', 'description' => 'online resource description',
+                  'accessURL' => 'online resource URL', 'mediaType' => 'text/html', 'title' => 'online resource name' },
+                { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description',
+                  'accessURL' => 'aggregate_information_online_resources', 'mediaType' => 'text/html',
+                  'title' => 'name of aggregate information resource' },
+                { '@type' => 'dcat:Distribution', 'description' => 'aggregate information detailed description aoisd',
+                  'accessURL' => 'aggregate_information_online_resources 12309u', 'mediaType' => 'text/html',
+                  'title' => 'name of aggregate information resource 10923j' },
+                { '@type' => 'dcat:Distribution', 'description' => 'Aggregation Info Sample Description',
+                  'accessURL' => 'https://aggregation_info_sample_url.gov', 'mediaType' => 'text/html',
+                  'title' => 'Aggregation Info Sample Name' },
+                { '@type' => 'dcat:Distribution', 'accessURL' => 'https://online_resource_url.gov',
+                  'mediaType' => 'text/html',
+                  'title' => 'online resource name' }]
     assert_equal(expected, res)
   end
 
