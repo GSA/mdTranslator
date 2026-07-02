@@ -44,4 +44,21 @@ class TestReaderIso191152datagovDistribution < TestReaderIso191152datagovParent
     hTransferOptions = hDictionary.dig(:distributor, 0, :transferOptions)
     assert_equal(0, hTransferOptions.size)
   end
+
+  def test_distribution_no_distributor
+    TestReaderIso191152datagovParent.set_xdoc(@@xDoc)
+    xIn = @@xDoc.xpath('.//gmd:distributionInfo')[0]
+
+    xIn.xpath('.//gmd:distributor').remove
+
+    # no distributors are present
+    assert_equal(xIn.xpath('.//gmd:distributor').size, 0)
+
+    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+    hDictionary = @@nameSpace.unpack(xIn, hResponse)
+
+    # transfer options are still read despite no distributor being present
+    # (i.e. a placeholder one is used instead)
+    assert_equal(hDictionary[:distributor][0][:transferOptions].size, 1)
+  end
 end

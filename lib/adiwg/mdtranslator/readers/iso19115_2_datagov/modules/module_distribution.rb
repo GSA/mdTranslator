@@ -50,9 +50,9 @@ module ADIWG
             # distributors and certain distributions/resources are siblings. the internal md object
             # doesn't support that. distributions need to be within a distributor so we're putting
             # the distributions without a distributor within the first one
-            unless hDistribution[:distributor].empty?
-              hDistribution[:distributor][0][:transferOptions] += transferOptions
-            end
+            # using a placeholder distributor in case one doesn't exist.
+            hDistribution[:distributor] << intMetadataClass.newDistributor if hDistribution[:distributor].empty?
+            hDistribution[:distributor][0][:transferOptions] += transferOptions
 
             hDistribution
           end
