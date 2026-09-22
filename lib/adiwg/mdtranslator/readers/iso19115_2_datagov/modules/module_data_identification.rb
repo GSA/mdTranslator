@@ -14,7 +14,7 @@ module ADIWG
     module Readers
       module Iso191152datagov
         module DataIdentification
-          @@dataIdentificationXPath = 'gmd:MD_DataIdentification'
+          @@dataIdentificationXPath = 'gmd:MD_DataIdentification | srv:SV_ServiceIdentification'
           @@mdIdentifierCitationXPath = 'gmd:citation'
           @@abstractXPath = 'gmd:abstract'
           @@keywordsXPath = 'gmd:descriptiveKeywords'
