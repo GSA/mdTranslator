@@ -122,4 +122,34 @@ class TestReaderIso191152datagovDataIdentification < TestReaderIso191152datagovP
     # Verify validation passed
     assert(hResponse[:readerValidationPass], 'Validation should pass')
   end
+
+  def test_census_tiger_service_real_world
+    # Test parsing real Census TIGER/Line REST service metadata
+    xDoc = TestReaderIso191152datagovParent.get_xml('census_tiger_service.xml')
+    TestReaderIso191152datagovParent.set_xdoc(xDoc)
+
+    xIn = xDoc.xpath('.//gmd:identificationInfo')[0]
+    refute_nil(xIn, 'identificationInfo element should exist in Census TIGER file')
+
+    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+    hDictionary = @@nameSpace.unpack(xIn, hResponse)
+
+    refute_nil(hDictionary, 'Census TIGER service identification should parse successfully')
+
+    # Verify real-world metadata was extracted
+    refute_nil(hDictionary[:citation], 'Citation should be extracted from Census TIGER')
+    refute_empty(hDictionary[:citation][:title], 'Title should not be empty')
+    puts "\n  Census TIGER Title: #{hDictionary[:citation][:title]}"
+
+    refute_nil(hDictionary[:abstract], 'Abstract should be extracted')
+    refute_empty(hDictionary[:abstract], 'Abstract should not be empty')
+    puts "  Abstract length: #{hDictionary[:abstract].length} characters"
+
+    # Verify it's recognized as a service
+    assert_includes(
+      "#{hDictionary[:citation][:title].downcase} #{hDictionary[:abstract].downcase}",
+      'service',
+      'Should contain "service" in title or abstract'
+    )
+  end
 end
