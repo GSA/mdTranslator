@@ -86,4 +86,40 @@ class TestReaderIso191152datagovDataIdentification < TestReaderIso191152datagovP
     assert_equal(infos, hResponse[:readerValidationMessages])
     assert_equal(true, hResponse[:readerValidationPass])
   end
+
+  def test_service_identification_parsing
+    # Test that srv:SV_ServiceIdentification elements are parsed correctly
+    xDoc = TestReaderIso191152datagovParent.get_xml('service_identification_example.xml')
+    TestReaderIso191152datagovParent.set_xdoc(xDoc)
+
+    # Parse identification info
+    xIn = xDoc.xpath('.//gmd:identificationInfo')[0]
+    refute_nil(xIn, 'identificationInfo element should exist')
+
+    # Create response object
+    hResponse = Marshal.load(Marshal.dump(@@hResponseObj))
+
+    # Unpack identification - should NOT return nil for service identification
+    hDictionary = @@nameSpace.unpack(xIn, hResponse)
+
+    refute_nil(hDictionary, 'Service identification should parse successfully')
+
+    # Verify citation was extracted
+    refute_nil(hDictionary[:citation], 'Citation should be extracted')
+    assert_equal('Test Web Service', hDictionary[:citation][:title])
+
+    # Verify abstract was extracted
+    assert_includes(
+      hDictionary[:abstract],
+      'test web service',
+      'Abstract should be extracted'
+    )
+
+    # Verify keywords were extracted
+    refute_empty(hDictionary[:keywords], 'Keywords should be extracted')
+    assert_equal(2, hDictionary[:keywords][0][:keywords].size, 'Should have 2 keywords')
+
+    # Verify validation passed
+    assert(hResponse[:readerValidationPass], 'Validation should pass')
+  end
 end
